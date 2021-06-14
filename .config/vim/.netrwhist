@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/home/ab55al/.vim/autoload'
+let g:netrw_dirhist_9='/home/ab55al/.vim'
+let g:netrw_dirhist_8='/home/ab55al/.vim/autoload'
+let g:netrw_dirhist_7='/home/ab55al/.vim'
+let g:netrw_dirhist_6='/home/ab55al/.cache/wal'
+let g:netrw_dirhist_5='/home/ab55al/alacritty/alacritty'
+let g:netrw_dirhist_4='/home/ab55al/alacritty/.git/logs'
+let g:netrw_dirhist_3='/home/ab55al/alacritty/.git'
+let g:netrw_dirhist_2='/home/ab55al/alacritty'
+let g:netrw_dirhist_1='/home/ab55al/javaProjects/binary search'

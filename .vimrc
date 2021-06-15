@@ -28,9 +28,8 @@ colorscheme focuspoint
 let &t_SI = "\<esc>[5 q"   " blinking I-beam in insert mode
 let &t_SR = "\<esc>[3 q"   " blinking underline in replace mode
 let &t_EI = "\<esc>[ q"    " default cursor (usually blinking block) otherwise
+
 let g:auto_save = 1        " enable AutoSave on Vim startup"
-
-
 
 nnoremap <SPACE> <Nop>
 map <Space> <Leader>
@@ -41,9 +40,9 @@ noremap j n
 """"""""""
 
 
-"""""""""" Terminal mode setting
-
+"""""""""" Terminal mode setting for NeoVim
 tnoremap <Esc> <C-\><C-n>
+
 
 """""""""" AutoSave Settings
 let g:auto_save_events = ["InsertLeave", "CursorHold"]
@@ -58,13 +57,20 @@ call plug#begin('~/.config/vim/plugged')
     Plug 'scrooloose/syntastic'
     Plug 'vim-scripts/c.vim'     " C IDE
     Plug 'tpope/vim-surround'
+    Plug 'lifepillar/vim-cheat40'
     Plug 'joom/vim-commentary'
     Plug 'christoomey/vim-system-copy'
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'jiangmiao/auto-pairs'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Fern filemanager
+" LSP plugins
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" " Fern filemanager
 	Plug 'lambdalisue/fern.vim'
 	Plug 'lambdalisue/nerdfont.vim'
 	Plug 'lambdalisue/fern-renderer-nerdfont.vim'
@@ -72,41 +78,15 @@ call plug#begin('~/.config/vim/plugged')
 
 call plug#end()
 
-""""""""""""" Config files location
-
-"""""""""" Syntastic Config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-"let g:syntastic_c_compiler = ['gcc']
-let g:syntastic_c_include_dirs = ["/usr/include/gtk-3.0/"]
-""""""""""
-
 
 
 """""""""" Cosco Settings
 autocmd FileType c nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
 "noremap " A;
-""""""""""
 
+"""""""""" Syntastic Config
+source $HOME/.config/vim/Plugins\ Configs/syntastic_config.vim
 """""""""" CoC config
-source $HOME/.config/vim/coc_config.vim
-""""""""""
-
-
+source $HOME/.config/vim/Plugins\ Configs/coc_config.vim
 """""""""" Fern config
-source $HOME/.config/vim/fern_config.vim
-
-augroup fern-startup
-	autocmd! *
-	autocmd VimEnter * ++nested Fern. -drawer -reveal=% | wincmd p
-augroup END
-""""""""""
-
-
+source $HOME/.config/vim/Plugins\ Configs/fern_config.vim

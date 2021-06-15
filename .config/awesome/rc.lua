@@ -596,12 +596,11 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Autorun Commands/Applications
 
 awful.spawn.with_shell("redshift -O 3750")
-awful.spawn.with_shell("nitrogen --restore")
 
-awful.spawn.with_shell("setxkbmap -layout \"us,ar,us(colemak)\" -option \"grp:alt_shift_toggle\" -option caps:swapescape");
+awful.spawn.with_shell("setxkbmap -layout \"us(colemak),ar,us,\" -option \"grp:alt_shift_toggle\" -option caps:swapescape");
 -- awful.spawn.with_shell("xinput -set-prop \"Cooler Master Technology Inc. MM710 Gaming Mouse\" 150 0.4 0 0 0 0.4 0 0 0 0.9")
-
 
 -- awful.spawn.with_shell("xset s off && xset s noblank && xset -dpms")
 
+awful.spawn.with_shell("nitrogen --restore")
 --local autostart = require("autostart")

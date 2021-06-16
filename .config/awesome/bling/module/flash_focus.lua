@@ -27,7 +27,7 @@ local flashfocus = function(c)
     end
 
     -- Bring the focused client to the top
-    if c then c:raise() end
+    -- if c then c:raise() end
 end
 
 local enable = function() client.connect_signal("focus", flashfocus) end

@@ -10,6 +10,10 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+
+
+local bling = require("bling")
+
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
@@ -581,20 +585,13 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 
-
-
-
-
-
-
-
-
-
-
+bling.module.flash_focus.enable()
 
 
 -- Autorun Commands/Applications
 
+
+awful.spawn.with_shell("picom")
 awful.spawn.with_shell("redshift -O 3750")
 
 awful.spawn.with_shell("setxkbmap -layout \"us(colemak),ar,us,\" -option \"grp:alt_shift_toggle\" -option caps:swapescape");

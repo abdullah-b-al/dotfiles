@@ -15,8 +15,8 @@ local themes_path = gfs.get_themes_dir()
 local theme = dofile(themes_path.."default/theme.lua")
 -- load vector assets' generators for this theme
 
+theme.confdir       = os.getenv("HOME") .. "/.config/awesome/themes/moonAstra"
 theme.font          = "Hurmit Nerd Font medium 9"
---theme.taglist_font	=  
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#cccccc"
@@ -34,6 +34,10 @@ theme.border_width  = dpi(1)
 theme.border_normal = "060202"
 theme.border_focus  = theme.bg_focus
 theme.border_marked = "#d49a66"
+
+theme.layout_centered  = theme.confdir .. "/icons/layouts/centered.png"
+theme.layout_equalarea = theme.confdir .. "/icons/layouts/equalarea.png"
+theme.layout_mstab     = theme.confdir .. "/icons/layouts/mstab.png"
 
 -- There are other variable sets
 -- overriding the default one when

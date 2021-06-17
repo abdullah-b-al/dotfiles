@@ -71,16 +71,18 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
+
+    bling.layout.centered,
+    bling.layout.mstab,
+    bling.layout.equalarea,
+
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
     awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
@@ -238,9 +240,9 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 3, function () mymainmenu:toggle() end)
+    -- awful.button({ }, 4, awful.tag.viewnext),
+    -- awful.button({ }, 5, awful.tag.viewprev)
 ))
 -- }}}
 
@@ -585,24 +587,20 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
-beautiful.useless_gap = 5
+beautiful.useless_gap = 10
 beautiful.gap_single_client = true
 
 bling.module.flash_focus.enable()
-
 
 -- Autorun Commands/Applications
 
 
 awful.spawn.with_shell("picom")
--- awful.spawn.with_shell("redshift -O 3750")
-
+awful.spawn.with_shell("redshift -O 3750")
 awful.spawn.with_shell("setxkbmap -layout \"us(colemak),ar,us,\" -option \"grp:alt_shift_toggle\" -option caps:swapescape");
-
-
 awful.spawn.with_shell("feh --bg-fill --randomize ~/Pictures/Wallpapers/*")
--- awful.spawn.with_shell("xinput -set-prop \"Cooler Master Technology Inc. MM710 Gaming Mouse\" 150 0.4 0 0 0 0.4 0 0 0 0.9")
 
+-- awful.spawn.with_shell("xinput -set-prop \"Cooler Master Technology Inc. MM710 Gaming Mouse\" 150 0.4 0 0 0 0.4 0 0 0 0.9")
 -- awful.spawn.with_shell("xset s off && xset s noblank && xset -dpms")
 
 --local autostart = require("autostart")

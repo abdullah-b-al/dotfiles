@@ -69,14 +69,14 @@ colors:
         cyan:    '#56b6c2'
         white:   '#abb2bf'
     bright:
-        black:   '#3e4452'
+        black:   '#6d6d6d'
         red:     '#be5046'
         green:   '#98c379'
         yellow:  '#d19a66'
         blue:    '#61afef'
         magenta: '#c678dd'
         cyan:    '#56b6c2'
-        white:   '#5c6370'
+        white:   '#dddddd'
 
 mouse:
     hide_when_typing: true

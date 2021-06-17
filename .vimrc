@@ -39,6 +39,7 @@ noremap n j
 noremap j n
 """"""""""
 
+let g:asyncomplete_enable_for_all = 1
 
 """""""""" Terminal mode setting for NeoVim
 tnoremap <Esc> <C-\><C-n>
@@ -62,6 +63,7 @@ call plug#begin('~/.config/vim/plugged')
     Plug 'christoomey/vim-system-copy'
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'jiangmiao/auto-pairs'
+    Plug 'itchyny/lightline.vim'
 "	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " LSP plugins
@@ -70,7 +72,7 @@ call plug#begin('~/.config/vim/plugged')
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-" " Fern filemanager
+" Fern filemanager
 	Plug 'lambdalisue/fern.vim'
 	Plug 'lambdalisue/nerdfont.vim'
 	Plug 'lambdalisue/fern-renderer-nerdfont.vim'
@@ -78,15 +80,11 @@ call plug#begin('~/.config/vim/plugged')
 
 call plug#end()
 
-
-
 """""""""" Cosco Settings
 autocmd FileType c nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
 "noremap " A;
 
-"""""""""" Syntastic Config
+source $HOME/.config/vim/Plugins\ Configs/asyncomplete_config.vim
 source $HOME/.config/vim/Plugins\ Configs/syntastic_config.vim
-"""""""""" CoC config
-source $HOME/.config/vim/Plugins\ Configs/coc_config.vim
-"""""""""" Fern config
+" source $HOME/.config/vim/Plugins\ Configs/coc_config.vim
 source $HOME/.config/vim/Plugins\ Configs/fern_config.vim

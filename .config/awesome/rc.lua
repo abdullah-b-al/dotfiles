@@ -11,7 +11,6 @@ local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 
-
 local bling = require("bling")
 
 -- Notification library
@@ -300,9 +299,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
-    awful.key({ modkey,           }, "j",     function () awful.tag.incmwfact( 0.05)          end,
+    awful.key({ modkey,           }, "j",     function () awful.tag.incmwfact( 0.02)          end,
               {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey,           }, "k",     function () awful.tag.incmwfact(-0.05)          end,
+    awful.key({ modkey,           }, "k",     function () awful.tag.incmwfact(-0.02)          end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "j",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
@@ -596,14 +595,4 @@ beautiful.gap_single_client = true
 bling.module.flash_focus.enable()
 
 -- Autorun Commands/Applications
-
-
-awful.spawn.with_shell("picom")
-awful.spawn.with_shell("redshift -O 3750")
-awful.spawn.with_shell("setxkbmap -layout \"us(colemak),ar,us,\" -option \"grp:alt_shift_toggle\" -option caps:swapescape");
-awful.spawn.with_shell("feh --bg-fill --randomize ~/Pictures/Wallpapers/*")
-
--- awful.spawn.with_shell("xinput -set-prop \"Cooler Master Technology Inc. MM710 Gaming Mouse\" 150 0.4 0 0 0 0.4 0 0 0 0.9")
--- awful.spawn.with_shell("xset s off && xset s noblank && xset -dpms")
-
---local autostart = require("autostart")
+local autostart = require("autostart")

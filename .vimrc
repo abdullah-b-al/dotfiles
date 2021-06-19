@@ -20,6 +20,7 @@ set dictionary?
 set dictionary+=/usr/share/dict/words
 set spellfile=~/.config/vim/spell/en.utf-8.add 
 set updatetime=1000
+set timeoutlen=500
 
 
 colorscheme focuspoint
@@ -58,7 +59,6 @@ call plug#begin('~/.config/vim/plugged')
     Plug 'scrooloose/syntastic'
     Plug 'vim-scripts/c.vim'     " C IDE
     Plug 'tpope/vim-surround'
-    Plug 'lifepillar/vim-cheat40'
     Plug 'joom/vim-commentary'
     Plug 'christoomey/vim-system-copy'
     Plug 'michaeljsmith/vim-indent-object'
@@ -86,7 +86,12 @@ call plug#end()
 autocmd FileType c nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
 "noremap " A;
 
-source $HOME/.config/vim/Plugins\ Configs/asyncomplete_config.vim
-source $HOME/.config/vim/Plugins\ Configs/syntastic_config.vim
-" source $HOME/.config/vim/Plugins\ Configs/coc_config.vim
-source $HOME/.config/vim/Plugins\ Configs/fern_config.vim
+" Configs
+source $HOME/.config/vim/Plugins\ Configs/asyncomplete.vim
+source $HOME/.config/vim/Plugins\ Configs/syntastic.vim
+source $HOME/.config/vim/Plugins\ Configs/fern.vim
+
+" Mappings
+source $HOME/.config/vim/keys/which-key.vim
+
+" source $HOME/.config/vim/Plugins\ Configs/coc.vim

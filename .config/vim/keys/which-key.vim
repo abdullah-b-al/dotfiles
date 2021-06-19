@@ -39,7 +39,7 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 "     \ ''  : ['', ''], 
 " \ }
 
-let g:which_key_map.fn = {
+let g:which_key_map.F = {
     \ 'name'  : '+Mappings Inside Fern', 
     \ 'o'     : ['', 'Open'], 
     \ 'sp'    : ['', 'Horizontal split'], 
@@ -57,5 +57,6 @@ let g:which_key_map.f = {
     \ 'p'    : [':Fern %:h -drawer'     , 'open fern @ parent dir'],
     \ 'f'    : [':Fern . -drawer'       , 'open fern @ working dir'],
     \ }
+
 " Register which key map
 call which_key#register('<Space>', "g:which_key_map")

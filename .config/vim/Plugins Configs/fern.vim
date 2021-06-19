@@ -9,10 +9,10 @@ function! s:init_fern() abort
   nmap <buffer> go <Plug>(fern-action-open:edit)<C-w>p
   nmap <buffer> t <Plug>(fern-action-open:tabedit)
   nmap <buffer> T <Plug>(fern-action-open:tabedit)gT
-  nmap <buffer> i <Plug>(fern-action-open:split)
-  nmap <buffer> gi <Plug>(fern-action-open:split)<C-w>p
-  nmap <buffer> s <Plug>(fern-action-open:vsplit)
-  nmap <buffer> gs <Plug>(fern-action-open:vsplit)<C-w>p
+  nmap <buffer> sp <Plug>(fern-action-open:split)
+  nmap <buffer> gs <Plug>(fern-action-open:split)<C-w>p
+  nmap <buffer> vs <Plug>(fern-action-open:vsplit)
+  nmap <buffer> gv <Plug>(fern-action-open:vsplit)<C-w>p
   nmap <buffer> ma <Plug>(fern-action-new-path)
   nmap <buffer> P gg
 
@@ -50,10 +50,3 @@ augroup my-glyph-palette
   autocmd FileType fern call glyph_palette#apply()
   "autocmd FileType nerdtree,startify call glyph_palette#apply()
 augroup END
-
-
-" Added by me
-
-
-map <leader>f :Fern . -drawer<CR> " Open Fern
-map <leader>F :FernDo close<CR>   " Close Fern

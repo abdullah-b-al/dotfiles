@@ -64,6 +64,8 @@ call plug#begin('~/.config/vim/plugged')
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'jiangmiao/auto-pairs'
     Plug 'itchyny/lightline.vim'
+    Plug 'liuchengxu/vim-which-key'
+
 "	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " LSP plugins

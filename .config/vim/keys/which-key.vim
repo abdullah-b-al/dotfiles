@@ -37,10 +37,12 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 " let g:which_key_map. = {
 "     \ 'name' : '' ,
 "     \ ''  : ['', ''], 
-" \ }
+"     \ }
 
+" +  = commnads
+" +- = cheat sheet
 let g:which_key_map.F = {
-    \ 'name'  : '+Mappings Inside Fern', 
+    \ 'name'  : '+-Mappings Inside Fern', 
     \ 'o'     : ['', 'Open'], 
     \ 'sp'    : ['', 'Horizontal split'], 
     \ 'vs'    : ['', 'Vertical split'], 
@@ -48,6 +50,11 @@ let g:which_key_map.F = {
     \ 'gv'    : ['', 'vs + go back to fern'], 
     \ 'r'     : ['', 'reload'], 
     \ 'q'     : ['', 'quit'], 
+    \ }
+
+let g:which_key_map.g = {
+    \ 'name' : '+-General commands' ,
+    \ '<leader>wt'  : ['', 'Open VimWiki in another tab'], 
     \ }
 
 let g:which_key_map.f = {

@@ -66,6 +66,7 @@ call plug#begin('~/.config/vim/plugged')
     Plug 'jiangmiao/auto-pairs'
     Plug 'itchyny/lightline.vim'
     Plug 'liuchengxu/vim-which-key'
+    Plug 'easymotion/vim-easymotion'
 
 "	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -94,5 +95,6 @@ source $HOME/.config/vim/Plugins\ Configs/fern.vim
 
 " Mappings
 source $HOME/.config/vim/keys/which-key.vim
+source $HOME/.config/vim/keys/keymappings.vim
 
 " source $HOME/.config/vim/Plugins\ Configs/coc.vim

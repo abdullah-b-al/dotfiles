@@ -21,7 +21,7 @@ set dictionary?
 set dictionary+=/usr/share/dict/words
 set spellfile=~/.config/vim/spell/en.utf-8.add 
 set updatetime=1000
-set timeoutlen=500
+set timeoutlen=250
 
 
 colorscheme focuspoint

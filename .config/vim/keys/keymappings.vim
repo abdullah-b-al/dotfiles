@@ -17,4 +17,4 @@ nmap <Leader>vw <Plug>VimwikiIndex
     " Same line
     " Override core Vim mappings
     map f <Plug>(easymotion-bd-fl)
-    map t <Plug>(easymotion-bd-tl) 
+    map t <Plug>(easymotion-bd-tl)

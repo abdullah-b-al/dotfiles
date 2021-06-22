@@ -1,8 +1,6 @@
 syntax on
 filetype plugin on
 
-set mouse=a
-
 set nocompatible
 set noerrorbells
 set tabstop=4 softtabstop=4

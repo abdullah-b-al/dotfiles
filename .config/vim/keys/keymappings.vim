@@ -13,8 +13,3 @@ nmap <Leader>vw <Plug>VimwikiIndex
     nmap <leader>wf <Plug>(easymotion-overwin-f)
     nmap <leader>wl <Plug>(easymotion-overwin-line)
     nmap <leader>ww <Plug>(easymotion-overwin-w)
-
-    " Same line
-    " Override core Vim mappings
-    map f <Plug>(easymotion-bd-fl)
-    map t <Plug>(easymotion-bd-tl)

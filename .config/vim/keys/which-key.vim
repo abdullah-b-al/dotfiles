@@ -52,6 +52,16 @@ let g:which_key_map.F = {
     \ 'q'     : ['', 'quit'], 
     \ }
 
+let g:which_key_map.r = {
+    \ 'name' : '+-Remember these things' ,
+    \ ''  : ['', ''], 
+    \ }
+
+let g:which_key_map.m = {
+    \ 'name' : '+-Marks' ,
+    \ 'vimrc'  : ['', "'V"], 
+    \ }
+
 let g:which_key_map.g = {
     \ 'name' : '+-General commands' ,
     \ '<leader>wt'  : ['', 'Open VimWiki in another tab'], 

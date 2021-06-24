@@ -19,7 +19,7 @@ set dictionary?
 set dictionary+=/usr/share/dict/words
 set spellfile=~/.config/vim/spell/en.utf-8.add 
 set updatetime=1000
-set timeoutlen=250
+set timeoutlen=300
 
 
 colorscheme focuspoint
@@ -53,7 +53,6 @@ call plug#begin('~/.config/vim/plugged')
     Plug 'ap/vim-css-color' 
     Plug 'vimwiki/vimwiki'
     Plug 'romainl/vim-cool'      " disables search highlighting when you are done searching and re-enables it when you search again. 
-    Plug 'lfilho/cosco.vim'      " Comma and semi-colon insertion
     Plug '907th/vim-auto-save'  
     Plug 'scrooloose/syntastic'
     Plug 'vim-scripts/c.vim'     " C IDE
@@ -82,9 +81,6 @@ call plug#begin('~/.config/vim/plugged')
 
 call plug#end()
 
-"""""""""" Cosco Settings
-autocmd FileType c nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
-"noremap " A;
 
 " Configs
 source $HOME/.config/vim/Plugins\ Configs/asyncomplete.vim

@@ -16,7 +16,7 @@ local theme = dofile(themes_path.."default/theme.lua")
 -- load vector assets' generators for this theme
 
 theme.confdir       = os.getenv("HOME") .. "/.config/awesome/themes/moonAstra"
-theme.font          = "SourceCodePro medium 9"
+theme.font          = "SourceCodePro medium 8"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#cccccc"
@@ -29,8 +29,8 @@ theme.fg_focus      = theme.bg_normal
 theme.fg_urgent     = theme.bg_normal
 theme.fg_minimize   = theme.bg_normal
 
-theme.useless_gap   = dpi(1)
-theme.border_width  = dpi(1)
+theme.useless_gap   = dpi(0)
+theme.border_width  = dpi(0)
 theme.border_normal = "060202"
 theme.border_focus  = theme.bg_focus
 theme.border_marked = "#d49a66"

@@ -59,7 +59,7 @@ let g:which_key_map.r = {
 
 let g:which_key_map.m = {
     \ 'name' : '+-Marks' ,
-    \ 'vimrc'  : ['', "'V"], 
+    \ "'V"  : ['', "vimrc"], 
     \ }
 
 let g:which_key_map.g = {

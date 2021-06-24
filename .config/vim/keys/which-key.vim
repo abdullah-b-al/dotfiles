@@ -65,6 +65,10 @@ let g:which_key_map.m = {
 let g:which_key_map.g = {
     \ 'name' : '+-General commands' ,
     \ '<leader>wt'  : ['', 'Open VimWiki in another tab'], 
+    \ '>'  : [':5winc >', 'Increase width <C-w>>'], 
+    \ '<'  : [':5winc <', 'Decrease width <C-w><'], 
+    \ '+'  : [':5winc +', 'Increase height <C-w>+'], 
+    \ '-'  : [':5winc -', 'Decrease height <C-w>-'], 
     \ }
 
 let g:which_key_map.f = {

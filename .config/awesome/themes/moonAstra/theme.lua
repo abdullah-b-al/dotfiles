@@ -16,7 +16,7 @@ local theme = dofile(themes_path.."default/theme.lua")
 -- load vector assets' generators for this theme
 
 theme.confdir       = os.getenv("HOME") .. "/.config/awesome/themes/moonAstra"
-theme.font          = "Hurmit Nerd Font medium 9"
+theme.font          = "SourceCodePro medium 9"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#cccccc"

@@ -15,7 +15,6 @@ set incsearch
 set	rtp+=~/.config/vim " add XDG_CONGIF_HOME to runtime path
 set number relativenumber
 set spell
-set dictionary?
 set dictionary+=/usr/share/dict/words
 set spellfile=~/.config/vim/spell/en.utf-8.add 
 set updatetime=1000

@@ -17,7 +17,6 @@ local bling = require("bling")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -219,14 +218,6 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-
-            spotify_widget({
-                play_icon = '/usr/share/icons/Papirus-Light/24x24/categories/spotify.svg',
-                pause_icon = '/usr/share/icons/Papirus-Dark/24x24/panel/spotify-indicator.svg',
-                dim_opacity = 0.5,
-                show_tooltip = false
-            }),
-
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,

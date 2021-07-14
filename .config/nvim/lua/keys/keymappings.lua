@@ -1,12 +1,7 @@
-local api = vim.api
--- Helper function
-local function noremap(mode, lhs, rhs)
-    local options = {noremap = true}
-    api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-local function map(mode, lhs, rhs)
-    api.nvim_set_keymap(mode, lhs, rhs, {})
-end
+require('helper_functions')
+
+-- Terminal mode setting for NeoVim
+    noremap('t', '<Esc>','<C-\\><C-n>')
 
 -- Swap cursor movement keys for colemak
     noremap( '', 'n', 'j')

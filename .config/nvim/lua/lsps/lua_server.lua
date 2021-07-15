@@ -6,8 +6,13 @@ local sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
-require('lspconfig').sumneko_lua.setup{
+
+require('lspconfig').sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+    on_attach = require'completion'.on_attach,
+    flags = {
+        debounce_text_changes = 150,
+    },
     settings = {
         Lua = {
             runtime = {

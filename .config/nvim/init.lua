@@ -52,6 +52,7 @@ paq {'itchyny/lightline.vim'}
 paq {'easymotion/vim-easymotion'}
 paq {'tpope/vim-repeat'}
 paq {'neovim/nvim-lspconfig'}
+paq {'nvim-lua/completion-nvim'}
 
 -- Mappings
 require('keys/keymappings')

@@ -1,3 +1,4 @@
-plugged/
-plugin/
-colors/
+vim/plugged/
+vim/plugin/
+vim/colors/
+nvim/colors/

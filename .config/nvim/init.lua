@@ -51,8 +51,16 @@ paq {'jiangmiao/auto-pairs'}
 paq {'itchyny/lightline.vim'}
 paq {'easymotion/vim-easymotion'}
 paq {'tpope/vim-repeat'}
+
+-- Lsp
 paq {'neovim/nvim-lspconfig'}
 paq {'nvim-lua/completion-nvim'}
+
+-- Telescope
+paq {'nvim-lua/popup.nvim'}
+paq {'nvim-lua/plenary.nvim'}
+paq {'nvim-telescope/telescope.nvim'}
+
 
 -- Mappings
 require('keys/keymappings')

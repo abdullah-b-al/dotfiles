@@ -20,7 +20,7 @@ end
     -- map( '', 'j', 'n', nore)
 
 -- Switch active split
-    map('n', '<C-n>', '<C-w>j')
+    map('n', '<C-j>', '<C-w>j')
     map('n', '<C-k>', '<C-w>k')
     map('n', '<C-l>', '<C-w>l')
     map('n', '<C-h>', '<C-w>h')
@@ -49,6 +49,7 @@ end
     map( '', '<leader>T', '<Plug>(easymotion-T)')
     map( '', '<leader>w', '<Plug>(easymotion-bd-w)')
     map( '', '<leader>e', '<Plug>(easymotion-bd-e)')
+    map( '', '<leader>n', '<Plug>(easymotion-sn)')
     -- Multi line Overwindows
     map('n', '<leader>wf', '<Plug>(easymotion-overwin-f)')
     map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')

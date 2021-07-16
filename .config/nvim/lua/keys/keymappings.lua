@@ -16,8 +16,8 @@ end
     map('t', '<Esc>','<C-\\><C-n>', nore)
 
 -- Swap cursor movement keys for colemak
-    map( '', 'n', 'j', nore)
-    map( '', 'j', 'n', nore)
+    -- map( '', 'n', 'j', nore)
+    -- map( '', 'j', 'n', nore)
 
 -- Switch active split
     map('n', '<C-n>', '<C-w>j')

@@ -14,5 +14,6 @@ alias nv=nvim
 
 # Session environment variables
 export HISTCONTROL=ignoreboth
+export EDITOR=nvim
 
 eval "$(starship init bash)"

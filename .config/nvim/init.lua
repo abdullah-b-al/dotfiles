@@ -57,10 +57,10 @@ paq {'neovim/nvim-lspconfig'}
 paq {'nvim-lua/completion-nvim'}
 
 -- Telescope
+-- ripgrep needs to be installed for live_grep and similar picker to work
 paq {'nvim-lua/popup.nvim'}
 paq {'nvim-lua/plenary.nvim'}
 paq {'nvim-telescope/telescope.nvim'}
-
 
 -- Mappings
 require('keys/keymappings')

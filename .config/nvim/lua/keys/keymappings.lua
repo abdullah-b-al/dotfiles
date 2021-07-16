@@ -19,9 +19,20 @@ end
     map( '', 'n', 'j', nore)
     map( '', 'j', 'n', nore)
 
+
+---------- Plugin Mappings
+
 -- VimWiki
     map('n', '<Leader>vw', '<Plug>VimwikiIndex')
     -- nmap <Leader>vw <Plug>VimwikiIndex
+
+
+-- Telescope
+   map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<cr>', nore)
+   map('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<cr>', nore)
+   map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<cr>', nore)
+   map('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<cr>', nore)
+
 
 -- easy motion mappings
     map( '', '<leader>;', '<Plug>(easymotion-next)')

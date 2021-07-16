@@ -19,6 +19,11 @@ end
     map( '', 'n', 'j', nore)
     map( '', 'j', 'n', nore)
 
+-- Switch active split
+    map('n', '<C-n>', '<C-w>j')
+    map('n', '<C-k>', '<C-w>k')
+    map('n', '<C-l>', '<C-w>l')
+    map('n', '<C-h>', '<C-w>h')
 
 ---------- Plugin Mappings
 

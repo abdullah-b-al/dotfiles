@@ -51,6 +51,7 @@ paq {'jiangmiao/auto-pairs'}
 paq {'itchyny/lightline.vim'}
 paq {'easymotion/vim-easymotion'}
 paq {'tpope/vim-repeat'}
+paq {'mhinz/vim-startify'}
 
 -- Lsp
 paq {'neovim/nvim-lspconfig'}

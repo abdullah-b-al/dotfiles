@@ -23,6 +23,7 @@ opt.dictionary     = opt.dictionary + '/usr/share/dict/words'
 opt.spellfile      = '~/.config/vim/spell/en.utf-8.add'
 opt.updatetime     = 1000
 opt.timeoutlen     = 300
+opt.viewoptions    = 'cursor,folds'                                -- save/restore just these with {mk,load}view`
 
 
 -- Commands

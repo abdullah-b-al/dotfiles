@@ -23,6 +23,13 @@ opt.timeoutlen     = 300
 
 cmd 'packadd paq-nvim'
 cmd 'colorscheme focuspoint'
+cmd ([[
+augroup AutoSaveFolds
+    autocmd!
+    autocmd BufWinEnter * silent! loadview
+    autocmd BufWinLeave * silent! mkview
+augroup END
+]])
 
 g.mapleader = ' '
 g.maplocalleader = '\\'

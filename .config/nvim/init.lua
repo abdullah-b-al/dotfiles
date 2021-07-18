@@ -27,8 +27,6 @@ cmd 'colorscheme focuspoint'
 g.mapleader = ' '
 g.maplocalleader = '\\'
 
-api.nvim_exec([[let g:asyncomplete_enable_for_all = 1]], false)
-
 local paq = require('paq-nvim').paq
 paq {'savq/paq-nvim', opt = true}       -- paq-nvim manages itself
 paq {'romainl/vim-cool'}                -- disables search highlighting when you are done searching and re-enables it when you search again. 

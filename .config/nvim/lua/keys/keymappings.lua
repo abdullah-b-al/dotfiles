@@ -15,6 +15,9 @@ end
 -- Terminal mode setting for NeoVim
     map('t', '<Esc>','<C-\\><C-n>', nore)
 
+-- Diff since last save
+    map('n', '<leader>d', ':w !diff % -<cr>')
+
 -- Swap cursor movement keys for colemak
     -- map( '', 'n', 'j', nore)
     -- map( '', 'j', 'n', nore)

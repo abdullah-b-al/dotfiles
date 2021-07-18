@@ -10,13 +10,13 @@ local function map(mode, lhs, rhs, options)
 end
 
 -- Toggle spell on and off
-    map('n', '<F12>', ':set spell!<cr>', silent)
+    map('n', '<F12>', ':set spell!<CR>', silent)
 
 -- Terminal mode setting for NeoVim
     map('t', '<Esc>','<C-\\><C-n>', nore)
 
 -- Diff since last save
-    map('n', '<leader>d', ':w !diff % -<cr>')
+    map('n', '<leader>d', ':w !diff % -<CR>')
 
 -- Swap cursor movement keys for colemak
     -- map( '', 'n', 'j', nore)
@@ -35,10 +35,10 @@ end
     -- nmap <Leader>vw <Plug>VimwikiIndex
 
 -- Telescope
-   map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<cr>', nore)
-   map('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<cr>', nore)
-   map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<cr>', nore)
-   map('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<cr>', nore)
+   map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', nore)
+   map('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', nore)
+   map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', nore)
+   map('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<CR>', nore)
 
 -- easy motion mappings
     map( '', '<leader>;', '<Plug>(easymotion-next)')

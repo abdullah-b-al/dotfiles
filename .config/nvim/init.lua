@@ -28,12 +28,6 @@ g.mapleader = ' '
 g.maplocalleader = '\\'
 
 api.nvim_exec([[let g:asyncomplete_enable_for_all = 1]], false)
-api.nvim_exec([[let g:auto_save = 1]], false)        -- enable AutoSave on Vim startup
-api.nvim_exec(
-[[
-let g:auto_save_events = ["InsertLeave", "CursorHold"]
-]], false)
-
 
 local paq = require('paq-nvim').paq
 paq {'savq/paq-nvim', opt = true}       -- paq-nvim manages itself
@@ -41,7 +35,6 @@ paq {'romainl/vim-cool'}                -- disables search highlighting when you
 paq {'vim-scripts/c.vim'}               -- C IDE
 paq {'ap/vim-css-color'}
 paq {'vimwiki/vimwiki'}
-paq {'907th/vim-auto-save'}
 paq {'scrooloose/syntastic'}
 paq {'tpope/vim-surround'}
 paq {'joom/vim-commentary'}

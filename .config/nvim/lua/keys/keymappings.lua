@@ -9,10 +9,6 @@ local function map(mode, lhs, rhs, options)
     api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--- A swap because I'm lazy
-    map('', ';', ':', nore)
-    map('', ':', ';', nore)
-
 -- Toggle spell on and off
     map('n', '<F12>', ':set spell!<cr>', silent)
 

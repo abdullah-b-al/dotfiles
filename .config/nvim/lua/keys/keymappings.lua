@@ -9,6 +9,10 @@ local function map(mode, lhs, rhs, options)
     api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+-- Because I'm lazy
+    map('n', ';', ':', nore)
+    map('v', ';', ':', nore)
+
 -- Toggle spell on and off
     map('n', '<F12>', ':set spell!<CR>', silent)
 
@@ -32,7 +36,6 @@ end
 
 -- VimWiki
     map('n', '<Leader>vw', '<Plug>VimwikiIndex')
-    -- nmap <Leader>vw <Plug>VimwikiIndex
 
 -- Telescope
    map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', nore)

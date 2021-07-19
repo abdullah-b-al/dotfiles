@@ -9,6 +9,7 @@ local function map(mode, lhs, rhs, options)
     api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+
 -- Because I'm lazy
     map('n', ';', ':', nore)
     map('v', ';', ':', nore)
@@ -37,11 +38,13 @@ end
 -- VimWiki
     map('n', '<Leader>vw', '<Plug>VimwikiIndex')
 
+
 -- Telescope
    map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', nore)
    map('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', nore)
    map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', nore)
    map('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<CR>', nore)
+
 
 -- easy motion mappings
     map( '', '<leader>;', '<Plug>(easymotion-next)')
@@ -63,3 +66,6 @@ end
     map('', '<leader>iF', '<Plug>(easymotion-Fl)')
     map('', '<leader>it', '<Plug>(easymotion-tl)')
     map('', '<leader>iT', '<Plug>(easymotion-Tl)')
+
+
+

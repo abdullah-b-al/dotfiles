@@ -36,6 +36,12 @@ augroup AutoSaveFolds
     autocmd BufWinLeave * silent! mkview
 augroup END
 ]])
+cmd ([[
+augroup SpellIgnore
+    let spellignore = ['man', 'help']
+    autocmd BufWinEnter * if index(spellignore, &ft) >= 0 | :set nospell | endif
+augroup END
+]])
 
 
 -- Globals

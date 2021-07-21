@@ -24,7 +24,7 @@ end
     map('n', '<leader>d', ':w !diff % -<CR>')
 
 -- Substitution
-    map('', '<leader>ss', ':%s:::cg<Left><Left><Left><Left>', nore)
+    map('', '<leader>ss', ':%s:\\v:\\v:cg<Left><Left><Left><Left><Left><Left>', nore)
 
 
 -- Swap cursor movement keys for colemak

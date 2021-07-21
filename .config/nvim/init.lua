@@ -43,7 +43,7 @@ augroup END
 cmd ([[
 augroup SpellIgnore
     let spellignore = ['man', 'help', 'diff', ''] " '' is for files with no FileType
-    autocmd BufWinEnter * if index(spellignore, &ft) >= 0 | :set nospell | endif
+    autocmd BufWinEnter * if index(spellignore, &ft) >= 0 | :set nospell | else | :set spell | endif
     autocmd VimEnter * if index(spellignore, &ft) >= 0 | :set nospell | endif
 augroup END
 ]])

@@ -42,8 +42,8 @@ augroup END
 ]])
 cmd ([[
 augroup SpellIgnore
-    autocmd BufWinEnter * if filewritable(expand('%')) == 1 | :set spell | else | :set nospell | endif
-    autocmd VimEnter * if filewritable(expand('%')) == 1 | :set spell | else | :set nospell | endif
+    autocmd BufWinEnter * if filewritable(expand('%')) == 1 && &modifiable == 1 | :set spell | else | :set nospell | endif
+    autocmd VimEnter * if filewritable(expand('%')) == 1 && &modifiable == 1 | :set spell | else | :set nospell | endif
 augroup END
 ]])
 

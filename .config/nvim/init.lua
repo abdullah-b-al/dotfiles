@@ -40,8 +40,9 @@ augroup END
 ]])
 cmd ([[
 augroup SpellIgnore
-    let spellignore = ['man', 'help']
+    let spellignore = ['man', 'help', 'diff']
     autocmd BufWinEnter * if index(spellignore, &ft) >= 0 | :set nospell | endif
+    autocmd VimEnter * if index(spellignore, &ft) >= 0 | :set nospell | endif
 augroup END
 ]])
 

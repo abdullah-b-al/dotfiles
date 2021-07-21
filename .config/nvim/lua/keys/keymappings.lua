@@ -23,6 +23,10 @@ end
 -- Diff since last save
     map('n', '<leader>d', ':w !diff % -<CR>')
 
+-- Substitution
+    map('', '<leader>ss', ':%s:::cg<Left><Left><Left><Left>', nore)
+
+
 -- Swap cursor movement keys for colemak
     -- map( '', 'n', 'j', nore)
     -- map( '', 'j', 'n', nore)

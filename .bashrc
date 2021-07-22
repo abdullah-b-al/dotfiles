@@ -10,7 +10,10 @@ PS1='[\u@\h \W]\$ '
 # Aliases
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 alias pdotfiles='dotfiles push origin main'
-alias nv=nvim
+alias cdotfiles='dotfiles commit -a'
+alias ddotfiles='dotfiles diff'
+
+alias v=nvim
 alias pac='sudo pacman'
 
 # Session environment variables

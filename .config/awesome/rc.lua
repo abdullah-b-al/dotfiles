@@ -259,6 +259,12 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
+    awful.key({ modkey,           }, "a",
+        function ()
+         client.focus = awful.client.getmaster();
+        end,
+        {description = "Focus master window", group = "client"}
+    ),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
 

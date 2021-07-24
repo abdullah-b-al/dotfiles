@@ -70,6 +70,7 @@ local paq = require('paq-nvim').paq
     paq {'easymotion/vim-easymotion'}
     paq {'tpope/vim-repeat'}
     paq {'mhinz/vim-startify'}
+    paq {'JamshedVesuna/vim-markdown-preview'}
 
     -- Lsp
     paq {'neovim/nvim-lspconfig'}

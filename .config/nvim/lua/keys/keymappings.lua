@@ -29,6 +29,9 @@ end
 -- Accept input from wildmenu and close completion window
     map('c', '<S-Tab>', '<C-Y>', nore)
 
+ -- Reselect pasted text
+    map('n', 'gp', '`[v`]', nore)
+
 -- Swap cursor movement keys for colemak
     -- map( '', 'n', 'j', nore)
     -- map( '', 'j', 'n', nore)

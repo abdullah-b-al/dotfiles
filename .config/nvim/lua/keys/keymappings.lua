@@ -26,6 +26,8 @@ end
 -- Substitution
     map('', '<leader>ss', ':%s:\\v:\\v:cg<Left><Left><Left><Left><Left><Left>', nore)
 
+-- Accept input from wildmenu and close completion window
+    map('c', '<S-Tab>', '<C-Y>', nore)
 
 -- Swap cursor movement keys for colemak
     -- map( '', 'n', 'j', nore)

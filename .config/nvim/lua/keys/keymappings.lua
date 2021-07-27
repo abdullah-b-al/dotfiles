@@ -77,4 +77,10 @@ end
     map('', '<leader>iT', '<Plug>(easymotion-Tl)')
 
 
+-- Limelight
+    map('n', '<leader>lt', '<Plug>(Limelight)')
+    map('x', '<leader>lt', '<Plug>(Limelight)')
+    map('n', '<leader>l', ':Limelight!!<CR>', snore)
+
+
 

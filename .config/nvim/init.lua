@@ -85,6 +85,7 @@ local paq = require('paq-nvim').paq
 
 -- Mappings
 require('keys/keymappings')
+require('keys/nvim-compe')
 
 
 -- Lsp servers

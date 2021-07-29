@@ -71,10 +71,10 @@ local paq = require('paq-nvim').paq
     paq {'mhinz/vim-startify'}
     paq {'JamshedVesuna/vim-markdown-preview'}
     paq {'junegunn/limelight.vim'}
+    paq {'hrsh7th/nvim-compe'}
 
     -- Lsp
     paq {'neovim/nvim-lspconfig'}
-    paq {'nvim-lua/completion-nvim'}
 
     -- Telescope
     -- ripgrep needs to be installed for live_grep and similar picker to work

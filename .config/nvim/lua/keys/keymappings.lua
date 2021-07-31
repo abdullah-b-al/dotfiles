@@ -54,12 +54,12 @@ map('i', '!', '!<C-g>u', nore)
 map('i', '?', '?<C-g>u', nore)
 
 -- Moving text
-map('v', 'J'        , ":m '>+1<CR>gv=gv" , nore)
-map('v', 'K'        , ":m '<-2<CR>gv=gv" , nore)
-map('i', '<C-J>'    , '<ESC>:m .+1<CR>==', nore)
-map('i', '<C-K>'    , '<ESC>:m .-2<CR>==', nore)
-map('n', '<leader>k', ':m .-2<CR>=='     , nore)
-map('n', '<leader>j', ':m .+1<CR>=='     , nore)
+map('v', 'J'        , ":m '>+1<CR>gv=gv" , snore)
+map('v', 'K'        , ":m '<-2<CR>gv=gv" , snore)
+map('i', '<C-J>'    , '<ESC>:m .+1<CR>==', snore)
+map('i', '<C-K>'    , '<ESC>:m .-2<CR>==', snore)
+map('n', '<leader>k', ':m .-2<CR>=='     , snore)
+map('n', '<leader>j', ':m .+1<CR>=='     , snore)
 
 ---------- Plugin Mappings
 

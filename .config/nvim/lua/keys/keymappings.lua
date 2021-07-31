@@ -38,6 +38,29 @@ map('n', '<C-k>', '<C-w>k')
 map('n', '<C-l>', '<C-w>l')
 map('n', '<C-h>', '<C-w>h')
 
+-- Yank to the end of the line
+map('n', 'Y' , 'y$', nore)
+
+-- Keep cursor centered on the screen
+-- zz centers the curser
+map('n', 'n', 'nzzzv', nore)
+map('n', 'N', 'Nzzzv', nore)
+map('n', 'J', 'mzJ`z', nore)
+
+-- Undo break points
+map('i', ',', ',<C-g>u', nore)
+map('i', '.', '.<C-g>u', nore)
+map('i', '!', '!<C-g>u', nore)
+map('i', '?', '?<C-g>u', nore)
+
+-- Moving text
+map('v', 'J'        , ":m '>+1<CR>gv=gv" , nore)
+map('v', 'K'        , ":m '<-2<CR>gv=gv" , nore)
+map('i', '<C-J>'    , '<ESC>:m .+1<CR>==', nore)
+map('i', '<C-K>'    , '<ESC>:m .-2<CR>==', nore)
+map('n', '<leader>k', ':m .-2<CR>=='     , nore)
+map('n', '<leader>j', ':m .+1<CR>=='     , nore)
+
 ---------- Plugin Mappings
 
 -- VimWiki

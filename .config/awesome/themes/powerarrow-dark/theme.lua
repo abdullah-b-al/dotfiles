@@ -49,6 +49,9 @@ theme.layout_max                                = theme.dir .. "/icons/max.png"
 theme.layout_fullscreen                         = theme.dir .. "/icons/fullscreen.png"
 theme.layout_magnifier                          = theme.dir .. "/icons/magnifier.png"
 theme.layout_floating                           = theme.dir .. "/icons/floating.png"
+theme.layout_centered                           = theme.dir .. "/icons/layouts/centered.png"
+theme.layout_equalarea                          = theme.dir .. "/icons/layouts/equalarea.png"
+theme.layout_mstab                              = theme.dir .. "/icons/layouts/mstab.png"
 theme.widget_ac                                 = theme.dir .. "/icons/ac.png"
 theme.widget_battery                            = theme.dir .. "/icons/battery.png"
 theme.widget_battery_low                        = theme.dir .. "/icons/battery_low.png"
@@ -90,7 +93,6 @@ theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/
 
 local markup = lain.util.markup
 local separators = lain.util.separators
-
 local keyboardlayout = awful.widget.keyboardlayout:new()
 
 -- Textclock
@@ -112,62 +114,62 @@ theme.cal = lain.widget.cal({
     }
 })
 
--- Mail IMAP check
-local mailicon = wibox.widget.imagebox(theme.widget_mail)
---[[ commented because it needs to be set before use
-mailicon:buttons(my_table.join(awful.button({ }, 1, function () awful.spawn(mail) end)))
-theme.mail = lain.widget.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        if mailcount > 0 then
-            widget:set_markup(markup.font(theme.font, " " .. mailcount .. " "))
-            mailicon:set_image(theme.widget_mail_on)
-        else
-            widget:set_text("")
-            mailicon:set_image(theme.widget_mail)
-        end
-    end
-})
---]]
+-- local mailicon = wibox.widget.imagebox(theme.widget_mail)
+-- -- Mail IMAP check
+-- --[[ commented because it needs to be set before use
+-- mailicon:buttons(my_table.join(awful.button({ }, 1, function () awful.spawn(mail) end)))
+-- theme.mail = lain.widget.imap({
+--     timeout  = 180,
+--     server   = "server",
+--     mail     = "mail",
+--     password = "keyring get mail",
+--     settings = function()
+--         if mailcount > 0 then
+--             widget:set_markup(markup.font(theme.font, " " .. mailcount .. " "))
+--             mailicon:set_image(theme.widget_mail_on)
+--         else
+--             widget:set_text("")
+--             mailicon:set_image(theme.widget_mail)
+--         end
+--     end
+-- })
+-- --]]
 
--- MPD
-local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
-local mpdicon = wibox.widget.imagebox(theme.widget_music)
-mpdicon:buttons(my_table.join(
-    awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
-    awful.button({ }, 1, function ()
-        os.execute("mpc prev")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 2, function ()
-        os.execute("mpc toggle")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 3, function ()
-        os.execute("mpc next")
-        theme.mpd.update()
-    end)))
-theme.mpd = lain.widget.mpd({
-    settings = function()
-        if mpd_now.state == "play" then
-            artist = " " .. mpd_now.artist .. " "
-            title  = mpd_now.title  .. " "
-            mpdicon:set_image(theme.widget_music_on)
-        elseif mpd_now.state == "pause" then
-            artist = " mpd "
-            title  = "paused "
-        else
-            artist = ""
-            title  = ""
-            mpdicon:set_image(theme.widget_music)
-        end
+-- -- MPD
+-- local musicplr = awful.util.terminal .. " -title Music -e ncmpcpp"
+-- local mpdicon = wibox.widget.imagebox(theme.widget_music)
+-- mpdicon:buttons(my_table.join(
+--     awful.button({ "Mod4" }, 1, function () awful.spawn(musicplr) end),
+--     awful.button({ }, 1, function ()
+--         os.execute("mpc prev")
+--         theme.mpd.update()
+--     end),
+--     awful.button({ }, 2, function ()
+--         os.execute("mpc toggle")
+--         theme.mpd.update()
+--     end),
+--     awful.button({ }, 3, function ()
+--         os.execute("mpc next")
+--         theme.mpd.update()
+--     end)))
+-- theme.mpd = lain.widget.mpd({
+--     settings = function()
+--         if mpd_now.state == "play" then
+--             artist = " " .. mpd_now.artist .. " "
+--             title  = mpd_now.title  .. " "
+--             mpdicon:set_image(theme.widget_music_on)
+--         elseif mpd_now.state == "pause" then
+--             artist = " mpd "
+--             title  = "paused "
+--         else
+--             artist = ""
+--             title  = ""
+--             mpdicon:set_image(theme.widget_music)
+--         end
 
-        widget:set_markup(markup.font(theme.font, markup("#EA6F81", artist) .. title))
-    end
-})
+        -- widget:set_markup(markup.font(theme.font, markup("#EA6F81", artist) .. title))
+    -- end
+-- })
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
@@ -194,7 +196,7 @@ local temp = lain.widget.temp({
 })
 
 -- / fs
-local fsicon = wibox.widget.imagebox(theme.widget_hdd)
+-- local fsicon = wibox.widget.imagebox(theme.widget_hdd)
 --[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
@@ -204,66 +206,66 @@ theme.fs = lain.widget.fs({
 })
 --]]
 
--- Battery
-local baticon = wibox.widget.imagebox(theme.widget_battery)
-local bat = lain.widget.bat({
-    settings = function()
-        if bat_now.status and bat_now.status ~= "N/A" then
-            if bat_now.ac_status == 1 then
-                baticon:set_image(theme.widget_ac)
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 5 then
-                baticon:set_image(theme.widget_battery_empty)
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 15 then
-                baticon:set_image(theme.widget_battery_low)
-            else
-                baticon:set_image(theme.widget_battery)
-            end
-            widget:set_markup(markup.font(theme.font, " " .. bat_now.perc .. "% "))
-        else
-            widget:set_markup(markup.font(theme.font, " AC "))
-            baticon:set_image(theme.widget_ac)
-        end
-    end
-})
+-- -- Battery
+-- local baticon = wibox.widget.imagebox(theme.widget_battery)
+-- local bat = lain.widget.bat({
+--     settings = function()
+--         if bat_now.status and bat_now.status ~= "N/A" then
+--             if bat_now.ac_status == 1 then
+--                 baticon:set_image(theme.widget_ac)
+--             elseif not bat_now.perc and tonumber(bat_now.perc) <= 5 then
+--                 baticon:set_image(theme.widget_battery_empty)
+--             elseif not bat_now.perc and tonumber(bat_now.perc) <= 15 then
+--                 baticon:set_image(theme.widget_battery_low)
+--             else
+--                 baticon:set_image(theme.widget_battery)
+--             end
+--             widget:set_markup(markup.font(theme.font, " " .. bat_now.perc .. "% "))
+--         else
+--             widget:set_markup(markup.font(theme.font, " AC "))
+--             baticon:set_image(theme.widget_ac)
+--         end
+--     end
+-- })
 
--- ALSA volume
-local volicon = wibox.widget.imagebox(theme.widget_vol)
-theme.volume = lain.widget.alsa({
-    settings = function()
-        if volume_now.status == "off" then
-            volicon:set_image(theme.widget_vol_mute)
-        elseif tonumber(volume_now.level) == 0 then
-            volicon:set_image(theme.widget_vol_no)
-        elseif tonumber(volume_now.level) <= 50 then
-            volicon:set_image(theme.widget_vol_low)
-        else
-            volicon:set_image(theme.widget_vol)
-        end
+-- -- ALSA volume
+-- local volicon = wibox.widget.imagebox(theme.widget_vol)
+-- theme.volume = lain.widget.alsa({
+--     settings = function()
+--         if volume_now.status == "off" then
+--             volicon:set_image(theme.widget_vol_mute)
+--         elseif tonumber(volume_now.level) == 0 then
+--             volicon:set_image(theme.widget_vol_no)
+--         elseif tonumber(volume_now.level) <= 50 then
+--             volicon:set_image(theme.widget_vol_low)
+--         else
+--             volicon:set_image(theme.widget_vol)
+--         end
 
-        widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
-    end
-})
-theme.volume.widget:buttons(awful.util.table.join(
-                               awful.button({}, 4, function ()
-                                     awful.util.spawn("amixer set Master 1%+")
-                                     theme.volume.update()
-                               end),
-                               awful.button({}, 5, function ()
-                                     awful.util.spawn("amixer set Master 1%-")
-                                     theme.volume.update()
-                               end)
-))
+--         widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
+--     end
+-- })
+-- theme.volume.widget:buttons(awful.util.table.join(
+--                                awful.button({}, 4, function ()
+--                                      awful.util.spawn("amixer set Master 1%+")
+--                                      theme.volume.update()
+--                                end),
+--                                awful.button({}, 5, function ()
+--                                      awful.util.spawn("amixer set Master 1%-")
+--                                      theme.volume.update()
+--                                end)
+-- ))
 
--- Net
-local neticon = wibox.widget.imagebox(theme.widget_net)
-local net = lain.widget.net({
-    settings = function()
-        widget:set_markup(markup.font(theme.font,
-                          markup("#7AC82E", " " .. string.format("%06.1f", net_now.received))
-                          .. " " ..
-                          markup("#46A8C3", " " .. string.format("%06.1f", net_now.sent) .. " ")))
-    end
-})
+-- -- Net
+-- local neticon = wibox.widget.imagebox(theme.widget_net)
+-- local net = lain.widget.net({
+--     settings = function()
+--         widget:set_markup(markup.font(theme.font,
+--                           markup("#7AC82E", " " .. string.format("%06.1f", net_now.received))
+--                           .. " " ..
+--                           markup("#46A8C3", " " .. string.format("%06.1f", net_now.sent) .. " ")))
+--     end
+-- })
 
 -- Separators
 local spr     = wibox.widget.textbox(' ')
@@ -282,7 +284,7 @@ function theme.at_screen_connect(s)
     gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
-    awful.tag(awful.util.tagnames, s, awful.layout.layouts)
+    awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -302,7 +304,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(18), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(15), bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -321,13 +323,13 @@ function theme.at_screen_connect(s)
             keyboardlayout,
             spr,
             arrl_ld,
-            wibox.container.background(mpdicon, theme.bg_focus),
-            wibox.container.background(theme.mpd.widget, theme.bg_focus),
+            -- wibox.container.background(mpdicon, theme.bg_focus),
+            -- wibox.container.background(theme.mpd.widget, theme.bg_focus),
             arrl_dl,
-            volicon,
-            theme.volume.widget,
+            -- volicon,
+            -- theme.volume.widget,
             arrl_ld,
-            wibox.container.background(mailicon, theme.bg_focus),
+            -- wibox.container.background(mailicon, theme.bg_focus),
             --wibox.container.background(theme.mail.widget, theme.bg_focus),
             arrl_dl,
             memicon,
@@ -339,14 +341,14 @@ function theme.at_screen_connect(s)
             tempicon,
             temp.widget,
             arrl_ld,
-            wibox.container.background(fsicon, theme.bg_focus),
+            -- wibox.container.background(fsicon, theme.bg_focus),
             --wibox.container.background(theme.fs.widget, theme.bg_focus),
             arrl_dl,
-            baticon,
-            bat.widget,
+            -- baticon,
+            -- bat.widget,
             arrl_ld,
-            wibox.container.background(neticon, theme.bg_focus),
-            wibox.container.background(net.widget, theme.bg_focus),
+            -- wibox.container.background(neticon, theme.bg_focus),
+            -- wibox.container.background(net.widget, theme.bg_focus),
             arrl_dl,
             clock,
             spr,

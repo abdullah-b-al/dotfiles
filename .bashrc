@@ -22,7 +22,7 @@ alias v=nvim
 alias pac='sudo pacman'
 
 # Session environment variables
-export PATH=$PATH:/home/ab55al/bin
+export PATH=$PATH:$HOME/bin
 export HISTCONTROL=ignoreboth
 export EDITOR=nvim
 export MANPAGER='nvim +Man!'

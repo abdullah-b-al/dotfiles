@@ -32,7 +32,6 @@ opt.viewoptions    = 'cursor,folds'                                 -- save/rest
 
 -- Commands
 cmd 'packadd paq-nvim'
-cmd 'colorscheme gotham256'
 cmd ([[
 augroup AutoSaveFolds
     autocmd!
@@ -50,6 +49,7 @@ augroup END
 -- Globals
 g.mapleader = ' '
 g.maplocalleader = '\\'
+vim.g.colors_name = 'gotham256'
 
 
 -- Plugins

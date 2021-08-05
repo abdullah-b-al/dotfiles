@@ -114,6 +114,7 @@ awful.layout.layouts = {
     awful.layout.suit.fair,
     bling.layout.mstab,
     awful.layout.suit.fair.horizontal,
+    awful.layout.suit.max,
     -- awful.layout.suit.floating,
     --lain.layout.cascade,
     --lain.layout.cascade.tile,

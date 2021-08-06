@@ -71,7 +71,12 @@ local paq = require('paq-nvim').paq
     paq {'mhinz/vim-startify'}
     paq {'JamshedVesuna/vim-markdown-preview'}
     paq {'junegunn/limelight.vim'}
+
+    -- Completion and snippets
     paq {'hrsh7th/nvim-compe'}
+    paq {'hrsh7th/vim-vsnip'}
+    paq {'hrsh7th/vim-vsnip-integ'}
+    paq {'rafamadriz/friendly-snippets'}
 
     -- Lsp
     paq {'neovim/nvim-lspconfig'}

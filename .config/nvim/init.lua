@@ -1,4 +1,4 @@
--- Variables
+--{{{1 Variables
 local cmd = vim.cmd
 local g = vim.g
 local opt = vim.opt
@@ -7,7 +7,7 @@ local home = vim.env.HOME
 local config = home .. '/.config/nvim'
 
 
--- Options
+--{{{1 Options
 opt.tabstop        = 4                                              -- Tab width in spaces
 opt.softtabstop    = 4                                              -- Tab width in spaces when performing editing operations
 opt.shiftwidth     = 4                                              -- Number of spaces to use for each step of (auto)indent
@@ -30,7 +30,7 @@ opt.spellfile      = home .. '/.config/vim/spell/en.utf-8.add'
 opt.viewoptions    = 'cursor,folds'                                 -- save/restore just these with {mk,load}view`
 
 
--- Commands
+--{{{1 Commands
 cmd 'packadd paq-nvim'
 cmd ([[
 augroup AutoSaveFolds
@@ -46,13 +46,13 @@ augroup END
 ]])
 
 
--- Globals
+--{{{1 Globals
 g.mapleader = ' '
 g.maplocalleader = '\\'
 vim.g.colors_name = 'gotham256'
 
 
--- Plugins
+--{{{1 Plugins
 local paq = require('paq-nvim').paq
     paq {'savq/paq-nvim', opt = true}                               -- paq-nvim manages itself
     paq {'romainl/vim-cool'}                                        -- disables search highlighting when you are done searching and re-enables it when you search again.
@@ -83,12 +83,10 @@ local paq = require('paq-nvim').paq
     paq {'nvim-telescope/telescope.nvim'}
 
 
--- Mappings
+--{{{1 Mappings
 require('keys/keymappings')
 require('keys/nvim-compe')
 
 
--- Lsp servers
+--{{{1 Lsp servers
 require('lsps/lua_server')
-
-

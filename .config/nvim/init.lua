@@ -49,7 +49,7 @@ augroup END
 --{{{1 Globals
 g.mapleader = ' '
 g.maplocalleader = '\\'
-vim.g.colors_name = 'gotham256'
+g.colors_name = 'gotham256'
 
 
 --{{{1 Plugins

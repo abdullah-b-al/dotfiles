@@ -21,6 +21,7 @@ opt.smartcase      = true
 opt.incsearch      = true                                           -- Highlights search results as you type
 opt.relativenumber = true
 opt.spell          = true
+opt.cursorline     = true
 
 opt.showmode       = false
 opt.wrap           = false

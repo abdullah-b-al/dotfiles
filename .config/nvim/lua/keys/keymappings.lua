@@ -59,6 +59,10 @@ map('i', '<C-K>'    , '<ESC>:m .-2<CR>==', snore)
 map('n', '<leader>k', ':m .-2<CR>=='     , snore)
 map('n', '<leader>j', ':m .+1<CR>=='     , snore)
 
+--{{{1 Toggle cursorline and cursorcolumn
+map('n', '<leader>cl', ':set cursorline!<CR>', snore)
+map('n', '<leader>cc', ':set cursorcolumn!<CR>', snore)
+
 --{{{1 Plugin Mappings
 
 --{{{2 VimWiki

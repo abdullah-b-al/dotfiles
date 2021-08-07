@@ -63,6 +63,10 @@ map('n', '<leader>j', ':m .+1<CR>=='     , snore)
 map('n', '<leader>cl', ':set cursorline!<CR>', snore)
 map('n', '<leader>cc', ':set cursorcolumn!<CR>', snore)
 
+--{{{1 Center cursor after a half page scroll without polluting the jump list
+map('n', '<C-d>', '<C-d>zz', nore)
+map('n', '<C-u>', '<C-u>zz', nore)
+
 --{{{1 Plugin Mappings
 
 --{{{2 VimWiki

@@ -1,7 +1,8 @@
 --{{{1 Mapping functions
-local nore   = { noremap = true }
-local silent = { silent = true }
-local snore  = { noremap = true, silent = true }
+local nore    = { noremap = true }
+local silent  = { silent = true }
+local snore   = { noremap = true, silent = true }
+local expnore = { expr = true, noremap = true }
 
 local function map(mode, lhs, rhs, options)
     options = options or {}
@@ -66,6 +67,10 @@ map('n', '<leader>cc', ':set cursorcolumn!<CR>', snore)
 --{{{1 Center cursor after a half page scroll without polluting the jump list
 map('n', '<C-d>', '<C-d>zz', nore)
 map('n', '<C-u>', '<C-u>zz', nore)
+
+--{{{1 Add large j and k movements to the jump list
+map('n', 'k', [[(v:count >= 10 ? "m'" . v:count : '') . 'gk']], expnore)
+map('n', 'j', [[(v:count >= 10 ? "m'" . v:count : '') . 'gj']], expnore)
 
 --{{{1 Plugin Mappings
 

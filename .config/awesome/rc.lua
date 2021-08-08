@@ -556,6 +556,8 @@ clientkeys = mytable.join(
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "]",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
+    awful.key({ modkey, "Control" }, "[",  function(c) awful.titlebar.toggle(c) end                     ,
+              {description = "Toggle titlebar", group = "client"}),
     awful.key({ modkey }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,

@@ -1,8 +1,8 @@
 --{{{1 Mapping functions
 local nore    = { noremap = true }
-local silent  = { silent = true }
-local snore   = { noremap = true, silent = true }
-local expnore = { expr = true, noremap = true }
+local silent  = { silent  = true }
+local snore   = { silent  = true, noremap = true }
+local expnore = { expr    = true, noremap = true }
 
 local function map(mode, lhs, rhs, options)
     options = options or {}

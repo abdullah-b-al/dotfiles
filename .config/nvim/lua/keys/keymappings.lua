@@ -72,6 +72,9 @@ map('n', '<C-u>', '<C-u>zz', nore)
 map('n', 'k', [[(v:count >= 10 ? "m'" . v:count : '') . 'gk']], expnore)
 map('n', 'j', [[(v:count >= 10 ? "m'" . v:count : '') . 'gj']], expnore)
 
+--{{{1 Quicker access to the black hole register
+map('n', '_', '"_')
+
 --{{{1 Plugin Mappings
 
 --{{{2 VimWiki

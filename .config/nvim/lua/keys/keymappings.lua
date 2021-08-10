@@ -94,20 +94,11 @@ map( '', '<leader>f', '<Plug>(easymotion-f)')
 map( '', '<leader>F', '<Plug>(easymotion-F)')
 map( '', '<leader>t', '<Plug>(easymotion-t)')
 map( '', '<leader>T', '<Plug>(easymotion-T)')
-map( '', '<leader>w', '<Plug>(easymotion-bd-w)')
-map( '', '<leader>e', '<Plug>(easymotion-bd-e)')
-map( '', '<leader>n', '<Plug>(easymotion-sn)')
+map( '', '<leader>n', '<Plug>(easymotion-s2)')
+map( '', '<leader>b', '<Plug>(easymotion-t2)')
 
 --{{{3 Multi line Overwindows
-map('n', '<leader>wf', '<Plug>(easymotion-overwin-f)')
 map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')
-map('n', '<leader>ww', '<Plug>(easymotion-overwin-w)')
-
---{{{3 Same line
-map('', '<leader>if', '<Plug>(easymotion-fl)')
-map('', '<leader>iF', '<Plug>(easymotion-Fl)')
-map('', '<leader>it', '<Plug>(easymotion-tl)')
-map('', '<leader>iT', '<Plug>(easymotion-Tl)')
 
 --{{{2 Limelight
 map('n', '<leader>lt', '<Plug>(Limelight)')

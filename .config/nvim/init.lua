@@ -57,7 +57,6 @@ g.colors_name = 'gotham256'
 local paq = require('paq-nvim').paq
     paq {'savq/paq-nvim', opt = true}                               -- paq-nvim manages itself
     paq {'romainl/vim-cool'}                                        -- disables search highlighting when you are done searching and re-enables it when you search again.
-    paq {'vim-scripts/c.vim'}                                       -- C IDE
     paq {'christoomey/vim-system-copy'}                             -- Requires xsel
     paq {'ap/vim-css-color'}
     paq {'vimwiki/vimwiki'}

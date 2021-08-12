@@ -720,6 +720,12 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
+    { rule_any = {
+        class = {
+            "alacritty",
+        }
+    }, properties = { opacity = true } },
+
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
@@ -803,7 +809,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 beautiful.useless_gap = 5
 beautiful.gap_single_client = true
 
-bling.module.flash_focus.enable()
+-- bling.module.flash_focus.enable()
 
 -- Autorun Commands/Applications
 local autostart = require("autostart")

@@ -18,7 +18,6 @@ local wibox         = require("wibox")
 local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local lain          = require("lain")
-local bling = require("bling")
 local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup")
@@ -112,7 +111,6 @@ awful.util.tagnames = { "1", "2", "3", "4", "5" }
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.fair,
-    bling.layout.mstab,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.max,
     -- awful.layout.suit.floating,
@@ -811,7 +809,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 beautiful.useless_gap = 5
 beautiful.gap_single_client = true
 
--- bling.module.flash_focus.enable()
 
 -- Autorun Commands/Applications
 local autostart = require("autostart")

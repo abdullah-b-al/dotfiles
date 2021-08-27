@@ -22,8 +22,8 @@ opt.incsearch      = true                                           -- Highlight
 opt.relativenumber = true
 opt.spell          = true
 opt.cursorline     = true
+opt.showmode       = true                                           -- Disabling showmode will hide complete mode
 
-opt.showmode       = false
 opt.wrap           = false
 
 opt.dictionary     = opt.dictionary + '/usr/share/dict/words'

@@ -332,6 +332,8 @@ globalkeys = mytable.join(
               {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "w", function ()  awful.spawn.with_shell("feh --no-fehbg --bg-fill --randomize ~/Pictures/Wallpapers/*") end,
               {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey,           }, "d", function ()  awful.spawn.with_shell("passmenu") end,
+              {description = "Run passmenu", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",

@@ -25,6 +25,6 @@ alias pac='sudo pacman'
 export PATH=$PATH:$HOME/bin
 export HISTCONTROL=ignoreboth
 export EDITOR=nvim
-export MANPAGER='nvim +Man!'
+export MANPAGER='bat'
 
 eval "$(starship init bash)"

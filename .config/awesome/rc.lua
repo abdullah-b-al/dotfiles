@@ -806,8 +806,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- }}}
 
-beautiful.useless_gap = 5
-beautiful.gap_single_client = true
 
 
 -- Autorun Commands/Applications

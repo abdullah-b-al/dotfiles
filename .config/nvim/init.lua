@@ -68,7 +68,6 @@ local paq = require('paq-nvim').paq
     paq {'itchyny/lightline.vim'}
     paq {'easymotion/vim-easymotion'}
     paq {'tpope/vim-repeat'}
-    paq {'mhinz/vim-startify'}
     paq {'JamshedVesuna/vim-markdown-preview'}
     paq {'junegunn/limelight.vim'}
 

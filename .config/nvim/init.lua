@@ -50,7 +50,7 @@ augroup END
 --{{{1 Globals
 g.mapleader = ' '
 g.maplocalleader = '\\'
-g.colors_name = 'gotham256'
+g.colors_name = 'turtles'
 
 
 --{{{1 Plugins

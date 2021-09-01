@@ -1,0 +1,13 @@
+#/!bin/sh
+
+# Source Xresources
+# xrdb -merge -I${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources
+
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile" ]; then
+	. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile"
+else
+	. "$HOME/.xprofile"
+fi
+
+# Start WM
+exec awesome 

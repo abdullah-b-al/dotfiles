@@ -23,6 +23,7 @@ opt.relativenumber = true
 opt.spell          = true
 opt.cursorline     = true
 opt.showmode       = true                                           -- Disabling showmode will hide complete mode
+opt.termguicolors  = true
 
 opt.wrap           = false
 

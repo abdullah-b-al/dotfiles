@@ -23,6 +23,8 @@ local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup")
                       require("awful.hotkeys_popup.keys")
 local mytable       = awful.util.table or gears.table -- 4.{0,1} compatibility
+local revelation    = require("revelation")
+
 
 -- }}}
 
@@ -161,6 +163,7 @@ awful.util.tasklist_buttons = mytable.join(
 )
 
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme))
+revelation.init()
 
 -- }}}
 
@@ -289,6 +292,8 @@ globalkeys = mytable.join(
         end,
         {description = "Focus master window", group = "client"}
     ),
+    awful.key({ modkey, }, "e", function () revelation() end,
+              {description = "Revelation", group = "client"}),
     -- By-direction client focus
     -- awful.key({ modkey }, "j",
     --     function()

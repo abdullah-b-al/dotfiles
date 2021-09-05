@@ -206,7 +206,7 @@ theme.fs = lain.widget.fs({
 --]]
 
 -- -- Battery
-local baticor
+local baticon
 local bat = {}
 if (os.getenv("USER") == "ab55al-lt") then
     baticon = wibox.widget.imagebox(theme.widget_battery)

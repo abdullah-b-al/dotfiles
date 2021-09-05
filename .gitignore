@@ -2,6 +2,6 @@
 /vim/plugin/
 /vim/colors/
 /vim/spell/
-/nvim/colors/
+.config/nvim/colors/
 /awesome/lain
 /awesome/freedesktop/

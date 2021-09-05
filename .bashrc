@@ -10,13 +10,12 @@ set -o vi
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 # Aliases
-alias dotfiles='git'
-alias pdotfiles='dotfiles push origin main'
-alias adotfiles='dotfiles add'
-alias cdotfiles='dotfiles commit'
-alias cadotfiles='dotfiles commit -a'
-alias ddotfiles='dotfiles diff'
-alias sdotfiles='dotfiles status'
+alias pgit='git push origin main'
+alias agit='git add'
+alias cgit='git commit'
+alias cagit='git commit -a'
+alias dgit='git diff'
+alias sgit='git status'
 
 alias v=nvim
 alias pac='sudo pacman'

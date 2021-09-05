@@ -10,7 +10,7 @@ set -o vi
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 # Aliases
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+alias dotfiles='git'
 alias pdotfiles='dotfiles push origin main'
 alias adotfiles='dotfiles add'
 alias cdotfiles='dotfiles commit'

@@ -206,26 +206,30 @@ theme.fs = lain.widget.fs({
 --]]
 
 -- -- Battery
--- local baticon = wibox.widget.imagebox(theme.widget_battery)
--- local bat = lain.widget.bat({
---     settings = function()
---         if bat_now.status and bat_now.status ~= "N/A" then
---             if bat_now.ac_status == 1 then
---                 baticon:set_image(theme.widget_ac)
---             elseif not bat_now.perc and tonumber(bat_now.perc) <= 5 then
---                 baticon:set_image(theme.widget_battery_empty)
---             elseif not bat_now.perc and tonumber(bat_now.perc) <= 15 then
---                 baticon:set_image(theme.widget_battery_low)
---             else
---                 baticon:set_image(theme.widget_battery)
---             end
---             widget:set_markup(markup.font(theme.font, " " .. bat_now.perc .. "% "))
---         else
---             widget:set_markup(markup.font(theme.font, " AC "))
---             baticon:set_image(theme.widget_ac)
---         end
---     end
--- })
+local baticor
+local bat = {}
+if (os.getenv("USER") == "ab55al-lt") then
+    baticon = wibox.widget.imagebox(theme.widget_battery)
+    bat = lain.widget.bat({
+        settings = function()
+            if bat_now.status and bat_now.status ~= "N/A" then
+                if bat_now.ac_status == 1 then
+                    baticon:set_image(theme.widget_ac)
+                elseif not bat_now.perc and tonumber(bat_now.perc) <= 5 then
+                    baticon:set_image(theme.widget_battery_empty)
+                elseif not bat_now.perc and tonumber(bat_now.perc) <= 15 then
+                    baticon:set_image(theme.widget_battery_low)
+                else
+                    baticon:set_image(theme.widget_battery)
+                end
+                widget:set_markup(markup.font(theme.font, " " .. bat_now.perc .. "% "))
+            else
+                widget:set_markup(markup.font(theme.font, " AC "))
+                baticon:set_image(theme.widget_ac)
+            end
+        end
+    })
+end
 
 -- -- ALSA volume
 -- local volicon = wibox.widget.imagebox(theme.widget_vol)
@@ -336,8 +340,8 @@ function theme.at_screen_connect(s)
             -- wibox.container.background(fsicon, theme.bg_focus),
             --wibox.container.background(theme.fs.widget, theme.bg_focus),
             arrl_dl,
-            -- baticon,
-            -- bat.widget,
+            baticon,
+            bat.widget,
             arrl_ld,
             -- wibox.container.background(neticon, theme.bg_focus),
             -- wibox.container.background(net.widget, theme.bg_focus),

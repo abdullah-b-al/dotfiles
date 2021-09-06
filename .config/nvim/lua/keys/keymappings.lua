@@ -23,7 +23,7 @@ map('t', '<Esc>','<C-\\><C-n>', nore)
 map('n', '<leader>d', ':w !diff % -<CR>')
 
 --{{{1 Substitution
-map('', '<leader>ss', ':%s:\\v:\\v:cg<Left><Left><Left><Left><Left><Left>', nore)
+map('', '<leader>ss', ':%s:\\v::cg<Left><Left><Left><Left>', nore)
 
 --{{{1 Accept input from wildmenu and close completion window
 map('c', '<S-Tab>', '<C-Y>', nore)

@@ -14,6 +14,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
                       require("awful.hotkeys_popup.keys")
 local mytable       = awful.util.table or gears.table -- 4.{0,1} compatibility
 local revelation    = require("revelation")
+local menubar       = require("menubar")
 
 
 -- }}}
@@ -222,6 +223,8 @@ globalkeys = mytable.join(
     -- Standard program
     awful.key({ modkey,           }, "t", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey }, "z", function() menubar.show() end,
+              {description = "show the menubar", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,

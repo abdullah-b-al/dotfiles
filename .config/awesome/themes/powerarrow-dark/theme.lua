@@ -276,8 +276,6 @@ local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
 local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
 
 function theme.at_screen_connect(s)
-    -- Quake application
-    s.quake = lain.util.quake({ app = awful.util.terminal })
 
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])

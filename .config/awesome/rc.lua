@@ -54,6 +54,8 @@ end
 
 -- {{{ Variable definitions
 
+local redshift_on = true
+
 local themes = {
     "blackburn",       -- 1
     "copland",         -- 2
@@ -567,5 +569,27 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+-- Disable redshift on monitor 0 when viewing tag 5
+for s in screen do
+    s:emit_signal("tag::history::update")
+end
+
+screen.primary:connect_signal("tag::history::update",
+function()
+    if (os.getenv("USER") == "ab55al-lt") then return end -- if on laptop return
+
+    local tag = awful.screen.focused().selected_tags[1]
+    if tag.name == "5" then
+        os.execute("redshift -m randr:crtc=0 -x")
+        redshift_on = false
+    else
+        if not redshift_on then
+            os.execute("redshift -m randr:crtc=0 -x && redshift -m randr:crtc=0 -O 3750")
+            redshift_on = true
+        end
+    end
+
+end)
 
 -- }}}

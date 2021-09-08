@@ -71,6 +71,7 @@ local paq = require('paq-nvim').paq
     paq {'tpope/vim-repeat'}
     paq {'JamshedVesuna/vim-markdown-preview'}
     paq {'junegunn/limelight.vim'}
+    paq {'junegunn/fzf.vim'}
 
     -- Completion and snippets
     paq {'hrsh7th/nvim-compe'}

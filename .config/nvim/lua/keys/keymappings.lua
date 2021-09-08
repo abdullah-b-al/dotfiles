@@ -82,6 +82,13 @@ map('n', '<leader>tg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', 
 map('n', '<leader>tb', '<cmd>lua require("telescope.builtin").buffers()<CR>', nore)
 map('n', '<leader>th', '<cmd>lua require("telescope.builtin").help_tags()<CR>', nore)
 
+--{{{2 FZF
+map('n', '<leader>ff', ':Files<CR>', snore)
+map('n', '<leader>fg', ':Rg<CR>', snore)
+map('n', '<leader>fb', ':Buffers<CR>', snore)
+map('n', '<leader>fh', ':Helptags<CR>', snore)
+
+
 --{{{2 easy motion
 
 --{{{3 Global mapping

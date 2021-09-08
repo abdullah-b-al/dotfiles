@@ -73,9 +73,6 @@ map('n', '_', '"_')
 
 --{{{1 Plugin Mappings
 
---{{{2 VimWiki
-map('n', '<Leader>vw', '<Plug>VimwikiIndex')
-
 --{{{2 Telescope
 map('n', '<leader>tf', '<cmd>lua require("telescope.builtin").find_files()<CR>', nore)
 map('n', '<leader>tg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', nore)

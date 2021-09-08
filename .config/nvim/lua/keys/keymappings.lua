@@ -9,10 +9,6 @@ local function map(mode, lhs, rhs, options)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
---{{{1 Because I'm lazy
-map('n', ';', ':', nore)
-map('v', ';', ':', nore)
-
 --{{{1 Toggle spell on and off
 map('n', '<F12>', ':set spell!<CR>', silent)
 

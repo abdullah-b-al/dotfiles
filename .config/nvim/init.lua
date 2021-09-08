@@ -24,6 +24,8 @@ opt.spell          = true
 opt.cursorline     = true
 opt.showmode       = true                                           -- Disabling showmode will hide complete mode
 opt.termguicolors  = true
+opt.splitbelow     = true
+opt.splitright     = true
 
 opt.wrap           = false
 

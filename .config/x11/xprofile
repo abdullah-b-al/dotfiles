@@ -17,9 +17,8 @@ termstart() {
 }
 
 # Place autostart applications here
-# loadkeys colemak
 start xinput -set-prop 'Cooler Master Technology Inc. MM710 Gaming Mouse' 'Coordinate Transformation Matrix' 0.4 0 0 0 0.4 0 0 0 0.9
-start setxkbmap -layout 'us(colemak),ar,us,' -option 'grp:alt_shift_toggle'
+start setxkbmap -layout 'us(colemak),ar' -option 'grp:alt_shift_toggle'
 start feh --no-fehbg --bg-fill --randomize ~/Pictures/Wallpapers/*
 start redshift -O 3750
 start picom

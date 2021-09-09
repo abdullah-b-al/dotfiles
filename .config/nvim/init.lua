@@ -62,7 +62,6 @@ local paq = require('paq-nvim').paq
     paq {'romainl/vim-cool'}                                        -- disables search highlighting when you are done searching and re-enables it when you search again.
     paq {'christoomey/vim-system-copy'}                             -- Requires xsel
     paq {'ap/vim-css-color'}
-    paq {'scrooloose/syntastic'}
     paq {'tpope/vim-surround'}
     paq {'joom/vim-commentary'}
     paq {'michaeljsmith/vim-indent-object'}

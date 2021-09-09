@@ -54,8 +54,6 @@ end
 
 -- {{{ Variable definitions
 
-local redshift_on = true
-
 local themes = {
     "blackburn",       -- 1
     "copland",         -- 2
@@ -582,12 +580,8 @@ function()
     local tag = awful.screen.focused().selected_tags[1]
     if tag.name == "5" then
         os.execute("redshift -m randr:crtc=0 -x")
-        redshift_on = false
     else
-        if not redshift_on then
-            os.execute("redshift -m randr:crtc=0 -x && redshift -m randr:crtc=0 -O 3750")
-            redshift_on = true
-        end
+        os.execute("redshift -m randr:crtc=0 -PO 3750")
     end
 
 end)

@@ -315,8 +315,7 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            arrl_ld,
-            wibox.container.background(keyboardlayout, theme.bg_focus),
+            keyboardlayout,
             spr,
             cpuicon,
             cpu.widget,

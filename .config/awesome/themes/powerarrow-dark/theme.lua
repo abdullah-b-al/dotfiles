@@ -330,6 +330,7 @@ function theme.at_screen_connect(s)
             bat.widget,
             spr_if,
             clock,
+            spr,
             wibox.container.background(s.mylayoutbox, theme.bg_focus),
         },
     }

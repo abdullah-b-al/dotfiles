@@ -272,10 +272,11 @@ end
 -- })
 
 -- Separators
-local spr     = wibox.widget.textbox(' ')
-local spr_if  = laptop and spr or wibox.widget.textbox('')    -- Put spr only if on laptop
-local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
-local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
+local spr          = wibox.widget.textbox(' ')
+local pipe_spr     = wibox.widget.textbox(' | ')
+local pipe_spr_if  = laptop and pipe_spr or wibox.widget.textbox('')    -- Put separator only if on laptop
+local arrl_dl      = separators.arrow_left(theme.bg_focus, "alpha")
+local arrl_ld      = separators.arrow_left("alpha", theme.bg_focus)
 
 function theme.at_screen_connect(s)
 
@@ -316,19 +317,19 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             keyboardlayout,
-            spr,
+            pipe_spr,
             cpuicon,
             cpu.widget,
-            spr,
+            pipe_spr,
             memicon,
             mem.widget,
-            spr,
+            pipe_spr,
             tempicon,
             temp.widget,
-            spr,
+            pipe_spr,
             baticon,
             bat.widget,
-            spr_if,
+            pipe_spr_if,
             clock,
             spr,
             wibox.container.background(s.mylayoutbox, theme.bg_focus),

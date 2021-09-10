@@ -145,7 +145,7 @@ globalkeys = mytable.join(
     awful.key({ "Control",           }, "space", function() naughty.destroy_all_notifications() end,
               {description = "destroy all notifications", group = "hotkeys"}),
 
-    awful.key({ modkey,           }, "w", function ()  awful.spawn.with_shell("feh --no-fehbg --bg-fill --randomize ~/Pictures/Wallpapers/*") end,
+    awful.key({ modkey,           }, "w", function ()  awful.spawn.with_shell("feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/*") end,
               {description = "focus the previous screen", group = "hotkeys"}),
 
     awful.key({ modkey,           }, "d", function ()  awful.spawn.with_shell("passmenu") end,

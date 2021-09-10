@@ -5,11 +5,12 @@
 
 --]]
 
-local gears = require("gears")
-local lain  = require("lain")
-local awful = require("awful")
-local wibox = require("wibox")
-local dpi   = require("beautiful.xresources").apply_dpi
+local gears  = require("gears")
+local lain   = require("lain")
+local awful  = require("awful")
+local wibox  = require("wibox")
+local dpi    = require("beautiful.xresources").apply_dpi
+local laptop = os.getenv("USER") == "ab55al-lt"
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -205,10 +206,10 @@ theme.fs = lain.widget.fs({
 })
 --]]
 
--- -- Battery
+-- Battery
 local baticon
 local bat = {}
-if (os.getenv("USER") == "ab55al-lt") then
+if (laptop) then
     baticon = wibox.widget.imagebox(theme.widget_battery)
     bat = lain.widget.bat({
         settings = function()
@@ -272,6 +273,7 @@ end
 
 -- Separators
 local spr     = wibox.widget.textbox(' ')
+local spr_if  = laptop and spr or wibox.widget.textbox('')    -- Put spr only if on laptop
 local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
 local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
 
@@ -305,7 +307,6 @@ function theme.at_screen_connect(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            --spr,
             s.mytaglist,
             s.mypromptbox,
             spr,
@@ -314,41 +315,22 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            arrl_ld,
+            wibox.container.background(keyboardlayout, theme.bg_focus),
             spr,
-            arrl_ld,
-            -- wibox.container.background(mpdicon, theme.bg_focus),
-            -- wibox.container.background(theme.mpd.widget, theme.bg_focus),
-            arrl_dl,
-            arrl_ld,
-            arrl_dl,
-            keyboardlayout,
-            -- volicon,
-            -- theme.volume.widget,
-            arrl_ld,
-            -- wibox.container.background(mailicon, theme.bg_focus),
-            --wibox.container.background(theme.mail.widget, theme.bg_focus),
-            arrl_dl,
+            cpuicon,
+            cpu.widget,
+            spr,
             memicon,
             mem.widget,
-            arrl_ld,
-            wibox.container.background(cpuicon, theme.bg_focus),
-            wibox.container.background(cpu.widget, theme.bg_focus),
-            arrl_dl,
+            spr,
             tempicon,
             temp.widget,
-            arrl_ld,
-            -- wibox.container.background(fsicon, theme.bg_focus),
-            --wibox.container.background(theme.fs.widget, theme.bg_focus),
-            arrl_dl,
+            spr,
             baticon,
             bat.widget,
-            arrl_ld,
-            -- wibox.container.background(neticon, theme.bg_focus),
-            -- wibox.container.background(net.widget, theme.bg_focus),
-            arrl_dl,
+            spr_if,
             clock,
-            spr,
-            arrl_ld,
             wibox.container.background(s.mylayoutbox, theme.bg_focus),
         },
     }

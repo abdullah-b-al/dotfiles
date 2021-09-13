@@ -1,9 +1,17 @@
 #!/bin/sh
 HISTFILE=~/.local/share/zsh/zsh_history
+HISTSIZE=3000
+SAVEHIST=3000
 
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
-setopt appendhistory                            # Immediate history sharing between sessions
+
+setopt APPEND_HISTORY                            
+setopt SHARE_HISTORY                            # Immediate history sharing between sessions
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
 
 unsetopt BEEP                                   # Disable beeping
 

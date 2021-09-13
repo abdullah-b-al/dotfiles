@@ -94,7 +94,7 @@ map( '', '<leader>f', '<Plug>(easymotion-f)')
 map( '', '<leader>F', '<Plug>(easymotion-F)')
 map( '', '<leader>t', '<Plug>(easymotion-t)')
 map( '', '<leader>T', '<Plug>(easymotion-T)')
-map( '', '<leader>n', '<Plug>(easymotion-s2)')
+map( '', 's'        , '<Plug>(easymotion-s2)')
 map( '', '<leader>b', '<Plug>(easymotion-t2)')
 
 --{{{3 Multi line Overwindows

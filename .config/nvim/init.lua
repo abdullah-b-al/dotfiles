@@ -67,12 +67,14 @@ local paq = require('paq-nvim').paq
     paq {'michaeljsmith/vim-indent-object'}
     paq {'jiangmiao/auto-pairs'}
     paq {'itchyny/lightline.vim'}
-    paq {'easymotion/vim-easymotion'}
     paq {'tpope/vim-repeat'}
     paq {'JamshedVesuna/vim-markdown-preview'}
     paq {'junegunn/limelight.vim'}
     paq {'junegunn/fzf.vim'}
     paq {'andymass/vim-matchup'}
+
+    -- Movement plugins
+    paq {'easymotion/vim-easymotion'}
     paq {'unblevable/quick-scope'}
 
     -- Completion and snippets

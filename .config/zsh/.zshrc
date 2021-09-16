@@ -50,6 +50,7 @@ export MANPAGER='bat'
 
 # Aliases
 alias ls='ls --color=auto'
+alias la='ls -Al'
 
 alias pgit='git push origin master'
 alias agit='git add'

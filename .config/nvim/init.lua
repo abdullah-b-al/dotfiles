@@ -73,6 +73,7 @@ local paq = require('paq-nvim').paq
     paq {'junegunn/limelight.vim'}
     paq {'junegunn/fzf.vim'}
     paq {'andymass/vim-matchup'}
+    paq {'unblevable/quick-scope'}
 
     -- Completion and snippets
     paq {'hrsh7th/nvim-compe'}

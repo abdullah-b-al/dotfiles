@@ -19,8 +19,8 @@ map('t', '<Esc>','<C-\\><C-n>', nore)
 map('n', '<leader>d', ':w !diff % -<CR>')
 
 --{{{1 Substitution
-map('n', '<leader>ss', ':%s:\\v::cg<Left><Left><Left><Left>', nore)
-map('v', '<leader>ss', ':s:\\v::cg<Left><Left><Left><Left>', nore)
+map('n', '<leader>s', ':%s:\\v::cg<Left><Left><Left><Left>', nore)
+map('v', '<leader>s', ':s:\\v::cg<Left><Left><Left><Left>', nore)
 
 --{{{1 Accept input from wildmenu and close completion window
 map('c', '<S-Tab>', '<C-Y>', nore)

@@ -148,9 +148,6 @@ globalkeys = mytable.join(
     awful.key({ modkey,           }, "w", function ()  awful.spawn.with_shell("feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/*") end,
               {description = "focus the previous screen", group = "hotkeys"}),
 
-    awful.key({ modkey,           }, "d", function ()  awful.spawn.with_shell("passmenu") end,
-              {description = "Run passmenu", group = "hotkeys"}),
-
     -- Show help
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),

@@ -1,25 +1,7 @@
 #!/bin/sh
-
 # WM/DE independant autostart
-
-# Start if not already running function
-start() {
-	cmd=$1; shift
-	args=$*
-	pgrep -u "$USER" -ic "$cmd" > /dev/null || $cmd $args &
-}
-
-# Start with terminal if not already running function
-termstart() {
-	cmd=$1; shift
-	args=$*
-	pgrep -u "$USER" -ic "$cmd" > /dev/null || $TERMINAL -e $cmd $args &
-}
-
-# Place autostart applications here
-start sxhkd
-start xinput -set-prop 'Cooler Master Technology Inc. MM710 Gaming Mouse' 'Coordinate Transformation Matrix' 0.4 0 0 0 0.4 0 0 0 0.9
-start setxkbmap -layout 'us(colemak),ar' -option 'grp:alt_shift_toggle'
-start feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/*
-start redshift -PO 3750
-start picom
+xinput -set-prop 'Cooler Master Technology Inc. MM710 Gaming Mouse' 'Coordinate Transformation Matrix' 0.4 0 0 0 0.4 0 0 0 0.9 &
+setxkbmap -layout 'us(colemak),ar' -option 'grp:alt_shift_toggle' &
+feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/* &
+redshift -PO 3750 &
+picom &

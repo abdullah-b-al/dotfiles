@@ -584,3 +584,6 @@ function()
 end)
 
 -- }}}
+
+-- start sxhkd if not already started
+awful.spawn.with_shell("pgrep sxhkd || sxhkd &")

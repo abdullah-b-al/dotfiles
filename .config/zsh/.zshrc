@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# Load if exists
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+
 HISTFILE=~/.local/share/zsh/zsh_history
 HISTSIZE=3000
 SAVEHIST=3000
@@ -39,41 +43,4 @@ zsh_add_plugin     "hlissner/zsh-autopair"
 # Vi mode
 bindkey -v
 
-# Environment variables
-export EDITOR="nvim"
-export TERMINAL="alacritty"
-export BROWSER="brave"
-export PATH=$PATH:$HOME/bin
-export HISTCONTROL=ignoreboth
-export EDITOR=nvim
-export MANPAGER='bat'
-
-# Aliases
-alias ls='ls --color=auto'
-alias la='ls -Al'
-
-alias g='git'
-alias ga='git add'
-alias gc='git commit'
-alias gca='git commit -a'
-alias gd='git diff'
-alias gs='git status'
-alias pdotfiles='git push origin master'
-
-alias v=nvim
-alias pac='sudo pacman'
-
 eval "$(starship init zsh)"
-
-# XDG
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CACHE_HOME="$HOME/.cache"
-
-export LEIN_HOME="$XDG_DATA_HOME"/lein
-export CARGO_HOME="$XDG_DATA_HOME"/cargo
-export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
-export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
-export WGETRC="$XDG_CONFIG_HOME/wgetrc"
-export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default

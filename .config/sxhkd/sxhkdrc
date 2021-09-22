@@ -1,2 +1,5 @@
 super + d
     passmenu
+
+super + v
+    rofi-list-pdf.sh

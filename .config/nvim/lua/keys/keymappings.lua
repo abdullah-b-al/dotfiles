@@ -22,9 +22,6 @@ map('n', '<leader>d', ':w !diff % -<CR>')
 map('n', '<leader>s', ':%s:\\v::cg<Left><Left><Left><Left>', nore)
 map('v', '<leader>s', ':s:\\v::cg<Left><Left><Left><Left>', nore)
 
---{{{1 Accept input from wildmenu and close completion window
-map('c', '<S-Tab>', '<C-Y>', nore)
-
 --{{{1 Reselect pasted text
 map('n', 'gp', '`[v`]', nore)
 

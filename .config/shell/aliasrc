@@ -11,3 +11,4 @@ alias pdotfiles='git push origin master'
 
 alias v=nvim
 alias pac='sudo pacman'
+alias rn='ranger'

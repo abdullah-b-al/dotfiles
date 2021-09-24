@@ -68,7 +68,6 @@ local paq = require('paq-nvim').paq
     paq {'jiangmiao/auto-pairs'}
     paq {'itchyny/lightline.vim'}
     paq {'tpope/vim-repeat'}
-    paq {'JamshedVesuna/vim-markdown-preview'}
     paq {'junegunn/limelight.vim'}
     paq {'junegunn/fzf.vim'}
     paq {'andymass/vim-matchup'}

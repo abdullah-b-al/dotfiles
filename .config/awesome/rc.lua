@@ -145,9 +145,6 @@ globalkeys = mytable.join(
     awful.key({ "Control",           }, "space", function() naughty.destroy_all_notifications() end,
               {description = "destroy all notifications", group = "hotkeys"}),
 
-    awful.key({ modkey,           }, "w", function ()  awful.spawn.with_shell("feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/*") end,
-              {description = "focus the previous screen", group = "hotkeys"}),
-
     -- Show help
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
@@ -218,8 +215,6 @@ globalkeys = mytable.join(
         {description = "toggle wibox", group = "awesome"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "t", function () awful.spawn(terminal) end,
-              {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey }, "z", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,

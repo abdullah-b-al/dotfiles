@@ -4,5 +4,11 @@ super + d
 super + v
     rofi-list-pdf.sh
 
+super + w
+    feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/*
+    
+super + t
+    $TERMINAL
+
 super + e
     st -e $EDITOR $HOME

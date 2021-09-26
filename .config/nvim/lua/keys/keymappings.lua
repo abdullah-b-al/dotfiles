@@ -104,3 +104,5 @@ map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')
 map('n', '<leader>lt', '<Plug>(Limelight)')
 map('x', '<leader>lt', '<Plug>(Limelight)')
 map('n', '<leader>l', ':Limelight!!<CR>', snore)
+--{{{2 Harpoon
+map('n', "<leader>g", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>")

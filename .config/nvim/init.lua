@@ -72,6 +72,7 @@ local paq = require('paq-nvim').paq
     paq {'junegunn/fzf.vim'}
     paq {'andymass/vim-matchup'}
     paq {'metakirby5/codi.vim'}
+    paq {'ThePrimeagen/harpoon'}
 
     -- Movement plugins
     paq {'easymotion/vim-easymotion'}

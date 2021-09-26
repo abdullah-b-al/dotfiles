@@ -100,3 +100,4 @@ require('keys/nvim-compe')
 
 --{{{1 Lsp servers
 require('lsps/lua_server')
+require('lsps/ccls')

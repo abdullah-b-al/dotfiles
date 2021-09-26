@@ -3,3 +3,6 @@ super + d
 
 super + v
     rofi-list-pdf.sh
+
+super + e
+    st -e $EDITOR $HOME

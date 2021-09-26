@@ -19,7 +19,7 @@ setopt HIST_REDUCE_BLANKS
 
 unsetopt BEEP                                   # Disable beeping
 
-autoload -Uz compinit
+autoload -Uz compinit && compinit
 autoload -Uz colors && colors
 
 zstyle ':completion:*' menu select

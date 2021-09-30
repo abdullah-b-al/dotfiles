@@ -79,7 +79,6 @@ local paq = require('paq-nvim').paq
     paq {'unblevable/quick-scope'}
 
     -- Completion and snippets
-    paq {'hrsh7th/nvim-compe'}
     paq {'hrsh7th/vim-vsnip'}
     paq {'hrsh7th/vim-vsnip-integ'}
     paq {'rafamadriz/friendly-snippets'}
@@ -96,7 +95,6 @@ local paq = require('paq-nvim').paq
 
 --{{{1 Mappings
 require('keys/keymappings')
-require('keys/nvim-compe')
 
 
 --{{{1 Lsp servers

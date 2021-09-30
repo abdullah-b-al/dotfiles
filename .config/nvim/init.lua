@@ -79,6 +79,9 @@ local paq = require('paq-nvim').paq
     paq {'unblevable/quick-scope'}
 
     -- Completion and snippets
+    paq {'hrsh7th/nvim-cmp'}
+    paq {'hrsh7th/cmp-nvim-lsp'}
+    paq {'hrsh7th/cmp-vsnip'}
     paq {'hrsh7th/vim-vsnip'}
     paq {'hrsh7th/vim-vsnip-integ'}
     paq {'rafamadriz/friendly-snippets'}

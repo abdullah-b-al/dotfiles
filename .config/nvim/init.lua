@@ -88,6 +88,7 @@ local paq = require('paq-nvim').paq
 
     -- Lsp
     paq {'neovim/nvim-lspconfig'}
+    paq {'ray-x/lsp_signature.nvim'}
 
     -- Telescope
     -- ripgrep needs to be installed for live_grep and similar picker to work

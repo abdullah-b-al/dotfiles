@@ -32,4 +32,4 @@ require'compe'.setup {
   };
 }
 
-vim.opt.completeopt ={"menu", "noinsert", "noselect"}
+vim.opt.completeopt ={"menuone", "preview"}

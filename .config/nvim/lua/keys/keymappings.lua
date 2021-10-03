@@ -90,12 +90,10 @@ map( '', '<leader>;', '<Plug>(easymotion-next)')
 map( '', '<leader>,', '<Plug>(easymotion-prev)')
 
 --{{{3 Multi line
-map( '', '<leader>f', '<Plug>(easymotion-f)')
-map( '', '<leader>F', '<Plug>(easymotion-F)')
-map( '', '<leader>t', '<Plug>(easymotion-t)')
-map( '', '<leader>T', '<Plug>(easymotion-T)')
+map( '', '<leader>f', '<Plug>(easymotion-bd-f)')
+map( '', '<leader>t', '<Plug>(easymotion-bd-t)')
+map( '', '<leader>b', '<Plug>(easymotion-bd-t2)')
 map( '', 's'        , '<Plug>(easymotion-s2)')
-map( '', '<leader>b', '<Plug>(easymotion-t2)')
 
 --{{{3 Multi line Overwindows
 map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')

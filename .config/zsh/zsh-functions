@@ -29,3 +29,11 @@ function zsh_add_completion() {
 	completion_file="$(basename "${completion_file_path}")"
 	if [ "$2" = true ] && compinit "${completion_file:1}"
 }
+
+# Search for files and directories then cd or edit them.
+function s() {
+    local ignore_file="\.png$\|LICENSE\|README\|\.jpg$\|\.pdf$"
+    local ignore_dir=".local/share\|.dotfiles/.config/zsh/plugins\|\.git\|awesome/lain\|awesome/freedesktop\|\.ccls-cache"
+    local result=$(find "$HOME/.dotfiles" "$HOME/.local" "$HOME/.config/st" | grep -v "$ignore_dir\|$ignore_file" | fzf) 
+    test -d $result && cd $result || $EDITOR $result
+}

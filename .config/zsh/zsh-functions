@@ -37,3 +37,8 @@ function s() {
     local result=$(find "$HOME/.dotfiles" "$HOME/.local" "$HOME/.config/st" | grep -v "$ignore_dir\|$ignore_file" | fzf) 
     test -d $result && cd $result || $EDITOR $result
 }
+
+function se() {
+    local result=$(find $(pwd) | fzf) 
+    test -d $result && cd $result || $EDITOR $result
+}

@@ -74,6 +74,8 @@ local paq = require('paq-nvim').paq
     paq {'metakirby5/codi.vim'}
     paq {'ThePrimeagen/harpoon'}
     paq {'tmsvg/pear-tree'}
+    paq {'guns/vim-sexp'}
+    paq {'tpope/vim-sexp-mappings-for-regular-people'}
 
     -- Movement plugins
     paq {'easymotion/vim-easymotion'}

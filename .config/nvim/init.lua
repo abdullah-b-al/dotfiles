@@ -76,6 +76,7 @@ local paq = require('paq-nvim').paq
     paq {'tmsvg/pear-tree'}
     paq {'guns/vim-sexp'}
     paq {'tpope/vim-sexp-mappings-for-regular-people'}
+    paq {'liquidz/vim-iced'}
 
     -- Movement plugins
     paq {'easymotion/vim-easymotion'}

@@ -3,6 +3,7 @@ local cmd = vim.cmd
 local g = vim.g
 local opt = vim.opt
 local api = vim.api
+local fn  = vim.fn
 local home = vim.env.HOME
 local config = home .. '/.config/nvim'
 
@@ -57,49 +58,55 @@ g.colors_name = 'turtles'
 
 
 --{{{1 Plugins
-local paq = require('paq-nvim').paq
-    paq {'savq/paq-nvim', opt = true}                               -- paq-nvim manages itself
-    paq {'romainl/vim-cool'}                                        -- disables search highlighting when you are done searching and re-enables it when you search again.
-    paq {'christoomey/vim-system-copy'}                             -- Requires xsel
-    paq {'ap/vim-css-color'}
-    paq {'tpope/vim-surround'}
-    paq {'joom/vim-commentary'}
-    paq {'michaeljsmith/vim-indent-object'}
-    paq {'jiangmiao/auto-pairs'}
-    paq {'itchyny/lightline.vim'}
-    paq {'tpope/vim-repeat'}
-    paq {'junegunn/limelight.vim'}
-    paq {'junegunn/fzf.vim'}
-    paq {'andymass/vim-matchup'}
-    paq {'metakirby5/codi.vim'}
-    paq {'ThePrimeagen/harpoon'}
-    paq {'tmsvg/pear-tree'}
-    paq {'guns/vim-sexp'}
-    paq {'tpope/vim-sexp-mappings-for-regular-people'}
-    paq {'liquidz/vim-iced'}
+-- Auto-install paq
+local install_path = fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  fn.system({'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', install_path})
+end
+require('paq') {
+    {'savq/paq-nvim', opt = true},                             -- paq-nvim manages itself
+    'romainl/vim-cool',                                        -- disables search highlighting when you are done searching and re-enables it when you search again.
+    'christoomey/vim-system-copy',                             -- Requires xsel
+    'ap/vim-css-color',
+    'tpope/vim-surround',
+    'joom/vim-commentary',
+    'michaeljsmith/vim-indent-object',
+    'jiangmiao/auto-pairs',
+    'itchyny/lightline.vim',
+    'tpope/vim-repeat',
+    'junegunn/limelight.vim',
+    'junegunn/fzf.vim',
+    'andymass/vim-matchup',
+    'metakirby5/codi.vim',
+    'ThePrimeagen/harpoon',
+    'tmsvg/pear-tree',
+    'guns/vim-sexp',
+    'tpope/vim-sexp-mappings-for-regular-people',
+    'liquidz/vim-iced',
 
     -- Movement plugins
-    paq {'easymotion/vim-easymotion'}
-    paq {'unblevable/quick-scope'}
+    'easymotion/vim-easymotion',
+    'unblevable/quick-scope',
 
     -- Completion and snippets
-    paq {'hrsh7th/nvim-cmp'}
-    paq {'hrsh7th/cmp-nvim-lsp'}
-    paq {'hrsh7th/cmp-vsnip'}
-    paq {'hrsh7th/vim-vsnip'}
-    paq {'hrsh7th/vim-vsnip-integ'}
-    paq {'rafamadriz/friendly-snippets'}
+    'hrsh7th/nvim-cmp',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-vsnip',
+    'hrsh7th/vim-vsnip',
+    'hrsh7th/vim-vsnip-integ',
+    'rafamadriz/friendly-snippets',
 
     -- Lsp
-    paq {'neovim/nvim-lspconfig'}
-    paq {'ray-x/lsp_signature.nvim'}
-    paq {'simrat39/symbols-outline.nvim'}
+    'neovim/nvim-lspconfig',
+    'ray-x/lsp_signature.nvim',
+    'simrat39/symbols-outline.nvim',
 
     -- Telescope
     -- ripgrep needs to be installed for live_grep and similar picker to work
-    paq {'nvim-lua/popup.nvim'}
-    paq {'nvim-lua/plenary.nvim'}
-    paq {'nvim-telescope/telescope.nvim'}
+    'nvim-lua/popup.nvim',
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim',
+}
 
 
 --{{{1 Mappings

@@ -44,3 +44,4 @@ zsh_add_plugin     "hlissner/zsh-autopair"
 bindkey -v
 
 eval "$(starship init zsh)"
+test -z $(echo $TMUX) && tmux new-session -A -s "general"

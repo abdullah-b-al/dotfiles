@@ -12,3 +12,5 @@ alias pdotfiles='git push origin master'
 alias v=nvim
 alias pac='sudo pacman'
 alias rn='ranger'
+
+alias exit='echo "Are you sure? y/n" && read confirmation && test $confirmation = "y" && exit'

@@ -53,7 +53,7 @@ augroup END
 
 --{{{1 Globals
 g.mapleader = ' '
-g.maplocalleader = '\\'
+g.maplocalleader = ','
 g.colors_name = 'turtles'
 
 

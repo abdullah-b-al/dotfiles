@@ -12,6 +12,9 @@ end
 --{{{1 Toggle spell on and off
 map('n', '<F12>', ':set spell!<CR>', silent)
 
+--{{{1 Map ,, to find previous char without triggering other localleader commands
+map('n', '<localleader>,', ':norm ,<CR>', nore)
+
 --{{{1 Terminal mode setting for NeoVim
 map('t', '<Esc>','<C-\\><C-n>', nore)
 

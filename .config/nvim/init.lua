@@ -82,7 +82,7 @@ require('paq') {
     'tmsvg/pear-tree',
     'guns/vim-sexp',
     'tpope/vim-sexp-mappings-for-regular-people',
-    'liquidz/vim-iced',
+    'Olical/conjure',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

@@ -3,7 +3,7 @@
 # Load if exists
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 
-HISTFILE=~/.local/share/zsh/zsh_history
+HISTFILE=$XDG_CACHE_HOME/zsh_history
 HISTSIZE=3000
 SAVEHIST=3000
 

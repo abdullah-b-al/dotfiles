@@ -117,3 +117,4 @@ require('keys/keymappings')
 --{{{1 Lsp servers
 require('lsps/lua_server')
 require('lsps/ccls')
+require('lsps/clojure_server')

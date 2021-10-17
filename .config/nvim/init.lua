@@ -100,6 +100,7 @@ require('paq') {
     'neovim/nvim-lspconfig',
     'ray-x/lsp_signature.nvim',
     'simrat39/symbols-outline.nvim',
+    'williamboman/nvim-lsp-installer',
 
     -- Telescope
     -- ripgrep needs to be installed for live_grep and similar picker to work

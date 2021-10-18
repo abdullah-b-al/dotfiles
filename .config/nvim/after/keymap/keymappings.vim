@@ -54,8 +54,8 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 
 " {{{1 Add large j and k movements to the jump list
-nnoremap <expr> k (v:count >= 10 ? "m'" . v:count : '') . 'gk'
-nnoremap <expr> j (v:count >= 10 ? "m'" . v:count : '') . 'gj'
+nnoremap <expr> k (v:count >= 5 ? "m'" . v:count : '') . 'gk'
+nnoremap <expr> j (v:count >= 5 ? "m'" . v:count : '') . 'gj'
 
 " {{{1 Quicker access to the black hole register
 nmap _ "_

@@ -111,8 +111,6 @@ require('paq') {
 
 
 --{{{1 Mappings
-require('keys/keymappings')
-
 
 --{{{1 Lsp servers
 require('lsps/lua_server')

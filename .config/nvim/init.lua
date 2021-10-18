@@ -6,6 +6,7 @@ local api = vim.api
 local fn  = vim.fn
 local home = vim.env.HOME
 local config = home .. '/.config/nvim'
+local after = config .. '/after'
 
 
 --{{{1 Options
@@ -111,6 +112,10 @@ require('paq') {
 
 
 --{{{1 Mappings
+cmd('source ' .. after .. '/keymap/keymappings.vim')
+
+--{{{1 Color settings
+cmd('source ' .. after .. '/colors/color-settings.vim')
 
 --{{{1 Lsp servers
 require('lsps/lua_server')

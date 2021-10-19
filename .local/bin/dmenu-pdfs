@@ -1,0 +1,10 @@
+#!/usr/bin/sh
+pdf_menu() {
+    if  command -v rofi; then
+        rofi>/dev/null && rofi -dmenu -i -matching fuzzy 
+    elif  command -v dmenu; then
+        dmenu -i
+    fi
+}
+path_pdfs="$HOME/.local/documents"
+xdg-open "$( du -ah "$path_pdfs" | cut -f2 | tr '/' '\n' |  grep "\.pdf$" | pdf_menu | xargs -I % find "$path_pdfs" -name % )"

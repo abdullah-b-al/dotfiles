@@ -2,7 +2,7 @@ super + d
     passmenu
 
 super + v
-    rofi-list-pdf.sh
+    dmenu-pdfs
 
 super + w
     feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/*

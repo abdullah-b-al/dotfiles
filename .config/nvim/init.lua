@@ -80,7 +80,6 @@ require('paq') {
     'andymass/vim-matchup',
     'metakirby5/codi.vim',
     'ThePrimeagen/harpoon',
-    'tmsvg/pear-tree',
     'guns/vim-sexp',
     'tpope/vim-sexp-mappings-for-regular-people',
     'Olical/conjure',

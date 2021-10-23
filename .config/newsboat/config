@@ -1,7 +1,7 @@
 bind-key j down
 bind-key k up
 
-color background          color236   default
+color background          color36   default
 color listnormal          color248   default
 color listnormal_unread   color6     default
 color listfocus           color232   color250

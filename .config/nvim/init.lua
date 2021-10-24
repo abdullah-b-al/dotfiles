@@ -104,6 +104,9 @@ cmd('source ' .. after .. '/keymap/keymappings.vim')
 --{{{1 Color settings
 cmd('source ' .. after .. '/colors/color-settings.vim')
 
+--{{{1 Auto commands
+cmd('source ' .. after .. '/auto-commands.vim')
+
 --{{{1 Lsp servers
 require('lsps/lua_server')
 require('lsps/ccls')

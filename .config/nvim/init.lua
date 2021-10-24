@@ -61,7 +61,6 @@ require('paq') {
     'joom/vim-commentary',
     'michaeljsmith/vim-indent-object',
     'jiangmiao/auto-pairs',
-    'itchyny/lightline.vim',
     'tpope/vim-repeat',
     'junegunn/limelight.vim',
     'junegunn/fzf.vim',
@@ -71,6 +70,8 @@ require('paq') {
     'guns/vim-sexp',
     'tpope/vim-sexp-mappings-for-regular-people',
     'Olical/conjure',
+    'nvim-lualine/lualine.nvim',
+    'kyazdani42/nvim-web-devicons',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

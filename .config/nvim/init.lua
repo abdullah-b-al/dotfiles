@@ -38,18 +38,6 @@ opt.viewoptions    = 'cursor,folds'                                 -- save/rest
 
 --{{{1 Commands
 cmd 'packadd paq-nvim'
-cmd ([[
-augroup AutoSaveFolds
-    autocmd!
-    autocmd BufWinEnter * silent! loadview
-    autocmd BufWinLeave * silent! mkview
-augroup END
-]])
-cmd ([[
-augroup SpellIgnore
-    autocmd BufWinEnter,VimEnter * if filewritable(expand('%')) == 1 && &modifiable == 1 | :set spell | else | :set nospell | endif
-augroup END
-]])
 
 
 --{{{1 Globals

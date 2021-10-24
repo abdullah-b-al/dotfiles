@@ -72,6 +72,7 @@ require('paq') {
     'Olical/conjure',
     'nvim-lualine/lualine.nvim',
     'kyazdani42/nvim-web-devicons',
+    'wellle/targets.vim',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

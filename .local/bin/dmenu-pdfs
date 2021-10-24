@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 pdf_menu() {
     if  command -v rofi; then
-        rofi>/dev/null && rofi -dmenu -i -matching fuzzy 
+        rofi -dmenu -i -matching fuzzy 
     elif  command -v dmenu; then
         dmenu -i
     fi

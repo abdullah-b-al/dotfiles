@@ -83,6 +83,7 @@ require('paq') {
     'guns/vim-sexp',
     'tpope/vim-sexp-mappings-for-regular-people',
     'Olical/conjure',
+    'machakann/vim-highlightedyank',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

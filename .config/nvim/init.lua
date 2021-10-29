@@ -100,6 +100,8 @@ require('paq') {
     'nvim-telescope/telescope.nvim',
 }
 
+--{{{1 config of plugins in lua
+require('plugin')
 
 --{{{1 Mappings
 cmd('source ' .. after .. '/keymap/keymappings.vim')

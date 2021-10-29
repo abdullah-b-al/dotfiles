@@ -101,7 +101,7 @@ require('paq') {
 }
 
 --{{{1 config of plugins in lua
-require('plugin')
+require('plugin/init')
 
 --{{{1 Mappings
 cmd('source ' .. after .. '/keymap/keymappings.vim')
@@ -112,7 +112,5 @@ cmd('source ' .. after .. '/colors/color-settings.vim')
 --{{{1 Auto commands
 cmd('source ' .. after .. '/auto-commands.vim')
 
---{{{1 Lsp servers
-require('lsps/lua_server')
-require('lsps/ccls')
-require('lsps/clojure_server')
+--{{{1 Lsp server directory
+require('lsps/init')

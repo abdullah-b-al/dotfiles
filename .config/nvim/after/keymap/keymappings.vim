@@ -94,6 +94,10 @@ nmap <leader>lt <Plug>(Limelight)
 xmap <leader>lt <Plug>(Limelight)
 nnoremap <silent> <leader>l :Limelight!!<CR>
 " {{{2 Harpoon
-nmap <leader>g <cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>
+nmap <leader>gg <cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>
+nmap <leader>ga :lua require("harpoon.mark").add_file()<CR>
+nmap <leader>gn :lua require("harpoon.ui").nav_file(1)<CR>
+nmap <leader>ge :lua require("harpoon.ui").nav_file(2)<CR>
+nmap <leader>gi :lua require("harpoon.ui").nav_file(3)<CR>
 " {{{2
 nmap S <Plug>Ysurround

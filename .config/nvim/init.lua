@@ -74,6 +74,7 @@ require('paq') {
     'kyazdani42/nvim-web-devicons',
     'wellle/targets.vim',
     'ziglang/zig.vim',
+    'preservim/vimux',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

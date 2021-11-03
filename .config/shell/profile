@@ -10,7 +10,7 @@ export BROWSER="brave"
 export PATH=$PATH:$HOME/.local/bin
 export HISTCONTROL=ignoreboth
 export EDITOR=nvim
-export MANPAGER='bat'
+export MANPAGER='nvim +Man!'
 
 
 export LEIN_HOME="$XDG_DATA_HOME"/lein

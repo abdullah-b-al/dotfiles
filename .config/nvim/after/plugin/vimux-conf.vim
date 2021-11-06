@@ -6,4 +6,5 @@ nmap <F4> :VimuxInspectRunner<CR>
 nmap <F7> :VimuxZoomRunner<CR>
 
 autocmd FileType zig nmap <buffer> <F8> :VimuxClearTerminalScreen<CR>:VimuxRunCommand "zig build"<CR>
+autocmd FileType zig nmap <buffer> <F5> :VimuxClearTerminalScreen<CR>:VimuxRunCommand "zig build run"<CR>
 autocmd FileType c   nmap <buffer> <F8> :VimuxClearTerminalScreen<CR>:VimuxRunCommand "make"<CR>

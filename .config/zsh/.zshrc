@@ -44,5 +44,7 @@ zsh_add_plugin     "hlissner/zsh-autopair"
 # Vi mode
 bindkey -v
 
+bindkey -s "^O" popd\\n
+
 eval "$(starship init zsh)"
 test -z $(echo $TMUX) && tmux new-session -A -s "general"

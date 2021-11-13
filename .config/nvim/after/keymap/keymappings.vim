@@ -17,12 +17,6 @@ vnoremap <leader>s :s:\v::cg<Left><Left><Left><Left>
 " {{{1 Reselect pasted text
 nnoremap gp `[v`]
 
-" {{{1 Switch active split
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
-nmap <C-h> <C-w>h
-
 " {{{1 Yank to the end of the line
 nnoremap Y y$
 

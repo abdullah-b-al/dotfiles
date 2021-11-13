@@ -11,4 +11,4 @@ super + t
     $TERMINAL
 
 super + e
-    st -e $EDITOR $HOME
+    st -e $EDITOR $HOME/.local/documents/notes/tk.md

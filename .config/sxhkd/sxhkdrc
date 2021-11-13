@@ -12,3 +12,6 @@ super + t
 
 super + e
     st -e $EDITOR $HOME/.local/documents/notes/tk.md
+
+super + ctrl + x
+    xlock -mode blank

@@ -75,6 +75,7 @@ require('paq') {
     'wellle/targets.vim',
     'ziglang/zig.vim',
     'preservim/vimux',
+    'tpope/vim-fugitive',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

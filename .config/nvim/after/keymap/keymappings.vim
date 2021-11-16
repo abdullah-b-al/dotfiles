@@ -95,3 +95,5 @@ nmap <leader>ge :lua require("harpoon.ui").nav_file(2)<CR>
 nmap <leader>gi :lua require("harpoon.ui").nav_file(3)<CR>
 " {{{2
 nmap S <Plug>Ysurround
+" {{{2 fugitive
+nnoremap <F1> :tab Git<CR>

@@ -42,7 +42,7 @@ function s() {
 }
 
 function se() {
-    local result=$(find $(pwd) | fzf) 
+    local result=$(find $(pwd) -name ".git" -prune -o -print  | fzf) 
     test -z $result && return
     test -d $result && cd $result || $EDITOR $result
 }

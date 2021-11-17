@@ -112,7 +112,7 @@ cmd('source ' .. after .. '/keymap/keymappings.vim')
 cmd('source ' .. after .. '/colors/color-settings.vim')
 
 --{{{1 Auto commands
-cmd('source ' .. after .. '/auto-commands.vim')
+cmd('source ' .. after .. '/commands.vim')
 
 --{{{1 Lsp server directory
 require('lsps/init')

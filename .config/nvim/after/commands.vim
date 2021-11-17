@@ -1,3 +1,8 @@
+" commands
+command! W :w
+
+
+" auto-commands
 augroup AutoSaveFolds
     autocmd!
     autocmd BufWinEnter * silent! loadview

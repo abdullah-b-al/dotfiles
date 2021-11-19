@@ -15,6 +15,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local mytable       = awful.util.table or gears.table -- 4.{0,1} compatibility
 local revelation    = require("revelation")
 local menubar       = require("menubar")
+local focused       = awful.screen.focused
 
 
 -- }}}
@@ -480,7 +481,21 @@ awful.rules.rules = {
         class = {
             "steam_app"
         }
-    }, properties = { floating = true, screen = 1, tag = "5", fullscreen = true}}
+    }, properties = { floating = true, screen = 1, tag = "5", fullscreen = true}},
+
+    { rule_any = {
+        class = {
+            "st-scratch"
+        },
+    }, properties = {
+            floating = true,
+            center = true,
+            x = focused().geometry.width / 8,
+            y = focused().geometry.height / 8,
+            height = awful.screen.focused().geometry.height * 0.75,
+            width = awful.screen.focused().geometry.width * 0.75,
+        },
+    },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },

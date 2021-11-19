@@ -9,3 +9,5 @@ autocmd FileType zig nmap <buffer> <F8> :VimuxClearTerminalScreen<CR>:VimuxRunCo
 autocmd FileType zig nmap <buffer> <F5> :VimuxClearTerminalScreen<CR>:VimuxRunCommand "zig build run"<CR>
 autocmd FileType c   nmap <buffer> <F8> :VimuxClearTerminalScreen<CR>:VimuxRunCommand "make"<CR>
 autocmd FileType c   nmap <buffer> <F5> :VimuxClearTerminalScreen<CR>:VimuxRunCommand "make run"<CR>
+autocmd FileType asm nmap <buffer> <F8> :VimuxClearTerminalScreen<CR>:VimuxRunCommand "make"<CR>
+autocmd FileType asm nmap <buffer> <F5> :VimuxClearTerminalScreen<CR>:VimuxRunCommand "make run"<CR>

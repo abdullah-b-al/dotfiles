@@ -11,7 +11,7 @@ super + t
     $TERMINAL
 
 super + e ; {e,o,u}
-    st -e $EDITOR { $HOME/.local/documents/notes/aa/tk.md,$HOME/.local/documents/notes/aa/o.md, $HOME/.local/documents/notes/aa/u.md }
+    st -c "st-scratch" -e $EDITOR { $HOME/.local/documents/notes/aa/tk.md,$HOME/.local/documents/notes/aa/o.md, $HOME/.local/documents/notes/aa/u.md }
 
 super + ctrl + x
     xlock -mode blank

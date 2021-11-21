@@ -469,6 +469,11 @@ awful.rules.rules = {
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = false }
     },
+    { rule_any = {
+        class = {
+            "bochs",
+        }
+    }, properties = { floating = false, screen = 2, tag = "2", focus = false } },
 
     { rule_any = {
         class = {

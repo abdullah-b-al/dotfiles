@@ -43,7 +43,6 @@ cmd 'packadd paq-nvim'
 --{{{1 Globals
 g.mapleader = ' '
 g.maplocalleader = ','
-g.colors_name = 'PerfectDark'
 
 
 --{{{1 Plugins

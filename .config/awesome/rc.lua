@@ -472,6 +472,7 @@ awful.rules.rules = {
     { rule_any = {
         class = {
             "bochs",
+            "Bochs",
         }
     }, properties = { floating = false, screen = 2, tag = "2", focus = false } },
 

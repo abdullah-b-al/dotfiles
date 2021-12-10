@@ -75,6 +75,7 @@ require('paq') {
     'ziglang/zig.vim',
     'preservim/vimux',
     'tpope/vim-fugitive',
+    'szw/vim-maximizer',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

@@ -97,3 +97,5 @@ nmap <leader>gi :lua require("harpoon.ui").nav_file(3)<CR>
 nmap S <Plug>Ysurround
 " {{{2 fugitive
 nnoremap <F1> :tab Git<CR>
+" {{{2 vim-maximizer
+noremap <C-w><C-m> :MaximizerToggle<CR>

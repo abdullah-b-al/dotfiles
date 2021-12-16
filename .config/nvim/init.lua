@@ -76,6 +76,7 @@ require('paq') {
     'preservim/vimux',
     'tpope/vim-fugitive',
     'szw/vim-maximizer',
+    'puremourning/vimspector',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

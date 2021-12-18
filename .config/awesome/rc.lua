@@ -594,7 +594,7 @@ function()
     if tag.name == "5" then
         os.execute("redshift -m randr:crtc=0 -x")
     else
-        os.execute("redshift -m randr:crtc=0 -PO 3750")
+        os.execute("redshift -m randr:crtc=0 -PO 6000")
     end
 
 end)

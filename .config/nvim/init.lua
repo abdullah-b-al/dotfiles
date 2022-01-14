@@ -62,7 +62,6 @@ require('paq') {
     'jiangmiao/auto-pairs',
     'tpope/vim-repeat',
     'junegunn/limelight.vim',
-    'junegunn/fzf.vim',
     'andymass/vim-matchup',
     'metakirby5/codi.vim',
     'ThePrimeagen/harpoon',

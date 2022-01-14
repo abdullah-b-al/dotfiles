@@ -57,17 +57,10 @@ nmap _ "_
 " {{{1 Plugin Mappings
 
 " {{{2 Telescope
-nnoremap <leader>tf <cmd>lua require("telescope.builtin").find_files()<CR>
-nnoremap <leader>tg <cmd>lua require("telescope.builtin").live_grep()<CR>
-nnoremap <leader>tb <cmd>lua require("telescope.builtin").buffers()<CR>
-nnoremap <leader>th <cmd>lua require("telescope.builtin").help_tags()<CR>
-
-" {{{2 FZF
-nnoremap <silent> <leader>ff :Files<CR>
-nnoremap <silent> <leader>fg :Rg<CR>
-nnoremap <silent> <leader>fb :Buffers<CR>
-nnoremap <silent> <leader>fh :Helptags<CR>
-
+nnoremap <leader>ff <cmd>lua require("telescope.builtin").find_files()<CR>
+nnoremap <leader>fg <cmd>lua require("telescope.builtin").live_grep()<CR>
+nnoremap <leader>fb <cmd>lua require("telescope.builtin").buffers()<CR>
+nnoremap <leader>fh <cmd>lua require("telescope.builtin").help_tags()<CR>
 " {{{2 easy motion
 
 " {{{3 Global mapping

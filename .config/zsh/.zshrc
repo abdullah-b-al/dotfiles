@@ -47,4 +47,4 @@ bindkey -v
 bindkey -s "^O" popd\\n
 
 eval "$(starship init zsh)"
-test -z $(echo $TMUX) && tmux new-session -A -s "general"
+[ -z "$TMUX" ] && tmux new-session -A -s "general"

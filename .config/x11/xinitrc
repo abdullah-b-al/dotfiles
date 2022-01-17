@@ -10,4 +10,4 @@ else
 fi
 
 # Start WM
-exec awesome 
+exec awesome

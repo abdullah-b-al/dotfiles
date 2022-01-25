@@ -1,5 +1,8 @@
-super + d
-    passmenu
+super + d ; {d,y}
+    {              \
+    passmenu,      \
+    download-yt.sh \
+    }
 
 super + v
     dmenu-pdfs

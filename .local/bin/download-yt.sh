@@ -5,8 +5,31 @@ music_dir="$HOME/.local/music"
 alias down-yt='yt-dlp --extract-audio --audio-format best "$url"'
 
 single_video_download() {
-    title=$(yt-dlp --get-title --no-playlist "$url")
-    if down-yt -P "$music_dir" --no-playlist; then
+    info="$(yt-dlp --get-title --get-description --no-playlist "$url")"
+    title="$(echo "$info" | head -1 )"
+
+    split="Split chapters"
+    one_video="Download as one video"
+    if echo "$info" | grep -P "(\d{1,2}:)?\d{1,2}:\d{1,2}">/dev/null; then
+        to_split_or_not_to_split=$(printf "%s\n%s" "$split" "$one_video" | dmenu)
+        [ -z "$to_split_or_not_to_split" ] && exit
+
+        if [ "$to_split_or_not_to_split" = "$split" ]; then
+            mkdir -p "$music_dir/$title"
+            music_dir="$music_dir/$title"
+            down-yt -P "$music_dir" --split-chapters --no-playlist
+            err="$?"
+        else
+            down-yt -P "$music_dir" --no-playlist
+            err="$?"
+        fi
+
+    else
+        down-yt -P "$music_dir" --no-playlist
+        err="$?"
+    fi
+
+    if [ "$err" -eq 0 ]; then
         notify-send -t 5000 "download-yt.sh" "Downloading '$title' has finished successfully."
     else
         notify-send -u critical "download-yt.sh" "Downloading '$title' failed."

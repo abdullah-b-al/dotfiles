@@ -1,5 +1,5 @@
 #!/bin/sh
-url=$(xclip -selection clipboard -o)
+url="$(xclip -selection clipboard -o)"
 music_dir="$HOME/.local/music"
 
 alias down-yt='yt-dlp --extract-audio --audio-format best "$url"'
@@ -11,7 +11,7 @@ single_video_download() {
     split="Split chapters"
     one_video="Download as one video"
     if echo "$info" | grep -P "(\d{1,2}:)?\d{1,2}:\d{1,2}">/dev/null; then
-        to_split_or_not_to_split=$(printf "%s\n%s" "$split" "$one_video" | dmenu)
+        to_split_or_not_to_split="$(printf "%s\n%s" "$split" "$one_video" | dmenu)"
         [ -z "$to_split_or_not_to_split" ] && exit
 
         if [ "$to_split_or_not_to_split" = "$split" ]; then
@@ -33,6 +33,7 @@ single_video_download() {
         notify-send -t 5000 "download-yt.sh" "Downloading '$title' has finished successfully."
     else
         notify-send -u critical "download-yt.sh" "Downloading '$title' failed."
+        rm -rf "$music_dir/$title"
     fi
 }
 
@@ -57,16 +58,17 @@ if echo "$url" | grep -Ei "(youtube.com/watch|youtu.be).*list">/dev/null; then
     if [ "$choice" = "$single" ]; then
         single_video_download
     elif [ "$choice" = "$full" ]; then
-        dir_name=$(dmenu)
+        dir_name="$(dmenu)"
         # if dir_name is empty give it a random name
-        [ -z "$dir_name" ] && dir_name=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 20 ; echo '')
+        [ -z "$dir_name" ] && dir_name="$(tr -dc A-Za-z0-9 </dev/urandom | head -c 20 ; echo '')"
         mkdir -p "$music_dir/$dir_name"
-        title=$(yt-dlp --get-title "$url")
+        title="$(yt-dlp --get-title "$url")"
 
         if down-yt --yes-playlist -P "$music_dir/$dir_name"; then
             notify-send -t 5000 "download-yt.sh" "Downloading\n--\n$title\n--\nhas finished successfully."
         else
             notify-send -u critical "download-yt.sh" "Downloading playlist failed."
+            rm -rf "$music_dir/$dir_name"
         fi
     fi
 

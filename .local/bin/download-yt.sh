@@ -2,7 +2,7 @@
 url="$(xclip -selection clipboard -o)"
 music_dir="$HOME/.local/music"
 
-alias down-yt='yt-dlp --extract-audio --audio-format best "$url"'
+alias down-yt='yt-dlp --extract-audio --audio-format best "$url" --output "%(title)s.%(ext)s"'
 
 single_video_download() {
     info="$(yt-dlp --get-title --get-description --no-playlist "$url")"

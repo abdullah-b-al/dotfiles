@@ -485,7 +485,8 @@ awful.rules.rules = {
     -- Rules for games
     { rule_any = {
         class = {
-            "steam_app"
+            "steam_app",
+            "deadcells",
         }
     }, properties = { floating = true, screen = 1, tag = "5", fullscreen = true}},
 

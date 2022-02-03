@@ -92,3 +92,5 @@ nmap S <Plug>Ysurround
 nnoremap <F1> :tab Git<CR>
 " {{{2 vim-maximizer
 noremap <C-w><C-m> :MaximizerToggle<CR>
+" {{{2 vim-easy-align
+vmap ga <Plug>(EasyAlign)

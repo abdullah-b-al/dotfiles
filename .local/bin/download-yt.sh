@@ -12,7 +12,7 @@ single_video_download() {
     one_video="Download as one video"
     if echo "$info" | grep -P "(\d{1,2}:)?\d{1,2}:\d{1,2}">/dev/null; then
         to_split_or_not_to_split="$(printf "%s\n%s" "$split" "$one_video" | dmenu)"
-        [ -z "$to_split_or_not_to_split" ] && exit
+        [ -z "$to_split_or_not_to_split" ] && exit 1
 
         if [ "$to_split_or_not_to_split" = "$split" ]; then
             mkdir -p "$music_dir/$title"
@@ -34,17 +34,23 @@ single_video_download() {
     else
         notify-send -u critical "download-yt.sh" "Downloading '$title' failed."
         rm -rf "$music_dir/$title"
+        exit 1
     fi
 }
 
 if ! command -v yt-dlp > /dev/null; then
     notify-send -t 5000 -u critical "download-yt.sh" "'yt-dlp' isn't installed."
-    exit
+    exit 1
 fi
 
 if echo "$url" | grep -Ei "youtube.com/channel">/dev/null; then
     notify-send -t 3000 -u critical "download-yt.sh" "Link of channel. Exiting..."
-    exit
+    exit 1
+fi
+
+if ! ( echo "$url" | grep -Ei "youtube.com" ); then
+    notify-send -t 3000 -u critical "download-yt.sh" "Input isn't a youtube url"
+    exit 1
 fi
 
 notify-send -t 2000 "download-yt.sh" "Running..."
@@ -75,6 +81,4 @@ if echo "$url" | grep -Ei "(youtube.com/watch|youtu.be).*list">/dev/null; then
 # Single video link
 elif echo "$url" | grep -Ei "(youtube.com/watch|youtu.be)">/dev/null; then
     single_video_download
-else
-    notify-send -t 3000 -u critical "download-yt.sh" "Input isn't a youtube url"
 fi

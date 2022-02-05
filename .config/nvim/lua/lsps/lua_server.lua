@@ -1,18 +1,14 @@
-local home = vim.env.HOME
-local lsp_servers = home .. '/.local/share/lsp-servers'
-local sumneko_root_path = lsp_servers .. '/lua-language-server'
-local sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
+local cfg = require("lsps/lsp_signature")
+local dir = 'lsps'
+local path = os.getenv('HOME') .. '/.local/share/nvim/lsp_servers'
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-local cfg = require("lsps/lsp_signature")
-local dir = 'lsps'
-
-require('lspconfig').sumneko_lua.setup {
+require('lspconfig'). sumneko_lua.setup {
     on_attach = require(dir .. '/lsp_on_attach'),
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+    cmd = {path .. '/sumneko_lua/extension/server/bin/lua-language-server'};
     settings = {
         Lua = {
             runtime = {

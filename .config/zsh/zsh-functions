@@ -36,13 +36,13 @@ function s() {
     local ignore_dir=".*local/share|.*local/lib|.*clj-kondo/.cache|.*dotfiles/.config/zsh/plugins|.*git|.*awesome/lain|.*awesome/freedesktop|.*ccls-cache"
     local result=$(find "$DOTFILESDIR" "$HOME/.local" "$HOME/.config/st" \( -regextype posix-egrep -regex $ignore_dir \) -prune -o -print \
                     | grep -E -v "$ignore_file" \
-                    | fzf) 
+                    | fzf --layout=reverse --height=1%) 
     test -z $result && return
     test -d $result && cd $result || $EDITOR $result
 }
 
 function se() {
-    local result=$(find $(pwd) -name ".git" -prune -o -print  | fzf) 
+    local result=$(find $(pwd) -name ".git" -prune -o -print  | fzf --layout=reverse --height=1%) 
     test -z $result && return
     test -d $result && cd $result || $EDITOR $result
 }

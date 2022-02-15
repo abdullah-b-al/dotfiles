@@ -108,6 +108,7 @@ require('plugin/init')
 
 --{{{1 Mappings
 cmd('source ' .. after .. '/keymap/keymappings.vim')
+cmd('source ' .. after .. '/keymap/debug.vim')
 
 --{{{1 Color settings
 cmd('source ' .. after .. '/colors/color-settings.vim')

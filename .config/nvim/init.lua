@@ -77,6 +77,7 @@ require('paq') {
     'szw/vim-maximizer',
     'puremourning/vimspector',
     'junegunn/vim-easy-align',
+    'TaDaa/vimade',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

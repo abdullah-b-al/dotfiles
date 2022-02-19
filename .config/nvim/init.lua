@@ -78,6 +78,7 @@ require('paq') {
     'puremourning/vimspector',
     'junegunn/vim-easy-align',
     'TaDaa/vimade',
+    'nvim-treesitter/nvim-treesitter',
 
     -- Movement plugins
     'easymotion/vim-easymotion',

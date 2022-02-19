@@ -79,6 +79,7 @@ require('paq') {
     'junegunn/vim-easy-align',
     'TaDaa/vimade',
     'nvim-treesitter/nvim-treesitter',
+    'lukas-reineke/indent-blankline.nvim',
 
     -- color schemes
     'ellisonleao/gruvbox.nvim',

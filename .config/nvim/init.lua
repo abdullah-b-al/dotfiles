@@ -80,6 +80,9 @@ require('paq') {
     'TaDaa/vimade',
     'nvim-treesitter/nvim-treesitter',
 
+    -- color schemes
+    'ellisonleao/gruvbox.nvim',
+
     -- Movement plugins
     'easymotion/vim-easymotion',
     'unblevable/quick-scope',

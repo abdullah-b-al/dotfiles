@@ -1,4 +1,5 @@
 local cmp = require'cmp'
+local lspkind = require('lspkind')
 
 vim.opt.completeopt = {'menuone', 'preview'}
 
@@ -18,5 +19,16 @@ cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
         { name = 'vsnip' },
-    }
+    },
+    formatting = {
+        format = lspkind.cmp_format({
+            with_text = true,
+            mode = 'text',
+            menu = {
+                buffer   = '[BUF]',
+                nvim_lsp = '[LSP]',
+                vsnip    = '[VSNIP]',
+            },
+        })
+    },
 })

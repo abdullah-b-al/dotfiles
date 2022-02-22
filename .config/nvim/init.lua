@@ -37,7 +37,7 @@ opt.viewoptions    = 'cursor,folds'                                 -- save/rest
 
 
 --{{{1 Commands
-cmd 'packadd paq-nvim'
+cmd 'packadd packer.nvim'
 
 
 --{{{1 Globals
@@ -46,69 +46,76 @@ g.maplocalleader = ','
 
 
 --{{{1 Plugins
--- Auto-install paq
-local install_path = fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
+-- Auto-install packer
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+
 if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', install_path})
+    fn.system({'git', 'clone', '--depth=1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
-require('paq') {
-    {'savq/paq-nvim', opt = true},                             -- paq-nvim manages itself
-    'romainl/vim-cool',                                        -- disables search highlighting when you are done searching and re-enables it when you search again.
-    'christoomey/vim-system-copy',                             -- Requires xsel
-    'ap/vim-css-color',
-    'tpope/vim-surround',
-    'joom/vim-commentary',
-    'michaeljsmith/vim-indent-object',
-    'jiangmiao/auto-pairs',
-    'tpope/vim-repeat',
-    'junegunn/limelight.vim',
-    'andymass/vim-matchup',
-    'metakirby5/codi.vim',
-    'ThePrimeagen/harpoon',
-    'guns/vim-sexp',
-    'tpope/vim-sexp-mappings-for-regular-people',
-    'Olical/conjure',
-    'nvim-lualine/lualine.nvim',
-    'kyazdani42/nvim-web-devicons',
-    'wellle/targets.vim',
-    'ziglang/zig.vim',
-    'preservim/vimux',
-    'tpope/vim-fugitive',
-    'szw/vim-maximizer',
-    'puremourning/vimspector',
-    'junegunn/vim-easy-align',
-    'TaDaa/vimade',
-    'nvim-treesitter/nvim-treesitter',
-    'lukas-reineke/indent-blankline.nvim',
+
+local packer = require "packer"
+local use    = packer.use
+packer.startup(function()
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
+    -- disables search highlighting when you are done searching and re-enables it when you search again.
+    use 'romainl/vim-cool'
+    -- Requires xsel
+    use 'christoomey/vim-system-copy'
+    use 'ap/vim-css-color'
+    use 'tpope/vim-surround'
+    use 'joom/vim-commentary'
+    use 'michaeljsmith/vim-indent-object'
+    use 'jiangmiao/auto-pairs'
+    use 'tpope/vim-repeat'
+    use 'junegunn/limelight.vim'
+    use 'andymass/vim-matchup'
+    use 'metakirby5/codi.vim'
+    use 'ThePrimeagen/harpoon'
+    use 'guns/vim-sexp'
+    use 'tpope/vim-sexp-mappings-for-regular-people'
+    use 'Olical/conjure'
+    use 'nvim-lualine/lualine.nvim'
+    use 'kyazdani42/nvim-web-devicons'
+    use 'wellle/targets.vim'
+    use 'ziglang/zig.vim'
+    use 'preservim/vimux'
+    use 'tpope/vim-fugitive'
+    use 'szw/vim-maximizer'
+    use 'puremourning/vimspector'
+    use 'junegunn/vim-easy-align'
+    use 'TaDaa/vimade'
+    use 'nvim-treesitter/nvim-treesitter'
+    use 'lukas-reineke/indent-blankline.nvim'
 
     -- color schemes
-    'ellisonleao/gruvbox.nvim',
+    use 'ellisonleao/gruvbox.nvim'
 
     -- Movement plugins
-    'easymotion/vim-easymotion',
-    'unblevable/quick-scope',
+    use 'easymotion/vim-easymotion'
+    use 'unblevable/quick-scope'
 
     -- Completion and snippets
-    'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-vsnip',
-    'hrsh7th/vim-vsnip',
-    'hrsh7th/vim-vsnip-integ',
-    'rafamadriz/friendly-snippets',
-    'onsails/lspkind-nvim',
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-vsnip'
+    use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/vim-vsnip-integ'
+    use 'rafamadriz/friendly-snippets'
+    use 'onsails/lspkind-nvim'
 
     -- Lsp
-    'neovim/nvim-lspconfig',
-    'ray-x/lsp_signature.nvim',
-    'simrat39/symbols-outline.nvim',
-    'williamboman/nvim-lsp-installer',
+    use 'neovim/nvim-lspconfig'
+    use 'ray-x/lsp_signature.nvim'
+    use 'simrat39/symbols-outline.nvim'
+    use 'williamboman/nvim-lsp-installer'
 
     -- Telescope
     -- ripgrep needs to be installed for live_grep and similar picker to work
-    'nvim-lua/popup.nvim',
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim',
-}
+    use 'nvim-lua/popup.nvim'
+    use 'nvim-lua/plenary.nvim'
+    use 'nvim-telescope/telescope.nvim'
+end)
 
 --{{{1 config of plugins in lua
 require('plugin/init')

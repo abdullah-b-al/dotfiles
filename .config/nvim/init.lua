@@ -76,6 +76,10 @@ packer.startup(function()
     use 'lukas-reineke/indent-blankline.nvim'
     use 'nvim-lualine/lualine.nvim'
     use 'junegunn/vim-easy-align'
+    use {
+        'kyazdani42/nvim-tree.lua',
+        config = function() require'nvim-tree'.setup {} end
+    }
 
     -- color schemes
     use 'ellisonleao/gruvbox.nvim'

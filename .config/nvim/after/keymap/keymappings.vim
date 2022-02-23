@@ -1,6 +1,9 @@
 " {{{1 Toggle spell on and off
 nmap <silent> <F12> :set spell!<CR>
 
+" {{{1 source init.lua
+nnoremap <F5> :source ~/.config/nvim/init.lua<CR>
+
 " {{{1 Map ,, to find previous char without triggering other localleader commands
 nnoremap <localleader>, :norm ,<CR>
 
@@ -54,43 +57,3 @@ nnoremap <expr> j (v:count >= 5 ? "m'" . v:count : '') . 'gj'
 " {{{1 Quicker access to the black hole register
 nmap _ "_
 
-" {{{1 Plugin Mappings
-
-" {{{2 Telescope
-nnoremap <leader>ff <cmd>lua require("telescope.builtin").find_files()<CR>
-nnoremap <leader>fg <cmd>lua require("telescope.builtin").live_grep()<CR>
-nnoremap <leader>fb <cmd>lua require("telescope.builtin").buffers()<CR>
-nnoremap <leader>fh <cmd>lua require("telescope.builtin").help_tags()<CR>
-" {{{2 easy motion
-
-" {{{3 Global mapping
-map <leader>; <Plug>(easymotion-next)
-map <leader>, <Plug>(easymotion-prev)
-
-" {{{3 Multi line
-map <leader>f <Plug>(easymotion-bd-f)
-map <leader>t <Plug>(easymotion-bd-t)
-map <leader>b <Plug>(easymotion-bd-t2)
-map s         <Plug>(easymotion-s2)
-
-" {{{3 Multi line Overwindows
-nmap <leader>wl <Plug>(easymotion-overwin-line)
-
-" {{{2 Limelight
-nmap <leader>lt <Plug>(Limelight)
-xmap <leader>lt <Plug>(Limelight)
-nnoremap <silent> <leader>l :Limelight!!<CR>
-" {{{2 Harpoon
-nmap <leader>gg <cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>
-nmap <leader>ga :lua require("harpoon.mark").add_file()<CR>
-nmap <leader>gn :lua require("harpoon.ui").nav_file(1)<CR>
-nmap <leader>ge :lua require("harpoon.ui").nav_file(2)<CR>
-nmap <leader>gi :lua require("harpoon.ui").nav_file(3)<CR>
-" {{{2
-nmap S <Plug>Ysurround
-" {{{2 fugitive
-nnoremap <F1> :tab Git<CR>
-" {{{2 vim-maximizer
-noremap <C-w><C-m> :MaximizerToggle<CR>
-" {{{2 vim-easy-align
-vmap ga <Plug>(EasyAlign)

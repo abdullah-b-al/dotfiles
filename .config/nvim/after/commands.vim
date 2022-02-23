@@ -3,6 +3,9 @@ command! W :w
 
 
 " auto-commands
+autocmd FileType NvimTree :VimadeBufDisable
+
+" augrops
 augroup AutoSaveFolds
     autocmd!
     autocmd BufWinEnter * silent! loadview
@@ -17,3 +20,4 @@ augroup highlight_yanked
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=100}
 augroup END
+

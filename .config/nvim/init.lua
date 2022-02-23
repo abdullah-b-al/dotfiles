@@ -76,10 +76,9 @@ packer.startup(function()
     use 'lukas-reineke/indent-blankline.nvim'
     use 'nvim-lualine/lualine.nvim'
     use 'junegunn/vim-easy-align'
-    use {
-        'kyazdani42/nvim-tree.lua',
-        config = function() require'nvim-tree'.setup {} end
-    }
+    use 'kyazdani42/nvim-tree.lua'
+
+
 
     -- color schemes
     use 'ellisonleao/gruvbox.nvim'
@@ -153,6 +152,7 @@ packer.startup(function()
         'TaDaa/vimade',
         opt = true,
         event = {  'WinEnter', 'WinNew' },
+        cmd = { 'VimadeBufDisable' }
     }
     use {
         -- ripgrep needs to be installed for live_grep and similar picker to work

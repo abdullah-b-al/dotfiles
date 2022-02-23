@@ -4,4 +4,5 @@ return {
     require(dir .. '/nvim-cmp'),
     require(dir .. '/tree-sitter'),
     require(dir .. '/indent-line'),
+    require(dir .. '/nvim-tree'),
 }

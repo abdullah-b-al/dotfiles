@@ -28,3 +28,5 @@ nnoremap <F1> :tab Git<CR>
 noremap <C-w><C-m> :MaximizerToggle<CR>
 " {{{1 vim-easy-align
 vmap ga <Plug>(EasyAlign)
+" {{{1 Nvim-tree
+nnoremap <leader>fo :NvimTreeToggle<CR>

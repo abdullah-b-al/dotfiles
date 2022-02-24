@@ -59,4 +59,10 @@ nnoremap <expr> j (v:count >= 5 ? "m'" . v:count : '') . 'gj'
 
 " {{{1 Quicker access to the black hole register
 nmap _ "_
-
+" {{{1 quickfix mappings
+nmap <C-l> :cnext<CR>
+nmap <C-h> :cprev<CR>
+nmap <C-q> :copen<CR>
+nmap <localleader><C-l> :lnext<CR>
+nmap <localleader><C-h> :lprev<CR>
+nmap <localleader><C-q> :lopen<CR>

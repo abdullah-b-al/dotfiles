@@ -11,9 +11,9 @@ local lua_config    = 'config'
 
 
 --{{{1 Options
-opt.tabstop        = 4                                              -- Tab width in spaces
-opt.softtabstop    = 4                                              -- Tab width in spaces when performing editing operations
-opt.shiftwidth     = 4                                              -- Number of spaces to use for each step of (auto)indent
+opt.tabstop        = 2                                              -- Tab width in spaces
+opt.softtabstop    = 2                                              -- Tab width in spaces when performing editing operations
+opt.shiftwidth     = 2                                              -- Number of spaces to use for each step of (auto)indent
 opt.updatetime     = 1000
 opt.timeoutlen     = 300
 

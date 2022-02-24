@@ -1,13 +1,13 @@
 function _G.harpooning(command, number)
-    vim.cmd 'PackerLoad harpoon'
+  vim.cmd 'PackerLoad harpoon'
 
-    if command == "open" then
-        require("harpoon.ui").toggle_quick_menu()
-    elseif command == 'add_file' then
-        require("harpoon.mark").add_file()
-    elseif command == 'nav_file' then
-        require("harpoon.ui").nav_file(number)
-    end
+  if command == "open" then
+    require("harpoon.ui").toggle_quick_menu()
+  elseif command == 'add_file' then
+    require("harpoon.mark").add_file()
+  elseif command == 'nav_file' then
+    require("harpoon.ui").nav_file(number)
+  end
 end
 
 local map = vim.api.nvim_set_keymap

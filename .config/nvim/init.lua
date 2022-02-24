@@ -51,139 +51,139 @@ g.maplocalleader = ','
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth=1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  fn.system({'git', 'clone', '--depth=1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
 local packer = require "packer"
 local use    = packer.use
 
 packer.startup(function()
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
-    use 'nvim-lua/plenary.nvim'       -- Never uninstall
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
+  use 'nvim-lua/plenary.nvim'       -- Never uninstall
 
-    use 'romainl/vim-cool'            -- disables search highlighting when you are done searching and re-enables it when you search again.
-    use 'christoomey/vim-system-copy' -- Requires xsel
-    use 'ap/vim-css-color'
-    use 'tpope/vim-surround'
-    use 'joom/vim-commentary'
-    use 'tpope/vim-repeat'
-    use 'andymass/vim-matchup'
-    use 'kyazdani42/nvim-web-devicons'
-    use 'wellle/targets.vim'
-    use 'jiangmiao/auto-pairs'
-    use 'nvim-treesitter/nvim-treesitter'
-    use 'lukas-reineke/indent-blankline.nvim'
-    use 'nvim-lualine/lualine.nvim'
-    use 'junegunn/vim-easy-align'
-    use 'kyazdani42/nvim-tree.lua'
-    use 'karb94/neoscroll.nvim'
+  use 'romainl/vim-cool'            -- disables search highlighting when you are done searching and re-enables it when you search again.
+  use 'christoomey/vim-system-copy' -- Requires xsel
+  use 'ap/vim-css-color'
+  use 'tpope/vim-surround'
+  use 'joom/vim-commentary'
+  use 'tpope/vim-repeat'
+  use 'andymass/vim-matchup'
+  use 'kyazdani42/nvim-web-devicons'
+  use 'wellle/targets.vim'
+  use 'jiangmiao/auto-pairs'
+  use 'nvim-treesitter/nvim-treesitter'
+  use 'lukas-reineke/indent-blankline.nvim'
+  use 'nvim-lualine/lualine.nvim'
+  use 'junegunn/vim-easy-align'
+  use 'kyazdani42/nvim-tree.lua'
+  use 'karb94/neoscroll.nvim'
 
 
 
-    -- color schemes
-    use 'ellisonleao/gruvbox.nvim'
+  -- color schemes
+  use 'ellisonleao/gruvbox.nvim'
 
-    -- Movement plugins
-    use 'easymotion/vim-easymotion'
-    use 'unblevable/quick-scope'
+  -- Movement plugins
+  use 'easymotion/vim-easymotion'
+  use 'unblevable/quick-scope'
 
-    -- Completion and snippets
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-vsnip'
-    use 'hrsh7th/vim-vsnip'
-    use 'hrsh7th/vim-vsnip-integ'
-    use 'rafamadriz/friendly-snippets'
-    use 'onsails/lspkind-nvim'
+  -- Completion and snippets
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'
+  use 'hrsh7th/vim-vsnip-integ'
+  use 'rafamadriz/friendly-snippets'
+  use 'onsails/lspkind-nvim'
 
-    -- Lsp
-    use 'neovim/nvim-lspconfig'
-    use 'ray-x/lsp_signature.nvim'
+  -- Lsp
+  use 'neovim/nvim-lspconfig'
+  use 'ray-x/lsp_signature.nvim'
 
-    -- Lazy loaded plugins
-    use {
-        'williamboman/nvim-lsp-installer',
-        opt = true,
-        cmd = { 'LspInstall', 'LspInstallInfo', 'LspInstallLog', 'LspPrintInstalled' },
+  -- Lazy loaded plugins
+  use {
+    'williamboman/nvim-lsp-installer',
+    opt = true,
+    cmd = { 'LspInstall', 'LspInstallInfo', 'LspInstallLog', 'LspPrintInstalled' },
+  }
+  use {
+    'michaeljsmith/vim-indent-object',
+    opt = true,
+    ft  = { 'lua' }
+  }
+  use {
+    'junegunn/limelight.vim',
+    opt = true,
+    cmd = { 'Limelight' }
+  }
+  use {
+    'metakirby5/codi.vim',
+    opt = true,
+    cmd = { 'Codi' },
+    config = 'source ' .. viml_config .. '/codi.vim'
+  }
+  use {
+    'guns/vim-sexp',
+    opt = true,
+    ft = { 'clojure' },
+    config = 'source ' .. viml_config .. '/vim-sexp.vim'
+  }
+  use {
+    'tpope/vim-sexp-mappings-for-regular-people',
+    opt = true,
+    ft = { 'clojure' },
+  }
+  use {
+    'Olical/conjure',
+    opt = true,
+    ft = { 'clojure' },
+  }
+  use {
+    'ziglang/zig.vim',
+    opt = true,
+    ft = { 'zig' },
+  }
+  use {
+    'szw/vim-maximizer',
+    opt = true,
+    event = {  'WinEnter', 'WinNew' },
+  }
+  use {
+    'TaDaa/vimade',
+    opt = true,
+    event = {  'WinEnter', 'WinNew' },
+    cmd = { 'VimadeBufDisable' }
+  }
+  use {
+    -- ripgrep needs to be installed for live_grep and similar picker to work
+    'nvim-telescope/telescope.nvim',
+    opt = true,
+    cmd = { 'Telescope' },
+    requires = {
+    { 'nvim-lua/popup.nvim', opt = true },
     }
-    use {
-        'michaeljsmith/vim-indent-object',
-        opt = true,
-        ft  = { 'lua' }
-    }
-    use {
-        'junegunn/limelight.vim',
-        opt = true,
-        cmd = { 'Limelight' }
-    }
-    use {
-        'metakirby5/codi.vim',
-        opt = true,
-        cmd = { 'Codi' },
-        config = 'source ' .. viml_config .. '/codi.vim'
-    }
-    use {
-        'guns/vim-sexp',
-        opt = true,
-        ft = { 'clojure' },
-        config = 'source ' .. viml_config .. '/vim-sexp.vim'
-    }
-    use {
-        'tpope/vim-sexp-mappings-for-regular-people',
-        opt = true,
-        ft = { 'clojure' },
-    }
-    use {
-        'Olical/conjure',
-        opt = true,
-        ft = { 'clojure' },
-    }
-    use {
-        'ziglang/zig.vim',
-        opt = true,
-        ft = { 'zig' },
-    }
-    use {
-        'szw/vim-maximizer',
-        opt = true,
-        event = {  'WinEnter', 'WinNew' },
-    }
-    use {
-        'TaDaa/vimade',
-        opt = true,
-        event = {  'WinEnter', 'WinNew' },
-        cmd = { 'VimadeBufDisable' }
-    }
-    use {
-        -- ripgrep needs to be installed for live_grep and similar picker to work
-        'nvim-telescope/telescope.nvim',
-        opt = true,
-        cmd = { 'Telescope' },
-        requires = {
-            { 'nvim-lua/popup.nvim', opt = true },
-        }
-    }
-    use {
-        'puremourning/vimspector',
-        opt = true,
-        ft = { 'c', 'cpp' },
-    }
-    use {
-        'tpope/vim-fugitive',
-        opt = true,
-        cmd = { 'Git', 'G' },
-    }
-    use {
-        -- Can't get it to lazy load automatically. Manually loaded in harpoon.lua
-        'ThePrimeagen/harpoon',
-        opt = true,
-    }
-    use {
-        'simrat39/symbols-outline.nvim',
-        opt = true,
-        cmd = { 'SymbolsOutline' },
-    }
+  }
+  use {
+    'puremourning/vimspector',
+    opt = true,
+    ft = { 'c', 'cpp' },
+  }
+  use {
+    'tpope/vim-fugitive',
+    opt = true,
+    cmd = { 'Git', 'G' },
+  }
+  use {
+    -- Can't get it to lazy load automatically. Manually loaded in harpoon.lua
+    'ThePrimeagen/harpoon',
+    opt = true,
+  }
+  use {
+    'simrat39/symbols-outline.nvim',
+    opt = true,
+    cmd = { 'SymbolsOutline' },
+  }
 end)
 
 --{{{1 config of plugins in lua

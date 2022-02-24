@@ -5,4 +5,5 @@ return {
     require(dir .. '/tree-sitter'),
     require(dir .. '/indent-line'),
     require(dir .. '/nvim-tree'),
+    require(dir .. '/neoscroll'),
 }

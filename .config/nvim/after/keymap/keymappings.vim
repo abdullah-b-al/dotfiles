@@ -47,8 +47,8 @@ nnoremap <silent> <leader>cc :set cursorcolumn!<CR>
 nnoremap // /\c
 
 " {{{1 Center cursor after a half page scroll without polluting the jump list
-nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zz
+" nnoremap <C-d> <C-d>zz
+" nnoremap <C-u> <C-u>zz
 
 " {{{1 Add large j and k movements to the jump list
 nnoremap <expr> k (v:count >= 5 ? "m'" . v:count : '') . 'gk'

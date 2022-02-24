@@ -8,7 +8,7 @@ else
     nnoremap <F5> :source ~/.config/nvim/init.lua<CR>:echo "Reloaded configs but :PackerCompile isn't here"<CR>
 endif
 " {{{1 Map ,, to find previous char without triggering other localleader commands
-nnoremap <localleader>, :norm ,<CR>
+nnoremap <silent> <localleader>, :norm ,<CR>
 
 " {{{1 Terminal mode setting for NeoVim
 tnoremap <C-n><Esc> <C-\><C-n>

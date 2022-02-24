@@ -1,9 +1,12 @@
 " {{{1 Toggle spell on and off
 nmap <silent> <F12> :set spell!<CR>
 
-" {{{1 source init.lua
-nnoremap <F5> :source ~/.config/nvim/init.lua<CR>
-
+" {{{1 Resource init.lua
+if exists(':PackerCompile')
+    nnoremap <F5> :source ~/.config/nvim/init.lua<CR>:PackerCompile<CR>
+else
+    nnoremap <F5> :source ~/.config/nvim/init.lua<CR>:echo "Reloaded configs but :PackerCompile isn't here"<CR>
+endif
 " {{{1 Map ,, to find previous char without triggering other localleader commands
 nnoremap <localleader>, :norm ,<CR>
 

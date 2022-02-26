@@ -66,3 +66,6 @@ nmap <C-q> :copen<CR>
 nmap <localleader><C-l> :lnext<CR>
 nmap <localleader><C-h> :lprev<CR>
 nmap <localleader><C-q> :lopen<CR>
+
+" {{{1 Map the annoying q: to :
+nnoremap q: :

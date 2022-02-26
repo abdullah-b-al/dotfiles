@@ -9,5 +9,5 @@ xdg-open "$( du -ah "$path_pdfs" \
     | cut -f2                    \
     | tr '/' '\n'                \
     | grep "\.pdf$"              \
-    | dmenu                      \
+    | dmenu -matching fuzzy      \
     | xargs -I % find "$path_pdfs" -name % )"

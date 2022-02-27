@@ -69,3 +69,10 @@ nmap <localleader><C-q> :lopen<CR>
 
 " {{{1 Map the annoying q: to :
 nnoremap q: :
+
+" {{{1 Nicer tab switching
+nnoremap <silent> <leader>1 1gt
+nnoremap <silent> <leader>2 2gt
+nnoremap <silent> <leader>3 3gt
+nnoremap <silent> <leader>4 4gt
+nnoremap <silent> <leader>5 5gt

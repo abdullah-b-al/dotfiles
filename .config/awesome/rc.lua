@@ -143,7 +143,7 @@ awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) 
 
 globalkeys = mytable.join(
     -- Destroy all notifications
-    awful.key({ "Control",           }, "space", function() naughty.destroy_all_notifications() end,
+    awful.key({ modkey, "Control",}, "space", function() naughty.destroy_all_notifications() end,
               {description = "destroy all notifications", group = "hotkeys"}),
 
     -- Show help

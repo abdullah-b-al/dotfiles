@@ -28,8 +28,8 @@ require('nvim-tree').setup {
   hijack_cursor = false,
   update_cwd = false,
   update_to_buf_dir = {
-    enable = true,
-    auto_open = true,
+    enable = false,
+    auto_open = false,
   },
   diagnostics = {
     enable = true,
@@ -41,8 +41,8 @@ require('nvim-tree').setup {
     },
   },
   update_focused_file = {
-    enable = true,
-    update_cwd = true,
+    enable = false,
+    update_cwd = false,
     ignore_list = {},
   },
   git = {

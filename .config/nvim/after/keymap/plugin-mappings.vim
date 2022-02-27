@@ -32,3 +32,5 @@ vmap ga <Plug>(EasyAlign)
 nnoremap <leader>fo :NvimTreeToggle<CR>
 " {{{1 Vimade
 nnoremap <leader>vt :VimadeToggle<CR>
+" {{{1 SymbolsOutline
+nnoremap <leader>ol :SymbolsOutline<CR>

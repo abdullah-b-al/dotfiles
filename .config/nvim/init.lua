@@ -153,7 +153,7 @@ packer.startup(function()
     'TaDaa/vimade',
     opt = true,
     event = {  'WinEnter', 'WinNew' },
-    cmd = { 'VimadeBufDisable' }
+    cmd = { 'VimadeBufDisable', 'VimadeToggle' }
   }
   use {
     -- ripgrep needs to be installed for live_grep and similar picker to work

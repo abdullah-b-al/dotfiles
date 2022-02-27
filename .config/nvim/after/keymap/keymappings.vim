@@ -63,9 +63,9 @@ nmap _ "_
 nmap <C-l> :cnext<CR>
 nmap <C-h> :cprev<CR>
 nmap <C-q> :copen<CR>
-nmap <localleader><C-l> :lnext<CR>
-nmap <localleader><C-h> :lprev<CR>
-nmap <localleader><C-q> :lopen<CR>
+nmap <C-Space><C-l> :lnext<CR>
+nmap <C-Space><C-h> :lprev<CR>
+nmap <C-Space><C-q> :lopen<CR>
 
 " {{{1 Map the annoying q: to :
 " nnoremap q: :

@@ -11,7 +11,7 @@ endif
 nnoremap <silent> <localleader>, :norm ,<CR>
 
 " {{{1 Terminal mode setting for NeoVim
-tnoremap <C-n><Esc> <C-\><C-n>
+tnoremap <Esc><Esc> <C-\><C-n>
 
 " {{{1 Diff since last save
 nmap <leader>d :w !diff % -<CR>

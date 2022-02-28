@@ -216,6 +216,31 @@ globalkeys = mytable.join(
   {description = "toggle wibox", group = "awesome"}),
 
   -- Standard program 
+  awful.key({ modkey, }, 't', function ()
+
+    local clients =  awful.screen.focused().all_clients
+
+    for _, client in ipairs(clients) do
+      local name = client.name
+
+      if string.match(tostring(name), 'st') then
+        naughty.notify {
+          title = 'You already have a terminal window open on this screen.',
+        }
+        return
+      end
+    end
+
+    -- If no terminals are open on screen open a new one
+    awful.spawn(terminal)
+  end,
+  {description = "Open a terminal if none-exist on focused screen", group = "launcher"}),
+
+  awful.key({ modkey, "Shift"}, "t", function ()
+    awful.spawn(terminal)
+  end,
+  {description = "Force open a terminal", group = "launcher"}),
+
   awful.key({ modkey }, "z", function() menubar.show() end,
   {description = "show the menubar", group = "launcher"}),
   awful.key({ modkey, "Control" }, "r", awesome.restart,

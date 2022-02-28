@@ -10,9 +10,6 @@ super + v
 super + w
     feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/*
     
-super + t
-    $TERMINAL
-
 super + e ; {e,o,u,a}
     st -c "st-scratch" -e $EDITOR { \
         $HOME/.local/documents/notes/aa/tk.md, \

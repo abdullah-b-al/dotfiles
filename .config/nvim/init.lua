@@ -160,9 +160,9 @@ packer.startup(function()
     'nvim-telescope/telescope.nvim',
     opt = true,
     cmd = { 'Telescope' },
-    requires = {
-    { 'nvim-lua/popup.nvim', opt = true },
-    }
+    -- requires = {
+    -- { 'nvim-lua/popup.nvim', opt = true },
+    -- }
   }
   use {
     'puremourning/vimspector',

@@ -6,4 +6,5 @@ return {
   require(dir .. '/indent-line'),
   require(dir .. '/nvim-tree'),
   require(dir .. '/neoscroll'),
+  require(dir .. '/autopairs'),
 }

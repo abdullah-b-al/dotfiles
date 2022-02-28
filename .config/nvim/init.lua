@@ -71,15 +71,13 @@ packer.startup(function()
   use 'andymass/vim-matchup'
   use 'kyazdani42/nvim-web-devicons'
   use 'wellle/targets.vim'
-  use 'jiangmiao/auto-pairs'
+  use 'windwp/nvim-autopairs'
   use 'nvim-treesitter/nvim-treesitter'
   use 'lukas-reineke/indent-blankline.nvim'
   use 'nvim-lualine/lualine.nvim'
   use 'junegunn/vim-easy-align'
   use 'kyazdani42/nvim-tree.lua'
   use 'karb94/neoscroll.nvim'
-
-
 
   -- color schemes
   use 'ellisonleao/gruvbox.nvim'

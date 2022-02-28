@@ -21,3 +21,6 @@ autopairs.setup({
     lua = {'string'},-- it will not add a pair on that treesitter node
   }
 })
+
+local cmp_auto_pairs = require('nvim-autopairs.completion.cmp')
+require('cmp').event:on("confirm_done", cmp_auto_pairs.on_confirm_done( {map_char = { tex = ""}} ) )

@@ -7,4 +7,5 @@ return {
   require(dir .. '/nvim-tree'),
   require(dir .. '/neoscroll'),
   require(dir .. '/autopairs'),
+  require(dir .. '/gitsigns'),
 }

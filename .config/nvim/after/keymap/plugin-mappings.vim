@@ -34,3 +34,5 @@ nnoremap <leader>fo :NvimTreeToggle<CR>
 nnoremap <leader>vt :VimadeToggle<CR>
 " {{{1 SymbolsOutline
 nnoremap <leader>ol :SymbolsOutline<CR>
+" {{{1 Gitsings
+nnoremap <leader>hp :Gitsigns preview_hunk<CR>

@@ -225,7 +225,8 @@ globalkeys = mytable.join(
 
       if string.match(tostring(name), 'st') then
         naughty.notify {
-          title = 'You already have a terminal window open on this screen.',
+          title = 'Terminal already open',
+          text =  'Tag ' .. client.first_tag.name,
         }
         return
       end

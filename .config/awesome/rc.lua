@@ -223,7 +223,7 @@ globalkeys = mytable.join(
     for _, client in ipairs(clients) do
       local name = client.name
 
-      if string.match(tostring(name), 'st') then
+      if string.match(tostring(name), '^' .. terminal ..'$') then
         naughty.notify {
           title = 'Terminal already open',
           text =  'Tag ' .. client.first_tag.name,

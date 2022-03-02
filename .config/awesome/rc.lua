@@ -189,7 +189,7 @@ globalkeys = mytable.join(
   {description = "focus the next screen", group = "screen"}),
   awful.key({ modkey, "Control" }, "h", function () awful.screen.focus_relative(-1) end,
   {description = "focus the previous screen", group = "screen"}),
-  awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
+  awful.key({ modkey, "Shift" }, "u", awful.client.urgent.jumpto,
   {description = "jump to urgent client", group = "client"}),
   awful.key({ modkey,           }, "Tab",
     function ()
@@ -241,6 +241,19 @@ globalkeys = mytable.join(
     awful.spawn(terminal)
   end,
   {description = "Force open a terminal", group = "launcher"}),
+
+  awful.key({ modkey, }, "u", function ()
+
+    local clients =  awful.screen.focused().all_clients
+
+    for _, client in ipairs(clients) do
+      local name = client.name
+      if string.match(tostring(name), '^' .. terminal ..'$') then
+        client:move_to_tag( awful.screen.focused().selected_tags[1] )
+      end
+    end
+  end,
+  {description = "Move terminal to current tag if it's open", group = "launcher"}),
 
   awful.key({ modkey }, "z", function() menubar.show() end,
   {description = "show the menubar", group = "launcher"}),

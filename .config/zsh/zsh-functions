@@ -43,7 +43,17 @@ function s() {
 
 function so() {
     local ignore_file="\.png$|LICENSE|README|\.jpg$|\.pdf$"
-    local ignore_dir=".*local/share|.*local/lib|.*clj-kondo/.cache|.*git|.*ccls-cache"
+    local ignore_dir=".*local/share|.*local/lib|.*clj-kondo/.cache|.*git|.*ccls-cache|.*local/bin|.*local/document|.*local/download|.*local/music|.*/tests?/.+"
+    local result=$(find  "$HOME/.local"  \( -regextype posix-egrep -regex $ignore_dir \) -prune -o -print \
+                    | grep -E -v "$ignore_file" \
+                    | fzf --layout=reverse --height=1%) 
+    test -z $result && return
+    test -d $result && cd $result || $EDITOR $result
+}
+
+function sn() {
+    local ignore_file="\.png$|LICENSE|README|\.jpg$|\.pdf$"
+    local ignore_dir=".*local/share|.*local/lib|.*clj-kondo/.cache|.*git|.*ccls-cache|.*local/prog"
     local result=$(find  "$HOME/.local"  \( -regextype posix-egrep -regex $ignore_dir \) -prune -o -print \
                     | grep -E -v "$ignore_file" \
                     | fzf --layout=reverse --height=1%) 

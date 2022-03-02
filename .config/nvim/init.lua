@@ -82,6 +82,13 @@ packer.startup(function()
 
   -- color schemes
   use 'ellisonleao/gruvbox.nvim'
+  use 'sainnhe/sonokai'
+  use 'sainnhe/edge'
+  use 'Th3Whit3Wolf/space-nvim'
+  use 'andersevenrud/nordic.nvim'
+  use 'marko-cerovac/material.nvim'
+  use 'RRethy/nvim-base16'
+  use 'shaunsingh/nord.nvim'
 
   -- Movement plugins
   use 'easymotion/vim-easymotion'

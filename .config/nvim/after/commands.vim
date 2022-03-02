@@ -3,7 +3,6 @@ command! W :w
 
 
 " auto-commands
-autocmd FileType NvimTree :VimadeBufDisable
 
 " augrops
 augroup AutoSaveFolds

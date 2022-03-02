@@ -30,8 +30,6 @@ noremap <C-w><C-m> :MaximizerToggle<CR>
 vmap ga <Plug>(EasyAlign)
 " {{{1 Nvim-tree
 nnoremap <leader>fo :NvimTreeToggle<CR>
-" {{{1 Vimade
-nnoremap <leader>vt :VimadeToggle<CR>
 " {{{1 SymbolsOutline
 nnoremap <leader>ol :SymbolsOutline<CR>
 " {{{1 Gitsings

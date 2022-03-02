@@ -156,12 +156,6 @@ packer.startup(function()
     event = {  'WinEnter', 'WinNew' },
   }
   use {
-    'TaDaa/vimade',
-    opt = true,
-    event = {  'WinEnter', 'WinNew' },
-    cmd = { 'VimadeBufDisable', 'VimadeToggle' }
-  }
-  use {
     -- ripgrep needs to be installed for live_grep and similar picker to work
     'nvim-telescope/telescope.nvim',
     opt = true,

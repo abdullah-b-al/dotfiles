@@ -4,7 +4,7 @@ if ! command -v dmenu>/dev/null; then
     exit
 fi
 
-path_pdfs="$HOME/.local/documents"
+path_pdfs="$HOME/.local/documents/pdf"
 xdg-open "$( du -ah "$path_pdfs" \
     | cut -f2                    \
     | tr '/' '\n'                \

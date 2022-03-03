@@ -14,7 +14,10 @@ local attach = function(bufnr)
   map('n', '<localleader>b', ':ZkBacklinks<CR>', opts)
   map('n', '<localleader>z', ':ZkLinks<CR>', opts)
   map('n', '<localleader>t', ':ZkTags<CR>', opts)
-  map('n', '<localleader>nn', ':ZkNew<CR>', opts)
+  map('n', '<localleader>nn', ':ZkNew { dir = vim.fn.expand("%:p:h") }<CR>', opts)
+  -- The mapping in lua doesn't show anything on the command prompt
+  -- map('n', '<localleader>n', ':ZkNew { dir = "" }<Left><Left><Left>', opts)
+  vim.cmd[[nnoremap <buffer> <localleader>n :ZkNew { dir = "" }<Left><Left><Left>]]
 end
 
 require("zk").setup({

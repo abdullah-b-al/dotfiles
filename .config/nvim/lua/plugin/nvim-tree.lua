@@ -25,7 +25,7 @@ require('nvim-tree').setup {
   open_on_setup = true,
   auto_close = true,
   open_on_tab = false,
-  hijack_cursor = false,
+  hijack_cursor = true,
   update_cwd = false,
   update_to_buf_dir = {
     enable = false,

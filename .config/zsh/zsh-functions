@@ -66,3 +66,7 @@ function se() {
     test -z $result && return
     test -d $result && cd $result || $EDITOR $result
 }
+
+function mc() {
+  mkdir -p "$1" && cd "$1"
+}

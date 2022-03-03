@@ -80,6 +80,7 @@ packer.startup(function()
   use 'kyazdani42/nvim-tree.lua'
   use 'karb94/neoscroll.nvim'
   use 'lewis6991/gitsigns.nvim'
+  use 'mickael-menu/zk-nvim'
 
   -- color schemes
   use 'ellisonleao/gruvbox.nvim'

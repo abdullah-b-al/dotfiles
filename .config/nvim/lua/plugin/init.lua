@@ -8,4 +8,5 @@ return {
   require(dir .. '/neoscroll'),
   require(dir .. '/autopairs'),
   require(dir .. '/gitsigns'),
+  require(dir .. '/zk'),
 }

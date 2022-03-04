@@ -4,6 +4,9 @@ local lspkind = require('lspkind')
 vim.opt.completeopt = {'menuone', 'preview'}
 
 cmp.setup({
+  experimental = {
+    ghost_text = true,
+  },
   snippet = {
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body)

@@ -7,6 +7,9 @@ cmp.setup({
   experimental = {
     ghost_text = true,
   },
+  completion = {
+    keyword_length = 3,
+  },
   snippet = {
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body)
@@ -16,6 +19,7 @@ cmp.setup({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
     ['<C-e>'] = cmp.mapping.abort(),       -- Close menu and reject selection
+    ['<C-c>'] = cmp.mapping.complete(),
   },
   sources = {
   { name = 'nvim_lsp' },

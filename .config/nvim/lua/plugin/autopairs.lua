@@ -15,6 +15,8 @@ autopairs.setup({
   },
 })
 
+_G.Mappings.add('i', '<C-s>', 'AutoPairs: Prompt for autopair placement')
+
 autopairs.setup({
   check_ts = true,
   ts_config = {

@@ -37,3 +37,8 @@ cmp.setup({
     })
   },
 })
+
+_G.Mappings.add('i', '<C-u>', 'Cmp: Scroll docs. up')
+_G.Mappings.add('i', '<C-d>', 'Cmp: Scroll docs. down')
+_G.Mappings.add('i', '<C-e>', 'Cmp: Abort completion')
+_G.Mappings.add('i', '<C-c>', 'Cmp: Show completion menu')

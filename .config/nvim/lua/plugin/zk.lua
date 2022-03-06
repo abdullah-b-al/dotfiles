@@ -1,23 +1,29 @@
 local opts = { noremap=true, silent=true }
+local map = _G.Mappings.map
 
 local attach = function(bufnr)
-  local function map(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  -- Follow link
-  map('n', '<localleader>f', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  -- Show content of link
-  map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  -- Put all references of the link in the quickfix list
-  map('n', '<localleader>r', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- Show link header
-  map('n', '<localleader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  map('n', '<localleader>s', ':ZkNotes<CR>', opts)
-  map('n', '<localleader>b', ':ZkBacklinks<CR>', opts)
-  map('n', '<localleader>z', ':ZkLinks<CR>', opts)
-  map('n', '<localleader>t', ':ZkTags<CR>', opts)
-  map('n', '<localleader>nn', ':ZkNew { dir = vim.fn.expand("%:p:h") }<CR>', opts)
+  map('n', '<localleader>f', '<cmd>lua vim.lsp.buf.definition()<CR>', opts,
+    'Zk: Follow link', bufnr)
+  map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts,
+    'Zk: Show content of link', bufnr)
+  map('n', '<localleader>r', '<cmd>lua vim.lsp.buf.references()<CR>', opts,
+    'Zk: Put all references of the link in the quickfix list', bufnr)
+  map('n', '<localleader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts,
+    'Zk: Show link header', bufnr)
+  map('n', '<localleader>s', ':ZkNotes<CR>', opts,
+    'Zk: Search through all notes', bufnr)
+  map('n', '<localleader>b', ':ZkBacklinks<CR>', opts,
+    'Zk: Search through all back links', bufnr)
+  map('n', '<localleader>z', ':ZkLinks<CR>', opts,
+    'Zk: Search through all links', bufnr)
+  map('n', '<localleader>t', ':ZkTags<CR>', opts,
+    'Zk: Search through all tags', bufnr)
+  map('n', '<localleader>nn', ':ZkNew { dir = vim.fn.expand("%:p:h") }<CR>', opts,
+    'Zk: Create a new note in the same directory', bufnr)
   -- The mapping in lua doesn't show anything on the command prompt
   -- map('n', '<localleader>n', ':ZkNew { dir = "" }<Left><Left><Left>', opts)
   vim.cmd[[nnoremap <buffer> <localleader>n :ZkNew { dir = "" }<Left><Left><Left>]]
+  _G.Mappings.add('n', '<localleader>n', 'Zk: Create a new note in the chosen directory')
 end
 
 require("zk").setup({
@@ -36,5 +42,4 @@ require("zk").setup({
       enabled = true,
       filetypes = { "markdown" },
     },
-  },
-})
+  }, })

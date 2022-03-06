@@ -45,6 +45,8 @@ cmd 'packadd packer.nvim'
 g.mapleader = ' '
 g.maplocalleader = ','
 
+--{{{ Global mapping table and functions
+require('keymap/Mappings')
 
 --{{{1 Plugins
 -- Auto-install packer
@@ -183,10 +185,7 @@ end)
 require('plugin')
 
 --{{{1 Mappings
-cmd('source ' .. after .. '/keymap/keymappings.vim')
-cmd('source ' .. after .. '/keymap/plugin-mappings.vim')
-cmd('source ' .. after .. '/keymap/debug.vim')
-cmd('source ' .. after .. '/keymap/harpoon.lua')
+require('keymap')
 
 --{{{1 Color settings
 cmd('source ' .. after .. '/colors/color-settings.vim')

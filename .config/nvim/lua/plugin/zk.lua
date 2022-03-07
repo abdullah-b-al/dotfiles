@@ -24,6 +24,8 @@ local attach = function(bufnr)
   -- map('n', '<localleader>n', ':ZkNew { dir = "" }<Left><Left><Left>', opts)
   -- vim.cmd[[nnoremap <buffer> <localleader>n :ZkNew { dir = "" }<Left><Left><Left>]]
   -- _G.Mappings.add('n', '<localleader>n', 'Zk: Create a new note in the chosen directory')
+  vim.cmd[[set conceallevel=2]]
+  vim.cmd[[autocmd FileType markdown syn region markdownWikiLink matchgroup=markdownLinkDelimiter start="\[\[" end="\]\]" contains=markdownUrl keepend oneline concealends]]
 end
 
 require("zk").setup({

@@ -8,7 +8,7 @@ cmp.setup({
     ghost_text = true,
   },
   completion = {
-    keyword_length = 3,
+    keyword_length = 2,
   },
   snippet = {
     expand = function(args)

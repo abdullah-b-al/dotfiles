@@ -2,7 +2,7 @@ local opts = { noremap=true, silent=true }
 local map = _G.Mappings.map
 
 local attach = function(bufnr)
-  map('n', '<localleader>f', '<cmd>lua vim.lsp.buf.definition()<CR>', opts,
+  map('n', '<CR>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts,
     'Zk: Follow link', bufnr)
   map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts,
     'Zk: Show content of link', bufnr)
@@ -18,12 +18,12 @@ local attach = function(bufnr)
     'Zk: Search through all links', bufnr)
   map('n', '<localleader>t', ':ZkTags<CR>', opts,
     'Zk: Search through all tags', bufnr)
-  map('n', '<localleader>nn', ':ZkNew { dir = vim.fn.expand("%:p:h") }<CR>', opts,
+  map('n', '<localleader>n', ':ZkNew { dir = vim.fn.expand("%:p:h") }<CR>', opts,
     'Zk: Create a new note in the same directory', bufnr)
   -- The mapping in lua doesn't show anything on the command prompt
   -- map('n', '<localleader>n', ':ZkNew { dir = "" }<Left><Left><Left>', opts)
-  vim.cmd[[nnoremap <buffer> <localleader>n :ZkNew { dir = "" }<Left><Left><Left>]]
-  _G.Mappings.add('n', '<localleader>n', 'Zk: Create a new note in the chosen directory')
+  -- vim.cmd[[nnoremap <buffer> <localleader>n :ZkNew { dir = "" }<Left><Left><Left>]]
+  -- _G.Mappings.add('n', '<localleader>n', 'Zk: Create a new note in the chosen directory')
 end
 
 require("zk").setup({

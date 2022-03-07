@@ -1,12 +1,12 @@
 local map = _G.Mappings.map
 --{{{1 Telescope
-map('n', '<leader>ff', '<cmd>Telescope find_Files<CR>', { noremap = true },
+map('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true },
 'Telescope: find files')
-map('n', '<leader>fg', '<cmd>Telescope live_grep<CR>' , { noremap = true },
+map('n', '<leader>fg', ':Telescope live_grep<CR>' , { noremap = true },
   'Telescope: grep cwd')
-map('n', '<leader>fb', '<cmd>Telescope buffers<CR>'   , { noremap = true },
+map('n', '<leader>fb', ':Telescope buffers<CR>'   , { noremap = true },
   'Telescope: Show buffers')
-map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>' , { noremap = true },
+map('n', '<leader>fh', ':Telescope help_tags<CR>' , { noremap = true },
   'Telescope: Show help tage')
 
 --{{{1 easy motion

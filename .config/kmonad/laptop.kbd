@@ -1,0 +1,61 @@
+(defcfg
+  input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  output (uinput-sink "KMonad output")
+	fallthrough false
+  allow-cmd false
+)
+
+(defalias
+  sym   (tap-hold 200 
+          (layer-next symbols)
+          (layer-toggle symbols))
+
+  spcly   (tap-hold 200 
+          spc
+          (layer-toggle short-cuts))
+
+  Td      (tap-macro ` j)
+  Tu      (tap-macro ` k)
+  Tl      (tap-macro ` h)
+  Tr      (tap-macro ` l)
+)
+
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10 ;; power button
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     
+  lmet a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft         up       
+  lctl lalt           spc            ralt rctl                  left down rght
+)
+
+
+(deflayer colemak
+  lalt   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  ;; power button
+  grv    1    2    3    4    5    6    7    8    9    0   XX  XX  bspc
+  tab    q    w    f    p    g    j    l    u    y    ;    '   XX  XX
+  esc    a    r    s    t    d    h    n    e    i    o    ctl       ret
+  lsft   z    x    c    v    b    k    m    ,    .    /    rsft       up
+  lctl   met              @spcly               @sym ctl            left down rght
+)
+
+
+(deflayer symbols
+  lalt   XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    ;;power button
+  grv    f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   XX    XX    bspc    
+  tab    !    @    #    $    %    ^    &    *    +    .  XX    XX    XX
+  esc    1    2    3    4    5    6    7    8    9    0  XX    XX
+  lsft   =    [    {    \(    ~    -    \)    }    ]    \   rsft         up       
+  lctl   met           spc            ralt rctl                  left down rght
+)
+
+
+(deflayer short-cuts
+  XX   XX   XX    XX   XX    XX   XX    XX    XX    XX    XX    ;;power button
+  XX   XX   XX    XX   XX    XX   XX    XX    XX    XX    XX    XX    XX    XX    
+  XX   XX   XX    XX   XX    XX   @Tu   @Tr   XX    XX    XX    XX    XX    XX
+  esc  XX   XX    XX   XX    XX   @Tl   XX    XX    XX    XX    XX    XX
+  XX   C--  C-=   XX   XX    XX   @Td   XX    XX    XX    XX    XX        XX       
+  XX   XX        XX            XX XX                  XX XX XX
+)

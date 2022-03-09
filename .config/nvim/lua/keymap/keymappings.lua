@@ -89,8 +89,8 @@ map('n', '<C-Space><C-h>', ':lprev<CR>', { noremap = true },
   'Go to prev item in local quickfix list')
 map('n', '<C-Space><C-q>', ':lopen<CR>', { noremap = true },
   'Open local quickfix list')
-map('n', '<C-Space><C-c>', ':cclose<CR>', { noremap = true },
-  'Close quickfix list')
+map('n', '<C-c><C-q>', ':cclose<CR>:lclose<CR>', { noremap = true, silent = true },
+  'Close quickfix lists')
 
 map('n', 'q:', ':', { noremap = true },
   'Map the annoying q: to :' )

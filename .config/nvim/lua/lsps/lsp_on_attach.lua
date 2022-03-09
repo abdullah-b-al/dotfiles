@@ -6,7 +6,7 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts,
     'LSP: Go to declaration', bufnr)
-  map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts,
+  map('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', opts,
     'LSP: Go to definition', bufnr)
   map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts,
     'LSP: View documentation', bufnr)

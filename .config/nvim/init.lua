@@ -83,6 +83,7 @@ packer.startup(function()
   use 'karb94/neoscroll.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'mickael-menu/zk-nvim'
+  use 'wfxr/minimap.vim'
 
   -- color schemes
   use 'ellisonleao/gruvbox.nvim'
@@ -174,11 +175,6 @@ packer.startup(function()
     'ThePrimeagen/harpoon',
     opt = true,
   }
-  -- Manually loaded in mini-map.lua
-  use {
-  'wfxr/minimap.vim',
-    opt = true,
-  }
   use {
     'simrat39/symbols-outline.nvim',
     opt = true,
@@ -191,6 +187,9 @@ require('plugin')
 
 --{{{1 Mappings
 require('keymap')
+
+--{{{1 Minimap
+cmd('source ' .. viml_config .. '/mini-map.vim')
 
 --{{{1 Color settings
 cmd('source ' .. after .. '/colors/color-settings.vim')

@@ -174,6 +174,11 @@ packer.startup(function()
     'ThePrimeagen/harpoon',
     opt = true,
   }
+  -- Manually loaded in mini-map.lua
+  use {
+  'wfxr/minimap.vim',
+    opt = true,
+  }
   use {
     'simrat39/symbols-outline.nvim',
     opt = true,

@@ -1,6 +1,5 @@
 #!/bin/sh
 # WM/DE independant autostart
-xinput -set-prop 'Cooler Master Technology Inc. MM710 Gaming Mouse' 'Coordinate Transformation Matrix' 0.4 0 0 0 0.4 0 0 0 0.9 &
 setxkbmap -layout 'us,ar' -option 'grp:alt_shift_toggle' &
 feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/* &
 redshift -PO 5000 &

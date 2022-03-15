@@ -65,8 +65,8 @@ map('n', '//', '/\\v\\c', { noremap = true },
   'Case insensitive pattern search shortcut')
 
 --{{{1 Center cursor after a half page scroll without polluting the jump list
--- map('n', '<C-d>', '<C-d>zz', { noremap = true })
--- map('n', '<C-u>', '<C-u>zz', { noremap = true })
+map('n', '<C-d>', '<C-d>zz', { noremap = true })
+map('n', '<C-u>', '<C-u>zz', { noremap = true })
 
 map('n', 'k', [[(v:count >= 5 ? "m'" . v:count : '') . 'gk']], { noremap = true, expr = true},
   'Add large j movements to the jump list')

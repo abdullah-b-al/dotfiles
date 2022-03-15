@@ -80,7 +80,6 @@ packer.startup(function()
   use 'nvim-lualine/lualine.nvim'
   use 'junegunn/vim-easy-align'
   use 'kyazdani42/nvim-tree.lua'
-  use 'karb94/neoscroll.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'mickael-menu/zk-nvim'
   use 'wfxr/minimap.vim'

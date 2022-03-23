@@ -55,3 +55,16 @@ map('n', '<leader>ol', ':SymbolsOutline<CR>', { noremap = true },
 --{{{1 Gitsings
 map('n', '<leader>hp', ':Gitsigns preview_hunk<CR>', { noremap = true },
   'Gitsigns: Preview hunk')
+---{{{1 LuaSnip
+function my_lua_snip(op)
+  local ls = require('luasnip')
+  if op == 'jump_forward' and ls.jumpable(1) then
+    ls.jump(1)
+  elseif op == 'jump_back' and ls.jumpable(-1) then
+    ls.jump(-1)
+  end
+end
+map('i', '<C-l>', '<cmd>lua my_lua_snip("jump_forward")<CR>')
+map('s', '<C-l>', '<cmd>lua my_lua_snip("jump_forward")<CR>')
+map('i', '<C-h>', '<cmd>lua my_lua_snip("jump_back")<CR>')
+map('s', '<C-h>', '<cmd>lua my_lua_snip("jump_back")<CR>')

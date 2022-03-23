@@ -12,8 +12,8 @@ cmp.setup({
   },
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
+      require'luasnip'.lsp_expand(args.body)
+    end
   },
   mapping = {
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
@@ -25,7 +25,7 @@ cmp.setup({
   },
   sources = {
   { name = 'nvim_lsp' },
-  { name = 'vsnip' },
+  { name = 'luasnip' },
   },
   formatting = {
     format = lspkind.cmp_format({

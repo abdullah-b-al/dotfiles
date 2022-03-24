@@ -100,13 +100,13 @@ awful.util.taglist_buttons = mytable.join(
 )
 
 awful.util.tasklist_buttons = mytable.join(
-  awful.button({ }, 1, function(c)
-    if c == client.focus then
-      c.minimized = true
-    else
-      c:emit_signal("request::activate", "tasklist", { raise = true })
-    end
-  end),
+  -- awful.button({ }, 1, function(c)
+  --   if c == client.focus then
+  --     c.minimized = true
+  --   else
+  --     c:emit_signal("request::activate", "tasklist", { raise = true })
+  --   end
+  -- end),
   awful.button({ }, 3, function()
     awful.menu.client_list({ theme = { width = 250 } })
   end),
@@ -279,13 +279,13 @@ globalkeys = mytable.join(
   awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
   {description = "select previous", group = "layout"}),
 
-  awful.key({ modkey, "Control" }, "n", function ()
-    local c = awful.client.restore()
-    -- Focus restored client
-    if c then
-      c:emit_signal("request::activate", "key.unminimize", {raise = true})
-    end
-  end, {description = "restore minimized", group = "client"}),
+  -- awful.key({ modkey, "Control" }, "n", function ()
+  --   local c = awful.client.restore()
+  --   -- Focus restored client
+  --   if c then
+  --     c:emit_signal("request::activate", "key.unminimize", {raise = true})
+  --   end
+  -- end, {description = "restore minimized", group = "client"}),
 
   -- Screen brightness
   -- awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
@@ -355,13 +355,13 @@ clientkeys = mytable.join(
   {description = "move to screen", group = "client"}),
   awful.key({ modkey, "Control"           }, "Return",      function (c) c.ontop = not c.ontop            end,
   {description = "toggle keep on top", group = "client"}),
-  awful.key({ modkey,           }, "n",
-    function (c)
-      -- The client currently has the input focus, so it cannot be
-      -- minimized, since minimized clients can't have the focus.
-      c.minimized = true
-    end ,
-  {description = "minimize", group = "client"}),
+  -- awful.key({ modkey,           }, "n",
+  --   function (c)
+  --     -- The client currently has the input focus, so it cannot be
+  --     -- minimized, since minimized clients can't have the focus.
+  --     c.minimized = true
+  --   end ,
+  -- {description = "minimize", group = "client"}),
   awful.key({ modkey,           }, "m",
     function (c)
       c.maximized = not c.maximized
@@ -490,6 +490,7 @@ awful.rules.rules = {
       "veromix",
       "xtightvncviewer",
       "Origin",
+      "TESTING WINDOW",
     },
 
     -- Note that the name property shown in xprop might be set slightly after creation of the client

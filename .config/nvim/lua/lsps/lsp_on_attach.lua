@@ -26,6 +26,8 @@ local on_attach = function(client, bufnr)
     'LSP: Place diagnostics in local quickfix list', bufnr)
   map('n', '<space>F', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts,
     'LSP: Format', bufnr)
+  map('n', '<space>lc', ':lua vim.lsp.buf.code_action()<CR>', opts,
+    'LSP: Code action', bufnr)
 end
 
 return on_attach

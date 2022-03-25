@@ -199,3 +199,5 @@ cmd('source ' .. after .. '/commands.vim')
 
 --{{{1 Lsp server directory
 require('lsps')
+
+require('project-settings')

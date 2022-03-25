@@ -3,7 +3,6 @@ command! W :w
 
 
 " auto-commands
-autocmd FileType c,cpp,lua Minimap
 
 " augrops
 augroup AutoSaveFolds

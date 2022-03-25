@@ -8,6 +8,12 @@ end
 vim.cmd[[
   function! Make_build(build_dir)
   let l:root = luaeval("vim.lsp.buf.list_workspace_folders()[1]")
+
+  if l:root == "null"
+    echo "Make_build: Invalid dir"
+    return
+  endif
+
   let l:build = l:root . "/" . a:build_dir
   let l:prev_dir = execute('pwd')
 

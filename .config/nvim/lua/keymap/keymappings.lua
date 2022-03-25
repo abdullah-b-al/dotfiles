@@ -30,6 +30,10 @@ map('v', '<leader>s', ':s:\\v::cg<Left><Left><Left><Left>', { noremap = true },
 
 map('n', 'gp', '`[v`]', { noremap = true },
   'Reselect pasted text')
+map('', 'p', 'mzp`[v`]=`z', { noremap = true },
+  'Format pasted text')
+map('', 'P', 'mzP`[v`]=`z', { noremap = true },
+  'Format pasted text')
 
 map('n', 'Y', 'y$', { noremap = true },
   'Yank till end of line')

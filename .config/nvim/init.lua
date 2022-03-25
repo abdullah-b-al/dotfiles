@@ -85,6 +85,18 @@ packer.startup(function()
   use 'lewis6991/gitsigns.nvim'
   use 'mickael-menu/zk-nvim'
   use 'wfxr/minimap.vim'
+  use 'szw/vim-maximizer'
+  use 'michaeljsmith/vim-indent-object'
+  use 'junegunn/limelight.vim'
+  use 'metakirby5/codi.vim'
+  use 'guns/vim-sexp'
+  use 'tpope/vim-sexp-mappings-for-regular-people'
+  use 'Olical/conjure'
+  use 'ziglang/zig.vim'
+  use 'puremourning/vimspector'
+  use 'tpope/vim-fugitive'
+  use 'ThePrimeagen/harpoon'
+  use 'simrat39/symbols-outline.nvim'
 
   -- color schemes
   use 'ellisonleao/gruvbox.nvim'
@@ -111,75 +123,7 @@ packer.startup(function()
   -- Lsp
   use 'neovim/nvim-lspconfig'
   use 'ray-x/lsp_signature.nvim'
-
-  -- Lazy loaded plugins
-  use {
-    'williamboman/nvim-lsp-installer',
-    opt = true,
-    cmd = { 'LspInstall', 'LspInstallInfo', 'LspInstallLog', 'LspPrintInstalled' },
-  }
-  use {
-    'michaeljsmith/vim-indent-object',
-    opt = true,
-    ft  = { 'lua' }
-  }
-  use {
-    'junegunn/limelight.vim',
-    opt = true,
-    cmd = { 'Limelight' }
-  }
-  use {
-    'metakirby5/codi.vim',
-    opt = true,
-    cmd = { 'Codi' },
-    config = 'source ' .. viml_config .. '/codi.vim'
-  }
-  use {
-    'guns/vim-sexp',
-    opt = true,
-    ft = { 'clojure' },
-    config = 'source ' .. viml_config .. '/vim-sexp.vim'
-  }
-  use {
-    'tpope/vim-sexp-mappings-for-regular-people',
-    opt = true,
-    ft = { 'clojure' },
-  }
-  use {
-    'Olical/conjure',
-    opt = true,
-    ft = { 'clojure' },
-  }
-  use {
-    'ziglang/zig.vim',
-    opt = true,
-    ft = { 'zig' },
-  }
-  use {
-    'szw/vim-maximizer',
-    opt = true,
-    event = {  'WinEnter', 'WinNew' },
-  }
-  use {
-    'puremourning/vimspector',
-    opt = true,
-    ft = { 'c', 'cpp' },
-  }
-  use {
-    'tpope/vim-fugitive',
-    opt = true,
-    cmd = { 'Git', 'G' },
-  }
-  use {
-    -- Can't get it to lazy load automatically. Manually loaded in harpoon.lua
-    'ThePrimeagen/harpoon',
-    opt = true,
-  }
-  use {
-    'simrat39/symbols-outline.nvim',
-    opt = true,
-    cmd = { 'SymbolsOutline' },
-  }
+  use 'williamboman/nvim-lsp-installer'
 end)
 
 --{{{1 config of plugins in lua
@@ -188,8 +132,11 @@ require('plugin')
 --{{{1 Mappings
 require('keymap')
 
---{{{1 Minimap
+--{{{1 config of plugins in vimscript
 cmd('source ' .. viml_config .. '/mini-map.vim')
+cmd('source ' .. viml_config .. '/maximizer.vim')
+cmd('source ' .. viml_config .. '/codi.vim')
+cmd('source ' .. viml_config .. '/vim-sexp.vim')
 
 --{{{1 Color settings
 cmd('source ' .. after .. '/colors/color-settings.vim')

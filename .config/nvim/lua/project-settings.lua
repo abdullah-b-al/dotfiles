@@ -16,6 +16,7 @@ vim.cmd[[
 
   let l:build = l:root . "/" . a:build_dir
 
+  wa
   call chdir(l:build)
   make
   call chdir(l:root)

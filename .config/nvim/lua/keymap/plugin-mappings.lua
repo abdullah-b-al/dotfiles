@@ -55,7 +55,7 @@ map('n', '<leader>ol', ':SymbolsOutline<CR>', { noremap = true },
 --{{{1 Gitsings
 map('n', '<leader>hp', ':Gitsigns preview_hunk<CR>', { noremap = true },
   'Gitsigns: Preview hunk')
----{{{1 LuaSnip
+--{{{1 LuaSnip
 function my_lua_snip(op)
   local ls = require('luasnip')
   if op == 'jump_forward' and ls.jumpable(1) then
@@ -64,7 +64,23 @@ function my_lua_snip(op)
     ls.jump(-1)
   end
 end
-map('i', '<C-l>', '<cmd>lua my_lua_snip("jump_forward")<CR>')
-map('s', '<C-l>', '<cmd>lua my_lua_snip("jump_forward")<CR>')
-map('i', '<C-h>', '<cmd>lua my_lua_snip("jump_back")<CR>')
-map('s', '<C-h>', '<cmd>lua my_lua_snip("jump_back")<CR>')
+map('i', '<C-l>', '<cmd>lua my_lua_snip("jump_forward")<CR>', {},
+'LuaSnip: Jump forward')
+map('s', '<C-l>', '<cmd>lua my_lua_snip("jump_forward")<CR>', {},
+'LuaSnip: Jump forward')
+map('i', '<C-h>', '<cmd>lua my_lua_snip("jump_back")<CR>', {},
+'LuaSnip: Jump backword')
+map('s', '<C-h>', '<cmd>lua my_lua_snip("jump_back")<CR>', {},
+'LuaSnip: Jump backword')
+
+-- {{{1 Harpoon
+map('n', '<leader>gg', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', {} ,
+  'Harpoon: Open window')
+map('n', '<leader>ga', '<cmd>lua require("harpoon.mark").add_file()<CR>', {},
+  'Harpoon: Add file')
+map('n', '<leader>gn', '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', {},
+  'Harpoon: Navigate to mark 1')
+map('n', '<leader>ge', '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', {},
+  'Harpoon: Navigate to mark 2')
+map('n', '<leader>gi', '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', {},
+  'Harpoon: Navigate to mark 3')

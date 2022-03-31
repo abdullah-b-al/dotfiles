@@ -5,6 +5,12 @@ command! W :w
 " auto-commands
 
 " augrops
+augroup CommentString
+  autocmd!
+  autocmd BufWinEnter,BufEnter * if &ft=="cpp" | setlocal commentstring=//%s | endif
+  autocmd BufWinEnter,BufEnter * if &ft=="c" | setlocal commentstring=//%s | endif
+augroup END
+
 augroup AutoSaveFolds
   autocmd!
   autocmd BufWinEnter * silent! loadview

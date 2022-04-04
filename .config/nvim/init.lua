@@ -93,7 +93,6 @@ packer.startup(function()
   use 'tpope/vim-sexp-mappings-for-regular-people'
   use 'Olical/conjure'
   use 'ziglang/zig.vim'
-  use 'puremourning/vimspector'
   use 'tpope/vim-fugitive'
   use 'ThePrimeagen/harpoon'
   use 'simrat39/symbols-outline.nvim'

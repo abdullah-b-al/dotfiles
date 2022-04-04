@@ -139,12 +139,39 @@ awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) 
 
 -- }}}
 
+
+local awmodoro = require("awmodoro")
+
+--pomodoro wibox
+pomowibox = awful.wibox({ position = "top", screen = 1, height=4})
+pomowibox.visible = false
+local pomodoro = awmodoro.new({
+  minutes 			= 25,
+  do_notify 			= true,
+  active_bg_color 	= '#313131',
+  paused_bg_color 	= '#7746D7',
+  fg_color			= {type = "linear", from = {0,0}, to = {pomowibox.width, 0}, stops = {{0, "#AECF96"},{0.5, "#88A175"},{1, "#FF5656"}}},
+  width 				= pomowibox.width,
+  height 				= pomowibox.height,
+
+  begin_callback = function()
+    pomowibox.visible = true
+  end,
+
+  finish_callback = function()
+    pomowibox.visible = false
+  end})
+pomowibox:set_widget(pomodoro)
+
 -- {{{ Key bindings
 
 globalkeys = mytable.join(
   -- Destroy all notifications
   awful.key({ modkey, "Control",}, "space", function() naughty.destroy_all_notifications() end,
   {description = "destroy all notifications", group = "hotkeys"}),
+
+  awful.key({	modkey			}, "p", function () pomodoro:toggle() end),
+  awful.key({	modkey, "Shift"	}, "p", function () pomodoro:finish() end),
 
   -- Show help
   awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,

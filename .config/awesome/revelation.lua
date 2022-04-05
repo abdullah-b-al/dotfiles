@@ -68,7 +68,7 @@ local revelation = {
     -- Name of expose tag.
     tag_name = "Revelation",
 
-    charorder = "jkluiopyhnmfdsatgvcewqzx1234567890",
+    charorder = "arstneiodh1234789056",
 
     -- Match function can be defined by user.
     -- Must accept a `rule` and `client` and return `boolean`.

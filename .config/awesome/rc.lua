@@ -204,7 +204,11 @@ globalkeys = mytable.join(
     end,
   {description = "Focus master window", group = "client"}
   ),
-  awful.key({ modkey, }, "i", function () revelation() end,
+  awful.key({ modkey, }, "i", function () 
+
+    local args = { curr_tag_only = true }
+    revelation(args)
+  end,
   {description = "Revelation", group = "client"}),
 
   -- Layout manipulation

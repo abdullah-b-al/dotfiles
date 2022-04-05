@@ -1,5 +1,5 @@
 local map = _G.Mappings.map
---{{{1 Telescope
+-- Telescope
 map('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true },
 'Telescope: find files')
 map('n', '<leader>fg', ':Telescope live_grep<CR>' , { noremap = true },
@@ -9,15 +9,15 @@ map('n', '<leader>fb', ':Telescope buffers<CR>'   , { noremap = true },
 map('n', '<leader>fh', ':Telescope help_tags<CR>' , { noremap = true },
   'Telescope: Show help tage')
 
---{{{1 easy motion
+-- easy motion
 
---{{{2 Global mapping
+-- Global mapping
 map('n', '<leader>;', '<Plug>(easymotion-next)', {},
   'EasyMotion: Next char')
 map('n', '<leader>,', '<Plug>(easymotion-prev)', {},
   'EasyMotion: Prev char')
 
---{{{n Multi line
+-- Multi line
 map('n', '<leader>f', '<Plug>(easymotion-bd-f)' , {},
   'EasyMotion: Find char')
 map('n', '<leader>t', '<Plug>(easymotion-bd-t)' , {},
@@ -27,35 +27,35 @@ map('n', '<leader>b', '<Plug>(easymotion-bd-t2)', {},
 map('n', 's',         '<Plug>(easymotion-s2)'   , {},
   'EasyMotion: Till 2-chars')
 
---{{{2 Multi line Overwindows
+-- Multi line Overwindows
 map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)', {},
   'EasyMotion: Find char over-window')
 
---{{{1 Limelight
+-- Limelight
 map('n', '<leader>l', ':Limelight!!<CR>', { noremap = true, silent = true },
   'LimeLight: Toggle')
---{{{1 surround.vim
+-- surround.vim
 map('n', 'S', '<Plug>Ysurround', {},
   'Surround')
---{{{1 fugitive
+-- fugitive
 map('n', '<F1>', ':tab Git<CR>', { noremap = true, silent = true  },
   'Fugitive: Open in tab')
---{{{1 vim-maximizer
+-- vim-maximizer
 map('n', '<C-w><C-m>', ':MaximizerToggle<CR>', { noremap = true },
   'Maximizer: Toggle')
---{{{1 vim-easy-align
+-- vim-easy-align
 map('v', 'ga', ':EasyAlign<CR>', {},
   'EasyAlign')
---{{{1 Nvim-tree
+-- Nvim-tree
 map('n', '<leader>fo', ':NvimTreeToggle<CR>', { noremap = true },
   'NvimTree: Toggle')
---{{{1 SymbolsOutline
+-- SymbolsOutline
 map('n', '<leader>ol', ':SymbolsOutline<CR>', { noremap = true },
   'SymbolsOutline: Toggle')
---{{{1 Gitsings
+-- Gitsings
 map('n', '<leader>hp', ':Gitsigns preview_hunk<CR>', { noremap = true },
   'Gitsigns: Preview hunk')
---{{{1 LuaSnip
+-- LuaSnip
 function my_lua_snip(op)
   local ls = require('luasnip')
   if op == 'jump_forward' and ls.jumpable(1) then
@@ -73,7 +73,7 @@ map('i', '<C-h>', '<cmd>lua my_lua_snip("jump_back")<CR>', {},
 map('s', '<C-h>', '<cmd>lua my_lua_snip("jump_back")<CR>', {},
 'LuaSnip: Jump backword')
 
--- {{{1 Harpoon
+--  Harpoon
 map('n', '<leader>gg', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', {} ,
   'Harpoon: Open window')
 map('n', '<leader>ga', '<cmd>lua require("harpoon.mark").add_file()<CR>', {},
@@ -84,3 +84,14 @@ map('n', '<leader>ge', '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', {},
   'Harpoon: Navigate to mark 2')
 map('n', '<leader>gi', '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', {},
   'Harpoon: Navigate to mark 3')
+
+-- mini-map
+function _G.toggle_minimap()
+  vim.cmd[[
+  MinimapToggle
+  MinimapRefresh
+  ]]
+end
+
+map('n', '<leader>mm', ':lua _G.toggle_minimap()<CR>', { noremap = true, silent = true },
+  'Toggle minimap')

@@ -81,23 +81,23 @@ map('n', '_', '"_', {},
   'Quicker access to the black hole register')
 
 --{{{1 quickfix mappings
-map('n', '<C-l>', ':cnext<CR>', { noremap = true },
+map('n', '<C-l>', ':cnext<CR>zv', { noremap = true },
   'Go to next item in quickfix list')
-map('n', '<C-h>', ':cprev<CR>', { noremap = true },
+map('n', '<C-h>', ':cprev<CR>zv', { noremap = true },
   'Go to prev item in quickfix list')
 map('n', '<C-q>', ':copen<CR>', { noremap = true },
   'Open quickfix list')
-map('n', '<C-Space><C-l>', ':lnext<CR>', { noremap = true },
+map('n', '<C-Space><C-l>', ':lnext<CR>zv', { noremap = true },
   'Go to next item in local quickfix list')
-map('n', '<C-Space><C-h>', ':lprev<CR>', { noremap = true },
+map('n', '<C-Space><C-h>', ':lprev<CR>zv', { noremap = true },
   'Go to prev item in local quickfix list')
 map('n', '<C-Space><C-q>', ':lopen<CR>', { noremap = true },
   'Open local quickfix list')
 map('n', '<C-c><C-q>', ':cclose<CR>:lclose<CR>', { noremap = true, silent = true },
   'Close quickfix lists')
 
-map('n', 'q:', ':', { noremap = true },
-  'Map the annoying q: to :' )
+-- map('n', 'q:', ':', { noremap = true },
+--   'Map the annoying q: to :' )
 map('n', 'Q', ':', { noremap = true },
   'Map Q to :')
 
@@ -112,3 +112,18 @@ map('n', '<leader>4', '4gt', { noremap = true, silent = true },
   'Move to tab 4')
 map('n', '<leader>5', '5gt', { noremap = true, silent = true },
   'Move to tab 5')
+
+map('n', '<leader>vw', 'viwp', {},
+  'Replace inside word')
+map('n', '<leader>vW', 'viWp', {},
+  'Replace inside WORD')
+map('n', '<leader>v"', 'vi"p', {},
+  'Replace inside "')
+map('n', "<leader>v'", "vi'p", {},
+  "Replace inside '")
+map('n', '<leader>v)', 'vi)p', {},
+  'Replace inside )')
+map('n', '<leader>v}', 'vi}p', {},
+  'Replace inside }')
+map('n', '<leader>v]', 'vi]p', {},
+  'Replace inside ]')

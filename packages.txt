@@ -18,7 +18,6 @@ redshift
 reflector
 ripgrep
 rlwrap
-rocprim
 rofi
 sbcl
 scrcpy
@@ -31,7 +30,6 @@ sudo
 sxhkd
 tcpflow
 texinfo
-timeshift
 tmux
 ttf-fira-code
 ttf-fira-mono
@@ -40,7 +38,6 @@ unzip
 wget
 which
 whois
-wine-staging
 wireless_tools
 words
 wpa_supplicant

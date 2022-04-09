@@ -91,7 +91,7 @@ system_config() {
   arch-chroot /mnt bash -c "printf "desktop-arch" > /etc/hostname"
 
   arch-chroot /mnt mkinitcpio -P
-  arch-chroot /mnt bash -c "source /install_tmp/info && printf "%s\n%s" "$root_password" "$root_password" | passwd"
+  arch-chroot /mnt bash -c "cat /install_tmp/root_password | passwd"
   echo "---------- Finished system_config() ----------"
 }
 
@@ -134,6 +134,7 @@ main() {
     fi
   done
 
+  # Get root password
   while true; do
     printf "\n\n"
     printf "Choose root password --> "
@@ -154,6 +155,7 @@ main() {
     fi
   done
 
+  # Get user name
   while true; do
     printf "\n\n"
     printf "Choose user name --> "
@@ -165,6 +167,7 @@ main() {
     fi
   done
 
+  # Get user password
   while true; do
     printf "\n\n"
     printf "Choose user password --> "
@@ -193,13 +196,19 @@ main() {
   fstab
 
   # Save info
-  echo "export root_password=$root_password" > info
-  echo "export user_name=$user_name" >> info
-  echo "export user_password=$user_password" >> info
+  echo "$root_password" > root_password
+  echo "$root_password" >> root_password
+
+  echo "$user_name" > user_name
+
+  echo "$user_password" > user_password
+  echo "$user_password" >> user_password
 
   mkdir -p /mnt/install_tmp
   cp packages.txt /mnt/install_tmp
-  cp info /mnt/install_tmp
+  cp root_password /mnt/install_tmp
+  cp user_name /mnt/install_tmp
+  cp user_password /mnt/install_tmp
 
   install_packages
   system_config

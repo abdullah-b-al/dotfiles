@@ -73,27 +73,25 @@ fstab() {
 }
 
 install_packages() {
-  arch-chroot /mnt
-  pacman -S --noconfirm --needed - < packages.txt
-
+  arch-chroot /mnt pacman -S --noconfirm --needed - < packages.txt
   echo "---------- Finished install_packages() ----------"
 }
 
 system_config() {
-  ln -sf /usr/share/zoneinfo/Asia/Riyadh /etc/localtime
+  arch-chroot /mnt ln -sf /usr/share/zoneinfo/Asia/Riyadh /etc/localtime
 
-  hwclock --systohc
+  arch-chroot /mnt hwclock --systohc
 
-  sed -i 's|#ar_SA.UTF-8 UTF-8|ar_SA.UTF-8 UTF-8|1' /etc/locale.gen
-  sed -i 's|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|1' /etc/locale.gen
-  locale-gen
+  arch-chroot /mnt sed -i 's|#ar_SA.UTF-8 UTF-8|ar_SA.UTF-8 UTF-8|1' /etc/locale.gen
+  arch-chroot /mnt sed -i 's|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|1' /etc/locale.gen
+  arch-chroot /mnt locale-gen
 
-  printf "LANG=en_US.UTF-8" > /etc/locale.conf
-  printf "KEYMAP=us" > /etc/vconsole.conf
-  printf "desktop-arch" > /etc/hostname
+  arch-chroot /mnt printf "LANG=en_US.UTF-8" > /etc/locale.conf
+  arch-chroot /mnt printf "KEYMAP=us" > /etc/vconsole.conf
+  arch-chroot /mnt printf "desktop-arch" > /etc/hostname
 
-  mkinitcpio -P
-  printf "%s\n%s" "$root_password" "$root_password" | passwd
+  arch-chroot /mnt mkinitcpio -P
+  arch-chroot /mnt printf "%s\n%s" "$root_password" "$root_password" | passwd
 }
 
 

@@ -86,12 +86,13 @@ system_config() {
   arch-chroot /mnt sed -i 's|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|1' /etc/locale.gen
   arch-chroot /mnt locale-gen
 
-  arch-chroot /mnt printf "LANG=en_US.UTF-8" > /etc/locale.conf
-  arch-chroot /mnt printf "KEYMAP=us" > /etc/vconsole.conf
-  arch-chroot /mnt printf "desktop-arch" > /etc/hostname
+  arch-chroot /mnt bash -c "printf "LANG=en_US.UTF-8" > /etc/locale.conf"
+  arch-chroot /mnt bash -c "printf "KEYMAP=us" > /etc/vconsole.conf"
+  arch-chroot /mnt bash -c "printf "desktop-arch" > /etc/hostname"
 
   arch-chroot /mnt mkinitcpio -P
-  arch-chroot /mnt printf "%s\n%s" "$root_password" "$root_password" | passwd
+  arch-chroot /mnt bash -c "printf "%s\n%s" "$root_password" "$root_password" | passwd"
+  echo "---------- Finished system_config() ----------"
 }
 
 

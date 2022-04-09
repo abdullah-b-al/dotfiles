@@ -73,7 +73,7 @@ fstab() {
 }
 
 install_packages() {
-  arch-chroot /mnt pacman -S --noconfirm --needed - < packages.txt
+  arch-chroot /mnt bash -c "pacman -S --noconfirm --needed - < packages.txt"
   echo "---------- Finished install_packages() ----------"
 }
 

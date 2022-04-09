@@ -22,7 +22,6 @@ rofi
 sbcl
 scrcpy
 sed
-shellcheck
 spirv-headers
 starship
 stow
@@ -104,3 +103,9 @@ zk
 zsh
 zsh-completions
 neovim
+opendoas
+grub
+efibootmgr
+dosfstools
+os-prober
+mtools

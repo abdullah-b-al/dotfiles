@@ -106,4 +106,4 @@ zip
 zk
 zsh
 zsh-completions
-nvim
+neovim

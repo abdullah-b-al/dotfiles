@@ -24,6 +24,7 @@ export root_partition
 
 update_system_clock() {
   timedatectl set-ntp true
+  echo "---------- Finished update_system_clock() ----------"
 }
 
 partition_disk() {
@@ -65,13 +66,13 @@ mount_partitions() {
 }
 
 fstab() {
+  pacstrap /mnt base base-devel linux linux-firmware
+
   genfstab -U /mnt >> /mnt/etc/fstab
   echo "---------- Finished fstab() ----------"
 }
 
 install_packages() {
-  pacstrap /mnt base base-devel linux linux-firmware
-
   arch-chroot /mnt
   pacman -S --noconfirm --needed - < packages.txt
 
@@ -107,7 +108,7 @@ main() {
 
     disks=$(echo "$disks" | grep -i "Disk /dev/" | awk -F ":| " '{print $2}' | grep -i "$installation_disk")
     if [ "$disks" = "$installation_disk" ]; then
-      printf "You chose %s. Confirm ? Y/n\n" "$installation_disk"
+      printf "You chose %s. Confirm ? Y/n " "$installation_disk"
       read -r disk_answer
       
       if [ "$disk_answer" = "y" ] || [ "$disk_answer" = "Y" ]; then
@@ -122,7 +123,7 @@ main() {
     printf "Choose size of swap in GB --> "
     read -r swap_size
     
-    printf "Swap size is %sGB. Confirm ? Y/n\n" "$swap_size"
+    printf "Swap size is %sGB. Confirm ? Y/n " "$swap_size"
     read -r swap_answer
     if [ "$swap_answer" = "y" ] || [ "$swap_answer" = "Y" ]; then
       # Convert to MB

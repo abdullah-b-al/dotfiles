@@ -44,7 +44,7 @@ partition_disk() {
   swap_partition=$( echo "$partitions" | grep "Linux swap" | awk '{ printf $1}')
   root_partition=$( echo "$partitions" | grep "Linux filesystem" | awk '{ printf $1}')
 
-  printf "---------- Finished partition_disk() ----------"
+  echo "---------- Finished partition_disk() ----------"
 }
 
 format_partitions() {
@@ -53,7 +53,7 @@ format_partitions() {
   mkswap "$swap_partition"
   mkfs.fat -F 32 "$boot_partition"
 
-  printf "---------- Finished format_partitions() ----------"
+  echo "---------- Finished format_partitions() ----------"
 }
 
 mount_partitions() {
@@ -61,12 +61,12 @@ mount_partitions() {
   mount --mkdir "$boot_partition" /mnt/boot
   swapon "$swap_partition"
 
-  printf "---------- Finished mount_partitions() ----------"
+  echo "---------- Finished mount_partitions() ----------"
 }
 
 fstab() {
   genfstab -U /mnt >> /mnt/etc/fstab
-  printf "---------- Finished fstab() ----------"
+  echo "---------- Finished fstab() ----------"
 }
 
 install_packages() {
@@ -75,7 +75,7 @@ install_packages() {
   arch-chroot /mnt
   pacman -S --noconfirm --needed - < packages.txt
 
-  printf "---------- Finished install_packages() ----------"
+  echo "---------- Finished install_packages() ----------"
 }
 
 system_config() {

@@ -83,6 +83,8 @@ system_config() {
 
   hwclock --systohc
 
+  sed -i 's|#ar_SA.UTF-8 UTF-8|ar_SA.UTF-8 UTF-8|1' /etc/locale.gen
+  sed -i 's|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|1' /etc/locale.gen
   locale-gen
 
   printf "LANG=en_US.UTF-8" > /etc/locale.conf

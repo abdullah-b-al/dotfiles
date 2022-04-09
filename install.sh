@@ -42,8 +42,8 @@ partition_disk() {
 
   partitions=$(fdisk -l | grep "^$installation_disk")
   boot_partition=$( echo "$partitions" | grep "EFI System" | awk '{ printf $1}')
-  swap_partition=$( echo "$partitions" | grep "Linux swap" | awk '{ printf $1}')
-  root_partition=$( echo "$partitions" | grep "Linux filesystem" | awk '{ printf $1}')
+  swap_partition=$( echo "$partitions" | grep "Linux swap" | awk '{ printf $1 }')
+  root_partition=$( echo "$partitions" | grep "Linux filesystem" | awk '{ printf $1 }')
 
   echo "---------- Finished partition_disk() ----------"
 }
@@ -73,7 +73,7 @@ fstab() {
 }
 
 install_packages() {
-  arch-chroot /mnt bash -c "pacman -S --noconfirm --needed - < packages.txt"
+  arch-chroot /mnt bash -c "pacman -S --noconfirm --needed - < /install_tmp/packages.txt"
   echo "---------- Finished install_packages() ----------"
 }
 
@@ -91,7 +91,7 @@ system_config() {
   arch-chroot /mnt bash -c "printf "desktop-arch" > /etc/hostname"
 
   arch-chroot /mnt mkinitcpio -P
-  arch-chroot /mnt bash -c "printf "%s\n%s" "$root_password" "$root_password" | passwd"
+  arch-chroot /mnt bash -c "source /install_tmp/info && printf "%s\n%s" "$root_password" "$root_password" | passwd"
   echo "---------- Finished system_config() ----------"
 }
 
@@ -191,8 +191,20 @@ main() {
   format_partitions
   mount_partitions
   fstab
+
+  # Save info
+  echo "export root_password=$root_password" > info
+  echo "export user_name=$user_name" >> info
+  echo "export user_password=$user_password" >> info
+
+  mkdir -p /mnt/install_tmp
+  cp packages.txt /mnt/install_tmp
+  cp info /mnt/install_tmp
+
   install_packages
   system_config
+
+  rm -rf /mnt/install_tmp
 }
 
 

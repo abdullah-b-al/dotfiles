@@ -33,6 +33,7 @@ vim.cmd[[
   let l:build = l:root . "/" . a:build_dir
 
   call chdir(l:build)
+  wa
   split | terminal "$SHELL" -c "make run"
   call chdir(l:root)
   endfunction

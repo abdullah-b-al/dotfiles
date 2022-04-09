@@ -184,6 +184,13 @@ main() {
   done
 
 
+  update_system_clock
+  partition_disk
+  format_partitions
+  mount_partitions
+  fstab
+  install_packages
+  system_config
 }
 
 

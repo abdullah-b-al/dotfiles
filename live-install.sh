@@ -11,26 +11,26 @@ boot_start="1"
 boot_end="512"
 
 update_system_clock() {
-  grep -i "Finished update_system_clock()" log && return
+  grep -i "Finished update_system_clock()" log > /dev/null && return
 
   timedatectl set-ntp true
 
-  echo "Finished update_system_clock()" > log
+  echo "Finished update_system_clock()" >> log
 }
 
 partition_disk() {
-  grep -i "Finished partition_disk()" log && return
-
   boot_end+="MB"
   swap_start+="MB"
   swap_end+="MB"
 
-  parted -s "$installation_disk"                                  \
-    mklabel gpt                                                   \
-    mkpart "$boot_name" fat32 "$boot_start" "$boot_end"           \
-    set 1 boot on                                                 \
-    mkpart "$swap_name" "linux-swap(v1)" "$boot_end" "$swap_size" \
-    mkpart "$root_name" ext4 "$swap_end" 100%
+  if ! grep -i "Finished partition_disk()" log > /dev/null; then
+    parted -s "$installation_disk"                                  \
+      mklabel gpt                                                   \
+      mkpart "$boot_name" fat32 "$boot_start" "$boot_end"           \
+      set 1 boot on                                                 \
+      mkpart "$swap_name" "linux-swap(v1)" "$boot_end" "$swap_size" \
+      mkpart "$root_name" ext4 "$swap_end" 100%
+  fi
 
 
   partitions=$(fdisk -l | grep "^$installation_disk")
@@ -42,7 +42,7 @@ partition_disk() {
 }
 
 format_partitions() {
-  grep -i "Finished format_partitions()" log && return
+  grep -i "Finished format_partitions()" log > /dev/null && return
 
   mkfs.ext4 "$root_partition"
   mkswap "$swap_partition"
@@ -52,7 +52,7 @@ format_partitions() {
 }
 
 mount_partitions() {
-  grep -i "Finished mount_partitions()" log && return
+  grep -i "Finished mount_partitions()" log > /dev/null && return
 
   mount "$root_partition" /mnt
   mount --mkdir "$boot_partition" /mnt/boot
@@ -66,7 +66,7 @@ mount_partitions() {
 }
 
 fstab() {
-  grep -i "Finished fstab()" log && return
+  grep -i "Finished fstab()" log > /dev/null && return
 
   pacstrap /mnt base base-devel linux linux-firmware
 
@@ -76,7 +76,7 @@ fstab() {
 }
 
 install_packages() {
-  grep -i "Finished install_packages()" log && return
+  grep -i "Finished install_packages()" log > /dev/null && return
 
   arch-chroot /mnt bash -c "pacman -S --noconfirm --needed - < /install_tmp/packages.txt"
 
@@ -84,6 +84,8 @@ install_packages() {
 }
 
 main() {
+  touch log
+
   # Get disk to be installed on
   while true; do
     disks=$(fdisk -l)

@@ -1,6 +1,4 @@
 #!/bin/sh
-user_name=$(cat /install_tmp/user_name)
-
 ln -sf /usr/share/zoneinfo/Asia/Riyadh /etc/localtime
 
 hwclock --systohc
@@ -17,7 +15,13 @@ printf "desktop-arch" > /etc/hostname
 mkinitcpio -P
 
 # Set root passwd
-cat /install_tmp/root_password | passwd
+printf "%s\n%s" "$root_password" "$root_password" | passwd
+
+# Create user
+useradd -m "$user_name"
+printf "%s\n%s" "$user_password" "$user_password" | passwd "$user_name"
+usermod -aG wheel,audio,video,optical,storage "$user_name"
+
 
 # doas config lines must end with a new line
 printf "permit :wheel\n" > /etc/doas.conf

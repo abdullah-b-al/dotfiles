@@ -1,25 +1,14 @@
 #!/bin/sh
-export installation_disk
-
 export root_password
 export user_name
 export user_password
 
-export boot_name="boot"
-export swap_name="swap"
-export root_name="arch"
+boot_name="boot"
+swap_name="swap"
+root_name="arch"
 
-export boot_start="1"
-export boot_end="512"
-
-export swap_size
-export swap_start
-export swap_end
-
-export partitions    
-export boot_partition
-export swap_partition
-export root_partition
+boot_start="1"
+boot_end="512"
 
 
 update_system_clock() {
@@ -91,7 +80,7 @@ main() {
 
     disks=$(echo "$disks" | grep -i "Disk /dev/" | awk -F ":| " '{print $2}' | grep -i "$installation_disk")
     if [ "$disks" = "$installation_disk" ]; then
-      printf "You chose %s. Confirm ? Y/n " "$installation_disk"
+      printf "You chose %s. Confirm ? Y/n\n" "$installation_disk"
       fdisk -l "$installation_disk" | sed '2!d'
       read -r disk_answer
       
@@ -181,19 +170,8 @@ main() {
   fstab
 
   # Save vars to use in config script
-  echo "$root_password" > root_password
-  echo "$root_password" >> root_password
-
-  echo "$user_name" > user_name
-
-  echo "$user_password" > user_password
-  echo "$user_password" >> user_password
-
   mkdir -p /mnt/install_tmp
   cp packages.txt  \
-  root_password    \
-  user_name        \
-  user_password    \
   config-system.sh \
   -t /mnt/install_tmp
 

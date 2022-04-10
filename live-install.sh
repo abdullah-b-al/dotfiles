@@ -195,9 +195,7 @@ main() {
 
   rm -rf /mnt/install_tmp
 
-  printf "System install and configured. Press any key to reboot"
-  read c
-  reboot
+  printf "System installed and configured."
 }
 
 

@@ -20,7 +20,7 @@ export BROWSER=brave
 export PATH=$PATH:$HOME/.local/bin
 export HISTCONTROL=ignoreboth
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export DOTFILESDIR="$HOME/.dot/.dotfiles/"
+export DOTFILESDIR="$HOME/.dotfiles"
 export ZK_NOTEBOOK_DIR="$HOME/.local/zk-notes/"
 export prog="$HOME/.local/prog"
 

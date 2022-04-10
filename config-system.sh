@@ -49,7 +49,6 @@ fi
 
 
 # Install dotfiles
-su "$user_name" -c ''
 export user_home="/home/$user_name"
 su "$user_name" -c '[ -d "$user_home/.dotfiles" ] || git clone https://github.com/ab55al/.dotfiles $user_home/.dotfiles'
 
@@ -65,3 +64,12 @@ su "$user_name" -c 'cd "$user_home"/.dotfiles && stow -S . -t "$user_home"'
 su "$user_name" -c '[ -d "$user_home"/.config/st ] || git clone https://github.com/ab55al/st $user_home/.config/st'
 
 su "$user_name" -c 'cd "$user_home"/.config/st && echo "$root_password" | sudo -S make install && make clean'
+
+# Download AUR helper
+su "$user_name" -c '[ -d "$user_home"/paru ] || git clone https://aur.archlinux.org/paru.git $user_home/paru'
+
+
+# Change default shell
+echo "$user_password" | chsh -s /bin/zsh
+# remove bash files
+su "$user_name" -c 'rm $user_home/.bash*'

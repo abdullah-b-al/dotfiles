@@ -26,6 +26,7 @@ xclip
 xf86-video-amdgpu
 xf86-video-vesa
 xorg
+xorg-xinit
 xsel
 zathura
 zathura-pdf-mupdf
@@ -42,3 +43,4 @@ os-prober
 mtools
 git
 networkmanager
+fzf

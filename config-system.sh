@@ -65,8 +65,11 @@ su "$user_name" -c '[ -d "$user_home"/.config/st ] || git clone https://github.c
 
 su "$user_name" -c 'cd "$user_home"/.config/st && echo "$root_password" | sudo -S make install && make clean'
 
-# Download AUR helper
+# Install AUR helper
 su "$user_name" -c '[ -d "$user_home"/paru ] || git clone https://aur.archlinux.org/paru.git $user_home/paru'
+su "$user_name" -c 'cd $user_home/paru && makepkg -s'
+su "$user_name" -c 'cd $user_home/paru && echo $root_password | sudo -S pacman -U paru*.pkg.tar.zst'
+su "$user_name" -c 'echo "$root_password" | sudo echo && paru --noconfirm -S - < "$user_home/.dotfiles/aur-packages.txt"'
 
 
 # Change default shell

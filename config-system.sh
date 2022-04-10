@@ -44,23 +44,20 @@ if ! [ -f /boot/grub/grub.cfg ]; then
 fi
 
 
-### Switch to user
 # Install dotfiles
-su "$user_name"
-cd "$HOME"
-[ -d ~/.dotfiles ] || git clone https://github.com/ab55al/.dotfiles
+su "$user_name" -c ''
+export user_home="/home/$user_name"
+su "$user_name" -c '[ -d "$user_name/.dotfiles" ] || git clone https://github.com/ab55al/.dotfiles $user_home/.dotfiles'
 
 # Create directories
 # XDG
-mkdir -p ~/.config ~/.local/share ~/.local/bin/ ~/.cache
+su "$user_name" -c 'mkdir -p "$user_home"/.config "$user_home"/.local/share "$user_home"/.local/bin/ "$user_home"/.cache'
 # dotfiles
-mkdir -p ~/.config/zsh
+su "$user_name" -c 'mkdir -p "$user_home"/.config/zsh'
 
-cd $HOME/.dotfiles
-stow -S . -t $HOME
+su "$user_name" -c 'cd "$user_home"/.dotfiles && stow -S . -t "$user_home"'
 
 # Install st
-cd $HOME/.config
-[ -d ~/.config/st ] || git clone https://github.com/ab55al/st
-cd ~/.config/st
-echo "$root_password" | sudo make install && make clean
+su "$user_name" -c '[ -d "$user_home"/.config/st ] || git clone https://github.com/ab55al/st $user_home/.config/st'
+
+su "$user_name" -c 'cd "$user_home"/.config/st && echo "$root_password" | sudo make install && make clean'

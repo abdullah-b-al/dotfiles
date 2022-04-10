@@ -51,6 +51,10 @@ mount_partitions() {
   mount --mkdir "$boot_partition" /mnt/boot
   swapon "$swap_partition"
 
+
+  hdd_path=$(fdisk -l | grep -B 1 "ST2000DM008-2FR1" | sed 1q | awk -F ":| " '{ printf $2 }')
+  [ -n "$hdd_path" ] && mount "$hdd_path" /mnt/mnt/linuxHDD
+
   echo "---------- Finished mount_partitions() ----------"
 }
 

@@ -73,6 +73,6 @@ su "$user_name" -c 'echo "$root_password" | sudo -S echo && paru --noconfirm -S 
 
 
 # Change default shell
-echo "$user_password" | chsh -s /bin/zsh
+su "$user_name" -c 'echo "$user_password" | chsh -s /bin/zsh'
 # remove bash files
 su "$user_name" -c 'rm $user_home/.bash*'

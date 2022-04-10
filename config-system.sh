@@ -36,6 +36,9 @@ chmod -c 0400 /etc/doas.conf
 sed -i "s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) ALL|g" /etc/sudoers
 sed -i "s|# %wheel ALL=(ALL:ALL) ALL|%wheel ALL=(ALL) ALL|g" /etc/sudoers
 
+# Set up network
+systemctl enable NetworkManager
+
 # Config and install grub
 mkdir -p /boot/EFI
 

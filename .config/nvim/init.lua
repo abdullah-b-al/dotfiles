@@ -47,9 +47,6 @@ cmd 'packadd packer.nvim'
 g.mapleader = ' '
 g.maplocalleader = ','
 
---{{{ Global mapping table and functions
-require('keymap/Mappings')
-
 --{{{1 Plugins
 -- Auto-install packer
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -124,6 +121,9 @@ packer.startup(function()
   use 'ray-x/lsp_signature.nvim'
   use 'williamboman/nvim-lsp-installer'
 end)
+
+--{{{ Global mapping table and functions
+require('keymap/Mappings')
 
 --{{{1 config of plugins in lua
 require('plugin')

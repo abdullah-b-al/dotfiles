@@ -68,8 +68,8 @@ su "$user_name" -c 'cd "$user_home"/.config/st && echo "$root_password" | sudo -
 # Install AUR helper
 su "$user_name" -c '[ -d "$user_home"/paru ] || git clone https://aur.archlinux.org/paru.git $user_home/paru'
 su "$user_name" -c 'cd $user_home/paru && makepkg -s'
-su "$user_name" -c 'cd $user_home/paru && echo $root_password | sudo -S pacman -U paru*.pkg.tar.zst'
-su "$user_name" -c 'echo "$root_password" | sudo echo && paru --noconfirm -S - < "$user_home/.dotfiles/aur-packages.txt"'
+su "$user_name" -c 'cd $user_home/paru && echo $root_password | sudo -S pacman --noconfirm -U paru*.pkg.tar.zst'
+su "$user_name" -c 'echo "$root_password" | sudo -S echo && paru --noconfirm -S - < "$user_home/.dotfiles/aur-packages.txt"'
 
 
 # Change default shell

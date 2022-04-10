@@ -33,7 +33,8 @@ chown -c root:root /etc/doas.conf
 chmod -c 0400 /etc/doas.conf
 
 # sudo
-sed -i "s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) ALL|1" /etc/sudoers
+sed -i "s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) ALL|g" /etc/sudoers
+sed -i "s|# %wheel ALL=(ALL:ALL) ALL|%wheel ALL=(ALL) ALL|g" /etc/sudoers
 
 # Config and install grub
 mkdir -p /boot/EFI
@@ -47,7 +48,7 @@ fi
 # Install dotfiles
 su "$user_name" -c ''
 export user_home="/home/$user_name"
-su "$user_name" -c '[ -d "$user_name/.dotfiles" ] || git clone https://github.com/ab55al/.dotfiles $user_home/.dotfiles'
+su "$user_name" -c '[ -d "$user_home/.dotfiles" ] || git clone https://github.com/ab55al/.dotfiles $user_home/.dotfiles'
 
 # Create directories
 # XDG
@@ -60,4 +61,4 @@ su "$user_name" -c 'cd "$user_home"/.dotfiles && stow -S . -t "$user_home"'
 # Install st
 su "$user_name" -c '[ -d "$user_home"/.config/st ] || git clone https://github.com/ab55al/st $user_home/.config/st'
 
-su "$user_name" -c 'cd "$user_home"/.config/st && echo "$root_password" | sudo make install && make clean'
+su "$user_name" -c 'cd "$user_home"/.config/st && echo "$root_password" | sudo -S make install && make clean'

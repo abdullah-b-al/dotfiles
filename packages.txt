@@ -40,3 +40,4 @@ efibootmgr
 dosfstools
 os-prober
 mtools
+git

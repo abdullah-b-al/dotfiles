@@ -18,9 +18,11 @@ mkinitcpio -P
 printf "%s\n%s" "$root_password" "$root_password" | passwd
 
 # Create user
-useradd -m "$user_name"
-printf "%s\n%s" "$user_password" "$user_password" | passwd "$user_name"
-usermod -aG wheel,audio,video,optical,storage "$user_name"
+if ! grep -i "$user_name" /etc/passwd >/dev/null; then
+  useradd -m "$user_name"
+  printf "%s\n%s" "$user_password" "$user_password" | passwd "$user_name"
+  usermod -aG wheel,audio,video,optical,storage "$user_name"
+fi
 
 
 # doas config lines must end with a new line
@@ -34,15 +36,18 @@ sed -i "s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) ALL|1" /etc/sudoers
 
 # Config and install grub
 mkdir -p /boot/EFI
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB --recheck
-grub-mkconfig -o /boot/grub/grub.cfg
+
+if ! [ -f /boot/grub/grub.cfg ]; then
+  grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB --recheck
+  grub-mkconfig -o /boot/grub/grub.cfg
+fi
 
 
 ### Switch to user
 # Install dotfiles
 su "$user_name"
 cd "$HOME"
-git clone https://github.com/ab55al/.dotfiles
+[ -d ~/.dotfiles ] || git clone https://github.com/ab55al/.dotfiles
 
 # Create directories
 # XDG
@@ -54,8 +59,7 @@ cd $HOME/.dotfiles
 stow -S . -t $HOME
 
 # Install st
-cd $HOME
-git clone https://github.com/ab55al/st
-mv st ~/.config
+cd $HOME/.config
+[ -d ~/.config/st ] || git clone https://github.com/ab55al/st
 cd ~/.config/st
 echo "$root_password" | sudo make install && make clean

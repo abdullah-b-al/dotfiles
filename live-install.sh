@@ -10,20 +10,24 @@ root_name="arch"
 boot_start="1"
 boot_end="512"
 
-
 update_system_clock() {
+  grep -i "Finished update_system_clock()" log && return
+
   timedatectl set-ntp true
-  echo "---------- Finished update_system_clock() ----------"
+
+  echo "Finished update_system_clock()" > log
 }
 
 partition_disk() {
+  grep -i "Finished partition_disk()" log && return
+
   boot_end+="MB"
   swap_start+="MB"
   swap_end+="MB"
 
   parted -s "$installation_disk"                                  \
     mklabel gpt                                                   \
-    mkpart "$boot_name" fat32 1 "$boot_end"                       \
+    mkpart "$boot_name" fat32 "$boot_start" "$boot_end"           \
     set 1 boot on                                                 \
     mkpart "$swap_name" "linux-swap(v1)" "$boot_end" "$swap_size" \
     mkpart "$root_name" ext4 "$swap_end" 100%
@@ -34,19 +38,22 @@ partition_disk() {
   swap_partition=$( echo "$partitions" | grep "Linux swap" | awk '{ printf $1 }')
   root_partition=$( echo "$partitions" | grep "Linux filesystem" | awk '{ printf $1 }')
 
-  echo "---------- Finished partition_disk() ----------"
+  echo "Finished partition_disk()" >> log
 }
 
 format_partitions() {
+  grep -i "Finished format_partitions()" log && return
 
   mkfs.ext4 "$root_partition"
   mkswap "$swap_partition"
   mkfs.fat -F 32 "$boot_partition"
 
-  echo "---------- Finished format_partitions() ----------"
+  echo "Finished format_partitions()" >> log
 }
 
 mount_partitions() {
+  grep -i "Finished mount_partitions()" log && return
+
   mount "$root_partition" /mnt
   mount --mkdir "$boot_partition" /mnt/boot
   swapon "$swap_partition"
@@ -55,19 +62,25 @@ mount_partitions() {
   hdd_path=$(fdisk -l | grep -B 1 "ST2000DM008-2FR1" | sed 1q | awk -F ":| " '{ printf $2 }')
   [ -n "$hdd_path" ] && mount "$hdd_path" /mnt/mnt/linuxHDD
 
-  echo "---------- Finished mount_partitions() ----------"
+  echo "Finished mount_partitions()" >> log
 }
 
 fstab() {
+  grep -i "Finished fstab()" log && return
+
   pacstrap /mnt base base-devel linux linux-firmware
 
   genfstab -U /mnt >> /mnt/etc/fstab
-  echo "---------- Finished fstab() ----------"
+
+  echo "Finished fstab()" >> log
 }
 
 install_packages() {
+  grep -i "Finished install_packages()" log && return
+
   arch-chroot /mnt bash -c "pacman -S --noconfirm --needed - < /install_tmp/packages.txt"
-  echo "---------- Finished install_packages() ----------"
+
+  echo "Finished install_packages()" >> log
 }
 
 main() {

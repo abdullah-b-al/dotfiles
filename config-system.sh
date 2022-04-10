@@ -19,6 +19,7 @@ printf "%s\n%s" "$root_password" "$root_password" | passwd
 
 # Create user
 if ! grep -i "$user_name" /etc/passwd >/dev/null; then
+  printf "Creating user %s\n" "$user_name"
   useradd -m "$user_name"
   printf "%s\n%s" "$user_password" "$user_password" | passwd "$user_name"
   usermod -aG wheel,audio,video,optical,storage "$user_name"

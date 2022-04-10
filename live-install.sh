@@ -68,8 +68,6 @@ mount_partitions() {
 fstab() {
   grep -i "Finished fstab()" log > /dev/null && return
 
-  pacstrap /mnt base base-devel linux linux-firmware
-
   genfstab -U /mnt >> /mnt/etc/fstab
 
   echo "Finished fstab()" >> log
@@ -182,6 +180,7 @@ main() {
   partition_disk
   format_partitions
   mount_partitions
+  pacstrap /mnt base base-devel linux linux-firmware
   fstab
 
   # Save vars to use in config script
@@ -195,7 +194,7 @@ main() {
 
   rm -rf /mnt/install_tmp
 
-  printf "System installed and configured."
+  printf "System installed and configured.\n"
 }
 
 

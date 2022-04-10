@@ -1,4 +1,6 @@
 #!/bin/sh
+user_name=$(cat /install_tmp/user_name)
+
 ln -sf /usr/share/zoneinfo/Asia/Riyadh /etc/localtime
 
 hwclock --systohc
@@ -23,4 +25,7 @@ printf "permit persist :wheel\n" >> /etc/doas.conf
 chown -c root:root /etc/doas.conf
 chmod -c 0400 /etc/doas.conf
 
-# Config grub
+# Config and install grub
+mkdir -p /boot/EFI
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB --recheck
+grub-mkconfig -o /boot/grub/grub.cfg

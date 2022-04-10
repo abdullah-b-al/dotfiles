@@ -68,6 +68,10 @@ mount_partitions() {
 fstab() {
   pacstrap /mnt base base-devel linux linux-firmware
 
+  # printf "# Static information about the filesystems." > /mnt/etc/fstab
+  # printf "# See fstab(5) for details." >> /mnt/etc/fstab
+  # printf "# <file system> <dir> <type> <options> <dump> <pass>" >> /mnt/etc/fstab
+
   genfstab -U /mnt >> /mnt/etc/fstab
   echo "---------- Finished fstab() ----------"
 }
@@ -175,7 +179,7 @@ main() {
   mount_partitions
   fstab
 
-  # Save info
+  # Save vars to use in config script
   echo "$root_password" > root_password
   echo "$root_password" >> root_password
 
@@ -185,11 +189,12 @@ main() {
   echo "$user_password" >> user_password
 
   mkdir -p /mnt/install_tmp
-  cp packages.txt /mnt/install_tmp
-  cp root_password /mnt/install_tmp
-  cp user_name /mnt/install_tmp
-  cp user_password /mnt/install_tmp
-  cp config-system.sh /mnt/install_tmp
+  cp packages.txt  \
+  root_password    \
+  user_name        \
+  user_password    \
+  config-system.sh \
+  -t /mnt/install_tmp
 
   install_packages
   arch-chroot /mnt bash -c "/install_tmp/config-system.sh"

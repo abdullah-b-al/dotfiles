@@ -92,7 +92,7 @@ main() {
     disks=$(echo "$disks" | grep -i "Disk /dev/" | awk -F ":| " '{print $2}' | grep -i "$installation_disk")
     if [ "$disks" = "$installation_disk" ]; then
       printf "You chose %s. Confirm ? Y/n " "$installation_disk"
-      fdisk -l /dev/nvme1n1 | sed '2!d'
+      fdisk -l "$installation_disk" | sed '2!d'
       read -r disk_answer
       
       if [ "$disk_answer" = "y" ] || [ "$disk_answer" = "Y" ]; then

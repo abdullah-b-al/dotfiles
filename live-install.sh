@@ -61,10 +61,6 @@ mount_partitions() {
 fstab() {
   pacstrap /mnt base base-devel linux linux-firmware
 
-  # printf "# Static information about the filesystems." > /mnt/etc/fstab
-  # printf "# See fstab(5) for details." >> /mnt/etc/fstab
-  # printf "# <file system> <dir> <type> <options> <dump> <pass>" >> /mnt/etc/fstab
-
   genfstab -U /mnt >> /mnt/etc/fstab
   echo "---------- Finished fstab() ----------"
 }
@@ -183,6 +179,10 @@ main() {
   arch-chroot /mnt bash -c "/install_tmp/config-system.sh"
 
   rm -rf /mnt/install_tmp
+
+  printf "System install and configured. Press any key to reboot"
+  read c
+  reboot
 }
 
 

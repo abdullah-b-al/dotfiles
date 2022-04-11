@@ -1,7 +1,4 @@
 local api = vim.api
-local pickers = require "telescope.pickers"
-local finders = require "telescope.finders"
-local conf = require("telescope.config").values
 
 -- Global mapping table
 _G.Mappings = {}
@@ -41,6 +38,17 @@ function Mappings.add(mode, lhs, desc)
 end
 
 function Mappings.view(opts)
+
+  local found_telescope = pcall(require, "telescope")
+  if not found_telescope then
+    print("Couldn't find telescope in Mappings.lua")
+    return
+  end
+
+  local pickers = require "telescope.pickers"
+  local finders = require "telescope.finders"
+  local conf    = require("telescope.config").values
+
   local output = {}
   local map_lhs_spr = string.rep(' ', 2)
   local lhs_desc_spr

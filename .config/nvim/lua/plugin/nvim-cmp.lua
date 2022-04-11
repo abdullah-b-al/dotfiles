@@ -1,5 +1,20 @@
-local cmp = require'cmp'
-local lspkind = require('lspkind')
+local found_cmp, cmp = pcall(require, 'cmp')
+if not found_cmp then
+  print("Couldn't find cmp in nvim-cmp.lua")
+  return
+end
+
+local found_lspkind, lspkind = pcall(require, 'lspkind')
+if not found_lspkind then
+  print("Couldn't find lspkind in nvim-cmp.lua")
+  return
+end
+
+local found_luasnip, luasnip = pcall(require, 'luasnip')
+if not found_luasnip then
+  print("Couldn't find luasnip in nvim-cmp.lua")
+  return
+end
 
 vim.opt.completeopt = {'menuone', 'preview'}
 
@@ -12,7 +27,7 @@ cmp.setup({
   },
   snippet = {
     expand = function(args)
-      require'luasnip'.lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end
   },
   mapping = {

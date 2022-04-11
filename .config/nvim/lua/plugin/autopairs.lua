@@ -1,4 +1,10 @@
-local autopairs = require("nvim-autopairs")
+local found_autopairs, autopairs = pcall(require, "nvim-autopairs")
+local found_cmp, cmp             = pcall(require, 'cmp')
+
+if not found_autopairs then
+  print ("Couldn't find autopairs in autopairs.lua")
+  return
+end
 
 -- change default fast_wrap
 autopairs.setup({
@@ -24,5 +30,10 @@ autopairs.setup({
   }
 })
 
+if not found_cmp then
+  print("Couldn't find cmp in autopairs.lua")
+  return
+end
+
 local cmp_auto_pairs = require('nvim-autopairs.completion.cmp')
-require('cmp').event:on("confirm_done", cmp_auto_pairs.on_confirm_done( {map_char = { tex = ""}} ) )
+cmp.event:on("confirm_done", cmp_auto_pairs.on_confirm_done( {map_char = { tex = ""}} ) )

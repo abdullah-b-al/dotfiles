@@ -1,7 +1,10 @@
-local cfg = require("lsps/lsp_signature")
+local lspconfig = require 'lspconfig'
+local signature = require 'lsp_signature'
+local cmp       = require('cmp_nvim_lsp')
+
+local cfg = require 'lsps/lsp_signature'
 local dir = 'lsps'
 
-local lspconfig = require'lspconfig'
 lspconfig.ccls.setup {
   on_attach = require(dir .. '/lsp_on_attach'),
   init_options = {
@@ -15,7 +18,7 @@ lspconfig.ccls.setup {
   },
 
   -- nvim-cmp setting
-  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities ()),
+  capabilities = cmp.update_capabilities(vim.lsp.protocol.make_client_capabilities ()),
   -- LSP signature
-  require 'lsp_signature'.setup(cfg),
+  signature.setup(cfg),
 }

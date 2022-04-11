@@ -1,3 +1,20 @@
+local found_lspconfig = pcall(require, 'lspconfig')
+local found_signature = pcall(require, 'lsp_signature')
+local found_cmp       = pcall(require, 'cmp_nvim_lsp')
+
+if not found_lspconfig then
+  print("Couldn't find lspconfig in lsps/init.lua")
+  return
+end
+if not found_signature then
+  print("Couldn't find lsp-signature in lsps/init.lua")
+  return
+end
+if not found_cmp then
+  print("Couldn't find cmp in lsps/init.lua")
+  return
+end
+
 local dir = 'lsps'
 return {
   -- require(dir .. '/ccls'),

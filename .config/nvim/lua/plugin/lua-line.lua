@@ -1,7 +1,12 @@
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
-local lualine = require 'lualine'
+local found_lualine, lualine = pcall(require, 'lualine')
+
+if not found_lualine then
+  print("Couldn't find lualine in lua-line.lua")
+  return
+end
 
 -- Color table for highlights
 -- stylua: ignore

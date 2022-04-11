@@ -1,3 +1,9 @@
+local found_zk, zk = pcall(require, "zk")
+if not found_zk then
+  print("Couldn't find zk in zk.lua")
+  return
+end
+
 local opts = { noremap=true, silent=true }
 local map = _G.Mappings.map
 
@@ -29,7 +35,7 @@ local attach = function(bufnr)
   vim.cmd[[autocmd FileType markdown syn region markdownWikiLinkidk matchgroup=markdownLinkDelimiter start="`" end="`" contains=markdownUrl keepend oneline concealends]]
 end
 
-require("zk").setup({
+zk.setup {
   picker = "telescope",
 
   lsp = {
@@ -45,4 +51,5 @@ require("zk").setup({
       enabled = true,
       filetypes = { "markdown" },
     },
-  }, })
+  },
+}

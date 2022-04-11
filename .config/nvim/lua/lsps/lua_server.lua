@@ -1,3 +1,7 @@
+local lspconfig = require 'lspconfig'
+local signature = require 'lsp_signature'
+local cmp       = require('cmp_nvim_lsp')
+
 local cfg = require("lsps/lsp_signature")
 local dir = 'lsps'
 local path = os.getenv('HOME') .. '/.local/share/nvim/lsp_servers'
@@ -6,7 +10,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require('lspconfig'). sumneko_lua.setup {
+lspconfig. sumneko_lua.setup {
   on_attach = require(dir .. '/lsp_on_attach'),
   cmd = {path .. '/sumneko_lua/extension/server/bin/lua-language-server'};
   settings = {
@@ -33,7 +37,7 @@ require('lspconfig'). sumneko_lua.setup {
   },
 
   -- nvim-cmp setting
-  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities ()),
+  capabilities = cmp.update_capabilities(vim.lsp.protocol.make_client_capabilities ()),
   -- LSP signature
-  require 'lsp_signature'.setup(cfg),
+  signature.setup(cfg),
 }

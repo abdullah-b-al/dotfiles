@@ -1,3 +1,9 @@
+local found_tree, tree = pcall(require, 'nvim-tree')
+if not found_tree then
+  print("Couldn't find nvim-tree in nvim-tree.lua")
+  return
+end
+
 vim.g.nvim_tree_icons = {
   default = "",
   symlink = "",
@@ -19,7 +25,7 @@ vim.g.nvim_tree_icons = {
   },
 }
 
-require('nvim-tree').setup {
+tree.setup {
   disable_netrw = true,
   hijack_netrw = true,
   open_on_setup = false,

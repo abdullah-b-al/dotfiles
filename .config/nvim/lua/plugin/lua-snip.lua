@@ -1,4 +1,10 @@
-local ls = require('luasnip')
+local found_luasnip, ls = pcall(require, 'luasnip')
+
+if not found_luasnip then
+  print("Couldn't find luasnip in lua-snip.lua")
+  return
+end
+
 local types = require('luasnip.util.types')
 
 -- Load snippets from friendlysnippets library

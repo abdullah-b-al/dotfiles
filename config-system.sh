@@ -70,6 +70,9 @@ su "$user_name" -c '[ -d "$user_home"/paru ] || git clone https://aur.archlinux.
 su "$user_name" -c 'cd $user_home/paru && makepkg -s'
 su "$user_name" -c 'cd $user_home/paru && echo $root_password | sudo -S pacman --noconfirm -U paru*.pkg.tar.zst && rm -rf "$user_home/paru"'
 
+# Install nvim package manager
+su "$user_name" -c 'git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim'
+
 
 # Change default shell
 su "$user_name" -c 'echo "$user_password" | chsh -s /bin/zsh'

@@ -1,4 +1,10 @@
-require('gitsigns').setup {
+local found_gitsigns, gs = pcall(require, 'gitsigns')
+if not found_gitsigns then
+  print("Couldn't find gitsigns in gitsigns.lua")
+  return
+end
+
+gs.setup {
   signs = {
     add = { hl = "GitSignsAdd", text = "▎", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
     change = { hl = "GitSignsChange", text = "▎", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },

@@ -1,4 +1,4 @@
-colo gruvbox
+silent! colo gruvbox
 set colorcolumn=80
 
 " Disable colorcolumn for certain file types

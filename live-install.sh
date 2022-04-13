@@ -2,6 +2,7 @@
 export root_password
 export user_name
 export user_password
+export host_name
 
 boot_name="boot"
 swap_name="swap"
@@ -175,6 +176,18 @@ main() {
     fi
   done
 
+  # Get hostname
+  while true; do
+    printf "\n\n"
+    printf "Choose host name --> "
+    read -r host_name
+
+    printf "%s. Confirm hostname ? Y/n " "$host_name"
+    read -r answer
+    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
+      break
+    fi
+  done
 
   update_system_clock
   partition_disk

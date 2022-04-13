@@ -10,7 +10,7 @@ locale-gen
 
 printf "LANG=en_US.UTF-8" > /etc/locale.conf
 printf "KEYMAP=us" > /etc/vconsole.conf
-printf "desktop-arch" > /etc/hostname
+printf "$host_name" > /etc/hostname
 
 mkinitcpio -P
 

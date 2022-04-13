@@ -45,3 +45,4 @@ git
 networkmanager
 fzf
 cargo
+openssh

@@ -46,3 +46,4 @@ networkmanager
 fzf
 cargo
 openssh
+pac

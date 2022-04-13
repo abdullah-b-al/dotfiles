@@ -6,12 +6,16 @@ if [ "$UID" != 0 ]; then
   # Create directories and files
   # XDG
   mkdir -p "$HOME"/.config "$HOME"/.local/share "$HOME"/.local/bin/ "$HOME"/.cache
+
   # dotfiles
   mkdir -p "$HOME"/.config/zsh
   mkdir -p "$HOME"/.config/nvim
+
   # git
   mkdir -p "$HOME"/.config/git
   touch "$HOME"/.config/git/config "$HOME"/.config/git/credentials
+  git config --global user.email "abdullah5590x@gmail.com"
+  git config --global user.name "ab55al"
 
   if ! [ -d "$HOME/.dotfiles" ]; then
     git clone https://github.com/ab55al/.dotfiles "$HOME"/.dotfiles && \

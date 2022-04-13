@@ -10,5 +10,3 @@ alias gi='grep -Ei'
 alias v=nvim
 alias pac='sudo pacman'
 alias rn='ranger'
-
-alias clear='echo use C-l'

@@ -47,3 +47,4 @@ fzf
 cargo
 openssh
 pac
+xlockmore

@@ -203,10 +203,12 @@ main() {
   mkdir -p /mnt/install_tmp
   cp packages.txt  \
   config-system.sh \
+  config-user.sh \
   -t /mnt/install_tmp
 
   install_packages
   arch-chroot /mnt bash -c "/install_tmp/config-system.sh"
+  arch-chroot /mnt bash -c "/install_tmp/config-user.sh"
 
   rm -rf /mnt/install_tmp
 

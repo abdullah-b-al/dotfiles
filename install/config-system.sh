@@ -48,33 +48,4 @@ if ! [ -f /boot/grub/grub.cfg ]; then
 fi
 
 
-# Install dotfiles
-export user_home="/home/$user_name"
-su "$user_name" -c '[ -d "$user_home/.dotfiles" ] || git clone https://github.com/ab55al/.dotfiles $user_home/.dotfiles'
-
-# Create directories
-# XDG
-su "$user_name" -c 'mkdir -p "$user_home"/.config "$user_home"/.local/share "$user_home"/.local/bin/ "$user_home"/.cache'
-# dotfiles
-su "$user_name" -c 'mkdir -p "$user_home"/.config/zsh'
-
-su "$user_name" -c 'cd "$user_home"/.dotfiles && stow -S . -t "$user_home"'
-
-# Install st
-su "$user_name" -c '[ -d "$user_home"/.config/st ] || git clone https://github.com/ab55al/st $user_home/.config/st'
-
-su "$user_name" -c 'cd "$user_home"/.config/st && echo "$root_password" | sudo -S make install && make clean'
-
-# Install AUR helper
-su "$user_name" -c '[ -d "$user_home"/paru ] || git clone https://aur.archlinux.org/paru.git $user_home/paru'
-su "$user_name" -c 'cd $user_home/paru && makepkg -s'
-su "$user_name" -c 'cd $user_home/paru && echo $root_password | sudo -S pacman --noconfirm -U paru*.pkg.tar.zst && rm -rf "$user_home/paru"'
-
-# Install nvim package manager
-su "$user_name" -c '[ -d "$user_home"/.local/share/nvim/site/pack/packer/start/packer.nvim ] || git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim'
-
-
-# Change default shell
-su "$user_name" -c 'echo "$user_password" | chsh -s /bin/zsh'
-# remove bash files
-su "$user_name" -c 'rm $user_home/.bash*'
+printf "System configured.\n"

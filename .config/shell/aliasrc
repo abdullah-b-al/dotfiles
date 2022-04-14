@@ -8,6 +8,5 @@ alias g='grep -E'
 alias gi='grep -Ei'
 
 alias v=nvim
-alias pacs='sudo pacman -S'
-alias pacr='sudo pacman -Rs'
+alias pac='sudo pacman'
 alias rn='ranger'

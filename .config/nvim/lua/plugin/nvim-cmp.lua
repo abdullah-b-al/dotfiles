@@ -37,6 +37,7 @@ cmp.setup({
     ['<C-c>'] = cmp.mapping.complete(),
     ['<C-n>'] = cmp.mapping.select_next_item( { behavior = cmp.SelectBehavior.Select }),
     ['<C-p>'] = cmp.mapping.select_prev_item( { behavior = cmp.SelectBehavior.Select }),
+    ['<C-y>'] = cmp.mapping.confirm(),
   },
   sources = {
   { name = 'nvim_lsp' },

@@ -697,7 +697,3 @@ function enable_rounding()
 end
 
 enable_rounding()
-
-client.connect_signal("property::maximized", function (c)
-  c.border_color = "#FF0000"
-end)

@@ -113,6 +113,7 @@ map('n', '<leader>4', '4gt', { noremap = true, silent = true },
 map('n', '<leader>5', '5gt', { noremap = true, silent = true },
   'Move to tab 5')
 
+-- Cut and replace
 map('n', '<leader>vw', 'viwp', {},
   'Replace inside word')
 map('n', '<leader>vW', 'viWp', {},
@@ -127,3 +128,9 @@ map('n', '<leader>v}', 'vi}p', {},
   'Replace inside }')
 map('n', '<leader>v]', 'vi]p', {},
   'Replace inside ]')
+
+-- Center cursor after jump list movement
+map('n', '<C-i>', '<C-i>zz', { noremap = true },
+  'Center cursor after jump list movement')
+map('n', '<C-o>', '<C-o>zz', { noremap = true },
+  'Center cursor after jump list movement')

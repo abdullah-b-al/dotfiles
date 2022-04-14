@@ -650,7 +650,13 @@ client.connect_signal("mouse::enter", function(c)
   c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("focus", function(c)
+  if awful.layout.get(screen.primary) == awful.layout.suit.max then
+    c.border_color = 0
+  else
+    c.border_color = beautiful.border_focus
+  end
+end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
 -- Disable redshift on monitor 0 when viewing tag 5
@@ -675,3 +681,23 @@ screen.primary:connect_signal("tag::history::update",
 
 -- start sxhkd if not already started
 awful.spawn.with_shell("pgrep sxhkd || sxhkd &")
+
+function enable_rounding()
+  local function rounded_rect(radius)
+    return function(cr, width, height)
+      gears.shape.rounded_rect(cr, width, height, radius)
+    end
+  end
+
+    client.connect_signal("manage", function(c, startup)
+      if not c.fullscreen and not c.maximized then
+        c.shape = rounded_rect(12)
+      end
+    end)
+end
+
+enable_rounding()
+
+client.connect_signal("property::maximized", function (c)
+  c.border_color = "#FF0000"
+end)

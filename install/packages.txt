@@ -46,5 +46,5 @@ networkmanager
 fzf
 cargo
 openssh
-pac
 xlockmore
+picom

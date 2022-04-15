@@ -8,7 +8,6 @@ function Mappings.map(mode, lhs, rhs, opts, desc, bufnr)
   opts      = opts or {}
 
   if bufnr then
-    print"hey"
     api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
   else
     api.nvim_set_keymap(mode, lhs, rhs, opts)

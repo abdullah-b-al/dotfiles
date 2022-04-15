@@ -6,12 +6,12 @@ local spr_max_length = 0
 
 function Mappings.map(mode, lhs, rhs, opts, desc, bufnr)
   opts      = opts or {}
-  bufnr     = bufnr or 0
 
-  if bufnr == 0 then
-    api.nvim_set_keymap(mode, lhs, rhs, opts)
-  else
+  if bufnr then
+    print"hey"
     api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+  else
+    api.nvim_set_keymap(mode, lhs, rhs, opts)
   end
 
   if desc == '' or desc == nil then

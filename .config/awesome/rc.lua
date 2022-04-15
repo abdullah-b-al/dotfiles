@@ -691,7 +691,7 @@ function enable_rounding()
 
     client.connect_signal("manage", function(c, startup)
       if not c.fullscreen and not c.maximized then
-        c.shape = rounded_rect(12)
+        c.shape = rounded_rect(8)
       end
     end)
 end

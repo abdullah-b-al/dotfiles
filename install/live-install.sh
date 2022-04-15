@@ -62,8 +62,8 @@ mount_partitions() {
 
   hdd_path=$(fdisk -l | grep -B 1 "ST2000DM008-2FR1" | sed 1q | awk -F ":| " '{ printf $2 }')
   if [ -n "$hdd_path" ]; then
-    hdd_path="$hdd_path"2
-    mount "$hdd_path" /mnt/mnt/linuxHDD
+    linux_hdd_part= "$(fdisk -l | grep "Linux" | awk '{print $1}')"
+    mount "$linux_hdd_part" /mnt/mnt/linuxHDD
   fi
 
   echo "Finished mount_partitions()" >> log

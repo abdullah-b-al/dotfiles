@@ -1,4 +1,4 @@
---{{{1 Variables
+-- Variables
 local cmd           = vim.cmd
 local g             = vim.g
 local opt           = vim.opt
@@ -10,7 +10,7 @@ local viml_config   = after .. '/config'
 local lua_config    = 'config'
 
 
---{{{1 Options
+-- Options
 opt.tabstop        = 2                                              -- Tab width in spaces
 opt.softtabstop    = 2                                              -- Tab width in spaces when performing editing operations
 opt.shiftwidth     = 2                                              -- Number of spaces to use for each step of (auto)indent
@@ -34,20 +34,20 @@ opt.wrap           = false
 
 opt.dictionary     = opt.dictionary + '/usr/share/dict/words'
 opt.spellfile      = home .. '/.config/vim/spell/en.utf-8.add'
-opt.viewoptions    = 'cursor,folds'                                 -- save/restore just these with {mk,load}view`
+opt.viewoptions    = 'cursor'                                 -- save/restore just these with {mk,load}view`
 
 opt.foldmethod     = 'expr'
 opt.foldexpr       = 'nvim_treesitter#foldexpr()'
 
---{{{1 Commands
+-- Commands
 cmd 'packadd packer.nvim'
 
 
---{{{1 Globals
+-- Globals
 g.mapleader = ' '
 g.maplocalleader = ','
 
---{{{1 Plugins
+-- Plugins
 -- Auto-install packer
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
@@ -122,28 +122,28 @@ packer.startup(function()
   use 'williamboman/nvim-lsp-installer'
 end)
 
---{{{ Global mapping table and functions
+-- Global mapping table and functions
 require('keymap/Mappings')
 
---{{{1 config of plugins in lua
+-- config of plugins in lua
 require('plugin')
 
---{{{1 Mappings
+-- Mappings
 require('keymap')
 
---{{{1 config of plugins in vimscript
+-- config of plugins in vimscript
 cmd('source ' .. viml_config .. '/mini-map.vim')
 cmd('source ' .. viml_config .. '/maximizer.vim')
 cmd('source ' .. viml_config .. '/codi.vim')
 cmd('source ' .. viml_config .. '/vim-sexp.vim')
 
---{{{1 Color settings
+-- Color settings
 cmd('source ' .. after .. '/colors/color-settings.vim')
 
---{{{1 Auto commands
+-- Auto commands
 cmd('source ' .. after .. '/commands.vim')
 
---{{{1 Lsp server directory
+-- Lsp server directory
 require('lsps')
 
 require('project-settings')

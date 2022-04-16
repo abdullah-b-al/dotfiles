@@ -11,7 +11,12 @@ augroup CommentString
   autocmd BufWinEnter,BufEnter * if &ft=="c" | setlocal commentstring=//%s | endif
 augroup END
 
-augroup AutoSaveFolds
+augroup AutoOpenFolds
+  autocmd!
+  autocmd BufWinEnter,BufEnter * norm zR
+augroup END
+
+augroup LoadAndMakeView
   autocmd!
   autocmd BufWinEnter * silent! loadview
   autocmd BufWinLeave * silent! mkview

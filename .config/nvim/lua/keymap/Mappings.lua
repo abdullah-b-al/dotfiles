@@ -3,6 +3,7 @@ local api = vim.api
 -- Global mapping table
 _G.Mappings = {}
 local spr_max_length = 0
+local mode_spr_max_length = 0
 
 function Mappings.map(mode, lhs, rhs, opts, desc)
   opts      = opts or {}
@@ -23,9 +24,13 @@ end
 function Mappings.add(mode, lhs, desc)
 
   local lhs_length = string.len(lhs)
+  local mode_length = #mode
 
   if lhs_length >= spr_max_length then
     spr_max_length = lhs_length
+  end
+  if mode_length >= mode_spr_max_length then
+    mode_spr_max_length = mode_length
   end
 
   local mode_string = ''
@@ -33,7 +38,7 @@ function Mappings.add(mode, lhs, desc)
     mode_string = mode_string .. v
   end
 
-  local mapping_info = { mode = mode_string, lhs = lhs, description = desc}
+  local mapping_info = { mode = mode_string, lhs = lhs, description = desc }
   table.insert(Mappings, mapping_info)
 end
 
@@ -50,14 +55,15 @@ function Mappings.view(opts)
   local conf    = require("telescope.config").values
 
   local output = {}
-  local map_lhs_spr = string.rep(' ', 3)
-  local lhs_desc_spr
 
   for _, v in ipairs(Mappings) do
     local len = spr_max_length - string.len(v.lhs) + 1
-    lhs_desc_spr = string.rep(' ', len)
+    local mode_len = mode_spr_max_length - (#v.mode) + 1
 
-    local out = string.format('%s' .. map_lhs_spr .. '%s' .. lhs_desc_spr .. '%s',
+    local lhs_desc_spr = string.rep(' ', len)
+    local mode_lhs_spr = string.rep(' ', mode_len)
+
+    local out = string.format('%s' .. mode_lhs_spr .. '%s' .. lhs_desc_spr .. '%s',
       v.mode, v.lhs, v.description)
     table.insert(output, out)
   end

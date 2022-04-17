@@ -1,48 +1,59 @@
-local map = _G.Mappings.map
-local cwd = vim.api.nvim_exec('echo expand("%:p:h")',true)
+local map  = _G.Mappings.map
+local cmd  = vim.cmd
 
 local function m(name)
+  local cwd = vim.api.nvim_exec('echo expand("%:p:h")', true)
   return string.match(cwd, name)
 end
 
-vim.cmd[[
-  function! CMake_build(build_dir)
-  let l:root = luaeval("vim.lsp.buf.list_workspace_folders()[1]")
+local function run(arg)
+  return pcall(vim.api.nvim_exec, arg, true)
+end
 
-  if l:root == "null"
-    echo "CMake_build: Invalid dir"
+map('n', '<F8>', ':lua Run_code()<CR>', {},
+  'Run code')
+map('n', '<F3>', ':lua Build_code()<CR>', {},
+  'Build code')
+
+local function cmake(build_dir, build)
+  local root = vim.lsp.buf.list_workspace_folders()[1]
+
+  if not root then
+    print("Run_code: Invalid dir")
     return
-  endif
+  end
 
-  let l:build = l:root . "/" . a:build_dir
+  build_dir = root .. '/' .. build_dir
 
-  wa
-  call chdir(l:build)
-  make
-  call chdir(l:root)
-  endfunction
-
-  function! Make_run_build(build_dir)
-  let l:root = luaeval("vim.lsp.buf.list_workspace_folders()[1]")
-
-  if l:root == "null"
-    echo "Make_run_build: Invalid dir"
+  local chdir = 'call chdir(  "' .. build_dir .. '"  )'
+  if not run(chdir) then
+    print("Run_code: Couldn't cd to dir")
     return
-  endif
+  end
 
-  let l:build = l:root . "/" . a:build_dir
+  cmd 'wa'
+  if build then
+    cmd 'make'
+  else
+    cmd 'split | terminal "$SHELL" -c "make run"'
+  end
 
-  call chdir(l:build)
-  wa
-  split | terminal "$SHELL" -c "make run"
-  call chdir(l:root)
-  endfunction
-]]
+  chdir = 'call chdir(  "' .. root .. '"  )'
+  if not run(chdir) then
+    print("Run_code: Couldn't cd to dir")
+    return
+  end
+end
 
-if m('opencv') then
-  vim.opt.makeprg='cmake .. && make -i'
-  map('n', '<F8>', ':call Make_run_build("build")<CR>', {},
-    'Run code', 0)
-  map('n', '<F3>', ':call CMake_build("build")<CR>', {},
-    'Build code', 0)
+function Run_code()
+  if m('opencv') then
+    cmake('build', false)
+  end
+end
+
+function Build_code()
+  if m('opencv') then
+    vim.opt.makeprg='cmake .. && make -i'
+    cmake('build', true)
+  end
 end

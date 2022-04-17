@@ -4,10 +4,13 @@ if not found_zk then
   return
 end
 
-local opts = { noremap=true, silent=true }
 local map = _G.Mappings.map
 
 local attach = function(bufnr)
+  -- Causes issues when opts isn't empty
+  -- local opts = { noremap = true, silent = true, buffer = bufnr }
+  local opts = {}
+
   map({'n'}, '<CR>', vim.lsp.buf.definition, opts,
     'Zk: Follow link')
   map({'n'}, 'K', vim.lsp.buf.hover, opts,
@@ -16,15 +19,15 @@ local attach = function(bufnr)
     'Zk: Put all references of the link in the quickfix list')
   map({'n'}, '<localleader>e', vim.diagnostic.open_float, opts,
     'Zk: Show link header')
-  map('n', '<localleader>s', '<cmd>ZkNotes<CR>', opts,
+  map({'n'}, '<localleader>s', '<cmd>ZkNotes<CR>', opts,
     'Zk: Search through all notes')
-  map('n', '<localleader>b', '<cmd>ZkBacklinks<CR>', opts,
+  map({'n'}, '<localleader>b', '<cmd>ZkBacklinks<CR>', opts,
     'Zk: Search through all back links')
-  map('n', '<localleader>z', '<cmd>ZkLinks<CR>', opts,
+  map({'n'}, '<localleader>z', '<cmd>ZkLinks<CR>', opts,
     'Zk: Search through all links')
-  map('n', '<localleader>t', '<cmd>ZkTags<CR>', opts,
+  map({'n'}, '<localleader>t', '<cmd>ZkTags<CR>', opts,
     'Zk: Search through all tags')
-  map('n', '<localleader>n', '<cmd>ZkNew { dir = vim.fn.expand("%:p:h") }<CR>', opts,
+  map({'n'}, '<localleader>n', '<cmd>ZkNew { dir = vim.fn.expand("%:p:h") }<CR>', opts,
     'Zk: Create a new note in the same directory')
   -- The mapping in lua doesn't show anything on the command prompt
   -- map('n', '<localleader>n', ':ZkNew { dir = "" }<Left><Left><Left>', opts)

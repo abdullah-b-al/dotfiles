@@ -56,6 +56,8 @@ cmp.setup({
   },
 })
 
+vim.opt.pumheight = 10
+
 _G.Mappings.add('i', '<C-u>', 'Cmp: Scroll docs. up')
 _G.Mappings.add('i', '<C-d>', 'Cmp: Scroll docs. down')
 _G.Mappings.add('i', '<C-e>', 'Cmp: Abort completion')

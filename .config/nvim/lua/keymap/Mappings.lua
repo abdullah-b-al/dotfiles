@@ -4,21 +4,17 @@ local api = vim.api
 _G.Mappings = {}
 local spr_max_length = 0
 
-function Mappings.map(mode, lhs, rhs, opts, desc, bufnr)
+function Mappings.map(mode, lhs, rhs, opts, desc)
   opts      = opts or {}
 
-  if bufnr then
-    api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-  else
-    api.nvim_set_keymap(mode, lhs, rhs, opts)
-  end
+  vim.keymap.set(mode, lhs, rhs, opts)
 
   if desc == '' or desc == nil then
-    desc = rhs
+    desc = ''
   end
 
-  if mode == '' then
-    mode = ' '
+  if not next(mode) or mode == '' then
+    mode = {' '}
   end
 
   Mappings.add(mode, lhs, desc)
@@ -32,7 +28,12 @@ function Mappings.add(mode, lhs, desc)
     spr_max_length = lhs_length
   end
 
-  local mapping_info = { mode = mode, lhs = lhs, description = desc}
+  local mode_string = ''
+  for _, v in ipairs(mode) do
+    mode_string = mode_string .. v
+  end
+
+  local mapping_info = { mode = mode_string, lhs = lhs, description = desc}
   table.insert(Mappings, mapping_info)
 end
 
@@ -49,7 +50,7 @@ function Mappings.view(opts)
   local conf    = require("telescope.config").values
 
   local output = {}
-  local map_lhs_spr = string.rep(' ', 2)
+  local map_lhs_spr = string.rep(' ', 3)
   local lhs_desc_spr
 
   for _, v in ipairs(Mappings) do

@@ -14,8 +14,10 @@ function M.start_debugger()
 end
 
 
-map('n', '<F11>', ':lua require("keymap.debug").toggle_debug_mappings()<CR>', { noremap = true }, 'Debugger: Toggle debug mappings')
-map('n', '<leader>db', ':lua require("keymap.debug").start_debugger()<CR>.', { noremap = true }, 'Debugger: Start')
+map({'n'}, '<F11>', function() require("keymap.debug").toggle_debug_mappings() end, { noremap = true },
+  'Debugger: Toggle debug mappings')
+map({'n'}, '<leader>db', function() require("keymap.debug").start_debugger() end, { noremap = true },
+  'Debugger: Start')
 
 if _G.debgger_mapping_active then
   -- map('n', '<localleader>R',  ':call vimspector#Restart()<CR>', { noremap = true }, 'Debugger: Restart debugger')

@@ -58,7 +58,10 @@ cmp.setup({
 
 vim.opt.pumheight = 10
 
-_G.Mappings.add('i', '<C-u>', 'Cmp: Scroll docs. up')
-_G.Mappings.add('i', '<C-d>', 'Cmp: Scroll docs. down')
-_G.Mappings.add('i', '<C-e>', 'Cmp: Abort completion')
-_G.Mappings.add('i', '<C-c>', 'Cmp: Show completion menu')
+_G.Mappings.add({'i'}, '<C-u>', 'Cmp: Scroll docs. up')
+_G.Mappings.add({'i'}, '<C-d>', 'Cmp: Scroll docs. down')
+_G.Mappings.add({'i'}, '<C-e>', 'Cmp: Abort completion')
+_G.Mappings.add({'i'}, '<C-c>', 'Cmp: Show completion menu')
+_G.Mappings.add({'i'}, '<C-n>', 'Cmp: select next item')
+_G.Mappings.add({'i'}, '<C-p>', 'Cmp: select previous item')
+_G.Mappings.add({'i'}, '<C-y>', 'Cmp: Confirm selection')

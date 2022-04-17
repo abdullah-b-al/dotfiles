@@ -8,24 +8,24 @@ local opts = { noremap=true, silent=true }
 local map = _G.Mappings.map
 
 local attach = function(bufnr)
-  map('n', '<CR>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts,
-    'Zk: Follow link', bufnr)
-  map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts,
-    'Zk: Show content of link', bufnr)
-  map('n', '<localleader>r', '<cmd>lua vim.lsp.buf.references()<CR>', opts,
-    'Zk: Put all references of the link in the quickfix list', bufnr)
-  map('n', '<localleader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts,
-    'Zk: Show link header', bufnr)
-  map('n', '<localleader>s', ':ZkNotes<CR>', opts,
-    'Zk: Search through all notes', bufnr)
-  map('n', '<localleader>b', ':ZkBacklinks<CR>', opts,
-    'Zk: Search through all back links', bufnr)
-  map('n', '<localleader>z', ':ZkLinks<CR>', opts,
-    'Zk: Search through all links', bufnr)
-  map('n', '<localleader>t', ':ZkTags<CR>', opts,
-    'Zk: Search through all tags', bufnr)
-  map('n', '<localleader>n', ':ZkNew { dir = vim.fn.expand("%:p:h") }<CR>', opts,
-    'Zk: Create a new note in the same directory', bufnr)
+  map({'n'}, '<CR>', vim.lsp.buf.definition, opts,
+    'Zk: Follow link')
+  map({'n'}, 'K', vim.lsp.buf.hover, opts,
+    'Zk: Show content of link')
+  map({'n'}, '<localleader>r', vim.lsp.buf.references, opts,
+    'Zk: Put all references of the link in the quickfix list')
+  map({'n'}, '<localleader>e', vim.diagnostic.open_float, opts,
+    'Zk: Show link header')
+  map('n', '<localleader>s', '<cmd>ZkNotes<CR>', opts,
+    'Zk: Search through all notes')
+  map('n', '<localleader>b', '<cmd>ZkBacklinks<CR>', opts,
+    'Zk: Search through all back links')
+  map('n', '<localleader>z', '<cmd>ZkLinks<CR>', opts,
+    'Zk: Search through all links')
+  map('n', '<localleader>t', '<cmd>ZkTags<CR>', opts,
+    'Zk: Search through all tags')
+  map('n', '<localleader>n', '<cmd>ZkNew { dir = vim.fn.expand("%:p:h") }<CR>', opts,
+    'Zk: Create a new note in the same directory')
   -- The mapping in lua doesn't show anything on the command prompt
   -- map('n', '<localleader>n', ':ZkNew { dir = "" }<Left><Left><Left>', opts)
   -- vim.cmd[[nnoremap <buffer> <localleader>n :ZkNew { dir = "" }<Left><Left><Left>]]

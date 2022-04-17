@@ -10,11 +10,6 @@ local function run(arg)
   return pcall(vim.api.nvim_exec, arg, true)
 end
 
-map('n', '<F8>', ':lua Run_code()<CR>', {},
-  'Run code')
-map('n', '<F3>', ':lua Build_code()<CR>', {},
-  'Build code')
-
 local function cmake(build_dir, build)
   local root = vim.lsp.buf.list_workspace_folders()[1]
 
@@ -57,3 +52,8 @@ function Build_code()
     cmake('build', true)
   end
 end
+
+map({'n'}, '<F8>', Run_code, {},
+  'Run code')
+map({'n'}, '<F3>', Build_code, {},
+  'Build code')

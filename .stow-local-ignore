@@ -1,5 +1,5 @@
 # Comments and blank lines are allowed.
-live-install.sh
+/install
 config-system.sh
 packages\.txt
 aur-packages\.txt

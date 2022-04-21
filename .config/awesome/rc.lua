@@ -197,13 +197,27 @@ globalkeys = mytable.join(
   -- Default client focus
   awful.key({ modkey,           }, "l",
     function ()
-      awful.client.focus.byidx( 1)
+      -- Skip master if on half layout
+      if awful.layout.get(focused()).name == 'half' and
+        awful.client.next(1) == awful.client.getmaster()
+      then
+        awful.client.focus.byidx(2)
+      else
+        awful.client.focus.byidx(1)
+      end
     end,
   {description = "focus next by index", group = "client"}
   ),
   awful.key({ modkey,           }, "h",
     function ()
-      awful.client.focus.byidx(-1)
+      -- Skip master if on half layout
+      if awful.layout.get(focused()).name == 'half' and
+        awful.client.next(-1) == awful.client.getmaster()
+      then
+        awful.client.focus.byidx(-2)
+      else
+        awful.client.focus.byidx(-1)
+      end
     end,
   {description = "focus previous by index", group = "client"}
   ),
@@ -213,7 +227,7 @@ globalkeys = mytable.join(
     end,
   {description = "Focus master window", group = "client"}
   ),
-  awful.key({ modkey, }, "i", function () 
+  awful.key({ modkey, }, "i", function ()
 
     local args = { curr_tag_only = true }
     revelation(args)
@@ -668,11 +682,11 @@ client.connect_signal("focus", function(c)
 end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
--- Disable redshift on monitor 0 when viewing tag 5
 for s in screen do
   s:emit_signal("tag::history::update")
 end
 
+-- Disable redshift on monitor 0 when viewing tag 5
 screen.primary:connect_signal("tag::history::update",
   function()
     if (os.getenv("USER") == "ab55al-lt") then return end -- if on laptop return

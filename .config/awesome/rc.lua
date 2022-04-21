@@ -88,8 +88,8 @@ local browser      = "brave"
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
 awful.layout.layouts = {
-  awful.layout.suit.tile.left,
   require("layouts.max_half"),
+  awful.layout.suit.tile.left,
   -- awful.layout.suit.fair,
   -- awful.layout.suit.fair.horizontal,
   awful.layout.suit.max,
@@ -199,7 +199,8 @@ globalkeys = mytable.join(
     function ()
       -- Skip master if on half layout
       if awful.layout.get(focused()).name == 'half' and
-        awful.client.next(1) == awful.client.getmaster()
+        awful.client.next(1) == awful.client.getmaster() and
+        #focused().selected_tag:clients() > 2
       then
         awful.client.focus.byidx(2)
       else
@@ -212,7 +213,8 @@ globalkeys = mytable.join(
     function ()
       -- Skip master if on half layout
       if awful.layout.get(focused()).name == 'half' and
-        awful.client.next(-1) == awful.client.getmaster()
+        awful.client.next(-1) == awful.client.getmaster() and
+        #focused().selected_tag:clients() > 2
       then
         awful.client.focus.byidx(-2)
       else
@@ -224,6 +226,8 @@ globalkeys = mytable.join(
   awful.key({ modkey,           }, "a",
     function ()
       client.focus = awful.client.getmaster();
+      awful.client.focus.byidx(-1)
+      awful.client.focus.byidx(1)
     end,
   {description = "Focus master window", group = "client"}
   ),

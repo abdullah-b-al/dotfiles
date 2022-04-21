@@ -20,6 +20,14 @@ local focused       = awful.screen.focused
 
 -- }}}
 
+local function debug_notify(string)
+  naughty.notify {
+    preset = naughty.config.presets.critical,
+    title = 'debug',
+    text = string
+  }
+end
+
 -- {{{ Error handling
 
 -- Check if awesome encountered an error during startup and fell back to

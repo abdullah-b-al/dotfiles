@@ -49,11 +49,6 @@ map({'i'}, '!', '!<C-g>u', { noremap = true },
 map({'i'}, '?', '?<C-g>u', { noremap = true },
   'Undo break point at ?')
 
-map({'v'}, 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true},
-  'Move text downward')
-map({'v'}, 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true},
-  'Move text upward')
-
 map({'n'}, '<leader>cl', ':set cursorline!<CR>', { noremap = true, silent = true },
   'Toggle cursorline')
 map({'n'}, '<leader>cc', ':set cursorcolumn!<CR>', { noremap = true , silent = true},

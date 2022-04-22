@@ -10,4 +10,5 @@ else
 fi
 
 # Start WM
-exec awesome
+# exec awesome
+exec startdwm.sh

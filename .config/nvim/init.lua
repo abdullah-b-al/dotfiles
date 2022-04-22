@@ -146,4 +146,5 @@ cmd('source ' .. after .. '/commands.vim')
 -- Lsp server directory
 require('lsps')
 
+require('autocommands')
 require('project-settings')

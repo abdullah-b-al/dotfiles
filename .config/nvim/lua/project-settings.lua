@@ -40,20 +40,17 @@ local function cmake(build_dir, build)
   end
 end
 
-function Run_code()
-  if m('opencv') then
-    cmake('build', false)
-  end
-end
+if m('suckless/st') or m('suckless/dwm') then
+  vim.opt.expandtab = false
+  vim.opt.makeprg = 'make'
+  map({'n'}, '<F8>', '<cmd>wa<CR><cmd>make<CR>', {},
+    'Build code')
 
-function Build_code()
-  if m('opencv') then
-    vim.opt.makeprg='cmake .. && make -i'
-    cmake('build', true)
-  end
+elseif m('opencv') then
+  vim.opt.expandtab = true
+  vim.opt.makeprg='cmake .. && make -i'
+  map({'n'}, '<F8>', function () cmake('build', true) end, {},
+    'Build code')
+  map({'n'}, '<F3>', function () cmake('build', false) end, {},
+    'Run code')
 end
-
-map({'n'}, '<F8>', Run_code, {},
-  'Run code')
-map({'n'}, '<F3>', Build_code, {},
-  'Build code')

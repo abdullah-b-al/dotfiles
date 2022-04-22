@@ -10,6 +10,7 @@ if [ "$UID" != 0 ]; then
   # dotfiles
   mkdir -p "$HOME"/.config/zsh
   mkdir -p "$HOME"/.config/nvim
+  mkdir -p "$HOME"/.config/suckless
 
   # git
   mkdir -p "$HOME"/.config/git
@@ -24,9 +25,19 @@ if [ "$UID" != 0 ]; then
   fi
 
   # Install st
-  if ! [ -d "$HOME"/.config/st ]; then
-    git clone https://github.com/ab55al/st $HOME/.config/st && \
-      cd "$HOME"/.config/st && \
+  st_dir = "$HOME"/.config/suckless/st
+  if ! [ -d "$st_dir" ]; then
+    git clone https://github.com/ab55al/st "$st_dir" && \
+      cd "$st_dir" && \
+      echo "$root_password" | sudo -S make install && \
+      make clean
+  fi
+
+  # Install dwm
+  dwm_dir = "$HOME"/.config/suckless/dwm
+  if ! [ -d "$dwm_dir" ]; then
+    git clone https://github.com/ab55al/dwm "$dwm_dir" && \
+      cd "$dwm_dir" && \
       echo "$root_password" | sudo -S make install && \
       make clean
   fi

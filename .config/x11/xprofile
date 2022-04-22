@@ -1,6 +1,6 @@
 #!/bin/sh
 # WM/DE independant autostart
 setxkbmap -layout 'us,ar' -option 'grp:alt_shift_toggle' &
-feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/* &
+# feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/* &
 redshift -PO 5000 &
-pgrep picom || picom &
+# pgrep picom || picom &

@@ -34,7 +34,7 @@ function zsh_add_completion() {
 function s() {
   local ignore_file="\.png$|LICENSE|README|\.jpg$|\.pdf$"
   local ignore_dir=".*local/share|.*local/lib|.*clj-kondo/.cache|.*dotfiles/.config/zsh/plugins|.*git|.*awesome/lain|.*awesome/freedesktop|.*ccls-cache"
-  local result=$(find "$DOTFILESDIR"  "$HOME/.config/st" \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print \
+  local result=$(find "$DOTFILESDIR"  "$HOME/.config/suckless" \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print \
                     | grep -E -v "$ignore_file" \
                     | fzf --layout=reverse --height=1%) 
   [ -z "$result" ] && return

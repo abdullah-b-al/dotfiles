@@ -3,7 +3,7 @@
 setxkbmap -layout 'us,ar' -option 'grp:alt_shift_toggle' &
 feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/* &
 redshift -PO 5000 &
-# pgrep picom || picom &
+pgrep picom || picom &
 # wait for the WM to start before running sxhkd
 while true; do
   if pgrep dwm > /dev/null; then

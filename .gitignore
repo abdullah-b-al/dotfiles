@@ -7,3 +7,5 @@
 /awesome/freedesktop/
 .config/zsh/plugins/
 .config/zsh/.zcompdump
+.config/polybar/colors.ini
+.config/polybar/glyphs.ini

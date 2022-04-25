@@ -48,3 +48,4 @@ cargo
 openssh
 xlockmore
 picom
+man-pages

@@ -4,8 +4,8 @@ alias la='ls -Al'
 alias gd='git diff'
 alias gs='git status'
 
-alias g='grep -E'
-alias gi='grep -Ei'
+alias g='grep --color -E'
+alias gi='grep --color -Ei'
 
 alias v=nvim
 alias pac='sudo pacman'

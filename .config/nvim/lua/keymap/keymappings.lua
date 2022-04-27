@@ -123,3 +123,13 @@ map({'n'}, '<C-i>', '<C-i>zz', { noremap = true },
   'Center cursor after jump list movement')
 map({'n'}, '<C-o>', '<C-o>zz', { noremap = true },
   'Center cursor after jump list movement')
+
+-- call :nohl
+map({'n'}, 'j', 'gj<cmd>nohl<CR>', { noremap = true },
+  'call :nohl after movement')
+map({'n'}, 'k', 'gk<cmd>nohl<CR>', { noremap = true },
+  'call :nohl after movement')
+map({'n'}, 'l', 'l<cmd>nohl<CR>', { noremap = true },
+  'call :nohl after movement')
+map({'n'}, 'h', 'h<cmd>nohl<CR>', { noremap = true },
+  'call :nohl after movement')

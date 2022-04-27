@@ -52,7 +52,6 @@ require('plugin-manager').plugins = {
   'nvim-lua/plenary.nvim',       -- Never uninstall
 
   'nvim-telescope/telescope.nvim',
-  'romainl/vim-cool',            -- disables search highlighting when you are done searching and re-enables it when you search again.
   'christoomey/vim-system-copy', -- Requires xsel
   'ap/vim-css-color',
   'tpope/vim-surround',

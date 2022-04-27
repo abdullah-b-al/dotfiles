@@ -1,1 +1,4 @@
-@theme "/usr/share/rofi/themes/arthur.rasi"
+@theme "/usr/share/rofi/themes/sidebar.rasi"
+configuration {
+font: "FiraCode Nerd Font 15";
+}

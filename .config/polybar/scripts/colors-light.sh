@@ -6,7 +6,7 @@ PFILE="$HOME/.config/polybar/colors.ini"
 # Change colors
 change_color() {
 	# polybar
-  sed -i -e "s/background = #.*/background = $SH6/g" $PFILE
+  sed -i -e "s/background = #.*/background = $SH5/g" $PFILE
 	sed -i -e 's/foreground = #.*/foreground = #FFFFFF/g' $PFILE
 	sed -i -e 's/foreground-alt = #.*/foreground-alt = #1F1F1F/g' $PFILE
 	sed -i -e "s/shade1 = #.*/shade1 = $SH1/g" $PFILE

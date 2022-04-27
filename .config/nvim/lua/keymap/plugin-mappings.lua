@@ -41,7 +41,7 @@ map({'n'}, 'S', '<Plug>Ysurround', {},
 map({'n'}, '<F1>', ':tab Git<CR>', { noremap = true, silent = true  },
   'Fugitive: Open in tab')
 -- vim-maximizer
-map({'n'}, '<C-w><C-m>', ':MaximizerToggle<CR>', { noremap = true },
+map({'n'}, '<C-w><CR>', ':MaximizerToggle<CR>', { noremap = true },
   'Maximizer: Toggle')
 -- vim-easy-align
 map({'v'}, 'ga', ':EasyAlign<CR>', {},
@@ -53,8 +53,12 @@ map({'n'}, '<leader>fo', ':NvimTreeToggle<CR>', { noremap = true },
 map({'n'}, '<leader>ol', ':SymbolsOutline<CR>', { noremap = true },
   'SymbolsOutline: Toggle')
 -- Gitsings
-map({'n'}, '<leader>hp', ':Gitsigns preview_hunk<CR>', { noremap = true },
+map({'n'}, '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>', { noremap = true },
   'Gitsigns: Preview hunk')
+map({'n'}, '<leader>n', '<cmd>Gitsigns next_hunk<CR>', { noremap = true },
+  'Gitsigns: Go to next hunk')
+map({'n'}, '<leader>p', '<cmd>Gitsigns next_hunk<CR>', { noremap = true },
+  'Gitsigns: Go to previous hunk')
 -- LuaSnip
 map({'i','s'}, '<C-l>', function() require('luasnip').jumpable(1) end, {},
   'LuaSnip: Jump forward')

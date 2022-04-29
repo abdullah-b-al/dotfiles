@@ -31,9 +31,6 @@ map({'n'}, 's',         '<Plug>(easymotion-s2)'   , {},
 map({'n'}, '<leader>wl', '<Plug>(easymotion-overwin-line)', {},
   'EasyMotion: Find char over-window')
 
--- Limelight
-map({'n'}, '<leader>l', ':Limelight!!<CR>', { noremap = true, silent = true },
-  'LimeLight: Toggle')
 -- surround.vim
 map({'n'}, 'S', '<Plug>Ysurround', {},
   'Surround')

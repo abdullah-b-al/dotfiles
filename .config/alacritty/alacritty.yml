@@ -7,7 +7,7 @@ window:
         y: 0
 
     # Spread additional padding evenly around the terminal content
-    dynamic_padding: true
+    dynamic_padding: false
 
     # Disable border and title bar
     decorations: none
@@ -16,26 +16,26 @@ font:
 
   offset:
     x: 0
-    y: 5
+    y: 0
 
   normal:
-    family: SourceCodePro
+    family: FiraCode
     style: medium
 
     bold:
-        family: SourceCodePro
+        family: FiraCode
         style: bold
     italic:
-        family: SourceCodePro
+        family: FiraCode
         style: Italic
 
     bold_italic:
-        family: SourceCodePro
+        family: FiraCode
         style: Bold Italic
 
 
     # Point size of the font
-    size: 11
+    size: 10.0
 
 # Colors (One Dark); if dim colors are not set, they will be calculated
 # automatically based on the `normal` colors
@@ -44,8 +44,8 @@ colors:
         background: '#24272e'
         foreground: '#abb2bf'
     cursor:
-        text: '#0b0b0b'    # black
-        cursor: '#528bff'
+        text: '#0b0b0b'
+        cursor: '#dddddd'
     vi_mode_cursor:
         text: '#abb2bf'
         cursor: '#333841'
@@ -83,8 +83,8 @@ mouse:
 
 cursor:
     # Thickness of the cursor (number from `0.0` to `1.0`)
-    thickness: 0.0  
+    thickness: 0.0
     blink_interval: 9999999999999999999
-    # blink: false # <--- Doesn't work for some reason.
+      # blink: false # <--- Doesn't work for some reason.
 
 TERM: xterm-256color

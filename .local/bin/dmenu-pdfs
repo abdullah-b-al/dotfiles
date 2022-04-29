@@ -1,13 +1,8 @@
 #!/bin/sh
-if ! command -v dmenu>/dev/null; then
-    notify-send -t 3000 -u critical "dmenu-pdfs" "'dmenu isn't installed"
-    exit
-fi
-
 path_pdfs="$HOME/.local/documents/pdf"
 xdg-open "$( du -ah "$path_pdfs" \
     | cut -f2                    \
     | tr '/' '\n'                \
     | grep "\.pdf$"              \
-    | dmenu -i -matching fuzzy   \
+    | menu \
     | xargs -I % find "$path_pdfs" -name % )"

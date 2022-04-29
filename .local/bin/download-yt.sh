@@ -11,7 +11,7 @@ single_video_download() {
     split="Split chapters"
     one_video="Download as one video"
     if echo "$info" | grep -P "(\d{1,2}:)?\d{1,2}:\d{1,2}">/dev/null; then
-        to_split_or_not_to_split="$(printf "%s\n%s" "$split" "$one_video" | dmenu)"
+        to_split_or_not_to_split="$(printf "%s\n%s" "$split" "$one_video" | menu)"
         [ -z "$to_split_or_not_to_split" ] && exit 1
 
         if [ "$to_split_or_not_to_split" = "$split" ]; then
@@ -59,12 +59,12 @@ notify-send -t 2000 "download-yt.sh" "Running..."
 if echo "$url" | grep -Ei "(youtube.com/watch|youtu.be).*list">/dev/null; then
     full="Download full playlist"
     single="Download single video"
-    choice="$(printf "%s\n%s" "$single" "$full" | dmenu)"
+    choice="$(printf "%s\n%s" "$single" "$full" | menu)"
 
     if [ "$choice" = "$single" ]; then
         single_video_download
     elif [ "$choice" = "$full" ]; then
-        dir_name="$(dmenu)"
+        dir_name="$(menu)"
         # if dir_name is empty give it a random name
         [ -z "$dir_name" ] && dir_name="$(tr -dc A-Za-z0-9 </dev/urandom | head -c 20 ; echo '')"
         mkdir -p "$music_dir/$dir_name"

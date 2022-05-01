@@ -46,6 +46,6 @@ networkmanager
 fzf
 cargo
 openssh
-xlockmore
 picom
 man-pages
+bc

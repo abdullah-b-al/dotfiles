@@ -19,4 +19,4 @@ super + e ; {e,o,u,a}
         }
 
 super + ctrl + x
-    xlock -mode blank
+    lockscreen.sh

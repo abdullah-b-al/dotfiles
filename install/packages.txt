@@ -48,5 +48,4 @@ cargo
 openssh
 picom
 man-pages
-bc
 dunst

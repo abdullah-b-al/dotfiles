@@ -1,8 +1,8 @@
 #!/bin/sh
 wallpaper=$(cat $HOME/.cache/lock_img)
 monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
-y="$(echo "$monitor_height * 0.94445" | bc)"
-pos="100:$y"
+y="$(($monitor_height - 80))"
+pos="80:$y"
 
 colors="$(cat $HOME/.cache/wal/colors | nl -v 0)"
 ring_color=$(echo "$colors" | grep -E "^\s*10\s" | cut -d "#" -f2)

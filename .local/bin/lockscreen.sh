@@ -1,5 +1,5 @@
 #!/bin/sh
-wallpaper=$(cat $HOME/.cache/main_wallpaper)
+wallpaper=$(cat $HOME/.cache/lock_img)
 monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
 y="$(echo "$monitor_height * 0.94445" | bc)"
 pos="100:$y"

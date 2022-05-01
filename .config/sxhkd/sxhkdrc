@@ -8,7 +8,7 @@ super + v
     dmenu-pdfs
 
 super + w
-    feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/*
+    change-wallpaper.sh
     
 super + e ; {e,o,u,a}
     st -c "st-scratch" -e $EDITOR { \

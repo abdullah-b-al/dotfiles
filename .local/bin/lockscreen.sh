@@ -13,8 +13,13 @@ i3lock -i $wallpapers/$img \
 --clock                    \
 --screen=1                 \
 --indicator                \
---time-color=D0D0D0        \
 --date-color=D0D0D0        \
+--time-color=D0D0D0        \
+--date-font=FiraCode       \
+--time-font=FiraCode       \
+--date-size=12             \
+--time-size=26             \
+--date-str="%a, %d %b %Y"  \
 --time-pos="$pos"          \
 --ind-pos="$pos"           \
 --radius 70                \

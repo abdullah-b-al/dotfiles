@@ -12,9 +12,7 @@ inside_color="$(echo "$color0" | cut -d "#" -f2)"
 font="FiraCode"
 font_color="D0D0D0"
 
-change-wallpaper.sh 1 & disown
-
-i3lock -i $wallpaper \
+i3lock -n -i $wallpaper \
 --scale        \
 --clock        \
 --screen=1     \
@@ -46,3 +44,5 @@ i3lock -i $wallpaper \
 --inside-color=$inside_color      \
 --insidever-color=$inside_color   \
 --insidewrong-color=$inside_color
+
+change-wallpaper.sh

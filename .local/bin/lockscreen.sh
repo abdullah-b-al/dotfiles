@@ -1,17 +1,18 @@
 #!/bin/sh
-wallpaper=$(cat $HOME/.cache/wal/wal)
 monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
 y="$(($monitor_height - 80))"
 pos="80:$y"
 
-colors="$(cat $HOME/.cache/wal/colors | nl -v 0)"
-ring_color=$(echo "$colors" | grep -E "^\s*10\s" | cut -d "#" -f2)
-inside_color=$(echo "$colors" | grep -E "^\s*0\s" | cut -d "#" -f2)
+source ~/.cache/wal/colors.sh
+
+wallpaper="$wallpaper"
+ring_color="$(echo "$color10" | cut -d "#" -f2)"
+inside_color="$(echo "$color0" | cut -d "#" -f2)"
 
 font="FiraCode"
 font_color="D0D0D0"
 
-change-wallpaper.sh &
+change-wallpaper.sh 1 & disown
 
 i3lock -i $wallpaper \
 --scale        \
@@ -44,4 +45,4 @@ i3lock -i $wallpaper \
 --ring-color=$ring_color          \
 --inside-color=$inside_color      \
 --insidever-color=$inside_color   \
---insidewrong-color=$inside_color \
+--insidewrong-color=$inside_color

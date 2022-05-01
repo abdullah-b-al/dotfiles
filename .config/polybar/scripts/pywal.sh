@@ -13,7 +13,7 @@ pywal_get() {
 change_color() {
   # polybar
   sed -i -e "s/background = #.*/background = $BG/g" $PFILE
-  sed -i -e "s/foreground = #.*/foreground = $FG/g" $PFILE
+  sed -i -e "s/foreground = #.*/foreground = #FFFFFF/g" $PFILE
   sed -i -e "s/foreground-alt = #.*/foreground-alt = $FGA/g" $PFILE
   sed -i -e "s/shade1 = #.*/shade1 = $SH1/g" $PFILE
   sed -i -e "s/shade2 = #.*/shade2 = $SH2/g" $PFILE

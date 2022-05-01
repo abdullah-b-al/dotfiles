@@ -4,9 +4,11 @@ setxkbmap -layout 'us,ar' -option 'grp:alt_shift_toggle' &
 feh --no-fehbg --bg-fill --randomize ~/.local/wallpapers/* &
 redshift -PO 5000 &
 start-picom.sh &
+dunst &
 # wait for the WM to start before running
 while true; do
   if pgrep dwm > /dev/null; then
+    sleep 0.2
     ~/.config/polybar/start-polybar.sh &
     sxhkd &
     break

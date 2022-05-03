@@ -61,11 +61,6 @@ map({'n'}, '//', '/\\v\\c', { noremap = true },
 map({'n'}, '<C-d>', '<C-d>zz', { noremap = true })
 map({'n'}, '<C-u>', '<C-u>zz', { noremap = true })
 
-map({'n'}, 'k', [[(v:count >= 5 ? "m'" . v:count : '') . 'gk']], { noremap = true, expr = true},
-  'Add large j movements to the jump list')
-map({'n'}, 'j', [[(v:count >= 5 ? "m'" . v:count : '') . 'gj']], { noremap = true, expr = true},
-  'Add large k movements to the jump list')
-
 map({'n'}, '_', '"_', {},
   'Quicker access to the black hole register')
 
@@ -125,11 +120,11 @@ map({'n'}, '<C-o>', '<C-o>zz', { noremap = true },
   'Center cursor after jump list movement')
 
 -- call :nohl
-map({'n'}, 'j', 'gj<cmd>nohl<CR>', { noremap = true },
-  'call :nohl after movement')
-map({'n'}, 'k', 'gk<cmd>nohl<CR>', { noremap = true },
-  'call :nohl after movement')
 map({'n'}, 'l', 'l<cmd>nohl<CR>', { noremap = true },
   'call :nohl after movement')
 map({'n'}, 'h', 'h<cmd>nohl<CR>', { noremap = true },
   'call :nohl after movement')
+map({'n'}, 'k', [[(v:count >= 5 ? "m'" . v:count : '') . 'gk<cmd>nohl<CR>']], { noremap = true, expr = true},
+  'Add large j movements to the jump list and call :nohl')
+map({'n'}, 'j', [[(v:count >= 5 ? "m'" . v:count : '') . 'gj<cmd>nohl<CR>']], { noremap = true, expr = true},
+  'Add large k movements to the jump list and call :nohl')

@@ -76,6 +76,7 @@ require('plugin-manager').plugins = {
   'tpope/vim-fugitive',
   'ThePrimeagen/harpoon',
   'simrat39/symbols-outline.nvim',
+  'ziglang/zig.vim',
 
   -- color schemes,
   'ellisonleao/gruvbox.nvim',

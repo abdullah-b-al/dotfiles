@@ -47,7 +47,7 @@ function s() {
 }
 
 function so() {
-  local result=$(find "$HOME/.local/prog" -maxdepth 1 \
+  local result=$(find "$HOME/.local/prog" -maxdepth 2 -type d \
                 | fzf --layout=reverse --height=1%) 
   [ -z "$result" ] && return
 

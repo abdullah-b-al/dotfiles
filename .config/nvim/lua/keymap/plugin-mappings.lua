@@ -18,14 +18,14 @@ map({'n'}, '<leader>,', '<Plug>(easymotion-prev)', {},
   'EasyMotion: Prev char')
 
 -- Multi line
-map({'n'}, '<leader>f', '<Plug>(easymotion-bd-f)' , {},
+map({'n'}, 's', '<Plug>(easymotion-bd-f)' , {},
   'EasyMotion: Find char')
 map({'n'}, '<leader>t', '<Plug>(easymotion-bd-t)' , {},
   'EasyMotion: Till char')
 map({'n'}, '<leader>b', '<Plug>(easymotion-bd-t2)', {},
   'EasyMotion: Till 2-chars')
-map({'n'}, 's',         '<Plug>(easymotion-s2)'   , {},
-  'EasyMotion: Till 2-chars')
+-- map({'n'}, 's',         '<Plug>(easymotion-s2)'   , {},
+--   'EasyMotion: Till 2-chars')
 
 -- Multi line Overwindows
 map({'n'}, '<leader>wl', '<Plug>(easymotion-overwin-line)', {},

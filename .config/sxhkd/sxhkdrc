@@ -9,6 +9,9 @@ super + v
 
 super + w
     change-wallpaper.sh
+
+super + s
+  inc.sh
     
 super + e ; {e,o,u,a}
     st -c "st-scratch" -e $EDITOR { \

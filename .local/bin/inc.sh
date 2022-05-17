@@ -2,6 +2,9 @@
 
 file="$HOME/.local/documents/notes/aa/a.md"
 line="$(cat "$file" | menu)"
+
+[ -z $line ] && exit
+
 num=$(echo "$line" | awk '{print $NF}')
 new_num="$((num+1))"
 new_line="$(echo $line | sed "s|$num|$new_num|g")"

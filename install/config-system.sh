@@ -19,13 +19,10 @@ mkinitcpio -P
 printf "%s\n%s" "$root_password" "$root_password" | passwd
 
 # Create user
-if ! (cut -f 1 -d : /etc/passwd | grep -i "$user_name"); then
-  printf "Creating user %s\n" "$user_name"
-  useradd -m "$user_name"
-  printf "%s\n%s" "$user_password" "$user_password" | passwd "$user_name"
-  usermod -aG wheel,audio,video,optical,storage "$user_name"
-fi
-
+printf "Creating user %s\n" "$user_name"
+useradd -m "$user_name"
+printf "%s\n%s" "$user_password" "$user_password" | passwd "$user_name"
+usermod -aG wheel,audio,video,optical,storage "$user_name"
 
 # doas config lines must end with a new line
 printf "permit :wheel\n" > /etc/doas.conf

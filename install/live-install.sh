@@ -211,7 +211,7 @@ main() {
   sed -i "s|#ParallelDownloads = 5|ParallelDownloads = 6|g" /mnt/etc/pacman.conf
   install_packages
   arch-chroot /mnt bash -c "/install_tmp/config-system.sh"
-  arch-chroot /mnt bash -c "/install_tmp/config-user.sh"
+  arch-chroot /mnt bash -c "su "$user_name" -c /install_tmp/config-user.sh"
 
   rm -rf /mnt/install_tmp
 

@@ -1,7 +1,6 @@
 #!/bin/sh
 # Install dotfiles
 set -e
-su "$user_name"
 
 if [ "$UID" != 0 ]; then
 

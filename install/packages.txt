@@ -49,3 +49,4 @@ openssh
 picom
 man-pages
 dunst
+libnotify

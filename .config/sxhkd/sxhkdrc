@@ -15,10 +15,10 @@ super + s
     
 super + e ; {e,o,u,a}
     st -c "st-scratch" -e $EDITOR { \
-        $HOME/.local/documents/notes/aa/tk.md, \
-        $HOME/.local/documents/notes/aa/o.md, \
-        $HOME/.local/documents/notes/aa/u.md, \
-        $HOME/.local/documents/notes/aa/a.md \
+        $HOME/personal/documents/notes/aa/tk.md, \
+        $HOME/personal/documents/notes/aa/o.md, \
+        $HOME/personal/documents/notes/aa/u.md, \
+        $HOME/personal/documents/notes/aa/a.md \
         }
 
 super + ctrl + x

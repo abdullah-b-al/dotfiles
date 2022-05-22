@@ -1,6 +1,6 @@
 #!/bin/sh
 url="$(xclip -selection clipboard -o)"
-music_dir="$HOME/.local/music"
+music_dir="$HOME/personal/music"
 
 alias down-yt='yt-dlp --extract-audio --audio-format best "$url" --output "%(title)s.%(ext)s"'
 

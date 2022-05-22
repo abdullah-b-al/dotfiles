@@ -47,7 +47,7 @@ function s() {
 }
 
 function so() {
-  local result=$(find "$HOME/.local/prog" -maxdepth 2 -type d \
+  local result=$(find "$HOME/personal/prog" -maxdepth 2 -type d \
                 | fzf --layout=reverse --height=1%) 
   [ -z "$result" ] && return
 
@@ -59,10 +59,7 @@ function so() {
 }
 
 function sn() {
-  local ignore_file="\.png$|LICENSE|README|\.jpg$|\.pdf$"
-  local ignore_dir=".*local/share|.*local/lib|.*clj-kondo/.cache|.*git|.*ccls-cache|.*local/prog|.*local/include|.*local/VirtualBox-VMs"
-  local result=$(find  "$HOME/.local"  \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print \
-                  | grep -E -v "$ignore_file" \
+  local result=$(find  "$HOME/personal"  \
                   | fzf --layout=reverse --height=1%) 
   [ -z "$result" ] && return
 

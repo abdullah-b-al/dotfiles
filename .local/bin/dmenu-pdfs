@@ -1,5 +1,5 @@
 #!/bin/sh
-path_pdfs="$HOME/.local/documents/pdf"
+path_pdfs="$HOME/personal/documents/pdf"
 xdg-open "$( du -ah "$path_pdfs" \
     | cut -f2                    \
     | tr '/' '\n'                \

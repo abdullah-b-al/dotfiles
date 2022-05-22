@@ -19,7 +19,7 @@ mkinitcpio -P
 printf "%s\n%s" "$root_password" "$root_password" | passwd
 
 # Create user
-if ! grep -i "$user_name" /etc/passwd >/dev/null; then
+if ! (cut -f 1 -d : /etc/passwd | grep -i "$user_name"); then
   printf "Creating user %s\n" "$user_name"
   useradd -m "$user_name"
   printf "%s\n%s" "$user_password" "$user_password" | passwd "$user_name"

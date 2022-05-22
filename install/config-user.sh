@@ -1,3 +1,4 @@
+#!/bin/sh
 # Install dotfiles
 set -e
 su "$user_name"

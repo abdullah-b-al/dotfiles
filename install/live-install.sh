@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 export root_password
 export user_name
 export user_password
@@ -62,7 +63,7 @@ mount_partitions() {
 
   hdd_path=$(fdisk -l | grep -B 1 "ST2000DM008-2FR1" | sed 1q | awk -F ":| " '{ printf $2 }')
   if [ -n "$hdd_path" ]; then
-    linux_hdd_part= "$(fdisk -l | grep "Linux" | awk '{print $1}')"
+    linux_hdd_part= "$(fdisk -x | grep "Linux" | awk '{print $1}')"
     mount "$linux_hdd_part" /mnt/mnt/linuxHDD
   fi
 
@@ -196,6 +197,7 @@ main() {
   partition_disk
   format_partitions
   mount_partitions
+  sed -i "s|#ParallelDownloads = 5|ParallelDownloads = 6|g" /etc/pacman.conf
   pacstrap /mnt base base-devel linux linux-firmware
   fstab
 
@@ -206,6 +208,7 @@ main() {
   config-user.sh \
   -t /mnt/install_tmp
 
+  sed -i "s|#ParallelDownloads = 5|ParallelDownloads = 6|g" /mnt/etc/pacman.conf
   install_packages
   arch-chroot /mnt bash -c "/install_tmp/config-system.sh"
   arch-chroot /mnt bash -c "/install_tmp/config-user.sh"
@@ -214,6 +217,5 @@ main() {
 
   printf "System installed and configured.\n"
 }
-
 
 main

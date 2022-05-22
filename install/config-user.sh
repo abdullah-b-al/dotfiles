@@ -1,4 +1,5 @@
 # Install dotfiles
+set -e
 su "$user_name"
 
 if [ "$UID" != 0 ]; then
@@ -11,6 +12,8 @@ if [ "$UID" != 0 ]; then
   mkdir -p "$HOME"/.config/zsh
   mkdir -p "$HOME"/.config/nvim
   mkdir -p "$HOME"/.config/suckless
+
+  mkdir -p "$HOME"/personal
 
   # git
   mkdir -p "$HOME"/.config/git
@@ -25,7 +28,7 @@ if [ "$UID" != 0 ]; then
   fi
 
   # Install st
-  st_dir = "$HOME"/.config/suckless/st
+  st_dir="$HOME"/.config/suckless/st
   if ! [ -d "$st_dir" ]; then
     git clone https://github.com/ab55al/st "$st_dir" && \
       cd "$st_dir" && \
@@ -34,7 +37,7 @@ if [ "$UID" != 0 ]; then
   fi
 
   # Install dwm
-  dwm_dir = "$HOME"/.config/suckless/dwm
+  dwm_dir="$HOME"/.config/suckless/dwm
   if ! [ -d "$dwm_dir" ]; then
     git clone https://github.com/ab55al/dwm "$dwm_dir" && \
       cd "$dwm_dir" && \
@@ -50,11 +53,6 @@ if [ "$UID" != 0 ]; then
       echo "$root_password" | sudo -S pacman --noconfirm -U paru*.pkg.tar.zst && \
       rm -rf "$HOME/paru"
   fi
-
-  # Install nvim package manager
-  [ -d "$HOME"/.local/share/nvim/site/pack/packer/start/packer.nvim ] || \
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
 
   # Change default shell
   echo "$user_password" | chsh -s /bin/zsh

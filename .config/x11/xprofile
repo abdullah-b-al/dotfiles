@@ -3,7 +3,7 @@
 setxkbmap -layout 'us,ar' -option 'grp:alt_shift_toggle' &
 change-wallpaper.sh &
 redshift -PO 5000 &
-start-picom.sh &
+# start-picom.sh &
 dunst &
 # wait for the WM to start before running
 while true; do

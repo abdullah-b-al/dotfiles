@@ -9,4 +9,4 @@ lock_img="$(ls $wallpapers | nl | grep -E "^\s+$num\s" | awk '{print $2}')"
 
 feh --no-fehbg --bg-fill $wallpapers/$img &
 wal -i "$wallpapers/$lock_img" -entsq &
-~/.config/polybar/scripts/pywal.sh $wallpapers/$img
+# ~/.config/polybar/scripts/pywal.sh $wallpapers/$img

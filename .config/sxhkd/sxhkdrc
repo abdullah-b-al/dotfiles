@@ -1,4 +1,4 @@
-super + d ; {d,y}
+super + d ; super + {d,y}
     {              \
     passmenu,      \
     download-yt.sh \
@@ -10,10 +10,10 @@ super + v
 super + w
     change-wallpaper.sh
 
-super + s
-  inc.sh
+super + s ; super + {s,c}
+  { inc.sh, toggle-cpu-pin.sh }
     
-super + e ; {e,o,u,a}
+super + e ; super + {e,o,u,a}
     st -c "st-scratch" -e $EDITOR { \
         $HOME/personal/documents/notes/aa/tk.md, \
         $HOME/personal/documents/notes/aa/o.md, \

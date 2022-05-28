@@ -58,7 +58,7 @@ function so() {
   fi
 }
 
-function sn() {
+function sp() {
   local ignore_dir=".*prog"
   local result=$(find  "$HOME/personal"  \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print \
                   | fzf --layout=reverse --height=1%) 

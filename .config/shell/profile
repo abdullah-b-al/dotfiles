@@ -11,6 +11,8 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
 # Environment Variables
 export ZDOTDIR=$HOME/.config/zsh

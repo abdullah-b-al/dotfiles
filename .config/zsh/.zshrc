@@ -46,7 +46,7 @@ zsh_add_plugin     "hlissner/zsh-autopair"
 bindkey -v
 
 bindkey -s "^O" popd\\n
-bindkey '^s' history-incremental-pattern-search-backward
+bindkey '^r' history-incremental-pattern-search-backward
 
 eval "$(starship init zsh)"
 [ -z "$TMUX" ] && tmux new-session -A -s "general"

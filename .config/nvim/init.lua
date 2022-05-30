@@ -117,6 +117,7 @@ cmd('source ' .. viml_config .. '/mini-map.vim')
 cmd('source ' .. viml_config .. '/maximizer.vim')
 cmd('source ' .. viml_config .. '/vim-sexp.vim')
 cmd('source ' .. viml_config .. '/easy-motion.vim')
+cmd('source ' .. viml_config .. '/zig.vim')
 
 -- Color settings
 cmd('source ' .. after .. '/colors/color-settings.vim')

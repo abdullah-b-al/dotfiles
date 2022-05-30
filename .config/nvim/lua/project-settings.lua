@@ -54,3 +54,18 @@ elseif m('opencv') then
   map({'n'}, '<F3>', function () cmake('build', false) end, {},
     'Run code')
 end
+
+local file_name = vim.api.nvim_exec('echo expand("%")', true)
+if string.match(file_name, '.zig') then
+  map({'n'}, '<F8>', function ()
+    cmd 'wa'
+    cmd 'make'
+  end, {},
+    'Build code')
+
+  map({'n'}, '<F3>', function ()
+    cmd 'wa'
+    cmd 'split | terminal "$SHELL" -c "zig build run"'
+  end, {},
+    'Run code')
+end

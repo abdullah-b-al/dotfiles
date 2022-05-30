@@ -11,6 +11,7 @@ configs.setup {
     'lua',
     'make',
     'vim',
+    'zig',
   },
 
   sync_install = false,

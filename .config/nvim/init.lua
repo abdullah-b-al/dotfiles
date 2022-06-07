@@ -36,8 +36,8 @@ opt.dictionary     = opt.dictionary + '/usr/share/dict/words'
 opt.spellfile      = home .. '/.config/vim/spell/en.utf-8.add'
 opt.viewoptions    = 'cursor'                                 -- save/restore just these with {mk,load}view`
 
-opt.foldmethod     = 'expr'
-opt.foldexpr       = 'nvim_treesitter#foldexpr()'
+-- opt.foldmethod     = 'expr'
+-- opt.foldexpr       = 'nvim_treesitter#foldexpr()'
 
 -- Commands
 

@@ -30,7 +30,7 @@ local function cmake(build_dir, build)
   if build then
     cmd 'make'
   else
-    cmd 'split | terminal "$SHELL" -c "make run"'
+    cmd 'bot split | terminal "$SHELL" -c "make run"'
   end
 
   chdir = 'call chdir(  "' .. root .. '"  )'
@@ -65,7 +65,7 @@ if string.match(file_name, '.zig') then
 
   map({'n'}, '<F3>', function ()
     cmd 'wa'
-    cmd 'split | terminal "$SHELL" -c "zig build run"'
+    cmd 'bot split | terminal "$SHELL" -c "zig build run"'
   end, {},
     'Run code')
 end

@@ -50,3 +50,4 @@ picom
 man-pages
 dunst
 libnotify
+rsync

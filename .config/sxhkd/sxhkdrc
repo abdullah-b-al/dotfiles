@@ -24,3 +24,6 @@ super + e ; {i,o,u,a,t}
 
 super + ctrl + x
     lockscreen.sh
+
+super + z
+    rofi -show run

@@ -4,12 +4,12 @@ setxkbmap -layout 'us,ar' -option 'grp:alt_shift_toggle' &
 change-wallpaper.sh &
 redshift -PO 5000 &
 # start-picom.sh &
-dunst &
+# dunst &
 # wait for the WM to start before running
 while true; do
-  if pgrep dwm > /dev/null; then
+  if pgrep awesome > /dev/null; then
     sleep 0.2
-    ~/.config/polybar/start-polybar.sh &
+    # ~/.config/polybar/start-polybar.sh &
     sxhkd &
     break
   fi

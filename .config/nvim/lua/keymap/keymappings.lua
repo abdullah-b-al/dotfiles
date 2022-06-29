@@ -58,8 +58,8 @@ map({'n'}, '//', '/\\v\\c', { noremap = true },
   'Case insensitive pattern search shortcut')
 
 --{{{1 Center cursor after a half page scroll without polluting the jump list
-map({'n'}, '<C-d>', '<C-d>zz', { noremap = true })
-map({'n'}, '<C-u>', '<C-u>zz', { noremap = true })
+-- map({'n'}, '<C-d>', '<C-d>zz', { noremap = true })
+-- map({'n'}, '<C-u>', '<C-u>zz', { noremap = true })
 
 map({'n'}, '_', '"_', {},
   'Quicker access to the black hole register')
@@ -114,10 +114,10 @@ map({'n'}, '<leader>v]', 'vi]p', {},
   'Replace inside ]')
 
 -- Center cursor after jump list movement
-map({'n'}, '<C-i>', '<C-i>zz', { noremap = true },
-  'Center cursor after jump list movement')
-map({'n'}, '<C-o>', '<C-o>zz', { noremap = true },
-  'Center cursor after jump list movement')
+-- map({'n'}, '<C-i>', '<C-i>zz', { noremap = true },
+--   'Center cursor after jump list movement')
+-- map({'n'}, '<C-o>', '<C-o>zz', { noremap = true },
+--   'Center cursor after jump list movement')
 
 -- call :nohl
 map({'n'}, 'l', 'l<cmd>nohl<CR>', { noremap = true },

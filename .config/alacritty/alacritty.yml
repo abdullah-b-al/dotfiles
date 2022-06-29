@@ -42,7 +42,7 @@ font:
 colors:
     primary:
         background: '#24272e'
-        foreground: '#abb2bf'
+        foreground: '#DDDDDD'
     cursor:
         text: '#0b0b0b'
         cursor: '#dddddd'

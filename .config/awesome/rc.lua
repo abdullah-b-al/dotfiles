@@ -78,7 +78,7 @@ local themes = {
 local chosen_theme = themes[7]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "st"
+local terminal     = "alacritty"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
@@ -273,7 +273,7 @@ globalkeys = mytable.join(
     for _, client in ipairs(clients) do
       local name = client.name
 
-      if string.match(tostring(name), '^' .. terminal ..'$') then
+      if string.match(tostring(name), '^Alacritty$') then
         naughty.notify {
           title = 'Terminal already open',
           text =  'Tag ' .. client.first_tag.name,
@@ -305,8 +305,8 @@ globalkeys = mytable.join(
   end,
   {description = "Move terminal to current tag if it's open", group = "launcher"}),
 
-  awful.key({ modkey }, "z", function() menubar.show() end,
-  {description = "show the menubar", group = "launcher"}),
+  -- awful.key({ modkey }, "z", function() menubar.show() end,
+  -- {description = "show the menubar", group = "launcher"}),
   awful.key({ modkey, "Control" }, "r", awesome.restart,
   {description = "reload awesome", group = "awesome"}),
   awful.key({ modkey, "Shift"   }, "q", awesome.quit,
@@ -699,7 +699,7 @@ screen.primary:connect_signal("tag::history::update",
 -- }}}
 
 -- start sxhkd if not already started
-awful.spawn.with_shell("pgrep sxhkd || sxhkd &")
+-- awful.spawn.with_shell("pgrep sxhkd || sxhkd &")
 
 function enable_rounding()
   local function rounded_rect(radius)

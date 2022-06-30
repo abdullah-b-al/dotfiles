@@ -273,7 +273,7 @@ end
 
 -- Separators
 local spr          = wibox.widget.textbox(' ')
-local pipe_spr     = wibox.widget.textbox(' | ')
+local pipe_spr     = wibox.widget.textbox(' ')
 local pipe_spr_if  = laptop and pipe_spr or wibox.widget.textbox('')    -- Put separator only if on laptop
 local arrl_dl      = separators.arrow_left(theme.bg_focus, "alpha")
 local arrl_ld      = separators.arrow_left("alpha", theme.bg_focus)

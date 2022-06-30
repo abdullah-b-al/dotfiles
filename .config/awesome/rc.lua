@@ -577,6 +577,7 @@ awful.rules.rules = {
     class = {
       "steam_app",
       "deadcells",
+      "looking-glass-client"
     }
   }, properties = { floating = true, screen = 1, tag = "5", fullscreen = true}},
 

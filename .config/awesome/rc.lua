@@ -583,7 +583,8 @@ awful.rules.rules = {
 
 { rule_any = {
     class = {
-      "st-scratch"
+      "st-scratch",
+      "TestWindow",
     },
   }, properties = {
       floating = true,

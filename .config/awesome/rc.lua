@@ -89,8 +89,8 @@ awful.util.tagnames = { "1", "2", "3", "4", "5" }
 awful.layout.layouts = {
   require("layouts.max_half"),
   awful.layout.suit.tile.left,
-  -- awful.layout.suit.fair,
-  -- awful.layout.suit.fair.horizontal,
+  awful.layout.suit.fair,
+  awful.layout.suit.fair.horizontal,
   awful.layout.suit.max,
 }
 
@@ -679,6 +679,18 @@ client.connect_signal("focus", function(c)
   end
 end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+client.connect_signal("focus", function(c)
+  if c.class == "looking-glass-client" then
+    os.execute("toggle-usb-hot-plug.sh")
+  end
+end)
+
+client.connect_signal("unfocus", function(c)
+  if c.class == "looking-glass-client" then
+    os.execute("toggle-usb-hot-plug.sh")
+  end
+end)
 
 for s in screen do
   s:emit_signal("tag::history::update")

@@ -1,2 +1,2 @@
 #!/bin/sh
-looking-glass-client -F -m 70 input:rawMouse=yes
+looking-glass-client -m 70 input:rawMouse=yes

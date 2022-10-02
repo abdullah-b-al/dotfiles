@@ -61,6 +61,11 @@ map({'i','s'}, '<C-l>', function() require('luasnip').jumpable(1) end, {},
   'LuaSnip: Jump forward')
 map({'i','s'}, '<C-h>', function() require('luasnip').jumpable(-1) end, {},
 'LuaSnip: Jump backword')
+map({'i', 's'}, "<C-k>", function ()
+  if require('luasnip').expand_or_jumpable() then
+    require('luasnip').expand_or_jump()
+  end
+end, {silent = true}, 'LuaSnip: jump or expand')
 
 --  Harpoon
 map({'n'}, '<leader>gg', require("harpoon.ui").toggle_quick_menu, {} ,

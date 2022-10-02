@@ -33,7 +33,7 @@ opt.splitright     = true
 opt.wrap           = false
 
 opt.dictionary     = opt.dictionary + '/usr/share/dict/words'
-opt.spellfile      = home .. '/.config/vim/spell/en.utf-8.add'
+opt.spellfile      = home .. '/.local/share/nvim/spell/en.utf-8.add'
 opt.viewoptions    = 'cursor'                                 -- save/restore just these with {mk,load}view`
 
 -- opt.foldmethod     = 'expr'

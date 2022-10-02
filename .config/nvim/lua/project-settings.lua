@@ -68,4 +68,10 @@ if string.match(file_name, '.zig') then
     cmd 'bot split | terminal "$SHELL" -c "zig build run"'
   end, {},
     'Run code')
+
+  map({'n'}, '<F9>', function ()
+    cmd 'wa'
+    cmd 'bot split | terminal "$SHELL" -c "zig build test"'
+  end, {},
+    'Run tests')
 end

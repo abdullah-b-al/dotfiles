@@ -1,4 +1,5 @@
 local map = _G.Mappings.map
+local ls = require('luasnip')
 
 map({'n'}, 'g?', _G.Mappings.view, { noremap = true, silent = true},
   'View this cheat sheet')

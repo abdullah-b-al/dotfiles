@@ -8,8 +8,9 @@ end
 local types = require('luasnip.util.types')
 
 -- Load snippets from friendlysnippets library
-require("luasnip.loaders.from_vscode").lazy_load()
+-- require("luasnip.loaders.from_vscode").lazy_load()
 
+require("luasnip.loaders.from_lua").lazy_load( { path = vim.env.HOME .. '/.config/nvim/luasnippets/zig.lua' } )
 ls.config.set_config {
   history = true,
 
@@ -27,4 +28,3 @@ ls.config.set_config {
 }
 
 -- load custom snippets
-require("luasnip.loaders.from_lua").lazy_load( { path = vim.env.HOME .. '/.config/nvim/luasnippets' } )

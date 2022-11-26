@@ -230,6 +230,12 @@ globalkeys = mytable.join(
   {description = "Focus master window", group = "client"}
   ),
 
+  awful.key({ modkey, "Control" }, "a", function ()
+    -- TODO focus tag five and toggle screens
+    awful.screen.focus(2)
+  end,
+    {description = "", group = "screen"}),
+
   -- Layout manipulation
   awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
   {description = "swap with next client by index", group = "client"}),

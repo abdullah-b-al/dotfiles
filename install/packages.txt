@@ -51,3 +51,6 @@ man-pages
 dunst
 libnotify
 rsync
+usbutils
+ttf-ubuntu-font-family
+ttf-ubuntu-mono-nerd

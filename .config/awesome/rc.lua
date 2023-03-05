@@ -181,8 +181,8 @@ globalkeys = mytable.join(
   awful.key({	modkey, "Shift"	}, "p", function () pomodoro:finish() end),
 
   -- Show help
-  awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
-  {description="show help", group="awesome"}),
+  -- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+  -- {description="show help", group="awesome"}),
 
   -- Tag browsing
   awful.key({ modkey,           }, "Left",   awful.tag.viewprev,

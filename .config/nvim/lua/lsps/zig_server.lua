@@ -11,7 +11,7 @@ lspconfig.zls.setup {
   -- cmd = {path .. "/zls/package/zls"},
   cmd = {'zls'},
   -- nvim-cmp setting
-  capabilities = cmp.update_capabilities(vim.lsp.protocol.make_client_capabilities ()),
+  capabilities = cmp.default_capabilities(vim.lsp.protocol.make_client_capabilities ()),
   -- LSP signature
   signature.setup(cfg),
 }

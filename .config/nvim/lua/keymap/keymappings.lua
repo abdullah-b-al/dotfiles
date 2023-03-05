@@ -55,7 +55,9 @@ map({'n'}, '<leader>cl', ':set cursorline!<CR>', { noremap = true, silent = true
 map({'n'}, '<leader>cc', ':set cursorcolumn!<CR>', { noremap = true , silent = true},
   'Toggle cursorcolumn')
 
-map({'n'}, '//', '/\\v\\c', { noremap = true },
+-- map({'n'}, '//', '/\\v\\c', { noremap = true },
+--   'Case insensitive pattern search shortcut')
+map({'n'}, '/', '/\\v', { noremap = true },
   'Case insensitive pattern search shortcut')
 
 --{{{1 Center cursor after a half page scroll without polluting the jump list

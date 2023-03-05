@@ -37,7 +37,7 @@ lspconfig. sumneko_lua.setup {
   },
 
   -- nvim-cmp setting
-  capabilities = cmp.update_capabilities(vim.lsp.protocol.make_client_capabilities ()),
+  capabilities = cmp.default_capabilities(vim.lsp.protocol.make_client_capabilities ()),
   -- LSP signature
   signature.setup(cfg),
 }

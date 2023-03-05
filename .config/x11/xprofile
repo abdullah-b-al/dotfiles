@@ -1,6 +1,7 @@
 #!/bin/sh
 # WM/DE independant autostart
 setxkbmap -layout 'us,ar' -option 'grp:alt_shift_toggle' &
+xset r rate 250 40
 change-wallpaper.sh &
 redshift -PO 5000 &
 # start-picom.sh &

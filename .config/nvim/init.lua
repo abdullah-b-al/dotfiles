@@ -29,6 +29,8 @@ opt.showmode       = true                                           -- Disabling
 opt.termguicolors  = true
 opt.splitbelow     = true
 opt.splitright     = true
+opt.ignorecase     = true
+opt.smartcase     = true
 
 opt.wrap           = false
 
@@ -124,6 +126,7 @@ cmd('source ' .. after .. '/colors/color-settings.vim')
 
 -- Auto commands
 cmd('source ' .. after .. '/commands.vim')
+cmd('colo sonokai')
 
 -- Lsp server directory
 require('lsps')

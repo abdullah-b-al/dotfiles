@@ -10,7 +10,7 @@ lspconfig.cmake.setup {
   on_attach = require(dir .. '/lsp_on_attach'),
   cmd = {path .. "/cmake/venv/bin/cmake-language-server"},
   -- nvim-cmp setting
-  capabilities = cmp.update_capabilities(vim.lsp.protocol.make_client_capabilities ()),
+  capabilities = cmp.default_capabilities(vim.lsp.protocol.make_client_capabilities ()),
   -- LSP signature
   signature.setup(cfg),
 }

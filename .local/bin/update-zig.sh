@@ -14,4 +14,5 @@ cd "/tmp/installing-zls/zls"
 zig build
 [ -f "/tmp/installing-zls/zls/zig-out/bin/zls" ] || exit 1
 
+killall zls
 cp /tmp/installing-zls/zls/zig-out/bin/zls ~/.local/bin

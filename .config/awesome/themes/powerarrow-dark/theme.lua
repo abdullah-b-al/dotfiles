@@ -10,7 +10,6 @@ local lain   = require("lain")
 local awful  = require("awful")
 local wibox  = require("wibox")
 local dpi    = require("beautiful.xresources").apply_dpi
-local laptop = os.getenv("USER") == "ab55al-lt"
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -209,7 +208,7 @@ theme.fs = lain.widget.fs({
 -- Battery
 local baticon
 local bat = {}
-if (laptop) then
+-- if (laptop) then
     baticon = wibox.widget.imagebox(theme.widget_battery)
     bat = lain.widget.bat({
         settings = function()
@@ -230,7 +229,7 @@ if (laptop) then
             end
         end
     })
-end
+-- end
 
 -- -- ALSA volume
 -- local volicon = wibox.widget.imagebox(theme.widget_vol)

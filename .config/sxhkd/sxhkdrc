@@ -27,3 +27,9 @@ super + ctrl + x
 
 super + z
     rofi -show run
+
+XF86MonBrightnessDown
+    brightness.sh 5%-
+
+XF86MonBrightnessUp
+    brightness.sh +5%

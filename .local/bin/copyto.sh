@@ -1,7 +1,9 @@
 #!/bin/sh
+set -e
 
-zip -r "$1".zip "$1"
+fn="$1".tar.gz
+tar acf "$fn" "$1"
 
-sudo cp -r "$1".zip "$2"
+cp -r "$fn" "$2"
 
-rm -rf "$1.zip"
+rm -rf "$fn"

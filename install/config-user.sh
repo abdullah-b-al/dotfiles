@@ -20,7 +20,7 @@ if [ "$UID" != 0 ]; then
   touch "$HOME"/.config/git/config "$HOME"/.config/git/credentials
   git config --global user.email "abdullah5590x@gmail.com"
   git config --global user.name "ab55al"
-  git config credential.helper store
+  git config --global credential.helper store
 
   if ! [ -d "$HOME/.dotfiles" ]; then
     git clone https://github.com/ab55al/.dotfiles "$HOME"/.dotfiles && \

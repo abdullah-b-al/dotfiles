@@ -77,7 +77,7 @@ if string.match(file_name, '.zig') then
 
   map({'n'}, '<F4>', function ()
     cmd 'wa'
-    cmd 'bot split | terminal "$SHELL" -c "zig test %"'
+    cmd 'bot split | terminal "$SHELL" -c "zig test % --main-pkg-path ."'
   end, {},
     'Test file')
 end

@@ -11,11 +11,6 @@ augroup CommentString
   autocmd BufWinEnter,BufEnter * if &ft=="c" | setlocal commentstring=//%s | endif
 augroup END
 
-" augroup AutoOpenFolds
-"   autocmd!
-"   autocmd BufWinEnter,BufEnter * norm zR
-" augroup END
-
 augroup LoadAndMakeView
   autocmd!
   autocmd BufWinEnter * silent! loadview
@@ -30,4 +25,3 @@ augroup highlight_yanked
   autocmd!
   autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=100}
 augroup END
-

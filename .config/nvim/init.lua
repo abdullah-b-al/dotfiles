@@ -30,7 +30,8 @@ opt.termguicolors  = true
 opt.splitbelow     = true
 opt.splitright     = true
 opt.ignorecase     = true
-opt.smartcase     = true
+opt.smartcase      = true
+opt.foldenable     = false
 
 opt.wrap           = false
 

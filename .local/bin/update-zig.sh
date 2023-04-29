@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-zigup master 2>&1 | grep already && exit 0
+# zigup master 2>&1 | grep already && exit 0
 
 rm -rf "/tmp/installing-zls"
 

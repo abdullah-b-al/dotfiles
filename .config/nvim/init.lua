@@ -38,8 +38,8 @@ opt.dictionary     = opt.dictionary + '/usr/share/dict/words'
 opt.spellfile      = home .. '/.local/share/nvim/spell/en.utf-8.add'
 opt.viewoptions    = 'cursor'                                 -- save/restore just these with {mk,load}view`
 
--- opt.foldmethod     = 'expr'
--- opt.foldexpr       = 'nvim_treesitter#foldexpr()'
+opt.foldmethod     = 'expr'
+opt.foldexpr       = 'nvim_treesitter#foldexpr()'
 
 -- Commands
 
@@ -48,8 +48,10 @@ opt.viewoptions    = 'cursor'                                 -- save/restore ju
 g.mapleader = ' '
 g.maplocalleader = ','
 
+pl = require('plugin-manager')
+
 -- Plugins
-require('plugin-manager').plugins = {
+pl.plugins = {
   -- use 'wbthomason/packer.nvim'
   'nvim-lua/plenary.nvim',       -- Never uninstall
 

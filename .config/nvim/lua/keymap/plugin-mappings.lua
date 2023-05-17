@@ -72,11 +72,11 @@ map({'n'}, '<leader>gg', require("harpoon.ui").toggle_quick_menu, {} ,
   'Harpoon: Open window')
 map({'n'}, '<leader>ga', require("harpoon.mark").add_file, {},
   'Harpoon: Add file')
-map({'n'}, '<leader>gn', require("harpoon.ui").nav_file, {},
+map({'n'}, '<leader>gn', function() require("harpoon.ui").nav_file(1) end, {},
   'Harpoon: Navigate to mark 1')
-map({'n'}, '<leader>ge', require("harpoon.ui").nav_file, {},
+map({'n'}, '<leader>ge', function() require("harpoon.ui").nav_file(2) end, {},
   'Harpoon: Navigate to mark 2')
-map({'n'}, '<leader>gi', require("harpoon.ui").nav_file, {},
+map({'n'}, '<leader>gi', function() require("harpoon.ui").nav_file(3) end, {},
   'Harpoon: Navigate to mark 3')
 
 -- mini-map

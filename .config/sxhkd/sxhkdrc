@@ -13,13 +13,14 @@ super + w
 super + s ; super + {s,c}
   { inc.sh, toggle-cpu-pin.sh }
     
-super + e ; {i,o,u,a,t}
+super + e ; {i,o,u,a,t,p}
     st -c "st-scratch" -e $EDITOR { \
         $HOME/personal/documents/notes/aa/tk.md, \
         $HOME/personal/documents/notes/aa/o.md, \
         $HOME/personal/documents/notes/aa/u.md, \
         $HOME/personal/documents/notes/aa/a.md, \
-        $HOME/personal/documents/notes/aa/e.md \
+        $HOME/personal/documents/notes/aa/e.md, \
+        $HOME/personal/documents/notes/aa/p.md \
         }
 
 super + ctrl + x

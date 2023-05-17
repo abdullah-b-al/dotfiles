@@ -3,6 +3,8 @@ local opts = { noremap=true, silent=true , buffer = 0 }
 local on_attach = function(client, bufnr)
   local map = _G.Mappings.map
 
+  client.server_capabilities.semanticTokensProvider = nil
+
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   map({'n'}, 'gD', vim.lsp.buf.declaration, opts,
     'LSP: Go to declaration')

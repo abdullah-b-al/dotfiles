@@ -688,13 +688,13 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 client.connect_signal("focus", function(c)
   if c.class == "looking-glass-client" then
-    os.execute("toggle-usb-hot-plug.sh attach 2516:012f")
+    os.execute("usb-hot-plug.sh attach 2516:012f")
   end
 end)
 
 client.connect_signal("unfocus", function(c)
   if c.class == "looking-glass-client" then
-    os.execute("toggle-usb-hot-plug.sh detach 2516:012f")
+    os.execute("usb-hot-plug.sh detach 2516:012f")
   end
 end)
 

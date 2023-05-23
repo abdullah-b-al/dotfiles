@@ -589,7 +589,7 @@ awful.rules.rules = {
 
 { rule_any = {
     class = {
-      "st-scratch",
+      "scratch-terminal",
       "TestWindow",
     },
   }, properties = {

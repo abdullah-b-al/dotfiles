@@ -595,10 +595,10 @@ awful.rules.rules = {
   }, properties = {
       floating = true,
       center = true,
-      x = focused().geometry.width / 8,
+      x = focused().geometry.width * 0.08,
       y = focused().geometry.height / 8,
       height = awful.screen.focused().geometry.height * 0.75,
-      width = awful.screen.focused().geometry.width * 0.75,
+      width = awful.screen.focused().geometry.width * 0.85,
     },
   },
 

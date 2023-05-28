@@ -1,7 +1,5 @@
 #!/bin/sh
 monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
-y="$(($monitor_height - 80))"
-pos="80:$y"
 
 font="FiraCode"
 font_color="D0D0D0"

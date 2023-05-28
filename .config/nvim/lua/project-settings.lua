@@ -65,7 +65,15 @@ if string.match(file_name, '.zig') then
 
   map({'n'}, '<F3>', function ()
     cmd 'wa'
-    cmd 'bot split | terminal "$SHELL" -c "zig build run"'
+
+    local full_name = vim.api.nvim_exec('echo expand("%:p")', true)
+
+    if string.match(full_name, 'lsp%-schema%-to%-zig') then
+      cmd 'bot split | terminal "$SHELL" -c "zig build run -- protocol/lsp_3_17.json"'
+  else
+      cmd 'bot split | terminal "$SHELL" -c "zig build run"'
+    end
+
   end, {},
     'Run code')
 

@@ -3,16 +3,11 @@ monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
 y="$(($monitor_height - 80))"
 pos="80:$y"
 
-source ~/.cache/wal/colors.sh
-
-wallpaper="$wallpaper"
-ring_color="$(echo "$color10" | cut -d "#" -f2)"
-inside_color="$(echo "$color0" | cut -d "#" -f2)"
-
 font="FiraCode"
 font_color="D0D0D0"
 
-i3lock -n -i $wallpaper \
+i3lock -n \
+-c 000000      \
 --scale        \
 --clock        \
 --screen=1     \
@@ -35,14 +30,6 @@ i3lock -n -i $wallpaper \
 --verif-size=20 \
 --wrong-size=20 \
 \
---date-str="%a, %d %b %Y" \
-\
---time-pos="$pos"          \
---ind-pos="$pos"           \
-\
---ring-color=$ring_color          \
---inside-color=$inside_color      \
---insidever-color=$inside_color   \
---insidewrong-color=$inside_color
+--date-str="%a, %d %b %Y"
 
 change-wallpaper.sh

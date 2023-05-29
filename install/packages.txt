@@ -51,3 +51,4 @@ ttf-ubuntu-font-family
 ttf-ubuntu-mono-nerd
 ttf-ubuntu-nerd
 nix
+linux-zen

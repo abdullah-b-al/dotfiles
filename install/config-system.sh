@@ -13,7 +13,7 @@ printf "LANG=en_US.UTF-8" > /etc/locale.conf
 printf "KEYMAP=us" > /etc/vconsole.conf
 printf "$host_name" > /etc/hostname
 
-mkinitcpio -P
+mkinitcpio -p linux-zen
 
 # Set root passwd
 printf "%s\n%s" "$root_password" "$root_password" | passwd

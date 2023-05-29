@@ -11,3 +11,4 @@ alias e=$EDITOR
 alias pac='sudo pacman'
 alias rn='ranger'
 alias clear='echo Use C-l'
+alias restow='cd "$DOTFILESDIR" && stow -S . -t "$HOME"'

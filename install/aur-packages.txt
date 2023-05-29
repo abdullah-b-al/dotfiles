@@ -3,4 +3,3 @@ code-minimap-bin
 xcursor-breeze
 nerd-fonts-complete
 i3lock-color
-pywal-16-colors

@@ -11,7 +11,6 @@ if [ "$UID" != 0 ]; then
   # dotfiles
   mkdir -p "$HOME"/.config/zsh
   mkdir -p "$HOME"/.config/nvim
-  mkdir -p "$HOME"/.config/suckless
 
   mkdir -p "$HOME"/personal
 
@@ -26,33 +25,6 @@ if [ "$UID" != 0 ]; then
     git clone https://github.com/ab55al/.dotfiles "$HOME"/.dotfiles && \
       cd "$HOME"/.dotfiles && \
       stow -S . -t "$HOME"
-  fi
-
-  # Install st
-  st_dir="$HOME"/.config/suckless/st
-  if ! [ -d "$st_dir" ]; then
-    git clone https://github.com/ab55al/st "$st_dir" && \
-      cd "$st_dir" && \
-      echo "$root_password" | sudo -S make install && \
-      make clean
-  fi
-
-  # Install dwm
-  dwm_dir="$HOME"/.config/suckless/dwm
-  if ! [ -d "$dwm_dir" ]; then
-    git clone https://github.com/ab55al/dwm "$dwm_dir" && \
-      cd "$dwm_dir" && \
-      echo "$root_password" | sudo -S make install && \
-      make clean
-  fi
-
-  # Install AUR helper
-  if ! [ -d "$HOME"/paru ]; then
-    git clone https://aur.archlinux.org/paru.git $HOME/paru && \
-      cd $HOME/paru && \
-      makepkg -s && \
-      echo "$root_password" | sudo -S pacman --noconfirm -U paru*.pkg.tar.zst && \
-      rm -rf "$HOME/paru"
   fi
 
   # Change default shell

@@ -31,7 +31,6 @@ xsel
 zathura
 zathura-pdf-mupdf
 zip
-zk
 zsh
 zsh-completions
 neovim
@@ -44,14 +43,11 @@ mtools
 git
 networkmanager
 fzf
-cargo
 openssh
-picom
 man-pages
-dunst
-libnotify
 rsync
 usbutils
 ttf-ubuntu-font-family
 ttf-ubuntu-mono-nerd
 ttf-ubuntu-nerd
+nix

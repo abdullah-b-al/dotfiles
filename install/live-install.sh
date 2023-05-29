@@ -1,24 +1,11 @@
 #!/bin/sh
 set -e
-export root_password
-export user_name
-export user_password
-export host_name
-
 boot_name="boot"
 swap_name="swap"
 root_name="arch"
 
 boot_start="1"
 boot_end="512"
-
-update_system_clock() {
-  grep -i "Finished update_system_clock()" log > /dev/null && return
-
-  timedatectl set-ntp true
-
-  echo "Finished update_system_clock()" >> log
-}
 
 partition_disk() {
   boot_end+="MB"
@@ -70,146 +57,49 @@ mount_partitions() {
   echo "Finished mount_partitions()" >> log
 }
 
-fstab() {
-  grep -i "Finished fstab()" log > /dev/null && return
-
-  genfstab -U /mnt >> /mnt/etc/fstab
-
-  echo "Finished fstab()" >> log
-}
-
-install_packages() {
-  grep -i "Finished install_packages()" log > /dev/null && return
-
-  arch-chroot /mnt bash -c "pacman -S --noconfirm --needed - < /install_tmp/packages.txt"
-
-  echo "Finished install_packages()" >> log
-}
-
 main() {
   touch log
 
-  # Get disk to be installed on
-  while true; do
-    disks=$(fdisk -l)
-    echo "$disks"
-    printf "Type path of disk to install --> "
-    read -r installation_disk
 
-    disks=$(echo "$disks" | grep -i "Disk /dev/" | awk -F ":| " '{print $2}' | grep -i "$installation_disk")
-    if [ "$disks" = "$installation_disk" ]; then
-      printf "You chose %s. Confirm ? Y/n\n" "$installation_disk"
-      fdisk -l "$installation_disk" | sed '2!d'
-      read -r disk_answer
-      
-      if [ "$disk_answer" = "y" ] || [ "$disk_answer" = "Y" ]; then
-        break
-      fi
-    fi
-  done
+  installation_disk=""
+  export user_name=""
+  export host_name=""
+  export root_password=""
+  export user_password=""
 
-  # Get ram size and set swap_size
-  while true; do
-    free -h
-    printf "Choose size of swap in GB --> "
-    read -r swap_size
-    
-    printf "Swap size is %sGB. Confirm ? Y/n " "$swap_size"
-    read -r swap_answer
-    if [ "$swap_answer" = "y" ] || [ "$swap_answer" = "Y" ]; then
-      # Convert to MB
-      swap_size=$(( "$swap_size" * 1024))
+  swap_size=$((8 * 1024))
+  swap_start=$(( "$boot_end" ))
+  swap_end=$(( "$boot_end" + "$swap_size"))
 
-      swap_start=$(( "$boot_end" ))
-      swap_end=$(( "$boot_end" + "$swap_size"))
-      break
-    fi
-  done
+  [ -z "$installation_disk" ] && echo "Set values in the script" && exit 1
+  [ -z "$swap_size" ] && echo "Set values in the script" && exit 1
+  [ -z "$root_password" ] && echo "Set values in the script" && exit 1
+  [ -z "$user_name" ] && echo "Set values in the script" && exit 1
+  [ -z "$user_password" ] && echo "Set values in the script" && exit 1
+  [ -z "$host_name" ] && echo "Set values in the script" && exit 1
+  [ -z "$swap_start" ] && echo "Set values in the script" && exit 1
+  [ -z "$swap_end" ] && echo "Set values in the script" && exit 1
 
-  # Get root password
-  while true; do
-    printf "\n\n"
-    printf "Choose root password --> "
-    read -r root_password
+  timedatectl set-ntp true
 
-    printf "Confirm root password --> "
-    read -r second_root_password
-
-    if [ "$root_password" != "$second_root_password" ]; then
-      printf "Root passwords don't match."
-      continue
-    fi
-
-    printf "%s. Confirm password ? Y/n " "$root_password"
-    read -r answer
-    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
-      break
-    fi
-  done
-
-  # Get user name
-  while true; do
-    printf "\n\n"
-    printf "Choose user name --> "
-    read -r user_name
-    printf "%s. Confirm name ? Y/n " "$user_name"
-    read -r answer
-    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
-      break
-    fi
-  done
-
-  # Get user password
-  while true; do
-    printf "\n\n"
-    printf "Choose user password --> "
-    read -r user_password
-
-    printf "Confirm user password --> "
-    read -r second_user_password
-
-    if [ "$user_password" != "$second_user_password" ]; then
-      printf "User passwords don't match."
-      continue
-    fi
-
-    printf "%s. Confirm password ? Y/n " "$user_password"
-    read -r answer
-    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
-      break
-    fi
-  done
-
-  # Get hostname
-  while true; do
-    printf "\n\n"
-    printf "Choose host name --> "
-    read -r host_name
-
-    printf "%s. Confirm hostname ? Y/n " "$host_name"
-    read -r answer
-    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
-      break
-    fi
-  done
-
-  update_system_clock
   partition_disk
   format_partitions
   mount_partitions
+
   sed -i "s|#ParallelDownloads = 5|ParallelDownloads = 6|g" /etc/pacman.conf
   pacstrap /mnt base base-devel linux linux-firmware
-  fstab
+  genfstab -U /mnt >> /mnt/etc/fstab
 
   # Save vars to use in config script
   mkdir -p /mnt/install_tmp
   cp packages.txt  \
+  packages.nix     \
   config-system.sh \
-  config-user.sh \
+  config-user.sh   \
   -t /mnt/install_tmp
 
   sed -i "s|#ParallelDownloads = 5|ParallelDownloads = 6|g" /mnt/etc/pacman.conf
-  install_packages
+  arch-chroot /mnt bash -c "pacman -S --noconfirm --needed - < /install_tmp/packages.txt"
   arch-chroot /mnt bash -c "/install_tmp/config-system.sh"
   arch-chroot /mnt bash -c "su "$user_name" -c /install_tmp/config-user.sh"
 

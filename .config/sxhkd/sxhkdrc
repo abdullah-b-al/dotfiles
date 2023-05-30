@@ -1,15 +1,3 @@
-super + d ; super + {d,y}
-    {              \
-    passmenu,      \
-    download-yt.sh \
-    }
-
-super + v
-    dmenu-pdfs
-
-super + w
-    change-wallpaper.sh
-
 super + s ; super + {s,c}
   { inc.sh, toggle-cpu-pin.sh }
     

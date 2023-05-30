@@ -4,7 +4,7 @@ if command -v rofi>/dev/null; then
 elif command -v dmenu>/dev/null; then
   alias menu='dmenu -i -matching fuzzy'
 else
-  notify-send -t 3000 -u critical "dmenu-pdfs" "'dmenu and rofi aren't installed"
+  notify-send -t 3000 -u critical "menu" "'dmenu and rofi aren't installed"
   exit
 fi
 

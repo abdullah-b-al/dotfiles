@@ -1,10 +1,7 @@
 #!/bin/sh
 # WM/DE independant autostart
 set-keyboar-settings.sh &
-change-wallpaper.sh &
 redshift -PO 5000 &
-# start-picom.sh &
-# dunst &
 # wait for the WM to start before running
 while true; do
   if pgrep awesome > /dev/null; then

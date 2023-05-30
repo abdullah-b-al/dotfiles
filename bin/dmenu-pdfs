@@ -1,8 +1,0 @@
-#!/bin/sh
-path_pdfs="$HOME/personal/documents/pdf"
-xdg-open "$( du -ah "$path_pdfs" \
-    | cut -f2                    \
-    | tr '/' '\n'                \
-    | grep "\.pdf$"              \
-    | menu \
-    | xargs -I % find "$path_pdfs" -name % )"

@@ -29,5 +29,3 @@ i3lock -n \
 --wrong-size=20 \
 \
 --date-str="%a, %d %b %Y"
-
-change-wallpaper.sh

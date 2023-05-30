@@ -1,5 +1,5 @@
 brave-bin
-code-minimap-bin
 xcursor-breeze
 nerd-fonts-complete
 i3lock-color
+ttf-ubuntu-arabic

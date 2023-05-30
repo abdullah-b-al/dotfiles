@@ -1,5 +1,6 @@
 # Comments and blank lines are allowed.
 /install
+/bin
 config-system.sh
 packages\.txt
 aur-packages\.txt

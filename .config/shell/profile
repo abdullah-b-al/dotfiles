@@ -34,6 +34,23 @@ export LC_ALL=en_US.UTF-8
 export MAKEFLAGS=-j$(($(nproc)-1))
 
 export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
+
+alias ls='ls --color=auto'
+alias la='ls -Alh'
+
+alias gd='git diff'
+alias gs='git status'
+
+alias g='grep --color -E'
+alias gi='grep --color -Ei'
+
+alias e=$EDITOR
+alias pac='sudo pacman'
+alias rn='ranger'
+alias clear='echo Use C-l'
+alias restow='cd "$DOTFILESDIR" && stow -S . -t "$HOME"'
+
+
 # Start graphical server on user's current tty if not already running.
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec startx "$XINITRC"

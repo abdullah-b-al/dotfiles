@@ -50,5 +50,9 @@ usbutils
 ttf-ubuntu-font-family
 ttf-ubuntu-mono-nerd
 ttf-ubuntu-nerd
-nix
 linux-zen
+qemu-full
+virt-manager
+plocate
+libnotify
+feh

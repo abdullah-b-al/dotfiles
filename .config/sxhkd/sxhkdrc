@@ -3,12 +3,12 @@ super + s ; super + {s,c}
     
 super + e ; {i,o,u,a,t,p}
     scratch-term.sh $EDITOR { \
-        $HOME/personal/documents/notes/aa/tk.md, \
-        $HOME/personal/documents/notes/aa/o.md, \
-        $HOME/personal/documents/notes/aa/u.md, \
-        $HOME/personal/documents/notes/aa/a.md, \
-        $HOME/personal/documents/notes/aa/e.md, \
-        $HOME/personal/documents/notes/aa/p.md \
+        $HOME/personal/tk.md, \
+        $HOME/personal/o.md, \
+        $HOME/personal/u.md, \
+        $HOME/personal/a.md, \
+        $HOME/personal/e.md, \
+        $HOME/personal/p.md \
         }
 
 super + ctrl + x

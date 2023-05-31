@@ -26,8 +26,6 @@ export BROWSER=brave
 export HISTCONTROL=ignoreboth
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export DOTFILESDIR="$HOME/.dotfiles"
-export ZK_NOTEBOOK_DIR="$HOME/personal/zk-notes/"
-export prog="$HOME/personal/prog"
 export LC_ALL=en_US.UTF-8
 
 export PATH=$PATH:$HOME/.local/bin:"$DOTFILESDIR"/bin

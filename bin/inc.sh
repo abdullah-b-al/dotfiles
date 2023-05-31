@@ -1,6 +1,6 @@
 #!/bin/sh
 
-file="$HOME/personal/documents/notes/aa/a.md"
+file="$HOME/personal/a.md"
 line="$(cat "$file" | menu)"
 
 [ -z $line ] && exit

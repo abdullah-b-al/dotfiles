@@ -73,7 +73,6 @@ pl.plugins = {
   'kyazdani42/nvim-tree.lua',
   'lewis6991/gitsigns.nvim',
   'mickael-menu/zk-nvim',
-  'wfxr/minimap.vim',
   'szw/vim-maximizer',
   'tpope/vim-fugitive',
   'ThePrimeagen/harpoon',

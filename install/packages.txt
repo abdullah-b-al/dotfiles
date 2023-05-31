@@ -56,3 +56,4 @@ virt-manager
 plocate
 libnotify
 feh
+cronie

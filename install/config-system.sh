@@ -34,10 +34,9 @@ chmod -c 0400 /etc/doas.conf
 sed -i "s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) ALL|g" /etc/sudoers
 sed -i "s|# %wheel ALL=(ALL:ALL) ALL|%wheel ALL=(ALL) ALL|g" /etc/sudoers
 
+systemctl enable cronie.service
 systemctl enable libvirtd.service
 systemctl enable NetworkManager
-systemctl enable nix-daemon
-systemctl start nix-daemon
 
 # Config and install grub
 mkdir -p /boot/EFI

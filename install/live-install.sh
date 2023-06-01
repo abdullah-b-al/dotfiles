@@ -93,7 +93,6 @@ main() {
   # Save vars to use in config script
   mkdir -p /mnt/install_tmp
   cp packages.txt  \
-  packages.nix     \
   config-system.sh \
   config-user.sh   \
   -t /mnt/install_tmp

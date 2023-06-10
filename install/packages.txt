@@ -57,3 +57,5 @@ plocate
 libnotify
 feh
 cronie
+spice-vdagent
+btop

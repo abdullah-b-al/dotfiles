@@ -239,6 +239,10 @@ globalkeys = mytable.join(
   -- Layout manipulation
   awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
   {description = "swap with next client by index", group = "client"}),
+
+  awful.key({ modkey,           }, "Return", function () awful.screen.focus_relative(-1) end,
+    {description = "focus the previous screen", group = "screen"}),
+
   awful.key({ modkey, "Shift"   }, "h", function () awful.client.swap.byidx( -1)    end,
   {description = "swap with previous client by index", group = "client"}),
   awful.key({ modkey, "Control" }, "l", function () awful.screen.focus_relative( 1) end,
@@ -405,8 +409,8 @@ clientkeys = mytable.join(
   {description = "toggle floating", group = "client"}),
   awful.key({ modkey, "Control" }, "[",  function(c) awful.titlebar.toggle(c) end                     ,
   {description = "Toggle titlebar", group = "client"}),
-  awful.key({ modkey }, "Return", function (c) c:swap(awful.client.getmaster()) end,
-  {description = "move to master", group = "client"}),
+  -- awful.key({ modkey }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+  -- {description = "move to master", group = "client"}),
   awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
   {description = "move to screen", group = "client"}),
   awful.key({ modkey, "Control"           }, "Return",      function (c) c.ontop = not c.ontop            end,

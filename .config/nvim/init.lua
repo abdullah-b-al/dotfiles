@@ -39,6 +39,7 @@ opt.dictionary     = opt.dictionary + '/usr/share/dict/words'
 opt.spellfile      = home .. '/.local/share/nvim/spell/en.utf-8.add'
 opt.viewoptions    = 'cursor'                                 -- save/restore just these with {mk,load}view`
 
+opt.foldmethod     = 'manual'
 -- opt.foldmethod     = 'expr'
 -- opt.foldexpr       = 'nvim_treesitter#foldexpr()'
 
@@ -72,7 +73,6 @@ pl.plugins = {
   'junegunn/vim-easy-align',
   'kyazdani42/nvim-tree.lua',
   'lewis6991/gitsigns.nvim',
-  'mickael-menu/zk-nvim',
   'szw/vim-maximizer',
   'tpope/vim-fugitive',
   'ThePrimeagen/harpoon',

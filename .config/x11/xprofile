@@ -8,6 +8,7 @@ while true; do
     sleep 0.2
     # ~/.config/polybar/start-polybar.sh &
     sxhkd &
+    pgrep nextcloud || nextcloud & disown
     break
   fi
 done &

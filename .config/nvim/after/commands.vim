@@ -1,5 +1,7 @@
 " commands
 command! W :w
+command! Wa :wa
+command! WA :wa
 
 
 " auto-commands

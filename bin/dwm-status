@@ -30,7 +30,12 @@ get_charge() {
 }
 
 get_datetime() {
-    date +"%a %d %b %Y %I:%M %p %Z"
+    date +"%a %d %b %Y %I:%M %p"
+}
+
+get_memory() {
+  mem="$(vmstat -s -S M | grep -i "used memory" | awk -F ' ' '{print $1}')"
+  echo $mem"M"
 }
 
 get_status() {
@@ -39,11 +44,11 @@ get_status() {
         battery_status=" $(get_battery_status) ";
     fi
 
-    echo "${battery_status} $(get_datetime)";
+    echo "$(get_memory) ${battery_status} $(get_datetime)";
 }
 
 while true
 do
     xsetroot -name "$(get_status)";
-    sleep 1m;
+    sleep 30s;
 done

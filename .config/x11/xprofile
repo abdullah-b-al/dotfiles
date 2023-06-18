@@ -4,11 +4,12 @@ set-keyboar-settings.sh &
 redshift -PO 5000 &
 # wait for the WM to start before running
 while true; do
-  if pgrep awesome > /dev/null; then
+  if pgrep dwm > /dev/null; then
     sleep 0.2
-    # ~/.config/polybar/start-polybar.sh &
     sxhkd &
     pgrep nextcloud || nextcloud & disown
+    dunst &
+    dwm-status &
     break
   fi
 done &

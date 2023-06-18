@@ -22,7 +22,7 @@ if [ "$UID" != 0 ]; then
   git config --global credential.helper store
 
   if ! [ -d "$HOME/.dotfiles" ]; then
-    git clone https://github.com/ab55al/.dotfiles "$HOME"/.dotfiles && \
+    git clone --recursive https://gitlab.com/ab55al/dotfiles.git "$HOME"/.dotfiles && \
       cd "$HOME"/.dotfiles && \
       stow -S . -t "$HOME"
   fi

@@ -1,9 +1,7 @@
 #!/bin/sh
 
-if lsusb | grep -i ergodox ; then
-  setxkbmap -layout 'us,ar' -option 'grp:alt_shift_toggle'
-else
-  setxkbmap -layout 'us,ar' -option 'grp:alt_shift_toggle'
+setxkbmap -layout 'us,ara' -option 'grp:alt_shift_toggle'
+if ! lsusb | grep -i ergodox; then
   xmodmap ~/.dotfiles/colemak_dh.xmodmap
 fi
 

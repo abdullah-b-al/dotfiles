@@ -27,6 +27,9 @@ if [ "$UID" != 0 ]; then
       stow -S . -t "$HOME"
   fi
 
+  cd "$HOME"/.dotfiles/.config/dwm
+  echo "$root_password" | sudo -S make install
+
   # Change default shell
   echo "$user_password" | chsh -s /bin/zsh
   # remove bash files

@@ -17,7 +17,7 @@ if [ "$UID" != 0 ]; then
   # git
   mkdir -p "$HOME"/.config/git
   touch "$HOME"/.config/git/config "$HOME"/.config/git/credentials
-  git config --global user.email "abdullah5590x@gmail.com"
+  git config --global user.email "abdullah@abal.xyz"
   git config --global user.name "ab55al"
   git config --global credential.helper store
 

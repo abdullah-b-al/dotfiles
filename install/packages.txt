@@ -61,3 +61,4 @@ spice-vdagent
 btop
 nextcloud-client
 dunst
+valgrind

@@ -71,6 +71,15 @@ if string.match(file_name, '.zig') then
   end, {},
     'Run code')
 
+  map({'n'}, '<leader><F3>', function ()
+    cmd 'wa'
+
+    require('dapui').open({reset = true})
+    cmd 'bot split | terminal "$SHELL" -c "zig build -freference-trace"'
+
+  end, {},
+    'Run code with debugger')
+
   map({'n'}, '<F9>', function ()
     cmd 'wa'
     cmd 'bot split | terminal "$SHELL" -c "zig build test"'

@@ -8,14 +8,16 @@
   </metadata>
   <memory unit="KiB">8388608</memory>
   <currentMemory unit="KiB">8388608</currentMemory>
-  <vcpu placement="static">6</vcpu>
+  <vcpu placement="static">8</vcpu>
   <cputune>
-    <vcpupin vcpu="0" cpuset="3"/>
-    <vcpupin vcpu="1" cpuset="4"/>
-    <vcpupin vcpu="2" cpuset="5"/>
-    <vcpupin vcpu="3" cpuset="9"/>
-    <vcpupin vcpu="4" cpuset="10"/>
-    <vcpupin vcpu="5" cpuset="11"/>
+    <vcpupin vcpu="0" cpuset="2"/>
+    <vcpupin vcpu="1" cpuset="3"/>
+    <vcpupin vcpu="2" cpuset="4"/>
+    <vcpupin vcpu="3" cpuset="5"/>
+    <vcpupin vcpu="4" cpuset="8"/>
+    <vcpupin vcpu="5" cpuset="9"/>
+    <vcpupin vcpu="6" cpuset="10"/>
+    <vcpupin vcpu="7" cpuset="11"/>
   </cputune>
   <os firmware="efi">
     <type arch="x86_64" machine="pc-q35-8.0">hvm</type>
@@ -38,7 +40,7 @@
     <smm state="on"/>
   </features>
   <cpu mode="host-passthrough" check="none" migratable="on">
-    <topology sockets="1" dies="1" cores="3" threads="2"/>
+    <topology sockets="1" dies="1" cores="4" threads="2"/>
   </cpu>
   <clock offset="localtime">
     <timer name="rtc" tickpolicy="catchup"/>
@@ -186,13 +188,16 @@
       <address type="usb" bus="0" port="1"/>
     </input>
     <input type="keyboard" bus="ps2"/>
-    <input type="mouse" bus="virtio">
-      <address type="pci" domain="0x0000" bus="0x0a" slot="0x00" function="0x0"/>
-    </input>
     <input type="keyboard" bus="virtio">
       <address type="pci" domain="0x0000" bus="0x09" slot="0x00" function="0x0"/>
     </input>
+    <input type="mouse" bus="virtio">
+      <address type="pci" domain="0x0000" bus="0x0a" slot="0x00" function="0x0"/>
+    </input>
     <input type="mouse" bus="ps2"/>
+    <input type="mouse" bus="usb">
+      <address type="usb" bus="0" port="4"/>
+    </input>
     <graphics type="spice" autoport="yes">
       <listen type="address"/>
       <image compression="off"/>
@@ -225,6 +230,13 @@
       </source>
       <address type="pci" domain="0x0000" bus="0x07" slot="0x00" function="0x0"/>
     </hostdev>
+    <hostdev mode="subsystem" type="usb" managed="yes">
+      <source>
+        <vendor id="0x8087"/>
+        <product id="0x0aa7"/>
+      </source>
+      <address type="usb" bus="0" port="5"/>
+    </hostdev>
     <redirdev bus="usb" type="spicevmc">
       <address type="usb" bus="0" port="2"/>
     </redirdev>
@@ -242,3 +254,4 @@
     </shmem>
   </devices>
 </domain>
+

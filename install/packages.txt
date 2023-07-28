@@ -62,3 +62,4 @@ btop
 nextcloud-client
 dunst
 valgrind
+zenity

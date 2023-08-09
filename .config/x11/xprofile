@@ -1,6 +1,7 @@
 #!/bin/sh
 # WM/DE independant autostart
 set-keyboar-settings.sh &
+xinput --set-prop "Cooler Master Technology Inc. MM710 Gaming Mouse" 'libinput Accel Speed' -0.5
 redshift -PO 5000 &
 # wait for the WM to start before running
 while true; do

@@ -59,20 +59,6 @@
   </pm>
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
-    <disk type="file" device="cdrom">
-      <driver name="qemu" type="raw"/>
-      <source file="/home/ab55al/Downloads/Win10_22H2_EnglishInternational_x64v1.iso"/>
-      <target dev="sda" bus="sata"/>
-      <readonly/>
-      <address type="drive" controller="0" bus="0" target="0" unit="0"/>
-    </disk>
-    <disk type="file" device="cdrom">
-      <driver name="qemu" type="raw"/>
-      <source file="/home/ab55al/Downloads/virtio-win-0.1.229.iso"/>
-      <target dev="sdb" bus="sata"/>
-      <readonly/>
-      <address type="drive" controller="0" bus="0" target="0" unit="1"/>
-    </disk>
     <disk type="block" device="disk">
       <driver name="qemu" type="raw" cache="none" io="native" discard="unmap"/>
       <source dev="/dev/sda1"/>

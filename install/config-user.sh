@@ -27,6 +27,17 @@ if [ "$UID" != 0 ]; then
       stow -S . -t "$HOME"
   fi
 
+  # Install AUR helper
+  if ! [ -d "$HOME"/paru ]; then
+    git clone https://aur.archlinux.org/paru.git $HOME/paru && \
+      cd $HOME/paru && \
+      makepkg -s && \
+      echo "$root_password" | sudo -S pacman --noconfirm -U paru*.pkg.tar.zst && \
+      rm -rf "$HOME/paru"
+  fi
+
+
+
   cd "$HOME"/.dotfiles/.config/dwm
   echo "$root_password" | sudo -S make install
 

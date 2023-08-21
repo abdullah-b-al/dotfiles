@@ -1,11 +1,10 @@
 #!/bin/sh
 # WM/DE independant autostart
 set-keyboar-settings.sh &
-xinput --set-prop "Cooler Master Technology Inc. MM710 Gaming Mouse" 'libinput Accel Speed' -0.5
 redshift -PO 5000 &
 # wait for the WM to start before running
 while true; do
-  if pgrep dwm > /dev/null; then
+  if pgrep awesome > /dev/null; then
     sleep 0.2
     sxhkd &
     pgrep nextcloud || nextcloud & disown

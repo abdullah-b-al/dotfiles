@@ -71,6 +71,17 @@ function se() {
   fi
 }
 
+function ss() {
+  local result=$(find "$HOME" -name ".git" -prune -o -print  | fzf --layout=reverse --height=1%) 
+
+  [ -z "$result" ] && return
+  if [[ -d "$result" ]]; then
+    cd "$result" && print -s cd "$result"
+  else
+    "$EDITOR" "$result" && print -s "$EDITOR" "$result"
+  fi
+}
+
 function mc() {
   mkdir -p "$1" && cd "$1"
 }

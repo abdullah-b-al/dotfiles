@@ -12,7 +12,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local focused = awful.screen.focused
 -- Enable hotkeys help widget for VIM and other apps
@@ -47,8 +46,9 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+gears.wallpaper.set("#000000")
 
--- This is used later as the default terminal and editor to run.
+local max_core_count = 12
 terminal = "alacritty"
 
 -- Default modkey.
@@ -63,16 +63,33 @@ awful.layout.layouts = {
   awful.layout.suit.tile,
   awful.layout.suit.floating,
   awful.layout.suit.max,
-  awful.layout.suit.max.fullscreen,
 }
 -- }}}
 
 mykeyboardlayout = awful.widget.keyboardlayout()
 mytextclock = awful.widget.textclock("%A  %b %m/%d  %I:%M")
 cores = awful.widget.watch('nproc', 30, function(widget, stdout)
-  widget:set_text("Cores: " .. stdout)
+  local empty_circle = '○'
+  local filled_circle = '●'
+
+  local value = 'Cores: [ '
+  local number = tonumber(stdout)
+  for i = 1, number do
+    value = value .. filled_circle .. ' '
+  end
+
+  for i = number + 1, max_core_count do
+    value = value .. empty_circle .. ' '
+  end
+
+  value = value .. ']'
+
+  widget:set_text(value)
 end)
 
+local memory = awful.widget.watch("print-memory", 30, function(widget, stdout)
+  widget:set_markup('<b>' .. stdout ..'</b>')
+end)
 
 
 -- Create a wibox for each screen and add it
@@ -145,7 +162,9 @@ awful.screen.connect_for_each_screen(function(s)
   s.mytasklist = awful.widget.tasklist {
     screen  = s,
     filter  = awful.widget.tasklist.filter.currenttags,
-    buttons = tasklist_buttons
+    buttons = tasklist_buttons,
+    -- makes the tasklist a spacing widget only
+    layout = {}
   }
 
   -- Create the wibox
@@ -155,6 +174,8 @@ awful.screen.connect_for_each_screen(function(s)
   s.mywibox:setup {
     layout = wibox.layout.align.horizontal,
     { -- Left widgets
+      s.mylayoutbox,
+      spacing = 1,
       layout = wibox.layout.fixed.horizontal,
       mylauncher,
       s.mytaglist,
@@ -165,24 +186,26 @@ awful.screen.connect_for_each_screen(function(s)
       layout = wibox.layout.fixed.horizontal,
       mykeyboardlayout,
 
+      memory,
+      wibox.widget.textbox(" "),
       cores,
       wibox.widget.textbox(" "),
+
       mytextclock,
 
+      wibox.widget.textbox(" "),
       wibox.widget.systray(),
-      spacing = 1,
-      s.mylayoutbox,
     },
   }
 end)
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
+-- root.buttons(gears.table.join(
+--     awful.button({ }, 3, function () mymainmenu:toggle() end),
+--     awful.button({ }, 4, awful.tag.viewnext),
+--     awful.button({ }, 5, awful.tag.viewprev)
+-- ))
 -- }}}
 
 -- {{{ Key bindings

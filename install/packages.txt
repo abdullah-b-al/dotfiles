@@ -63,3 +63,5 @@ nextcloud-client
 dunst
 valgrind
 zenity
+bc
+pipewire

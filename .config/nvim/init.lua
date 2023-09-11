@@ -95,6 +95,7 @@ pl.plugins = {
   -- Completion and snippets,
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-path',
   'L3MON4D3/LuaSnip',
   'saadparwaiz1/cmp_luasnip',
   'rafamadriz/friendly-snippets',
@@ -203,6 +204,8 @@ if found_cmp and found_lspkind and found_luasnip then
     sources = {
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
+      { name = 'path' },
+      
     },
     formatting = {
       format = lspkind.cmp_format({
@@ -768,13 +771,12 @@ map({'n'}, '<leader>gi', function() require("harpoon.ui").nav_file(3) end, {},
   'Harpoon: Navigate to mark 3')
 
 -- dap
-map({'n'}, '<C-RIGHT>', function() dap.step_over() end, {}, '')
-map({'n'}, '<C-LEFT>', function() dap.step_into() end, {}, '')
-map({'n'}, '<C-UP>', function() dap.step_out() end, {}, '')
-map({'n'}, '<leader>b', function() dap.toggle_breakpoint() end, {}, '')
-map({'n'}, '<leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, {}, '')
-map({'n'}, '<leader>dc', function() dap.continue() end, {}, '')
-map({'n'}, '<leader>dr', function() require('dapui').open({reset = true}) end, {}, '')
+map({'n'}, '<C-RIGHT>', function() dap.step_over() end, {}, 'debug: step over')
+map({'n'}, '<C-LEFT>', function() dap.step_into() end, {}, 'debug: step into')
+map({'n'}, '<C-UP>', function() dap.step_out() end, {}, 'debug: stop out')
+map({'n'}, '<leader>b', function() dap.toggle_breakpoint() end, {}, 'debug: Breakpoint')
+map({'n'}, '<leader>dc', function() dap.continue() end, {}, 'debug: dap-continue')
+map({'n'}, '<leader>dr', function() require('dapui').open({reset = true}) end, {}, 'debug: dap-ui')
 
 -- mini-map
 map({'n'}, '<leader>mm',

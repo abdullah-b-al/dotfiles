@@ -9,6 +9,10 @@ super + e ; {i,a,t,p}
         $HOME/personal/p.md \
         }
 
+
+super + e ; super + b
+  open_bookmark.sh
+
 super + ctrl + x
     lockscreen.sh
 

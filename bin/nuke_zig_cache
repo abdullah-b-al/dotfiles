@@ -1,0 +1,4 @@
+#!/bin/sh
+find ~ | grep -e "zig-out$" -e "zig-cache$" | xargs -I {} rm -r {}
+
+rm -r ~/.cache/zig

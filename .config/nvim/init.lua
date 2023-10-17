@@ -145,7 +145,7 @@ local found_cmp, cmp = pcall(require, 'cmp')
 local found_lspkind, lspkind = pcall(require, 'lspkind')
 local found_luasnip, luasnip = pcall(require, 'luasnip')
 local found_lualine, lualine = pcall(require, 'lualine')
-local found_indent, indent = pcall(require, "indent_blankline")
+local found_indent, ibl = pcall(require, "ibl")
 local found_gitsigns, gs = pcall(require, 'gitsigns')
 local found_autopairs, autopairs = pcall(require, "nvim-autopairs")
 local map = _G.Mappings.map
@@ -333,11 +333,7 @@ end
 
 -- Section: indent-line
 if found_indent then
-  indent.setup {
-    space_char_blankline = " ",
-    show_current_context = true,
-    show_current_context_start = false,
-  }
+  ibl.setup {}
 else
   print("Couldn't find indent_blankline in indent-line.lua")
 end

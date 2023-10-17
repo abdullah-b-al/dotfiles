@@ -141,6 +141,10 @@ awful.screen.connect_for_each_screen(function(s)
   -- Each screen has its own tag table.
   awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
 
+  if s.index == 1 then
+  s.tags[1].layout = awful.layout.layouts[3];
+  end
+
   -- Create a promptbox for each screen
   s.mypromptbox = awful.widget.prompt()
   -- Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -295,16 +299,37 @@ globalkeys = gears.table.join(
   awful.key(
     { modkey, }, 't', function ()
 
+
+      local focused_client = client.focus
+
       local clients =  awful.screen.focused().all_clients
 
-      for _, client in ipairs(clients) do
-        local name = client.name
+      for _, c in ipairs(clients) do
+        local name = c.name
 
-        if string.match(tostring(name), '^Alacritty$') then
-          naughty.notify {
-            title = 'Terminal already open',
-            text =  'Tag ' .. client.first_tag.name,
-          }
+        local is_terminal = string.match(tostring(name), '^Alacritty$')
+        local is_focused = c == focused_client
+
+        if is_terminal then
+          if not is_focused then
+            c.first_tag:view_only()
+            c:raise()
+          else
+            local prev_client
+            for _, item in ipairs(awful.client.focus.history.list) do
+              if item ~= focused_client and item.first_tag == focused_client.first_tag then
+                prev_client = item
+                break
+              end
+            end
+
+            if (prev_client) then
+              prev_client:raise()
+            else
+              awful.client.focus.byidx(1)
+            end
+          end
+
           return
         end
       end

@@ -27,6 +27,7 @@ export HISTCONTROL=ignoreboth
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export DOTFILESDIR="$HOME/.dotfiles"
 export LC_ALL=en_US.UTF-8
+export GTK_THEME=Adwaita:dark
 
 export PATH=$PATH:$HOME/.local/bin:"$DOTFILESDIR"/bin
 

@@ -6,4 +6,4 @@ url="$(grep -ve "^http" -ve "^\s*$" $bookmarks | rofi -dmenu -matching fuzzy -i 
 
 [ -z "$url" ] && exit 1
 
-"$BROWSER" "$url"
+echo "$url" | xsel --input --clipboard

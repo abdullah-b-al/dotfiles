@@ -87,6 +87,17 @@ cores = awful.widget.watch('nproc', 30, function(widget, stdout)
   widget:set_text(value)
 end)
 
+local battery = awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity', 60, function(widget, stdout)
+
+  local value = ''
+  if tonumber(stdout) ~= nil then
+    value = '%' .. stdout
+  end
+
+  widget:set_text(value)
+
+end)
+
 local memory = awful.widget.watch("print-memory", 30, function(widget, stdout)
   widget:set_markup('<b>' .. stdout ..'</b>')
 end)
@@ -192,8 +203,10 @@ awful.screen.connect_for_each_screen(function(s)
 
       memory,
       wibox.widget.textbox(" "),
-      cores,
+      battery,
       wibox.widget.textbox(" "),
+      -- cores,
+      -- wibox.widget.textbox(" "),
 
       mytextclock,
 

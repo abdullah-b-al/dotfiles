@@ -28,12 +28,11 @@ if [ "$UID" != 0 ]; then
   fi
 
   # Install AUR helper
-  if ! [ -d "$HOME"/paru ]; then
-    git clone https://aur.archlinux.org/paru.git $HOME/paru && \
-      cd $HOME/paru && \
-      makepkg -s && \
-      echo "$root_password" | sudo -S pacman --noconfirm -U paru*.pkg.tar.zst && \
-      rm -rf "$HOME/paru"
+  if ! [ -d "$HOME"/yay-bin ]; then
+    git clone https://aur.archlinux.org/yay-bin.git "$HOME"/yay-bin
+    cd yay-bin
+    yes | makepkg -si
+    rm -rf "$HOME"/yay-bin
   fi
 
   # Change default shell

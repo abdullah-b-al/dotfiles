@@ -1,14 +1,18 @@
-#/!bin/sh
+#!/bin/sh
 
-# Source Xresources
-# xrdb -merge -I${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources
-
-if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile" ]; then
-	. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile"
-else
-	. "$HOME/.xprofile"
-fi
+set-keyboar-settings.sh &
+redshift -PO 5000 &
+# wait for the WM to start before running
+while true; do
+  if pgrep awesome > /dev/null; then
+    sleep 0.2
+    sxhkd &
+    pgrep nextcloud || nextcloud & disown
+    # dunst &
+    # dwm-status &
+    break
+  fi
+done &
 
 # Start WM
 exec awesome
-# exec startdwm.sh

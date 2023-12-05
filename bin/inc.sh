@@ -1,7 +1,7 @@
 #!/bin/sh
 
 file="$HOME/personal/a.md"
-line="$(cat "$file" | menu)"
+line="$(cat "$file" | rofi -dmenu -matching fuzzy -i)"
 
 [ -z $line ] && exit
 

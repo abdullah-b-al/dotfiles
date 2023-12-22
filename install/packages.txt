@@ -66,3 +66,4 @@ zenity
 bc
 pipewire
 brightnessctl
+tldr

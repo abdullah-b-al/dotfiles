@@ -22,8 +22,9 @@ export XMODIFIERS=@im='ibus'
 export ZDOTDIR=$HOME/.config/zsh
 export EDITOR=nvim
 export TERMINAL=st
-export BROWSER=thorium-browser
+export BROWSER=brave
 export HISTCONTROL=ignoreboth
+export export MANROFFOPT='-c'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export DOTFILESDIR="$HOME/.dotfiles"
 export LC_ALL=en_US.UTF-8

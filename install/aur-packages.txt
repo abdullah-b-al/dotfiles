@@ -1,4 +1,4 @@
-thorium-browser-bin
+brave-bin
 xcursor-breeze
 nerd-fonts-complete
 i3lock-color

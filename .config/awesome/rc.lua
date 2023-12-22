@@ -14,6 +14,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local focused = awful.screen.focused
+local focused_screen = awful.screen.focused
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -47,6 +48,12 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 gears.wallpaper.set("#000000")
+-- beautiful.border_width = 2
+-- beautiful.border_focus = "#FFFFFF"
+
+beautiful.tasklist_bg_focus = beautiful.bg_normal
+beautiful.tasklist_fg_focus  = "#CCCCCC"
+beautiful.tasklist_fg_normal = "#CCCCCC"
 
 local max_core_count = 12
 terminal = "alacritty"
@@ -177,9 +184,20 @@ awful.screen.connect_for_each_screen(function(s)
   s.mytasklist = awful.widget.tasklist {
     screen  = s,
     filter  = awful.widget.tasklist.filter.currenttags,
-    buttons = tasklist_buttons,
+    style    = {
+        shape_border_width = 0,
+        shape_border_color = '#000000',
+        shape  = gears.shape.rounded_bar,
+    },
+    layout   = {
+        spacing = 0,
+        layout  = wibox.layout.flex.horizontal
+    },
+
+
+    -- buttons = tasklist_buttons,
     -- makes the tasklist a spacing widget only
-    layout = {}
+    -- layout = {}
   }
 
   -- Create the wibox
@@ -588,12 +606,40 @@ end)
 
 client.connect_signal("focus", function(c)
   if c.class == "looking-glass-client" then
-
   end
 end)
 
 client.connect_signal("unfocus", function(c)
   if c.class == "looking-glass-client" then
-
   end
+end)
+
+client.connect_signal("focus", function(c) 
+
+  if (c.maximized) then
+    return
+  end
+
+  if focused().tags[1].layout == awful.layout.suit.max then
+    return
+  end
+  
+  c.border_color = '#00FF00'
+  c.border_width = 1
+
+  gears.timer.start_new(0.3, function()
+    local focused_client = client.focus
+    focused_client.border_color = '#000000'
+    focused_client.border_width = 1
+
+    collectgarbage("collect")
+    return false
+  end)
+
+
+end)
+
+client.connect_signal("unfocus", function(c)
+  c.border_color = '#000000'
+  c.border_width = 1
 end)

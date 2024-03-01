@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 [ -f /tmp/looking-glass-B6.tar.gz ] || wget -O /tmp/looking-glass-B6.tar.gz "https://looking-glass.io/artifact/B6/source"
 

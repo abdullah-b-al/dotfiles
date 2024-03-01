@@ -85,4 +85,5 @@ nala install --assume-yes \
   libxss-dev \
   libpipewire-0.3-dev \
   libpulse-dev \
+  libxkbcommon-dev \
   libsamplerate0-dev

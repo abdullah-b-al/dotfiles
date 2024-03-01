@@ -86,4 +86,6 @@ nala install --assume-yes \
   libpipewire-0.3-dev \
   libpulse-dev \
   libxkbcommon-dev \
+  xinput \
+  breeze-cursor-theme \
   libsamplerate0-dev

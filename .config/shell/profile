@@ -22,10 +22,10 @@ export XMODIFIERS=@im='ibus'
 export ZDOTDIR=$HOME/.config/zsh
 export EDITOR=nvim
 export TERMINAL=st
-export BROWSER=brave
+export BROWSER=brave-browser
 export HISTCONTROL=ignoreboth
 export export MANROFFOPT='-c'
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 export DOTFILESDIR="$HOME/.dotfiles"
 export LC_ALL=en_US.UTF-8
 export GTK_THEME=Adwaita:dark
@@ -44,6 +44,7 @@ alias gs='git status'
 
 alias g='grep --color -E'
 alias gi='grep --color -Ei'
+alias bat='batcat'
 
 alias e=$EDITOR
 alias pac='sudo pacman'

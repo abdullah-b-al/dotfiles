@@ -20,14 +20,18 @@ printf "$xml" > $file
 
 operation="$1"
 if [ "$operation" = "attach" ]; then
-  virsh -c "qemu:///system" attach-device win10 --live --file   $file --config
+  virsh -c "qemu:///system" attach-device win10 --live --file  $file --config
 
 elif [ "$operation" = "detach" ]; then
   virsh -c "qemu:///system" detach-device win10 --live --file $file --config
 
 elif [ "$operation" = "toggle" ]; then
-  virsh -c "qemu:///system" attach-device win10 --live --file   $file --config || 
+  virsh -c "qemu:///system" attach-device win10 --live --file  $file --config ||
     virsh -c "qemu:///system" detach-device win10 --live --file $file --config
+else
+    echo "must provide attach, detach or toggle"
+    rm "$file"
+    exit 1
 fi
 
 rm "$file"

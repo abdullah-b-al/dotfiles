@@ -615,14 +615,6 @@ client.connect_signal("unfocus", function(c)
 end)
 
 client.connect_signal("focus", function(c) 
-
-  if (c.maximized) then
-    return
-  end
-
-  if focused().tags[1].layout == awful.layout.suit.max then
-    return
-  end
   
   c.border_color = '#00FF00'
   c.border_width = 1

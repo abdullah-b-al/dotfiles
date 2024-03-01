@@ -21,7 +21,7 @@ font:
 
   normal:
     # family: FiraCode
-    family: Ubuntu Mono Nerd Font Mono
+    family: Ubuntu Mono
     style: Regular
 
     bold:

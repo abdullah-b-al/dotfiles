@@ -6,8 +6,8 @@
       <libosinfo:os id="http://microsoft.com/win/10"/>
     </libosinfo:libosinfo>
   </metadata>
-  <memory unit="KiB">8388608</memory>
-  <currentMemory unit="KiB">8388608</currentMemory>
+  <memory unit="KiB">12288000</memory>
+  <currentMemory unit="KiB">10240000</currentMemory>
   <vcpu placement="static">8</vcpu>
   <cputune>
     <vcpupin vcpu="0" cpuset="2"/>
@@ -27,7 +27,6 @@
     </firmware>
     <loader readonly="yes" secure="yes" type="pflash">/usr/share/edk2/x64/OVMF_CODE.secboot.4m.fd</loader>
     <nvram template="/usr/share/edk2/x64/OVMF_VARS.4m.fd">/var/lib/libvirt/qemu/nvram/win10_VARS.fd</nvram>
-    <boot dev="hd"/>
   </os>
   <features>
     <acpi/>
@@ -63,6 +62,7 @@
       <driver name="qemu" type="raw" cache="none" io="native" discard="unmap"/>
       <source dev="/dev/sda1"/>
       <target dev="sdc" bus="sata"/>
+      <boot order="2"/>
       <address type="drive" controller="0" bus="0" target="0" unit="2"/>
     </disk>
     <controller type="usb" index="0" model="qemu-xhci" ports="15">
@@ -196,12 +196,12 @@
     <video>
       <model type="none"/>
     </video>
-    <hostdev mode="subsystem" type="usb" managed="yes">
+    <hostdev mode="subsystem" type="pci" managed="yes">
       <source>
-        <vendor id="0x8087"/>
-        <product id="0x0aa7"/>
+        <address domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
       </source>
-      <address type="usb" bus="0" port="5"/>
+      <boot order="1"/>
+      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
     </hostdev>
     <hostdev mode="subsystem" type="pci" managed="yes">
       <source>
@@ -215,11 +215,12 @@
       </source>
       <address type="pci" domain="0x0000" bus="0x07" slot="0x00" function="0x0"/>
     </hostdev>
-    <hostdev mode="subsystem" type="pci" managed="yes">
+    <hostdev mode="subsystem" type="usb" managed="yes">
       <source>
-        <address domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
+        <vendor id="0x8087"/>
+        <product id="0x0aa7"/>
       </source>
-      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
+      <address type="usb" bus="0" port="5"/>
     </hostdev>
     <redirdev bus="usb" type="spicevmc">
       <address type="usb" bus="0" port="2"/>

@@ -1,0 +1,83 @@
+# TERM = "xterm-256color"
+
+[colors.bright]
+black = "#6d6d6d"
+blue = "#61afef"
+cyan = "#56b6c2"
+green = "#98c379"
+magenta = "#c678dd"
+red = "#be5046"
+white = "#dddddd"
+yellow = "#d19a66"
+
+[colors.cursor]
+cursor = "#dddddd"
+text = "#0b0b0b"
+
+[colors.normal]
+black = "#24272e"
+blue = "#61afef"
+cyan = "#56b6c2"
+green = "#98c379"
+magenta = "#c678dd"
+red = "#e06c75"
+white = "#abb2bf"
+yellow = "#e5c07b"
+
+[colors.primary]
+background = "#24272e"
+foreground = "#DDDDDD"
+
+# [colors.search.footer_bar]
+# background = "#282c34"
+# foreground = "#abb2bf"
+
+[colors.search.matches]
+background = "#e5c07b"
+foreground = "#3e4452"
+
+[colors.selection]
+background = "#3e4452"
+text = "#abb2bf"
+
+[colors.vi_mode_cursor]
+cursor = "#333841"
+text = "#abb2bf"
+
+[cursor]
+blink_interval = 9999999999
+thickness = 0.0
+
+[font]
+size = 8.5
+
+[font.normal]
+family = "Ubuntu Mono Nerd Font Mono"
+style = "Regular"
+
+# [font.normal.bold]
+# family = "Ubuntu Mono"
+# style = "Bold"
+
+# [font.normal.bold_italic]
+# family = "Ubuntu Mono"
+# style = "Bold Italic"
+
+# [font.normal.italic]
+# family = "Ubuntu Mono"
+# style = "Italic"
+
+[font.offset]
+x = 0
+y = 0
+
+[mouse]
+hide_when_typing = true
+
+[window]
+decorations = "none"
+dynamic_padding = false
+
+[window.padding]
+x = 0
+y = 0

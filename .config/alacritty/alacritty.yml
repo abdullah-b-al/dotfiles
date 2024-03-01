@@ -26,16 +26,16 @@ font:
 
     bold:
         # family: FiraCode
-        family: Ubuntu Mono
+        family: Ubuntu Mono Nerd Font
         style: Bold
     italic:
         # family: FiraCode
-        family: Ubuntu Mono
+        family: Ubuntu Mono Nerd Font
         style: Italic
 
     bold_italic:
         # family: FiraCode
-        family: Ubuntu Mono
+        family: Ubuntu Mono Nerd Font
         style: Bold Italic
 
 

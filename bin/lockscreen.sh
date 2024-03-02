@@ -1,7 +1,7 @@
 #!/bin/sh
 monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
 
-font="FiraCode"
+font="UbuntuMono"
 font_color="D0D0D0"
 
 i3lock -n \

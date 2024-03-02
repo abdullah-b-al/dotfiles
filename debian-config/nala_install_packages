@@ -3,6 +3,7 @@ set -e
 nala update
 
 nala install --assume-yes \
+  gawk \
   alacritty \
   awesome \
   bat \
@@ -88,4 +89,5 @@ nala install --assume-yes \
   libxkbcommon-dev \
   xinput \
   breeze-cursor-theme \
+  apt-find \
   libsamplerate0-dev

@@ -25,7 +25,14 @@ export TERMINAL=st
 export BROWSER=brave-browser
 export HISTCONTROL=ignoreboth
 export export MANROFFOPT='-c'
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+if [ $(command -v bat) ]; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+elif [ $(command -v batcat) ]; then
+  export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+fi
+
+
 export DOTFILESDIR="$HOME/.dotfiles"
 export LC_ALL=en_US.UTF-8
 export GTK_THEME=Adwaita:dark

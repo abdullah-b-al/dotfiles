@@ -89,5 +89,5 @@ nala install --assume-yes \
   libxkbcommon-dev \
   xinput \
   breeze-cursor-theme \
-  apt-find \
+  apt-file \
   libsamplerate0-dev

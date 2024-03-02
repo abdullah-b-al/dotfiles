@@ -1,5 +1,6 @@
 # Comments and blank lines are allowed.
-/install
+/debian-config
+/arch-install
 /bin
 config-system.sh
 packages\.txt

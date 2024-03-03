@@ -43,10 +43,11 @@ echo "$user_password" | chsh -s /bin/zsh
 # remove bash files
 rm -f "$HOME"/.bash*
 
-[ -f "$HOME/.local/bin/nvim" ] || ./install_neovim.sh &
-[ -f "$HOME/.local/bin/gf2" ] || ./install_gf2.sh &
-command -v starship || echo $user_password | sudo -S ./install_starship.sh &
-./install_looking_glass.sh &
+./donwload_fonts.sh
+[ -f "$HOME/.local/bin/nvim" ] || ./install_neovim.sh
+[ -f "$HOME/.local/bin/gf2" ] || ./install_gf2.sh
+command -v starship || echo $user_password | sudo -S ./install_starship.sh
+./install_looking_glass.sh
 echo $user_password | sudo -S ./install_brave.sh
 
 wait

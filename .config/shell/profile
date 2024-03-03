@@ -32,7 +32,6 @@ elif [ $(command -v batcat) ]; then
   export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 fi
 
-
 export DOTFILESDIR="$HOME/.dotfiles"
 export LC_ALL=en_US.UTF-8
 export GTK_THEME=Adwaita:dark
@@ -59,7 +58,6 @@ alias pac='sudo pacman'
 alias rn='ranger'
 alias clear='echo Use C-l'
 alias restow='cd "$DOTFILESDIR" && stow -S . -t "$HOME"'
-
 
 # Start graphical server on user's current tty if not already running.
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then

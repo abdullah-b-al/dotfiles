@@ -32,11 +32,11 @@ git config --global user.email "abdullah@abal.xyz"
 git config --global user.name "ab55al"
 git config --global credential.helper store
 
-if ! [ -d "$HOME/.dotfiles" ]; then
-  git clone --recursive https://gitlab.com/ab55al/dotfiles.git "$HOME"/.dotfiles && \
-    cd "$HOME"/.dotfiles && \
-    stow -S . -t "$HOME"
-fi
+[ -d "$HOME/.dotfiles" ] || git clone --recursive https://gitlab.com/ab55al/dotfiles.git "$HOME"/.dotfiles
+cd "$HOME"/.dotfiles && stow -S . -t "$HOME"
+
+systemctl --user enable pulseaudio
+systemctl --user start pulseaudio
 
 # Change default shell
 echo "$user_password" | chsh -s /bin/zsh
@@ -49,8 +49,5 @@ rm -f "$HOME"/.bash*
 command -v starship || echo $user_password | sudo -S ./install_starship.sh
 ./install_looking_glass.sh
 echo $user_password | sudo -S ./install_brave.sh
-
-wait
-
 
 printf "User configured.\n"

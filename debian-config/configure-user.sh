@@ -4,7 +4,8 @@ set -e
 #########
 # checks
 
-dir=$(pwd)
+path=$(readlink -f "$0")
+dir=$(dirname "$path")
 export user_password=""
 
 [ "$(whoami)" = "root" ] && echo "Must not run as root" && exit 1
@@ -40,14 +41,14 @@ echo "$user_password" | chsh -s /bin/zsh
 # remove bash files
 rm -f "$HOME"/.bash*
 
-$dir/donwload_fonts.sh
-echo $user_password | sudo -S $dir/install_brave.sh
+"$dir"/donwload_fonts.sh
+echo "$user_password" | sudo -S "$dir"/install_brave.sh
 
-[ -f "$HOME/.local/bin/gf2" ] || $dir/install_gf2.sh
+[ -f "$HOME/.local/bin/gf2" ] || "$dir"/install_gf2.sh
 
-command -v nvim || $dir/install_neovim.sh
-command -v starship || echo $user_password | sudo -S $dir/install_starship.sh
-command -v looking-glass-client || $dir/install_looking_glass.sh
-command -v i3lock || $dir/install_i3lock.sh
+command -v nvim || "$dir"/install_neovim.sh
+command -v starship || echo "$user_password" | sudo -S "$dir"/install_starship.sh
+command -v looking-glass-client || "$dir"/install_looking_glass.sh
+command -v i3lock || "$dir"/install_i3lock.sh
 
 printf "User configured.\n"

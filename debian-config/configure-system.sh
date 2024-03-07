@@ -16,8 +16,10 @@ apt -y install nala
 sed -i "s|bookworm main non-free-firmware|bookworm main non-free non-free-firmware|g" /etc/apt/sources.list
 ./nala_install_packages
 
-grep "^ar_SA.UTF-8 UTF-8" /etc/locale.gen || printf 'ar_SA.UTF-8 UTF-8' >> /etc/locale.gen
-/usr/sbin/locale-gen
+grep "^ar_SA.UTF-8 UTF-8" /etc/locale.gen || {
+  printf 'ar_SA.UTF-8 UTF-8\n' >> /etc/locale.gen
+  /usr/sbin/locale-gen
+};
 
 enable_user_sudo=$(printf "%s ALL=(ALL:ALL) ALL" $user_name)
 # sed: insert after pattern
@@ -30,6 +32,8 @@ grep "$enable_user_sudo" /etc/sudoers || sed -i "/root\s*ALL/a $enable_user_sudo
 systemctl enable cron
 systemctl enable libvirtd.service
 systemctl enable NetworkManager
+
+grep "managed=false" /etc/NetworkManager/NetworkManager.conf && sed -i "s|managed=false|managed=true|g" /etc/NetworkManager/NetworkManager.conf
 
 # setup virsh
 virsh net-start default || true

@@ -1,10 +1,10 @@
 #!/bin/sh
 set -e
 
-[ -f /tmp/looking-glass-B6.tar.gz ] || wget -O /tmp/looking-glass-B6.tar.gz "https://looking-glass.io/artifact/B6/source"
-
 cd /tmp
-tar xf looking-glass-B6.tar.gz
+
+[ -f /tmp/looking-glass-B6.tar.gz ] || wget -O /tmp/looking-glass-B6.tar.gz "https://looking-glass.io/artifact/B6/source"
+[ -d /tmp/looking-glass-B6 ] || tar xf /tmp/looking-glass-B6.tar.gz
 
 mkdir -p looking-glass-B6/client/build
 cd looking-glass-B6/client/build

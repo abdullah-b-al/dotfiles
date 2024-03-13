@@ -19,6 +19,44 @@ local focused_screen = awful.screen.focused
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+spawn_or_goto = function(win_name_pattren, program)
+
+  local focused_client = client.focus
+  local clients =  awful.screen.focused().all_clients
+
+  for _, c in ipairs(clients) do
+    local is_window = string.match(tostring(c.name), win_name_pattren)
+    local is_focused = c == focused_client
+
+    if is_window then
+      if not is_focused then
+        c.first_tag:view_only()
+        c:raise()
+      else
+        local prev_client
+        for _, item in ipairs(awful.client.focus.history.list) do
+          if item ~= focused_client and item.first_tag == focused_client.first_tag then
+            prev_client = item
+            break
+          end
+        end
+
+        if (prev_client) then
+          prev_client:raise()
+        else
+          awful.client.focus.byidx(1)
+        end
+      end
+
+      return
+    end
+
+  end
+
+  awful.spawn(program)
+end
+
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -317,7 +355,7 @@ globalkeys = gears.table.join(
     {description = "jump to urgent client", group = "client"}),
 
   -- Show/hide wibox
-  awful.key({ modkey }, "b", function ()
+  awful.key({ modkey, 'Shift' }, "b", function ()
     for s in screen do
       s.mywibox.visible = not s.mywibox.visible
       if s.mybottomwibox then
@@ -327,46 +365,7 @@ globalkeys = gears.table.join(
   end,
     {description = "toggle wibox", group = "awesome"}),
 
-  awful.key(
-    { modkey, }, 't', function ()
-
-
-      local focused_client = client.focus
-
-      local clients =  awful.screen.focused().all_clients
-
-      for _, c in ipairs(clients) do
-        local name = c.name
-
-        local is_terminal = string.match(tostring(name), '^Alacritty$')
-        local is_focused = c == focused_client
-
-        if is_terminal then
-          if not is_focused then
-            c.first_tag:view_only()
-            c:raise()
-          else
-            local prev_client
-            for _, item in ipairs(awful.client.focus.history.list) do
-              if item ~= focused_client and item.first_tag == focused_client.first_tag then
-                prev_client = item
-                break
-              end
-            end
-
-            if (prev_client) then
-              prev_client:raise()
-            else
-              awful.client.focus.byidx(1)
-            end
-          end
-
-          return
-        end
-      end
-
-      awful.spawn(terminal)
-    end,
+  awful.key( { modkey, }, "t", function() spawn_or_goto('^Alacritty$', 'alacritty --title Alacritty') end,
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
   ),
 

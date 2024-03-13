@@ -28,8 +28,11 @@ elif [ "$operation" = "detach" ]; then
 elif [ "$operation" = "toggle" ]; then
   virsh -c "qemu:///system" attach-device win10 --live --file  $file --config ||
     virsh -c "qemu:///system" detach-device win10 --live --file $file --config
+  elif [ "$operation" = "force-attach" ]; then
+      virsh -c "qemu:///system" detach-device win10 --live --file $file --config
+      virsh -c "qemu:///system" attach-device win10 --live --file  $file --config
 else
-    echo "must provide attach, detach or toggle"
+    echo "must provide attach, detach, toggle or force-attach"
     rm "$file"
     exit 1
 fi

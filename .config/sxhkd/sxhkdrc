@@ -1,7 +1,7 @@
 super + s ; super + {s,c}
   { inc.sh, toggle-cpu-pin.sh }
     
-super + e ; {i,a,t,p}
+super + b ; {i,a,t,p}
     scratch-term.sh $EDITOR { \
         $HOME/personal/tk.md, \
         $HOME/personal/a.md, \

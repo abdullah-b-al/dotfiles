@@ -26,18 +26,13 @@ enable_user_sudo=$(printf "%s ALL=(ALL:ALL) ALL" $user_name)
 grep "$enable_user_sudo" /etc/sudoers || sed -i "/root\s*ALL/a $enable_user_sudo" /etc/sudoers
 
 # setup groups
-/usr/sbin/usermod -aG libvirt,libvirt-qemu,kvm,input,disk $user_name
+/usr/sbin/usermod -aG kvm,input,disk $user_name
 
 # setup services
 systemctl enable cron
-systemctl enable libvirtd.service
 systemctl enable NetworkManager
 
 grep "managed=false" /etc/NetworkManager/NetworkManager.conf && sed -i "s|managed=false|managed=true|g" /etc/NetworkManager/NetworkManager.conf
-
-# setup virsh
-virsh net-start default || true
-virsh net-autostart default
 
 hdd_uuid="44f16107-3ca4-4739-b2a3-b4dab98d8cc3"
 if [[ $(file /dev/disk/by-uuid/$hdd_uuid) ]]; then

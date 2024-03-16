@@ -41,14 +41,14 @@ echo "$user_password" | chsh -s /bin/zsh
 # remove bash files
 rm -f "$HOME"/.bash*
 
-"$dir"/donwload_fonts.sh
-echo "$user_password" | sudo -S "$dir"/install_brave.sh
+"$dir"/download_fonts.sh
 
-[ -f "$HOME/.local/bin/gf2" ] || "$dir"/install_gf2.sh
+echo "$user_password" | sudo -S "$dir"/install.sh brave
 
-command -v nvim || "$dir"/install_neovim.sh
-command -v starship || echo "$user_password" | sudo -S "$dir"/install_starship.sh
-command -v looking-glass-client || "$dir"/install_looking_glass.sh
-command -v i3lock || "$dir"/install_i3lock.sh
+[ -f "$HOME/.local/bin/gf2" ]   || "$dir"/install.sh gf2
+command -v nvim                 || "$dir"/install.sh neovim
+command -v i3lock               || "$dir"/install.sh i3lock
+command -v starship             || echo "$user_password" | sudo -S "$dir"/install.sh starship
+command -v looking-glass-client || "$dir"/install.sh looking_glass
 
 printf "User configured.\n"

@@ -15,8 +15,8 @@ brave() {
   echo $channel > /tmp/brave-browser-release.list
   echo $user_password | sudo -S cp /tmp/brave-browser-release.list /etc/apt/sources.list.d/brave-browser-release.list
 
-  sudo nala update
-  sudo nala install --assume-yes brave-browser
+  sudo apt update
+  sudo apt install --assume-yes brave-browser
 }
 
 neovim() {

@@ -43,12 +43,12 @@ rm -f "$HOME"/.bash*
 
 "$dir"/download_fonts.sh
 
-echo "$user_password" | sudo -S "$dir"/install.sh brave
-
-[ -f "$HOME/.local/bin/gf2" ]   || "$dir"/install.sh gf2
+PATH="$PATH:$HOME/.local/bin"
+command -v gf2                  || "$dir"/install.sh gf2
+command -v brave-browser        || "$dir"/install.sh brave
 command -v nvim                 || "$dir"/install.sh neovim
 command -v i3lock               || "$dir"/install.sh i3lock
-command -v starship             || echo "$user_password" | sudo -S "$dir"/install.sh starship
+command -v starship             || "$dir"/install.sh starship
 command -v looking-glass-client || "$dir"/install.sh looking_glass
 
 printf "User configured.\n"

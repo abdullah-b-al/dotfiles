@@ -4,6 +4,10 @@ set -e
 ##########
 # apparmor
 
+disable="security_driver = [ \"none\" ]"
+qemu_conf="/etc/libvirt/qemu.conf"
+grep -q "^security_driver" "$qemu_conf" || echo "$disable" >> "$qemu_conf"
+
 ar_virt_file="/etc/apparmor.d/abstractions/libvirt-qemu"
 sed -i "s|/dev/bus/usb/ r,|/dev/bus/usb/** rw,|g" "$ar_virt_file"
 
@@ -33,6 +37,14 @@ qemu="/etc/libvirt/qemu.conf"
 grep -q "user = \"ab55al\"" "$qemu" || echo "user = \"ab55al\"" >> "$qemu"
 grep -q "group = \"ab55al\"" "$qemu" || echo "group = \"ab55al\"" >> "$qemu"
 
+/usr/sbin/usermod -aG libvirt-qemu,libvirtd,kvm ab55al
+
+systemctl enable libvirtd
+systemctl restart libvirtd
+
+virsh net-start default || true
+virsh net-autostart default
+
 # libvirt
 ##########
 
@@ -45,3 +57,5 @@ systemd-tmpfiles --create /etc/tmpfiles.d/10-looking-glass.conf
 
 # looking glass
 ##########
+
+# chmod 666 /dev/kvm

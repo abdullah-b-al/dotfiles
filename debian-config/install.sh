@@ -1,20 +1,5 @@
 #!/bin/sh
 set -e
-
-functions="$(grep "^.*\(\) {" "$0" | cut -d '(' -f 1 | grep -v "password\|grep\|functions")"
-if [ "$1" = "list" ] || [ -z "$1" ]; then
-  echo "$functions"
-  exit 0
-fi
-
-if ! echo "$1" | grep "$functions"; then
-  echo "$functions"
-  exit 1
-fi
-
-# run the function who's name is the first arg
-$1
-
 ###########
 # functions
 
@@ -23,10 +8,12 @@ get_password() {
 }
 
 brave() {
+  get_password
 
-  sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+  echo $user_password | sudo -S curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
   channel="deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
-  echo $channel | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+  echo $channel > /tmp/brave-browser-release.list
+  echo $user_password | sudo -S cp /tmp/brave-browser-release.list /etc/apt/sources.list.d/brave-browser-release.list
 
   sudo nala update
   sudo nala install --assume-yes brave-browser
@@ -96,3 +83,15 @@ looking_glass() {
   cmake -DENABLE_WAYLAND=no -DCMAKE_INSTALL_PREFIX=~/.local ..
   make install
 }
+
+# functions
+###########
+
+functions="$(grep "^.*\(\) {" "$0" | cut -d '(' -f 1 | grep -v "password\|grep\|functions")"
+if [ "$1" = "list" ] || [ -z "$1" ] || ! echo "$functions" | grep -q "$1"; then
+  echo "$functions"
+  exit 0
+fi
+
+# run the function who's name is the first arg
+$1

@@ -90,7 +90,7 @@ looking_glass() {
 functions="$(grep "^.*\(\) {" "$0" | cut -d '(' -f 1 | grep -v "password\|grep\|functions")"
 if [ "$1" = "list" ] || [ -z "$1" ] || ! echo "$functions" | grep -q "$1"; then
   echo "$functions"
-  exit 0
+  exit 1
 fi
 
 # run the function who's name is the first arg

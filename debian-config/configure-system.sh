@@ -13,7 +13,7 @@ grep "^ar_SA.UTF-8 UTF-8" /etc/locale.gen || {
 };
 
 hdd_uuid="44f16107-3ca4-4739-b2a3-b4dab98d8cc3"
-if [[ $(file /dev/disk/by-uuid/$hdd_uuid) ]]; then
+if [ -f /dev/disk/by-uuid/"$hdd_uuid" ]; then
   printf "\nUUID=%s /mnt/linuxHDD ext4      	rw,relatime	0 2\n" $hdd_uuid >> /etc/fstab
   mount -m "/dev/disk/by-uuid/$hdd_uuid" /mnt/linuxHDD
 fi

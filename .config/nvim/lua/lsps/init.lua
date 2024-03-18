@@ -24,5 +24,6 @@ return {
   -- require(dir .. '/lua_server'),
   require(dir .. '/zig_server'),
   require(dir .. '/go_server'),
+  require(dir .. '/python_server'),
   require(dir .. '/cmake_server'),
 }

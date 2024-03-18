@@ -31,6 +31,7 @@ grep "$enable_user_sudo" /etc/sudoers || sed -i "/root\s*ALL/a $enable_user_sudo
 # setup services
 systemctl enable cron
 systemctl enable NetworkManager
+systemctl disable ssh
 
 "$dir"/configure-vm.sh
 

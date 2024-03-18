@@ -4,8 +4,7 @@ set -e
 # functions
 
 neovim() {
-  touch $HOME/.config/wgetrc
-  wget -O /tmp/nvim.appimage https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage
+  wget --no-config -O /tmp/nvim.appimage https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage
   chmod +x /tmp/nvim.appimage
   sudo mv /tmp/nvim.appimage /usr/local/bin
 }
@@ -35,7 +34,7 @@ gf2() {
 looking_glass() {
   cd /tmp
 
-  [ -f /tmp/looking-glass-B6.tar.gz ] || wget -O /tmp/looking-glass-B6.tar.gz "https://looking-glass.io/artifact/B6/source"
+  [ -f /tmp/looking-glass-B6.tar.gz ] || wget --no-config -O /tmp/looking-glass-B6.tar.gz "https://looking-glass.io/artifact/B6/source"
   [ -d /tmp/looking-glass-B6 ] || tar xf /tmp/looking-glass-B6.tar.gz
 
   mkdir -p looking-glass-B6/client/build

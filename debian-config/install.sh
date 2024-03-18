@@ -4,7 +4,10 @@ set -e
 # functions
 
 get_password() {
-  [ -z "$user_password" ] && echo "Enter Password:" && read user_password
+  [ -z "$user_password" ] && {
+    echo "Enter Password:";
+    read user_password;
+  } || true
 }
 
 brave() {

@@ -1,9 +1,12 @@
 #!/bin/sh
 set -e
 
+path=$(readlink -f "$0")
+dir=$(dirname "$path")
+
 PATH="$PATH:$HOME/.local/bin"
-command -v gf2                  || ./install.sh gf2
-command -v nvim                 || ./install.sh neovim
-command -v i3lock               || ./install.sh i3lock
-command -v starship             || ./install.sh starship
-command -v looking-glass-client || ./install.sh looking_glass
+command -v gf2                  || "$dir"/install.sh gf2
+command -v nvim                 || "$dir"/install.sh neovim
+command -v i3lock               || "$dir"/install.sh i3lock
+command -v starship             || "$dir"/install.sh starship
+command -v looking-glass-client || "$dir"/install.sh looking_glass

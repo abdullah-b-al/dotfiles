@@ -5,8 +5,13 @@ path=$(readlink -f "$0")
 dir=$(dirname "$path")
 
 PATH="$PATH:$HOME/.local/bin"
-command -v gf2                  || "$dir"/install.sh gf2
-command -v nvim                 || "$dir"/install.sh neovim
-command -v i3lock               || "$dir"/install.sh i3lock
-command -v starship             || "$dir"/install.sh starship
-command -v looking-glass-client || "$dir"/install.sh looking_glass
+is_root="$(whoami)"
+
+if [ "$is_root" = "root" ]; then
+  command -v nvim                 || "$dir"/install.sh neovim
+  command -v starship             || "$dir"/install.sh starship
+else
+  command -v gf2                  || "$dir"/install.sh gf2
+  command -v i3lock               || "$dir"/install.sh i3lock
+  command -v looking-glass-client || "$dir"/install.sh looking_glass
+fi

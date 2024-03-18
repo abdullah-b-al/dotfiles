@@ -10,17 +10,17 @@ get_password() {
   } || true
 }
 
-brave() {
-  get_password
+# brave {
+#   get_password
 
-  echo $user_password | sudo -S curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-  channel="deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
-  echo $channel > /tmp/brave-browser-release.list
-  echo $user_password | sudo -S cp /tmp/brave-browser-release.list /etc/apt/sources.list.d/brave-browser-release.list
+#   echo $user_password | sudo -S curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+#   channel="deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
+#   echo $channel > /tmp/brave-browser-release.list
+#   echo $user_password | sudo -S cp /tmp/brave-browser-release.list /etc/apt/sources.list.d/brave-browser-release.list
 
-  sudo apt update
-  sudo apt install --assume-yes brave-browser
-}
+#   sudo apt update
+#   sudo apt install --assume-yes brave-browser
+# }
 
 neovim() {
   get_password

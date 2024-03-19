@@ -1,0 +1,105 @@
+---
+- name: Configure user
+  hosts: all
+  become: true
+  become_user: '{{ user }}'
+  become_method: ansible.builtin.su
+  gather_facts: false
+  vars_files: vars.yml
+
+  vars:
+    home: '{{ lookup("env", "HOME") }}'
+    dotfiles: '{{ home }}/.dotfiles'
+
+  tasks:
+    - name: Create directories
+      ansible.builtin.file:
+        state: directory
+        owner: '{{ user }}'
+        group: '{{ user }}'
+        mode: '0775'
+        path: '{{ item }}'
+      loop:
+        - '{{ home }}/.local/share'
+        - '{{ home }}/.local/bin'
+        - '{{ home }}/.cache'
+        - '{{ home }}/personal'
+        - '{{ home }}/.config'
+        - '{{ home }}/.config/zsh'
+        - '{{ home }}/.config/nvim'
+        - '{{ home }}/.config/git'
+
+    - name: Create files
+      ansible.builtin.file:
+        access_time: preserve
+        modification_time: preserve
+        state: touch
+        owner: '{{ user }}'
+        group: '{{ user }}'
+        mode: '0666'
+        path: '{{ item }}'
+      loop:
+        - '{{ home }}/.config/git/config'
+        - '{{ home }}/.config/git/credentials'
+
+    - name: Git - Set email
+      community.general.git_config:
+        name: "user.email"
+        value: "abdullah@abal.xyz"
+        scope: global
+
+    - name: Git - Set name
+      community.general.git_config:
+        name: "user.name"
+        value: "ab55al"
+        scope: global
+
+    - name: Git - Set credential helper
+      community.general.git_config:
+        name: "credential.helper"
+        value: "store"
+        scope: global
+
+    - name: Clone dotfiles
+      tags: skip_ansible_lint
+      ansible.builtin.git:
+        repo: https://gitlab.com/ab55al/dotfiles.git
+        dest: '{{ dotfiles }}'
+        recursive: true
+        force: false
+
+    - name: Enable pulseaudio
+      ansible.builtin.systemd_service:
+        service: pulseaudio
+        enabled: true
+        state: started
+        scope: user
+
+    - name: Download fonts
+      tags: skip_ansible_lint
+      ansible.builtin.shell:
+        cmd: '{{ dotfiles }}/debian-config/download_fonts.sh'
+
+    - name: Install Software without sudo
+      tags: skip_ansible_lint
+      ansible.builtin.shell:
+        cmd: '{{ dotfiles }}/debian-config/install_if_not_exists.sh'
+
+    - name: Install Software with sudo
+      tags: skip_ansible_lint
+      become: true
+      become_user: root
+      ansible.builtin.shell:
+        cmd: '{{ dotfiles }}/debian-config/install_if_not_exists.sh'
+
+    - name: Stow
+      tags: skip_ansible_lint
+      ansible.builtin.shell:
+        cmd: 'cd {{ dotfiles }} && stow -S . -t {{ home }}'
+
+    - name: Change shell
+      tags: skip_ansible_lint
+      become: true
+      become_user: root
+      ansible.builtin.shell:
+        cmd: "chsh -s /bin/zsh {{ user }}"

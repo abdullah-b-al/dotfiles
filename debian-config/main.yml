@@ -1,0 +1,4 @@
+---
+- import_playbook: configure-system.yml
+- import_playbook: configure-vm.yml
+- import_playbook: configure-user.yml

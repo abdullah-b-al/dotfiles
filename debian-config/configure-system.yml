@@ -1,0 +1,111 @@
+---
+- name: Configure system
+  hosts: all
+  become: true
+  become_user: root
+  become_method: ansible.builtin.su
+  gather_facts: false
+  vars_files:
+    vars.yml
+
+  vars:
+    hdd_uuid: "44f16107-3ca4-4739-b2a3-b4dab98d8cc3"
+
+  tasks:
+
+    - name: Find HDD
+      register: find_hdd
+      ansible.builtin.stat:
+        path: "/dev/disk/by-uuid/{{ hdd_uuid }}"
+
+    - name: Locale
+      community.general.locale_gen:
+        name: '{{ item }}'
+      loop:
+        - "ar_SA.UTF-8"
+        - "en_US.UTF-8"
+
+    - name: Create mount point
+      when: find_hdd.stat.exists
+      ansible.builtin.file:
+        path: "/mnt/linuxHDD"
+        state: directory
+        mode: "u+rw"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+
+    - name: Mount linuxHDD
+      when: find_hdd.stat.exists
+      ansible.posix.mount:
+        path: "/mnt/linuxHDD"
+        src: "/dev/disk/by-uuid/{{ hdd_uuid }}"
+        state: mounted
+        opts: rw,relatime
+        fstype: ext4
+
+    - name: Add apt source
+      ansible.builtin.replace:
+        path: /etc/apt/sources.list
+        regexp: "(main) (non-free-firmware)"
+        replace: '\1 non-free \2'
+
+    - name: Add brave repo key
+      ansible.builtin.get_url:
+        url: "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg"
+        dest: "/usr/share/keyrings/brave-browser-archive-keyring.gpg"
+        mode: "0666"
+
+    - name: Add brave repo
+      ansible.builtin.copy:
+        dest: "/etc/apt/sources.list.d/brave-browser-release.list"
+        content: "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
+        mode: "u+rw"
+
+    - name: Install packages
+      async: 9999
+      poll: 10
+      ansible.builtin.apt:
+        pkg: "{{ packages }}"
+        state: present
+        update_cache: true
+
+    - name: Add user to sudoers
+      ansible.builtin.lineinfile:
+        insertafter: "^root\\s*ALL="
+        line: "{{ user }} ALL=(ALL:ALL) ALL"
+        path: /etc/sudoers
+
+    - name: Create groups
+      ansible.builtin.user:
+        user: '{{ user }}'
+        append: true
+        groups:
+          - input
+          - disk
+
+    - name: Set NetworkManager to managed
+      notify: Restart NetworkManager
+      ansible.builtin.replace:
+        path: /etc/NetworkManager/NetworkManager.conf
+        regexp: "managed=false"
+        replace: "managed=true"
+
+    - name: Enable Services
+      ansible.builtin.systemd:
+        enabled: true
+        service: '{{ item }}'
+        state: started
+      loop:
+        - cron
+        - NetworkManager
+
+    - name: Disable ssh
+      ansible.builtin.systemd:
+        enabled: false
+        service: ssh
+
+  handlers:
+    - name: Restart NetworkManager
+      ansible.builtin.systemd:
+        service: NetworkManager
+        state: restarted

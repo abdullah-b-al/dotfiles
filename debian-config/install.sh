@@ -6,7 +6,7 @@ set -e
 neovim() {
   wget --no-config -O /tmp/nvim.appimage https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage
   chmod +x /tmp/nvim.appimage
-  sudo mv /tmp/nvim.appimage /usr/local/bin
+  sudo mv /tmp/nvim.appimage /usr/local/bin/nvim
 }
 
 i3lock() {

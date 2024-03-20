@@ -39,6 +39,7 @@
         mode: '0666'
         path: '{{ item }}'
       loop:
+        - '{{ home }}/.config/wgetrc'
         - '{{ home }}/.config/git/config'
         - '{{ home }}/.config/git/credentials'
 

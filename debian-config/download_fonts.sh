@@ -3,6 +3,8 @@ set -e
 mkdir -p $HOME/.local/share/fonts
 mkdir -p /tmp/fonts
 
+ls -al ~/.local/share/fonts | grep -q "UbuntuMono.*" && exit 0
+
 dir="/tmp/fonts"
 file="$dir/UbuntuMono.zip"
 

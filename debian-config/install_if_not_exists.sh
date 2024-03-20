@@ -4,7 +4,7 @@ set -e
 path=$(readlink -f "$0")
 dir=$(dirname "$path")
 
-PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:/usr/local/bin:$HOME/.local/bin"
 is_root="$(whoami)"
 
 if [ "$is_root" = "root" ]; then

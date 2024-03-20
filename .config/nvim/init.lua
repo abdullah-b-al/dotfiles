@@ -105,10 +105,6 @@ pl.plugins = {
   'neovim/nvim-lspconfig',
   'ray-x/lsp_signature.nvim',
   'williamboman/nvim-lsp-installer',
-
-  'mfussenegger/nvim-dap',
-  'rcarriga/nvim-dap-ui',
-  'theHamsta/nvim-dap-virtual-text',
 }
 
 -- Global mapping table and functions
@@ -131,13 +127,8 @@ cmd('colo sonokai')
 -- Lsp server directory
 require('lsps')
 
-require('dap-configs')
-
 require('autocommands')
 require('project-settings')
-
-require('dapui').setup()
-require("nvim-dap-virtual-text").setup()
 
 -- Section: requires
 local found_treesitter, configs = pcall(require, "nvim-treesitter.configs")
@@ -149,7 +140,6 @@ local found_indent, ibl = pcall(require, "ibl")
 local found_gitsigns, gs = pcall(require, 'gitsigns')
 local found_autopairs, autopairs = pcall(require, "nvim-autopairs")
 local map = _G.Mappings.map
-local dap = require('dap')
 
 -- Section: treesiteer
 if found_treesitter then
@@ -765,14 +755,6 @@ map({'n'}, '<leader>ge', function() require("harpoon.ui").nav_file(2) end, {},
   'Harpoon: Navigate to mark 2')
 map({'n'}, '<leader>gi', function() require("harpoon.ui").nav_file(3) end, {},
   'Harpoon: Navigate to mark 3')
-
--- dap
-map({'n'}, '<C-RIGHT>', function() dap.step_over() end, {}, 'debug: step over')
-map({'n'}, '<C-LEFT>', function() dap.step_into() end, {}, 'debug: step into')
-map({'n'}, '<C-UP>', function() dap.step_out() end, {}, 'debug: stop out')
-map({'n'}, '<leader>b', function() dap.toggle_breakpoint() end, {}, 'debug: Breakpoint')
-map({'n'}, '<leader>dc', function() dap.continue() end, {}, 'debug: dap-continue')
-map({'n'}, '<leader>dr', function() require('dapui').open({reset = true}) end, {}, 'debug: dap-ui')
 
 -- mini-map
 map({'n'}, '<leader>mm',

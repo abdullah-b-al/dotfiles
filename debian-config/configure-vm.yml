@@ -13,11 +13,6 @@
     libvirtd_conf: "/etc/libvirt/libvirt.conf"
 
   tasks:
-    - name: Disable security driver
-      ansible.builtin.lineinfile:
-        path: '{{ qemu_conf }}'
-        line: 'security_driver = [ "none" ]'
-
     - name: Setup apprmor - USB
       ansible.builtin.replace:
         path: '{{ aa_virt }}'
@@ -56,6 +51,7 @@
       ansible.builtin.blockinfile:
         path: '{{ qemu_conf }}'
         block: |
+          security_driver = [ "none" ]
           user = "{{ user }}"
           group = "{{ user }}"
 

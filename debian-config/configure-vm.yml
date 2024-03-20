@@ -14,40 +14,39 @@
 
   tasks:
     - name: Setup apprmor - USB
+      notify: Restart apparmor
       ansible.builtin.replace:
         path: '{{ aa_virt }}'
         regexp: "/dev/bus/usb/ r,"
         replace: '/dev/bus/usb/** rw,'
 
     - name: Setup apprmor - Udev
+      notify: Restart apparmor
       ansible.builtin.lineinfile:
         path: '{{ aa_virt }}'
         insertafter: '/sys/class/ r,'
         line: '  /run/udev/data/* rw,'
 
     - name: Setup apparmor - Looking glass
+      notify: Restart apparmor
       ansible.builtin.lineinfile:
         path: '{{ aa_virt }}'
         line: "/dev/shm/looking-glass rw,"
 
-    - name: Setup apparmor - Restart
-      ansible.builtin.systemd:
-        service: apparmor
-        state: restarted
 
-    - name: Setup libvirt - Sock group
+    - name: Setup libvirt - Sock group and prems
+      notify: Restart libvirtd
       ansible.builtin.lineinfile:
         path: '{{ libvirtd_conf }}'
-        search_string: '#unix_sock_group = "libvirt"'
-        line: 'unix_sock_group = "libvirt"'
+        search_string: '#{{ item }}'
+        line: '{{ item }}'
+      loop:
+        - 'unix_sock_group = "libvirt"'
+        - 'unix_sock_rw_perms = "0770"'
 
-    - name: Setup libvirt - Sock perms
-      ansible.builtin.lineinfile:
-        path: '{{ libvirtd_conf }}'
-        search_string: '#unix_sock_rw_perms = "0770"'
-        line: 'unix_sock_rw_perms = "0770"'
 
     - name: Setup libvirt - QEMU
+      notify: Restart libvirtd
       ansible.builtin.blockinfile:
         path: '{{ qemu_conf }}'
         block: |
@@ -56,6 +55,7 @@
           group = "{{ user }}"
 
     - name: Create groups
+      notify: Restart libvirtd
       ansible.builtin.user:
         user: '{{ user }}'
         append: true
@@ -64,23 +64,31 @@
           - libvirt
           - kvm
 
+    - name: Virsh network
+      ignore_errors: true
+      community.libvirt.virt_net:
+        state: active
+        autostart: true
+        network: default
+
+    - name: Looking glass shared memory
+      notify: Looking glass tmpfiles
+      ansible.builtin.copy:
+        dest: "/etc/tmpfiles.d/10-looking-glass.conf"
+        content: "f /dev/shm/looking-glass 0660 {{ user }} kvm -"
+        mode: "u+r"
+
+
+  handlers:
     - name: Restart libvirtd
       ansible.builtin.systemd:
         service: libvirtd
         state: restarted
 
-    - name: Virsh network
-      # ignore_errors: true
-      community.libvirt.virt_net:
-        state: present
-        autostart: true
-        network: default
-
-    - name: Looking glass shared memory
-      ansible.builtin.copy:
-        dest: "/etc/tmpfiles.d/10-looking-glass.conf"
-        content: "f /dev/shm/looking-glass 0660 {{ user }} kvm -"
-        mode: "u+r"
+    - name: Restart apparmor
+      ansible.builtin.systemd:
+        service: apparmor
+        state: restarted
 
     - name: Looking glass tmpfiles
       tags: skip_ansible_lint

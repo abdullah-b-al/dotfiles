@@ -1,4 +1,21 @@
 #!/bin/sh
+
+set -e
+
+
+if [ ! "$(command -v zigup)" ]; then
+  mkdir -p /tmp/zigup
+  cd /tmp/zigup
+
+  wget --no-config -O zigup.zip https://github.com/marler8997/zigup/releases/download/v2024_03_13/zigup.ubuntu-latest-x86_64.zip
+  unzip zigup.zip
+  chmod +x zigup
+  mv zigup "$HOME"/.local/bin
+
+  rm -rf /tmp/zigup
+fi
+
+
 zigup master 2>&1 | grep already && exit 0
 
 rm -rf "/tmp/installing-zls"

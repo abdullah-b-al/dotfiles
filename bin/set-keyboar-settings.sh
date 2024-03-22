@@ -1,7 +1,7 @@
 #!/bin/sh
 
 setxkbmap -layout 'us,ara' -option 'grp:alt_shift_toggle'
-if ! lsusb | grep -i ergodox; then
+if [ -e /dev/input/by-path/platform-i8042-serio-0-event-kbd ]; then
   xmodmap ~/.dotfiles/colemak_dh.xmodmap
 fi
 

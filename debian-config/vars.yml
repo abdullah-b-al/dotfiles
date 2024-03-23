@@ -112,3 +112,5 @@ packages:
   - network-manager
   - brave-browser
   - python3-lxml
+  - appmenu-gtk2-module
+  - appmenu-gtk3-module

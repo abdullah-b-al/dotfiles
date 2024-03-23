@@ -112,7 +112,7 @@ awful.layout.layouts = {
 -- }}}
 
 mykeyboardlayout = awful.widget.keyboardlayout()
-mytextclock = awful.widget.textclock("%A  %b %m/%d  %I:%M")
+mytextclock = awful.widget.textclock("%A  %b %m/%d  %H:%M")
 cores = awful.widget.watch('nproc', 30, function(widget, stdout)
   local empty_circle = '○'
   local filled_circle = '●'

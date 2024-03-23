@@ -56,9 +56,12 @@ alias gi='grep --color -Ei'
 
 alias e=$EDITOR
 alias pac='sudo pacman'
+alias api='sudo apt install'
+alias aps='apt search'
 alias rn='ranger'
 alias clear='echo Use C-l'
 alias restow='cd "$DOTFILESDIR" && stow -S . -t "$HOME"'
+alias ansi-local='ansible-playbook --connection=local -i "localhost,"'
 
 # Start graphical server on user's current tty if not already running.
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then

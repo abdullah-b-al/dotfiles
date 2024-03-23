@@ -1,6 +1,7 @@
 user: "ab55al"
 
 packages:
+  - ansible
   - shellcheck
   - gawk
   - alacritty

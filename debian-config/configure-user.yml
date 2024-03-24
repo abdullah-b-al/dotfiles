@@ -84,14 +84,22 @@
     - name: Install Software without sudo
       tags: skip_ansible_lint
       ansible.builtin.shell:
-        cmd: '{{ dotfiles }}/debian-config/install_if_not_exists.sh'
+        cmd: 'PATH="$PATH:/usr/local/bin:$HOME/.local/bin" {{ item }}'
+      loop:
+        - "command -v gf2                  || {{ dotfiles }}/install.sh gf2"
+        - "command -v i3lock               || {{ dotfiles }}/install.sh i3lock"
+        - "command -v looking-glass-client || {{ dotfiles }}/install.sh looking_glass"
 
     - name: Install Software with sudo
       tags: skip_ansible_lint
       become: true
       become_user: root
       ansible.builtin.shell:
-        cmd: '{{ dotfiles }}/debian-config/install_if_not_exists.sh'
+        cmd: 'PATH="$PATH:/usr/local/bin:$HOME/.local/bin" {{ item }}'
+      loop:
+        - "command -v nvim                 || {{ dotfiles }}/install.sh neovim"
+        - "command -v starship             || {{ dotfiles }}/install.sh starship"
+        - "command -v auto-cpufreq         || {{ dotfiles }}/install.sh auto_cpufreq"
 
     - name: Stow
       tags: skip_ansible_lint

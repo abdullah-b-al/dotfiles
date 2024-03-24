@@ -48,6 +48,7 @@ auto_cpufreq() {
   cd /tmp/auto-cpufreq
   sudo ./auto-cpufreq-installer --install
   sudo auto-cpufreq --install
+  [ -e /sys/class/power_supply/BAT0 ] || sudo auto-cpufreq --force=powersave
 
   rm -rf /tmp/auto-cpufreq
 }

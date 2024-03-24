@@ -10,6 +10,7 @@
   vars:
     home: '{{ lookup("env", "HOME") }}'
     dotfiles: '{{ home }}/.dotfiles'
+    debian_config: "{{ dotfiles }}/debian-config"
 
   tasks:
     - name: Create directories
@@ -78,6 +79,7 @@
 
     - name: Download fonts
       tags: skip_ansible_lint
+      register: result
       ansible.builtin.shell:
         cmd: '{{ dotfiles }}/debian-config/download_fonts.sh'
 
@@ -86,9 +88,9 @@
       ansible.builtin.shell:
         cmd: 'PATH="$PATH:/usr/local/bin:$HOME/.local/bin" {{ item }}'
       loop:
-        - "command -v gf2                  || {{ dotfiles }}/install.sh gf2"
-        - "command -v i3lock               || {{ dotfiles }}/install.sh i3lock"
-        - "command -v looking-glass-client || {{ dotfiles }}/install.sh looking_glass"
+        - "command -v gf2                  || {{ debian_config }}/install.sh gf2"
+        - "command -v i3lock               || {{ debian_config }}/install.sh i3lock"
+        - "command -v looking-glass-client || {{ debian_config }}/install.sh looking_glass"
 
     - name: Install Software with sudo
       tags: skip_ansible_lint
@@ -97,9 +99,9 @@
       ansible.builtin.shell:
         cmd: 'PATH="$PATH:/usr/local/bin:$HOME/.local/bin" {{ item }}'
       loop:
-        - "command -v nvim                 || {{ dotfiles }}/install.sh neovim"
-        - "command -v starship             || {{ dotfiles }}/install.sh starship"
-        - "command -v auto-cpufreq         || {{ dotfiles }}/install.sh auto_cpufreq"
+        - "command -v nvim                 || {{ debian_config }}install.sh neovim"
+        - "command -v starship             || {{ debian_config }}/install.sh starship"
+        - "command -v auto-cpufreq         || {{ debian_config }}/install.sh auto_cpufreq"
 
     - name: Stow
       tags: skip_ansible_lint

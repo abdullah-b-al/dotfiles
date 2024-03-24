@@ -12,6 +12,7 @@ packages:
   - ranger
   - openssh-client
   - redshift
+  - gammastep
   - ripgrep
   - rofi
   - stow

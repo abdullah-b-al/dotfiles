@@ -85,23 +85,27 @@
 
     - name: Install Software without sudo
       tags: skip_ansible_lint
+      register: result
+      changed_when: "'Program exists' not in result.stdout"
       ansible.builtin.shell:
         cmd: 'PATH="$PATH:/usr/local/bin:$HOME/.local/bin" {{ item }}'
       loop:
-        - "command -v gf2                  || {{ debian_config }}/install.sh gf2"
-        - "command -v i3lock               || {{ debian_config }}/install.sh i3lock"
-        - "command -v looking-glass-client || {{ debian_config }}/install.sh looking_glass"
+        - "command -v gf2                  || {{ debian_config }}/install.sh gf2 && echo Program exists"
+        - "command -v i3lock               || {{ debian_config }}/install.sh i3lock && echo Program exists"
+        - "command -v looking-glass-client || {{ debian_config }}/install.sh looking_glass && echo Program exists"
 
     - name: Install Software with sudo
       tags: skip_ansible_lint
       become: true
       become_user: root
+      register: result
+      changed_when: "'Program exists' not in result.stdout"
       ansible.builtin.shell:
-        cmd: 'PATH="$PATH:/usr/local/bin:$HOME/.local/bin" {{ item }}'
+        cmd: 'PATH="$PATH:/usr/local/bin:$HOME/.local/bin" {{ item }} && echo Program exists'
       loop:
-        - "command -v nvim                 || {{ debian_config }}install.sh neovim"
-        - "command -v starship             || {{ debian_config }}/install.sh starship"
-        - "command -v auto-cpufreq         || {{ debian_config }}/install.sh auto_cpufreq"
+        - "command -v nvim         || {{ debian_config }}/install.sh neovim"
+        - "command -v starship     || {{ debian_config }}/install.sh starship"
+        - "command -v auto-cpufreq || {{ debian_config }}/install.sh auto_cpufreq"
 
     - name: Stow
       tags: skip_ansible_lint

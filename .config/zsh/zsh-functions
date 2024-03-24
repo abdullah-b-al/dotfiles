@@ -1,6 +1,6 @@
 # Function to source files if they exist
 function zsh_add_file() {
-    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+    [ -f "$ZDOTDIR/$1" ] && zcompare_source "$ZDOTDIR/$1"
 }
 
 function zsh_add_plugin() {

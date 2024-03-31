@@ -50,6 +50,13 @@ opt.foldmethod     = 'manual'
 g.mapleader = ' '
 g.maplocalleader = ','
 
+
+if vim.g.neovide then
+  vim.o.guifont = "Ubuntu Mono:h14"
+vim.g.neovide_cursor_animation_length = 0
+end
+
+
 pl = require('plugin-manager')
 
 -- Plugins

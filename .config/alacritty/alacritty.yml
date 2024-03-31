@@ -14,7 +14,7 @@ window:
 
 font:
   # Point size of the font
-  size: 8.5
+  size: 12
   offset:
     x: 0
     y: 0

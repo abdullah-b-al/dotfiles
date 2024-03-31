@@ -66,6 +66,8 @@ if awesome.startup_errors then
                      text = awesome.startup_errors })
 end
 
+naughty.config.defaults['font'] = "sans 24"
+
 -- Handle runtime errors after startup
 do
     local in_error = false
@@ -366,6 +368,10 @@ globalkeys = gears.table.join(
     {description = "toggle wibox", group = "awesome"}),
 
   awful.key( { modkey, }, "t", function() spawn_or_goto('^Alacritty$', 'alacritty --title Alacritty') end,
+    {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
+  ),
+
+  awful.key( { modkey, }, "e", function() spawn_or_goto('^Neovide$', 'neovide .') end,
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
   ),
 

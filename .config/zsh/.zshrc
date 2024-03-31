@@ -57,18 +57,26 @@ zcompare_source "$ZDOTDIR/vim-mode"
 # Plugins
 zsh_add_plugin     "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin     "hlissner/zsh-autopair"
-# Must load auto-complete first
 zsh_add_plugin     "marlonrichert/zsh-autocomplete"
 zsh_add_plugin     "zsh-users/zsh-autosuggestions"
 
+zstyle ':autocomplete:*' delay 0.05  # seconds (float)
 zstyle ':autocomplete:history-search-backward:*' list-lines 8
+# zstyle ':autocomplete:*' min-input 2
 
-# Vi mode
-bindkey -v
+bindkey '^[[A' up-history
+bindkey '^[[B' down-history
+bindkey -M vicmd 'k' up-history
+bindkey -M vicmd 'j' down-history
 
-bindkey "^N" menu-select
+bindkey '^N' menu-select "$terminfo[kcbt]" menu-select
+bindkey -M menuselect '^N' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+bindkey -M menuselect '^Y' accept-line
+
 bindkey -s "^O" popd\\n
-bindkey '^r' history-incremental-pattern-search-backward
+bindkey '^R' history-incremental-search-backward
 
 eval "$(starship init zsh)"
 [ -z "$TMUX" ] && tmux new-session -A -s "general"

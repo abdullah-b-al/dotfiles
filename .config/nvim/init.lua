@@ -227,12 +227,12 @@ if found_cmp and found_lspkind and found_luasnip then
 end
 
 -- Section: lua-snip
-if not found_luasnip then
+if found_luasnip then
     local types = require('luasnip.util.types')
 
     -- Load snippets from friendlysnippets library
     -- require("luasnip.loaders.from_vscode").lazy_load()
-    require("luasnip.loaders.from_lua").lazy_load( { path = vim.env.HOME .. '/.config/nvim/luasnippets/zig.lua' } )
+    require("luasnip.loaders.from_lua").lazy_load( { path = vim.env.HOME .. '/.config/nvim/luasnippets/lua.lua' } )
     luasnip.config.set_config {
         history = true,
 
@@ -251,7 +251,7 @@ if not found_luasnip then
 
     -- load custom snippets
 else
-    print("Couldn't find luasnip in lua-snip.lua")
+    print("Couldn't find luasnip")
 end
 
 

@@ -25,7 +25,6 @@ export TERMINAL=st
 export BROWSER=brave-browser
 export HISTCONTROL=ignoreboth
 export export MANROFFOPT='-c'
-export nvim_server_path="/tmp/nvim-server.pipe"
 
 if [ $(command -v bat) ]; then
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -55,7 +54,7 @@ alias gs='git status'
 alias g='grep --color -E'
 alias gi='grep --color -Ei'
 
-alias e=$EDITOR
+alias e=editor.sh
 alias pac='sudo pacman'
 alias api='sudo apt install'
 alias aps='apt search'

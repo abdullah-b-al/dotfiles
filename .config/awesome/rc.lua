@@ -372,7 +372,7 @@ globalkeys = gears.table.join(
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
   ),
 
-  awful.key( { modkey, }, "e", function() spawn_or_goto('^Neovide$', 'neovide .') end,
+  awful.key( { modkey, }, "e", function() spawn_or_goto('^Neovide$', '') end,
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
   ),
 

@@ -27,6 +27,7 @@ grep -q "vfio" /etc/modules || {
   echo vfio_iommu_type1;
   echo vfio-pci;
   echo "options vfio-pci ids=$devices";
+  echo "vendor-reset"
 } >> /etc/modules
 
 # # echo "softdep amdgpu pre: vfio vfio-pci" > /etc/modprobe.d/amdgpu.conf

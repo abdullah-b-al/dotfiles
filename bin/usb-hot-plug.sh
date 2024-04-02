@@ -4,8 +4,8 @@
 # arg $2 is the vendor and product of the device format xxxx:xxxx
 plug() {
   vp="$2"
-  vendor="$(echo $vp | cut -d ':' -f 1 -)"
-  product="$(echo $vp | cut -d ':' -f 2 -)"
+  vendor="$(echo "$vp" | cut -d ':' -f 1 -)"
+  product="$(echo "$vp" | cut -d ':' -f 2 -)"
 
   xml="<hostdev mode=\"subsystem\" type=\"usb\" managed=\"yes\">
   <source>
@@ -16,21 +16,21 @@ plug() {
   "
 
   file="$HOME/usb.xml"
-  printf "$xml" > $file
+  printf "%s" "$xml" > "$file"
 
   operation="$1"
   if [ "$operation" = "attach" ]; then
-    virsh -c "qemu:///system" attach-device win10 --live --file  $file --config
+    virsh -c "qemu:///system" attach-device win10 --live --file  "$file" --config
 
   elif [ "$operation" = "detach" ]; then
-    virsh -c "qemu:///system" detach-device win10 --live --file $file --config
+    virsh -c "qemu:///system" detach-device win10 --live --file "$file" --config
 
   elif [ "$operation" = "toggle" ]; then
-    virsh -c "qemu:///system" attach-device win10 --live --file  $file --config ||
-      virsh -c "qemu:///system" detach-device win10 --live --file $file --config
+    virsh -c "qemu:///system" attach-device win10 --live --file  "$file" --config ||
+      virsh -c "qemu:///system" detach-device win10 --live --file "$file" --config
         elif [ "$operation" = "force-attach" ]; then
-          virsh -c "qemu:///system" detach-device win10 --live --file $file --config
-          virsh -c "qemu:///system" attach-device win10 --live --file  $file --config
+          virsh -c "qemu:///system" detach-device win10 --live --file "$file" --config
+          virsh -c "qemu:///system" attach-device win10 --live --file  "$file" --config
         else
           echo "must provide attach, detach, toggle or force-attach"
           rm "$file"
@@ -41,7 +41,7 @@ plug() {
 }
 
 if [ -t 0 ]; then
-  alias menu="fzf --layout=reverse --height=1%"
+  alias menu="fzf --layout=reverse --height=2%"
   alias print="echo "
 else
   alias menu="rofi -dmenu -matching fuzzy -i"

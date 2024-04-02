@@ -31,21 +31,22 @@ spawn_or_goto = function(win_name_pattren, program)
     if is_window then
       if not is_focused then
         c.first_tag:view_only()
+        client.focus = c
         c:raise()
-      else
-        local prev_client
-        for _, item in ipairs(awful.client.focus.history.list) do
-          if item ~= focused_client and item.first_tag == focused_client.first_tag then
-            prev_client = item
-            break
-          end
-        end
+      -- else
+      --   local prev_client
+      --   for _, item in ipairs(awful.client.focus.history.list) do
+      --     if item ~= focused_client and item.first_tag == focused_client.first_tag then
+      --       prev_client = item
+      --       break
+      --     end
+      --   end
 
-        if (prev_client) then
-          prev_client:raise()
-        else
-          awful.client.focus.byidx(1)
-        end
+      --   if (prev_client) then
+      --     prev_client:raise()
+      --   else
+      --     awful.client.focus.byidx(2)
+      --   end
       end
 
       return

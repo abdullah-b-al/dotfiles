@@ -1,5 +1,5 @@
 #!/bin/sh
-monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
+# monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
 
 font="UbuntuMono"
 font_color="D0D0D0"

@@ -74,6 +74,7 @@ bindkey -M menuselect '^N' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 bindkey -M menuselect '^Y' accept-line
+bindkey -s '^E' "v .\\n"
 
 bindkey -s "^O" popd\\n
 bindkey '^R' history-incremental-search-backward

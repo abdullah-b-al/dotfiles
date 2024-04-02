@@ -1,6 +1,6 @@
 while true; do
   # Log stderror to a file 
-  [[ -d ~/.cache/dwm ]] || mkdir -p ~/.cache/dwm/
+  mkdir -p ~/.cache/dwm
   dwm 2> ~/.cache/dwm/dwm.log
   if [ -n "$(cat ~/.cache/dwm/dwm.log)" ]; then
     cp ~/.cache/dwm/dwm.log ~/.cache/dwm/dwm.log.backup

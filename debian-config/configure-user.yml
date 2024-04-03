@@ -99,6 +99,7 @@
         - "install-gf2.sh"
         - "install-i3lock.sh"
         - "install-looking-glass.sh"
+        - "install-neovide.sh"
 
     - name: Install Software with sudo
       tags: skip_ansible_lint

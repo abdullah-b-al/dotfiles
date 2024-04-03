@@ -2,6 +2,7 @@ user: "ab55al"
 
 packages:
   - ansible
+  - ansible-lint
   - shellcheck
   - gawk
   - alacritty

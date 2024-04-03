@@ -17,6 +17,7 @@ opt.shiftwidth     = 4                                              -- Number of
 opt.updatetime     = 1000
 opt.timeoutlen     = 300
 
+opt.modelineexpr   = true
 opt.expandtab      = true
 opt.smartindent    = true
 opt.number         = true                                           -- Current line number
@@ -40,8 +41,8 @@ opt.spellfile      = home .. '/.local/share/nvim/spell/en.utf-8.add'
 opt.viewoptions    = 'cursor'                                 -- save/restore just these with {mk,load}view`
 
 opt.foldmethod     = 'manual'
--- opt.foldmethod     = 'expr'
--- opt.foldexpr       = 'nvim_treesitter#foldexpr()'
+-- opt.foldmethod  = 'expr'
+-- opt.foldexpr    = "v:lua.vim.treesitter.foldexpr()"
 
 -- Commands
 
@@ -115,8 +116,8 @@ require("lazy").setup({
     -- Lsp,
     'neovim/nvim-lspconfig',
     'ray-x/lsp_signature.nvim',
-    'williamboman/nvim-lsp-installer',
-
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
 })
 
 
@@ -133,6 +134,7 @@ cmd('source ' .. after .. '/colors/color-settings.vim')
 cmd('source ' .. after .. '/commands.vim')
 cmd('colo sonokai')
 
+require("mason").setup()
 require('lsp')
 require('autocommands')
 
@@ -556,7 +558,9 @@ end
 -- Section:
 
 -- Section: Mappings
--- map = vim.keymap.set
+
+vim.keymap.set('n', 'g?', ':Telescope keymaps<CR>')
+
 vim.keymap.set('n', '<C-y>', '<C-y><C-y>')
 vim.keymap.set('n', '<C-e>', '<C-e><C-e>')
 vim.keymap.set('n', '<F12>', ':set spell!<CR>', { silent = true, desc = 'Toggle spell on and off'})

@@ -83,23 +83,35 @@ local lspconfig = require 'lspconfig'
 local signature = require 'lsp_signature'
 local cmp       = require('cmp_nvim_lsp')
 
-local path = os.getenv('HOME') .. '/.local/share/nvim/lsp_servers'
-local dir = 'lsps'
-
 local servers = {
-    'zls',
-    'gopls',
-    'clangd',
-    'pylsp',
+    {name = 'zls'},
+    {name = 'gopls'},
+    {name = 'clangd'},
+    {name = 'pylsp'},
+    {name = 'ansiblels', cmd = {'ansible-language-server', '--stdio'}, filetypes = {'yaml.ansible', "yaml", "yml"},},
+    {name = 'lua_ls', cmd = {'lua-language-server'} },
 }
 
-for _, server in ipairs(servers) do
+require("mason-lspconfig").setup({
+    automatic_installation = false,
+    ensure_installed = {
+        'gopls',
+        'lua_ls',
+        'pylsp',
+        'clangd',
+        'ansible-language-server',
+    },
+})
 
-    lspconfig[server].setup{
+for _, server in ipairs(servers) do
+    local cmd = server.cmd or {server.name}
+    local filetypes = server.filetypes or lspconfig[server.name].filetypes
+    lspconfig[server.name].setup{
         on_attach = on_attach,
-        cmd = {server},
+        cmd = cmd,
         -- nvim-cmp setting
         capabilities = cmp.default_capabilities(vim.lsp.protocol.make_client_capabilities ()),
+        filetypes = filetypes,
         -- LSP signature
         signature.setup(signature_cfg),
     }

@@ -40,6 +40,8 @@ else
 fi
 
 autoload -Uz colors && colors
+autoload -z edit-command-line
+zle -N edit-command-line
 
 zstyle ':completion:*' menu select
 
@@ -74,7 +76,9 @@ bindkey -M menuselect '^N' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 bindkey -M menuselect '^Y' accept-line
-bindkey -s '^E' "v .\\n"
+
+bindkey '^E' edit-command-line
+bindkey -M vicmd '^E' edit-command-line
 
 bindkey -s "^O" popd\\n
 bindkey '^R' history-incremental-search-backward

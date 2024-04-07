@@ -9,6 +9,10 @@ local after         = config .. '/after'
 local viml_config   = after .. '/config'
 local lua_config    = 'config'
 
+if vim.loader then
+    vim.loader.enable()
+end
+
 
 -- Options
 opt.tabstop        = 4                                              -- Tab width in spaces
@@ -96,6 +100,7 @@ require("lazy").setup({
     'tpope/vim-fugitive',
     'simrat39/symbols-outline.nvim',
     'ziglang/zig.vim',
+    'mbbill/undotree',
 
     -- color schemes,
     'sainnhe/sonokai',
@@ -610,8 +615,6 @@ vim.keymap.set('n', '<C-Space><C-h>', ':lprev<CR>zv', { remap = false , desc = '
 vim.keymap.set('n', '<C-Space><C-q>', ':lopen<CR>', { remap = false , desc = 'Open local quickfix list'})
 vim.keymap.set('n', '<C-c><C-q>', ':cclose<CR>:lclose<CR>', { remap = false, silent = true , desc = 'Close quickfix lists'})
 
--- map('n', 'q:', ':', { remap = false },
---   'Map the annoying q: to :' )
 vim.keymap.set('n', 'Q', ':', { remap = false })
 
 -- " {{{1 Nicer tab switching

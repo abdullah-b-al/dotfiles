@@ -25,7 +25,10 @@ spawn_or_goto = function(win_name_pattren, program)
   local clients =  awful.screen.focused().all_clients
 
   for _, c in ipairs(clients) do
-    local is_window = string.match(tostring(c.name), win_name_pattren)
+    local is_window =
+        string.match(tostring(c.name), win_name_pattren) or
+        string.match(tostring(c.class), win_name_pattren)
+
     local is_focused = c == focused_client
 
     if is_window then
@@ -33,20 +36,6 @@ spawn_or_goto = function(win_name_pattren, program)
         c.first_tag:view_only()
         client.focus = c
         c:raise()
-      -- else
-      --   local prev_client
-      --   for _, item in ipairs(awful.client.focus.history.list) do
-      --     if item ~= focused_client and item.first_tag == focused_client.first_tag then
-      --       prev_client = item
-      --       break
-      --     end
-      --   end
-
-      --   if (prev_client) then
-      --     prev_client:raise()
-      --   else
-      --     awful.client.focus.byidx(2)
-      --   end
       end
 
       return
@@ -376,6 +365,10 @@ globalkeys = gears.table.join(
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
   ),
 
+    awful.key( { modkey, }, "b", function() spawn_or_goto('^Brave', 'brave-browser') end,
+        {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
+    ),
+
   awful.key(
     { modkey, "Shift"}, "t", function ()
       awful.spawn(terminal)
@@ -569,6 +562,16 @@ awful.rules.rules = {
       class = { "looking-glass-client" }
     }, properties = { floating = true, screen = 1, tag = "5", fullscreen = true}
   },
+
+    {
+        rule_any = {
+            class = { "zenity", "Zenity" }
+        },
+        properties = {
+            floating = true,
+            placement = awful.placement.centered,
+        }
+    },
 
 
   {

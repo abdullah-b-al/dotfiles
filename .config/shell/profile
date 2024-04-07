@@ -56,8 +56,8 @@ alias gi='grep --color -Ei'
 
 alias e=editor.sh
 alias pac='sudo pacman'
-alias api='sudo apt install'
-alias aps='apt search'
+alias sa='sudo apt'
+alias a='apt'
 alias rn='ranger'
 alias clear='echo Use C-l'
 alias restow='cd "$DOTFILESDIR" && stow -S . -t "$HOME"'

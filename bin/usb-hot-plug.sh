@@ -18,19 +18,20 @@ plug() {
   file="$HOME/usb.xml"
   printf "%s" "$xml" > "$file"
 
+
   operation="$1"
   if [ "$operation" = "attach" ]; then
-    virsh -c "qemu:///system" attach-device win10 --live --file  "$file" --config
+    virsh -c "qemu:///system" attach-device win10 --file  "$file" --current
 
   elif [ "$operation" = "detach" ]; then
-    virsh -c "qemu:///system" detach-device win10 --live --file "$file" --config
+      virsh -c "qemu:///system" detach-device win10 --file "$file" --current 
 
   elif [ "$operation" = "toggle" ]; then
-    virsh -c "qemu:///system" attach-device win10 --live --file  "$file" --config ||
-      virsh -c "qemu:///system" detach-device win10 --live --file "$file" --config
+    virsh -c "qemu:///system" attach-device win10 --file  "$file" --current ||
+      virsh -c "qemu:///system" detach-device win10 --file "$file" --current
         elif [ "$operation" = "force-attach" ]; then
-          virsh -c "qemu:///system" detach-device win10 --live --file "$file" --config
-          virsh -c "qemu:///system" attach-device win10 --live --file  "$file" --config
+          virsh -c "qemu:///system" detach-device win10 --file "$file" --current
+          virsh -c "qemu:///system" attach-device win10 --file  "$file" --current
         else
           echo "must provide attach, detach, toggle or force-attach"
           rm "$file"

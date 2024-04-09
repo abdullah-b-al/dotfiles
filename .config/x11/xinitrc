@@ -1,18 +1,2 @@
 #!/bin/sh
-
-# wait for the WM to start before running
-while true; do
-  if pgrep awesome > /dev/null; then
-    sleep 1
-    set-keyboar-settings.sh
-    gammastep -PO 5000
-    sxhkd &
-    pgrep nextcloud || nextcloud & disown
-    # dunst &
-    # dwm-status &
-    break
-  fi
-done &
-
-# Start WM
 exec awesome

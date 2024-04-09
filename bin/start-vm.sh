@@ -15,11 +15,14 @@ fi
 #   sudo rmmod btusb btrtl btmtk btintel btbcm bluetooth || true;
 # };
 
+usb-hot-plug.sh detach 045e:02ea || true # xbox controller
+# usb-hot-plug.sh detach 8087:0aa7 || true # bluetooth
+
 if virsh -c "qemu:///system" start win10; then
   looking-glass.sh > /dev/null & disown
 
-  usb-hot-plug.sh force-attach 045e:02ea || true # xbox controller
-  # usb-hot-plug.sh force-attach 8087:0aa7 || true # bluetooth
+  usb-hot-plug.sh attach 045e:02ea || true # xbox controller
+  # usb-hot-plug.sh attach 8087:0aa7 || true # bluetooth
 else
   notify-send --urgency=critical -t 3000 "Virsh" "Couldn't boot VM"
 fi

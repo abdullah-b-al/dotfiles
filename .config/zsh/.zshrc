@@ -55,6 +55,7 @@ _comp_options+=(globdots)                       # Include hidden files.
 
 zcompare_source "$ZDOTDIR/zsh-functions"
 zcompare_source "$ZDOTDIR/vim-mode"
+zcompare_source "$ZDOTDIR/zoxide"
 
 # Plugins
 zsh_add_plugin     "zsh-users/zsh-syntax-highlighting"
@@ -84,4 +85,7 @@ bindkey -s "^O" popd\\n
 bindkey '^R' history-incremental-search-backward
 
 eval "$(starship init zsh)"
-[ -z "$TMUX" ] && tmux new-session -A -s "general"
+
+session_name="general"
+[ "$XDG_VTNR" -gt 1 ] && session_name="tty$XDG_VTNR"
+[ -z "$TMUX" ] && tmux new-session -A -s "$session_name"

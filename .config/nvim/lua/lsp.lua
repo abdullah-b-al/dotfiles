@@ -84,6 +84,7 @@ local signature = require 'lsp_signature'
 local cmp       = require('cmp_nvim_lsp')
 
 local servers = {
+    {name = 'texlab'},
     {name = 'zls'},
     {name = 'gopls'},
     {name = 'clangd'},

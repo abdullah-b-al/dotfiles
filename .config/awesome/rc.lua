@@ -368,6 +368,9 @@ globalkeys = gears.table.join(
     awful.key( { modkey, }, "b", function() spawn_or_goto('^Brave', 'brave-browser') end,
         {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
     ),
+    awful.key( { modkey, "Control" }, "b", function() awful.spawn('brave-browser') end,
+        {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
+    ),
 
   awful.key(
     { modkey, "Shift"}, "t", function ()

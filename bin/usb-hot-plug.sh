@@ -42,7 +42,7 @@ plug() {
 }
 
 if [ -t 0 ]; then
-  alias menu="fzf --layout=reverse --height=2%"
+  alias menu="fzf"
   alias print="echo "
 else
   alias menu="rofi -dmenu -matching fuzzy -i"

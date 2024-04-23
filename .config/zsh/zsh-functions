@@ -1,4 +1,13 @@
 # Function to source files if they exist
+
+function change_dir() {
+    if type z >/dev/null; then
+        z "$@"
+    else
+        cd "$@"
+    fi
+}
+
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && zcompare_source "$ZDOTDIR/$1"
 }
@@ -40,7 +49,7 @@ function s() {
   [ -z "$result" ] && return
 
   if [ -d "$result" ]; then
-    cd "$result" && print -s cd "$result"
+    change_dir "$result" && print -s change_dir "$result"
   else
     editor.sh "$result" && print -s "editor.sh" "$result"
   fi
@@ -54,7 +63,7 @@ function so() {
   [ -z "$result" ] && return
 
   if [ -d "$result" ]; then
-    cd "$result" && print -s cd "$result"
+    change_dir "$result" && print -s change_dir "$result"
   else
     editor.sh "$result" && print -s "editor.sh" "$result"
   fi
@@ -65,7 +74,7 @@ function se() {
 
   [ -z "$result" ] && return
   if [ -d "$result" ]; then
-    cd "$result" && print -s cd "$result"
+    change_dir "$result" && print -s change_dir "$result"
   else
     editor.sh "$result" && print -s "editor.sh" "$result"
   fi
@@ -76,12 +85,12 @@ function ss() {
 
   [ -z "$result" ] && return
   if [ -d "$result" ]; then
-    cd "$result" && print -s cd "$result"
+    change_dir "$result" && print -s change_dir "$result"
   else
     editor.sh "$result" && print -s "editor.sh" "$result"
   fi
 }
 
 function mc() {
-  mkdir -p "$1" && cd "$1"
+  mkdir -p "$1" && change_dir "$1"
 }

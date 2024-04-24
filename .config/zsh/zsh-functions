@@ -8,6 +8,16 @@ function change_dir() {
     fi
 }
 
+function open_path() {
+    [ -z "$1" ] && return
+
+    if [ -d "$1" ]; then
+        change_dir "$1" && print -s change_dir "$1"
+    else
+        editor.sh "$1" && print -s "editor.sh" "$1"
+    fi
+}
+
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && zcompare_source "$ZDOTDIR/$1"
 }
@@ -45,50 +55,32 @@ function s() {
   local ignore_dir=".*local/share|.*local/lib|.*clj-kondo/.cache|.*dotfiles/.config/zsh/plugins|.*git|.*awesome/lain|.*awesome/freedesktop|.*ccls-cache"
   local result=$(find "$DOTFILESDIR"  \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print \
                     | grep -E -v "$ignore_file" \
-                    | fzf --layout=reverse --height=1%) 
-  [ -z "$result" ] && return
-
-  if [ -d "$result" ]; then
-    change_dir "$result" && print -s change_dir "$result"
-  else
-    editor.sh "$result" && print -s "editor.sh" "$result"
-  fi
+                    | fzf) 
+  open_path "$result"
 }
 
 
 function so() {
-  local ignore_dir=".*zig-cache|.*zig-out"
-  local result=$(find  "$HOME/personal"  \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print \
-                  | fzf --layout=reverse --height=1%) 
-  [ -z "$result" ] && return
-
-  if [ -d "$result" ]; then
-    change_dir "$result" && print -s change_dir "$result"
-  else
-    editor.sh "$result" && print -s "editor.sh" "$result"
-  fi
+    local ignore_dir=".*zig-cache|.*zig-out"
+    local result=$(find  "$HOME/personal"  \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print \
+        | fzf) 
+    open_path "$result"
 }
 
 function se() {
-  local result=$(find "$(pwd)" -name ".git" -prune -o -print  | fzf --layout=reverse --height=1%) 
-
-  [ -z "$result" ] && return
-  if [ -d "$result" ]; then
-    change_dir "$result" && print -s change_dir "$result"
-  else
-    editor.sh "$result" && print -s "editor.sh" "$result"
-  fi
+    local result=$(find "$(pwd)" -name ".git" -prune -o -print  | fzf) 
+    open_path "$result"
 }
 
 function ss() {
-  local result=$(find "$HOME" -name ".git" -prune -o -print  | fzf --layout=reverse --height=1%) 
+    local result="$(find "$HOME" -name ".git" -prune -o -print  | fzf)"
+    open_path "$result"
+}
 
-  [ -z "$result" ] && return
-  if [ -d "$result" ]; then
-    change_dir "$result" && print -s change_dir "$result"
-  else
-    editor.sh "$result" && print -s "editor.sh" "$result"
-  fi
+function sr() {
+    local ignore_dir="^/home|^/mnt"
+    local result="$(find / \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print 2>/dev/null | fzf)"
+    open_path "$result"
 }
 
 function mc() {

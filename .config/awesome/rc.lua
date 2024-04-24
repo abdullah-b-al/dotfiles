@@ -46,6 +46,8 @@ spawn_or_goto = function(win_name_pattren, program)
   awful.spawn(program)
 end
 
+local spawn_or_goto_terminal = function () spawn_or_goto('^kitty$', 'kitty') end
+
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -86,7 +88,7 @@ beautiful.tasklist_fg_focus  = "#CCCCCC"
 beautiful.tasklist_fg_normal = "#CCCCCC"
 
 local max_core_count = 12
-terminal = "alacritty"
+terminal = "kitty"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -357,11 +359,17 @@ globalkeys = gears.table.join(
   end,
     {description = "toggle wibox", group = "awesome"}),
 
-  awful.key( { modkey, }, "t", function() spawn_or_goto('^Alacritty$', 'alacritty --title Alacritty') end,
+  awful.key( { modkey, }, "t", function()
+        spawn_or_goto_terminal()
+        awful.spawn("tmux-switch-to.sh shell")
+    end,
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
   ),
 
-  awful.key( { modkey, }, "e", function() spawn_or_goto('^Neovide$', '') end,
+  awful.key( { modkey, }, "e", function()
+        awful.spawn("tmux-switch-to.sh editor")
+        spawn_or_goto_terminal()
+    end,
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
   ),
 

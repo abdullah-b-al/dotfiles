@@ -1,6 +1,7 @@
 user: "ab55al"
 
 packages:
+  - zoxide
   - ansible
   - ansible-lint
   - shellcheck

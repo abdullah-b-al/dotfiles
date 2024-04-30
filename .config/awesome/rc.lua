@@ -58,7 +58,7 @@ if awesome.startup_errors then
                      text = awesome.startup_errors })
 end
 
-naughty.config.defaults['font'] = "sans 24"
+naughty.config.defaults['font'] = "Ubuntu Condensed 24"
 
 -- Handle runtime errors after startup
 do
@@ -83,6 +83,7 @@ gears.wallpaper.set("#000000")
 -- beautiful.border_width = 2
 -- beautiful.border_focus = "#FFFFFF"
 
+beautiful.fg_normal  = "#FFFFFF"
 beautiful.tasklist_bg_focus = beautiful.bg_normal
 beautiful.tasklist_fg_focus  = "#CCCCCC"
 beautiful.tasklist_fg_normal = "#CCCCCC"
@@ -105,42 +106,33 @@ awful.layout.layouts = {
 }
 -- }}}
 
-mykeyboardlayout = awful.widget.keyboardlayout()
-mytextclock = awful.widget.textclock("%A  %b %m/%d  %H:%M")
-cores = awful.widget.watch('nproc', 30, function(widget, stdout)
-  local empty_circle = '○'
-  local filled_circle = '●'
+local widgets = {
+    mykeyboardlayout = awful.widget.keyboardlayout(),
+    -- date = awful.widget.textclock( "%b %m/%d %A"),
+    date = awful.widget.textclock("%b %m/%d %A"),
+    time = awful.widget.textclock("%H:%M"),
 
-  local value = 'Cores: [ '
-  local number = tonumber(stdout)
-  for i = 1, number do
-    value = value .. filled_circle .. ' '
-  end
+    memory = awful.widget.watch("print-memory", 30, function(widget, stdout)
+        widget:set_text(stdout)
+    end),
 
-  for i = number + 1, max_core_count do
-    value = value .. empty_circle .. ' '
-  end
+    battery = awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity', 60, function(widget, stdout)
 
-  value = value .. ']'
+        local value = ''
+        if tonumber(stdout) ~= nil then
+            value = '%' .. stdout
+        end
 
-  widget:set_text(value)
-end)
+        widget:set_text(value)
 
-local battery = awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity', 60, function(widget, stdout)
+    end),
 
-  local value = ''
-  if tonumber(stdout) ~= nil then
-    value = '%' .. stdout
-  end
+    cpu_temp = awful.widget.watch('cat /sys/devices/virtual/thermal/thermal_zone0/hwmon3/temp1_input', 10,
+        function(widget, s) widget:set_text(tonumber(s)/1000) end),
 
-  widget:set_text(value)
-
-end)
-
-local memory = awful.widget.watch("print-memory", 30, function(widget, stdout)
-  widget:set_markup('<b>' .. stdout ..'</b>')
-end)
-
+    gpu_temp = awful.widget.watch('cat /sys/devices/pci0000:00/0000:00:03.1/0000:0e:00.0/hwmon/hwmon0/temp1_input', 10,
+        function(widget, s) widget:set_text(tonumber(s)/1000) end),
+}
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -206,11 +198,14 @@ awful.screen.connect_for_each_screen(function(s)
     awful.button({ }, 4, function () awful.layout.inc( 1) end),
     awful.button({ }, 5, function () awful.layout.inc(-1) end)))
   -- Create a taglist widget
-  s.mytaglist = awful.widget.taglist {
-    screen  = s,
-    filter  = awful.widget.taglist.filter.all,
-    buttons = taglist_buttons
-  }
+    s.mytaglist = awful.widget.taglist {
+        screen  = s,
+        filter  = awful.widget.taglist.filter.all,
+        buttons = taglist_buttons,
+        layout = {
+            layout = wibox.layout.fixed.vertical,
+        },
+    }
 
   -- Create a tasklist widget
   s.mytasklist = awful.widget.tasklist {
@@ -233,37 +228,87 @@ awful.screen.connect_for_each_screen(function(s)
   }
 
   -- Create the wibox
-  s.mywibox = awful.wibar({ position = "top", screen = s, height = 12 })
+    s.topwibox = awful.wibar({ position = "top", screen = s, height = 12 })
+    s.leftwibox = awful.wibar({ position = "left", screen = s, width = 18 })
 
-  -- Add widgets to the wibox
-  s.mywibox:setup {
-    layout = wibox.layout.align.horizontal,
-    { -- Left widgets
-      s.mylayoutbox,
-      spacing = 1,
-      layout = wibox.layout.fixed.horizontal,
-      mylauncher,
-      s.mytaglist,
-      s.mypromptbox,
-    },
-    s.mytasklist, -- Middle widget
-    { -- Right widgets
-      layout = wibox.layout.fixed.horizontal,
-      mykeyboardlayout,
+    s.leftwibox:setup{
+        layout = wibox.layout.align.vertical,
+        { -- top
+            spacing = 1,
+            direction = "west",
+            widget = wibox.container.rotate,
+            layout = wibox.layout.fixed.vertical,
+            s.mytaglist,
+        },
 
-      memory,
-      wibox.widget.textbox(" "),
-      battery,
-      wibox.widget.textbox(" "),
-      -- cores,
-      -- wibox.widget.textbox(" "),
+        {
+            layout = wibox.layout.align.vertical,
+            widget = wibox.container.rotate,
+            wibox.widget.textbox(" "),
+            s.mytasklist, -- Middle widget
+        },
+    }
+        -- Add widgets to the wibox
+    local textbox_color = function (text, color)
+        return {
+            wibox.widget.textbox(text),
+            fg = color,
+            widget = wibox.container.background,
+        }
+    end
+    local yellowish = "#FFC674"
 
-      mytextclock,
+    s.topwibox:setup {
+        layout = wibox.layout.align.horizontal,
+        expand = "none",
 
-      wibox.widget.textbox(" "),
-      wibox.widget.systray(),
-    },
-  }
+        { -- Left widgets
+            spacing = 1,
+            -- layout = wibox.layout.align.horizontal,
+            widget = wibox.container.margin,
+            s.mylayoutbox,
+        },
+
+        {
+            layout = wibox.layout.fixed.horizontal,
+            textbox_color("RAM ", yellowish),
+            widgets.memory,
+            wibox.widget.textbox(" "),
+            widgets.battery,
+
+            wibox.widget.textbox(" "),
+
+            textbox_color("CPU ", yellowish),
+            widgets.cpu_temp,
+            textbox_color("° ", "#FF0000"),
+
+            wibox.widget.textbox(" "),
+
+            textbox_color("GPU ", yellowish),
+            widgets.gpu_temp,
+            textbox_color("° ", "#FF0000"),
+
+            wibox.widget.textbox(" "),
+            {
+                widgets.date,
+                fg = yellowish,
+                widget = wibox.container.background,
+            },
+
+            wibox.widget.textbox("  "),
+            widgets.time,
+            wibox.widget.textbox(" "),
+
+            widgets.mykeyboardlayout,
+            wibox.widget.textbox(" "),
+            wibox.widget.systray(),
+        },
+
+        { -- Right widgets
+            widget = wibox.container.margin,
+        },
+    }
+
 end)
 -- }}}
 
@@ -350,12 +395,13 @@ globalkeys = gears.table.join(
 
   -- Show/hide wibox
   awful.key({ modkey, 'Shift' }, "b", function ()
-    for s in screen do
-      s.mywibox.visible = not s.mywibox.visible
-      if s.mybottomwibox then
-        s.mybottomwibox.visible = not s.mybottomwibox.visible
-      end
-    end
+        for s in screen do
+            s.topwibox.visible = not s.topwibox.visible
+            s.leftwibox.visible = not s.leftwibox.visible
+            if s.mybottomwibox then
+                s.mybottomwibox.visible = not s.mybottomwibox.visible
+            end
+        end
   end,
     {description = "toggle wibox", group = "awesome"}),
 

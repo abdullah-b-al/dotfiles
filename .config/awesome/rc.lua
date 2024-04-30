@@ -84,7 +84,7 @@ gears.wallpaper.set("#000000")
 -- beautiful.border_focus = "#FFFFFF"
 
 beautiful.fg_normal  = "#FFFFFF"
-beautiful.tasklist_bg_focus = beautiful.bg_normal
+beautiful.tasklist_bg_focus = "#555555"
 beautiful.tasklist_fg_focus  = "#CCCCCC"
 beautiful.tasklist_fg_normal = "#CCCCCC"
 
@@ -202,49 +202,32 @@ awful.screen.connect_for_each_screen(function(s)
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
-        layout = {
-            layout = wibox.layout.fixed.vertical,
-        },
     }
 
   -- Create a tasklist widget
-  s.mytasklist = awful.widget.tasklist {
-    screen  = s,
-    filter  = awful.widget.tasklist.filter.currenttags,
-    style    = {
-        shape_border_width = 0,
-        shape_border_color = '#000000',
-        shape  = gears.shape.rounded_bar,
-    },
-    layout   = {
-        spacing = 0,
-        layout  = wibox.layout.flex.horizontal
-    },
+    s.mytasklist = awful.widget.tasklist {
+        screen  = s,
+        filter  = awful.widget.tasklist.filter.currenttags,
+        layout   = {
+            layout = wibox.layout.flex.vertical,
+            widget = wibox.container.rotate,
+        },
 
 
-    -- buttons = tasklist_buttons,
-    -- makes the tasklist a spacing widget only
-    -- layout = {}
-  }
+        -- buttons = tasklist_buttons,
+        -- makes the tasklist a spacing widget only
+        -- layout = {}
+    }
 
   -- Create the wibox
     s.topwibox = awful.wibar({ position = "top", screen = s, height = 12 })
-    s.leftwibox = awful.wibar({ position = "left", screen = s, width = 18 })
+    s.leftwibox = awful.wibar({ position = "left", screen = s, width = 20 })
 
     s.leftwibox:setup{
         layout = wibox.layout.align.vertical,
-        { -- top
-            spacing = 1,
-            direction = "west",
-            widget = wibox.container.rotate,
-            layout = wibox.layout.fixed.vertical,
-            s.mytaglist,
-        },
-
         {
             layout = wibox.layout.align.vertical,
             widget = wibox.container.rotate,
-            wibox.widget.textbox(" "),
             s.mytasklist, -- Middle widget
         },
     }
@@ -264,9 +247,9 @@ awful.screen.connect_for_each_screen(function(s)
 
         { -- Left widgets
             spacing = 1,
-            -- layout = wibox.layout.align.horizontal,
-            widget = wibox.container.margin,
+            layout = wibox.layout.fixed.horizontal,
             s.mylayoutbox,
+            s.mytaglist,
         },
 
         {

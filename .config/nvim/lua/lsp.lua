@@ -100,7 +100,7 @@ require("mason-lspconfig").setup({
         'lua_ls',
         'pylsp',
         'clangd',
-        'ansible-language-server',
+        'ansiblels',
     },
 })
 

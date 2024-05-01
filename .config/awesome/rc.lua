@@ -128,10 +128,24 @@ local widgets = {
     end),
 
     cpu_temp = awful.widget.watch('cat /sys/devices/virtual/thermal/thermal_zone0/hwmon3/temp1_input', 10,
-        function(widget, s) widget:set_text(tonumber(s)/1000) end),
+        function(widget, stdout) widget:set_text(tonumber(stdout)/1000) end),
 
     gpu_temp = awful.widget.watch('cat /sys/devices/pci0000:00/0000:00:03.1/0000:0e:00.0/hwmon/hwmon0/temp1_input', 10,
-        function(widget, s) widget:set_text(tonumber(s)/1000) end),
+        function(widget, stdout)
+            local temp = tonumber(stdout)/1000
+            if temp >= 95 then
+                local preset = naughty.config.presets.critical
+                preset.timeout = 10
+                awful.screen.connect_for_each_screen(function(s)
+                    naughty.notify({
+                        screen = s,
+                        preset = preset,
+                        text = "GPU temperature is too high!"
+                    })
+                end)
+            end
+            widget:set_text(temp)
+        end),
 }
 
 -- Create a wibox for each screen and add it

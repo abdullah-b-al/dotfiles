@@ -236,13 +236,16 @@ awful.screen.connect_for_each_screen(function(s)
   -- Create the wibox
     s.topwibox = awful.wibar({ position = "top", screen = s, height = 12 })
     s.leftwibox = awful.wibar({ position = "left", screen = s, width = 20 })
+    s.topwibox.x = s.topwibox.x + 20
+    s.leftwibox.y = s.topwibox.y
 
     s.leftwibox:setup{
         layout = wibox.layout.align.vertical,
         {
             layout = wibox.layout.align.vertical,
             widget = wibox.container.rotate,
-            s.mytasklist, -- Middle widget
+            s.mylayoutbox,
+            s.mytasklist,
         },
     }
         -- Add widgets to the wibox
@@ -262,7 +265,6 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Left widgets
             spacing = 1,
             layout = wibox.layout.fixed.horizontal,
-            s.mylayoutbox,
             s.mytaglist,
         },
 

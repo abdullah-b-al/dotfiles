@@ -241,10 +241,10 @@ awful.screen.connect_for_each_screen(function(s)
 
     s.leftwibox:setup{
         layout = wibox.layout.align.vertical,
+        s.mylayoutbox,
         {
             layout = wibox.layout.align.vertical,
             widget = wibox.container.rotate,
-            s.mylayoutbox,
             s.mytasklist,
         },
     }

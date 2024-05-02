@@ -4,10 +4,10 @@
 
 cd /tmp
 
-[ -f /tmp/looking-glass-B6.tar.gz ] || wget --no-config -O /tmp/looking-glass-B6.tar.gz "https://looking-glass.io/artifact/B6/source"
-[ -d /tmp/looking-glass-B6 ] || tar xf /tmp/looking-glass-B6.tar.gz
+[ -f /tmp/looking-glass-B7-rc1.tar.gz ] || wget --no-config -O /tmp/looking-glass-B7-rc1.tar.gz "https://looking-glass.io/artifact/B7-rc1/source"
+[ -d /tmp/looking-glass-B7-rc1 ] || tar xf /tmp/looking-glass-B7-rc1.tar.gz
 
-mkdir -p looking-glass-B6/client/build
-cd looking-glass-B6/client/build
+mkdir -p looking-glass-B7-rc1/client/build
+cd looking-glass-B7-rc1/client/build
 cmake -DENABLE_WAYLAND=no -DCMAKE_INSTALL_PREFIX=~/.local ..
 make install

@@ -84,11 +84,11 @@ gears.wallpaper.set("#000000")
 -- beautiful.border_focus = "#FFFFFF"
 
 beautiful.fg_normal  = "#FFFFFF"
+beautiful.bg_normal  = "#000000"
 beautiful.tasklist_bg_focus = "#555555"
 beautiful.tasklist_fg_focus  = "#CCCCCC"
 beautiful.tasklist_fg_normal = "#CCCCCC"
 
-local max_core_count = 12
 terminal = "kitty"
 
 -- Default modkey.
@@ -235,10 +235,9 @@ awful.screen.connect_for_each_screen(function(s)
 
   -- Create the wibox
     s.topwibox = awful.wibar({ position = "top", screen = s, height = 12 })
-    s.leftwibox = awful.wibar({ position = "left", screen = s, width = 20 })
+    s.leftwibox = awful.wibar({ position = "left", screen = s, width = 20, height = s.geometry.height })
     s.topwibox.x = s.topwibox.x + 20
     s.leftwibox.y = s.topwibox.y
-    s.leftwibox.height = s.leftwibox.height + 20
 
     s.leftwibox:setup{
         layout = wibox.layout.align.vertical,

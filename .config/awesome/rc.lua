@@ -238,6 +238,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.leftwibox = awful.wibar({ position = "left", screen = s, width = 20 })
     s.topwibox.x = s.topwibox.x + 20
     s.leftwibox.y = s.topwibox.y
+    s.leftwibox.height = s.leftwibox.height + 20
 
     s.leftwibox:setup{
         layout = wibox.layout.align.vertical,

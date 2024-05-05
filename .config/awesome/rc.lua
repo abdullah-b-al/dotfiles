@@ -19,35 +19,7 @@ local focused_screen = awful.screen.focused
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
-spawn_or_goto = function(win_name_pattren, program)
-
-  local focused_client = client.focus
-  local clients =  awful.screen.focused().all_clients
-
-  for _, c in ipairs(clients) do
-    local is_window =
-        string.match(tostring(c.name), win_name_pattren) or
-        string.match(tostring(c.class), win_name_pattren)
-
-    local is_focused = c == focused_client
-
-    if is_window then
-      if not is_focused then
-        c.first_tag:view_only()
-        client.focus = c
-        c:raise()
-      end
-
-      return
-    end
-
-  end
-
-  awful.spawn(program)
-end
-
-local spawn_or_goto_terminal = function () spawn_or_goto('^kitty$', 'kitty') end
-
+local extra = require("extra")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -105,48 +77,6 @@ awful.layout.layouts = {
   awful.layout.suit.max,
 }
 -- }}}
-
-local widgets = {
-    mykeyboardlayout = awful.widget.keyboardlayout(),
-    -- date = awful.widget.textclock( "%b %m/%d %A"),
-    date = awful.widget.textclock("%b %m/%d %A"),
-    time = awful.widget.textclock("%H:%M"),
-
-    memory = awful.widget.watch("print-memory", 30, function(widget, stdout)
-        widget:set_text(stdout)
-    end),
-
-    battery = awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity', 60, function(widget, stdout)
-
-        local value = ''
-        if tonumber(stdout) ~= nil then
-            value = '%' .. stdout
-        end
-
-        widget:set_text(value)
-
-    end),
-
-    cpu_temp = awful.widget.watch('cat /sys/devices/virtual/thermal/thermal_zone0/hwmon3/temp1_input', 10,
-        function(widget, stdout) widget:set_text(tonumber(stdout)/1000) end),
-
-    gpu_temp = awful.widget.watch('cat /sys/devices/pci0000:00/0000:00:03.1/0000:0e:00.0/hwmon/hwmon0/temp1_input', 10,
-        function(widget, stdout)
-            local temp = tonumber(stdout)/1000
-            if temp >= 95 then
-                local preset = naughty.config.presets.critical
-                preset.timeout = 10
-                awful.screen.connect_for_each_screen(function(s)
-                    naughty.notify({
-                        screen = s,
-                        preset = preset,
-                        text = "GPU temperature is too high!"
-                    })
-                end)
-            end
-            widget:set_text(temp)
-        end),
-}
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -234,7 +164,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
   -- Create the wibox
-    s.topwibox = awful.wibar({ position = "top", screen = s, height = 12 })
+    s.topwibox = awful.wibar({ position = "top", screen = s, height = 13 })
     s.leftwibox = awful.wibar({ position = "left", screen = s, width = 20, height = s.geometry.height })
     s.topwibox.x = s.topwibox.x + 20
     s.leftwibox.y = s.topwibox.y
@@ -248,16 +178,6 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytasklist,
         },
     }
-        -- Add widgets to the wibox
-    local textbox_color = function (text, color)
-        return {
-            wibox.widget.textbox(text),
-            fg = color,
-            widget = wibox.container.background,
-        }
-    end
-    local yellowish = "#FFC674"
-
     s.topwibox:setup {
         layout = wibox.layout.align.horizontal,
         expand = "none",
@@ -269,37 +189,16 @@ awful.screen.connect_for_each_screen(function(s)
         },
 
         {
+            spacing = 6,
             layout = wibox.layout.fixed.horizontal,
-            textbox_color("RAM ", yellowish),
-            widgets.memory,
-            wibox.widget.textbox(" "),
-            widgets.battery,
 
-            wibox.widget.textbox(" "),
+            extra.widgets.battery,
+            extra.widgets.ram,
+            extra.widgets.date_and_time,
+            extra.widgets.cpu,
+            extra.widgets.gpu,
 
-            textbox_color("CPU ", yellowish),
-            widgets.cpu_temp,
-            textbox_color("° ", "#FF0000"),
-
-            wibox.widget.textbox(" "),
-
-            textbox_color("GPU ", yellowish),
-            widgets.gpu_temp,
-            textbox_color("° ", "#FF0000"),
-
-            wibox.widget.textbox(" "),
-            {
-                widgets.date,
-                fg = yellowish,
-                widget = wibox.container.background,
-            },
-
-            wibox.widget.textbox("  "),
-            widgets.time,
-            wibox.widget.textbox(" "),
-
-            widgets.mykeyboardlayout,
-            wibox.widget.textbox(" "),
+            awful.widget.keyboardlayout(),
             wibox.widget.systray(),
         },
 
@@ -405,7 +304,7 @@ globalkeys = gears.table.join(
     {description = "toggle wibox", group = "awesome"}),
 
   awful.key( { modkey, }, "t", function()
-        spawn_or_goto_terminal()
+        extra.spawn_or_goto_terminal()
         awful.spawn("tmux-switch-to.sh shell")
     end,
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
@@ -413,7 +312,7 @@ globalkeys = gears.table.join(
 
   awful.key( { modkey, }, "e", function()
         awful.spawn("tmux-switch-to.sh editor")
-        spawn_or_goto_terminal()
+        extra.spawn_or_goto_terminal()
     end,
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
   ),

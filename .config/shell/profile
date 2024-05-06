@@ -61,6 +61,8 @@ alias sa='sudo apt'
 alias a='apt'
 alias rn='ranger'
 alias clear='echo Use C-l'
+alias rm='echo Do not use rm use trash -- '
+alias tra='trash'
 alias restow='cd "$DOTFILESDIR" && stow -S . -t "$HOME"'
 alias ansi-local='ansible-playbook --connection=local -i "localhost,"'
 

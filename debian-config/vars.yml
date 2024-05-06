@@ -7,6 +7,7 @@ packages:
   - ansible-lint
   - shellcheck
   - gawk
+  - alacritty
   - kitty
   - awesome
   - bat

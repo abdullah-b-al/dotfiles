@@ -61,7 +61,7 @@ beautiful.tasklist_bg_focus = "#555555"
 beautiful.tasklist_fg_focus  = "#CCCCCC"
 beautiful.tasklist_fg_normal = "#CCCCCC"
 
-terminal = "kitty"
+terminal = "alacritty"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.

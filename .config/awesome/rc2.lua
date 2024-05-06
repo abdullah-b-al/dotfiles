@@ -44,7 +44,7 @@ local spawn_or_goto = function(win_name_pattren, program)
     awful.spawn(program)
 end
 
-local spawn_or_goto_terminal = function () spawn_or_goto('^kitty$', 'kitty') end
+local spawn_or_goto_terminal = function () spawn_or_goto('^Alacritty$', 'alacritty') end
 
 local combine = function (widget, shape, margin)
     local t = gears.table.join(margin, {widget})

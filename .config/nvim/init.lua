@@ -255,14 +255,6 @@ require("lazy").setup({
 
             vim.opt.pumheight = 10
 
-            vim.keymap.set('i', '<C-u>', 'Cmp: Scroll docs. up')
-            vim.keymap.set('i', '<C-d>', 'Cmp: Scroll docs. down')
-            vim.keymap.set('i', '<C-e>', 'Cmp: Abort completion')
-            vim.keymap.set('i', '<C-c>', 'Cmp: Show completion menu')
-            vim.keymap.set('i', '<C-n>', 'Cmp: select next item')
-            vim.keymap.set('i', '<C-p>', 'Cmp: select previous item')
-            vim.keymap.set('i', '<C-y>', 'Cmp: Confirm selection')
-
             local found_cmp_auto_pairs, cmp_auto_pairs = pcall(require,'nvim-autopairs.completion.cmp')
             if found_cmp_auto_pairs then
                 cmp.event:on("confirm_done", cmp_auto_pairs.on_confirm_done( {map_char = { tex = ""}} ) )

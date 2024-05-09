@@ -3,7 +3,7 @@ local awful = require("awful")
 local naughty = require("naughty")
 local gears = require("gears")
 
-local yellowish = "#FFC674"
+local secondary_fg = "#73a0ef"
 local border_color = "#FFFFFF"
 
 local network_data = {
@@ -146,29 +146,29 @@ local shape = {
 
 local ram = {
     layout = wibox.layout.fixed.horizontal,
-    textbox_color("RAM ", yellowish),
+    textbox_color("RAM ", secondary_fg),
 
     wibox.widget.textbox("-"),
     widgets.used_memory,
-    textbox_color("GiB", yellowish),
+    textbox_color("GiB", secondary_fg),
 
     wibox.widget.textbox(" "),
 
     wibox.widget.textbox("+"),
     widgets.free_memory,
-    textbox_color("GiB", yellowish),
+    textbox_color("GiB", secondary_fg),
 }
 
 local gpu = {
     layout = wibox.layout.fixed.horizontal,
-    textbox_color("GPU ", yellowish),
+    textbox_color("GPU ", secondary_fg),
     widgets.gpu_temp,
     textbox_color("°", "#FF0000"),
 }
 
 local cpu = {
     layout = wibox.layout.fixed.horizontal,
-    textbox_color("CPU ", yellowish),
+    textbox_color("CPU ", secondary_fg),
     widgets.cpu_temp,
     textbox_color("°", "#FF0000"),
 }
@@ -176,7 +176,7 @@ local cpu = {
 local date_and_time = {
     layout = wibox.layout.fixed.horizontal,
     {
-        fg = yellowish,
+        fg = secondary_fg,
         widgets.date,
         widget = wibox.container.background,
     },
@@ -186,13 +186,13 @@ local date_and_time = {
 
 local network = {
     layout = wibox.layout.fixed.horizontal,
-    textbox_color("↓", yellowish),
+    textbox_color("↓", secondary_fg),
     widgets.network_rx,
-    textbox_color("Mb/s ", yellowish),
+    textbox_color("Mb/s ", secondary_fg),
 
-    textbox_color("↑", yellowish),
+    textbox_color("↑", secondary_fg),
     widgets.network_tx,
-    textbox_color("Mb/s", yellowish),
+    textbox_color("Mb/s", secondary_fg),
 }
 
 return {

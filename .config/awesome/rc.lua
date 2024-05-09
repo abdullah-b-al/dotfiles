@@ -56,7 +56,7 @@ gears.wallpaper.set("#000000")
 -- beautiful.border_focus = "#FFFFFF"
 
 beautiful.fg_normal  = "#FFFFFF"
-beautiful.bg_normal  = "#000000"
+beautiful.bg_normal  = "#1c1c1c"
 beautiful.tasklist_bg_focus = "#555555"
 beautiful.tasklist_fg_focus  = "#CCCCCC"
 beautiful.tasklist_fg_normal = "#CCCCCC"

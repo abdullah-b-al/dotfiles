@@ -1,4 +1,1 @@
 @theme "arthur-modified.rasi"
-configuration {
-font: "FiraCode Nerd Font 15";
-}

@@ -36,7 +36,7 @@ unsetopt BEEP                                   # Disable beeping
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
 	autoload -Uz compinit;
 else
-	autoload -Uz compinit -C;
+    autoload -Uz compinit -C;
 fi
 
 autoload -Uz colors && colors
@@ -45,9 +45,10 @@ zle -N edit-command-line
 
 zstyle ':completion:*' menu select
 
+
 zmodload zsh/complist
 
-stty stop undef		                            # Disable ctrl-s to freeze terminal.
+stty stop undef	                                # Disable ctrl-s to freeze terminal.
 zle_highlight=('paste:none')                    # Disable highlighting when pasting
 
 # compinit
@@ -58,11 +59,14 @@ zcompare_source "$ZDOTDIR/vim-mode"
 zcompare_source "$ZDOTDIR/zoxide"
 
 # Plugins
+zsh_add_plugin     "Aloxaf/fzf-tab"
+zsh_add_plugin     "marlonrichert/zsh-autocomplete"
 zsh_add_plugin     "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin     "hlissner/zsh-autopair"
-zsh_add_plugin     "marlonrichert/zsh-autocomplete"
 zsh_add_plugin     "zsh-users/zsh-autosuggestions"
 
+zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':autocomplete:*' delay 0.05  # seconds (float)
 zstyle ':autocomplete:history-search-backward:*' list-lines 8
 # zstyle ':autocomplete:*' min-input 2
@@ -75,7 +79,7 @@ bindkey -M vicmd 'j' down-history
 bindkey '^N' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M menuselect '^N' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
-bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+# bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 bindkey -M menuselect '^Y' accept-line
 
 bindkey '^E' edit-command-line
@@ -89,3 +93,5 @@ eval "$(starship init zsh)"
 session_name="general"
 [ "$XDG_VTNR" -gt 1 ] && session_name="tty$XDG_VTNR"
 [ -z "$TMUX" ] && tmux new-session -A -s "$session_name"
+
+enable-fzf-tab

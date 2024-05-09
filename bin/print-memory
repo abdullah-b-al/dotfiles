@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-result="$(vmstat -s -S M | grep -i "used memory" | awk -F ' ' '{print $1}')"
-mem=$(echo "scale=1; $result.0 / 1000.0" | bc)
-echo $mem"G"

@@ -148,13 +148,13 @@ local ram = {
     layout = wibox.layout.fixed.horizontal,
     textbox_color("RAM ", secondary_fg),
 
-    wibox.widget.textbox("-"),
+    textbox_color("-", "#FF0000"),
     widgets.used_memory,
     textbox_color("GiB", secondary_fg),
 
     wibox.widget.textbox(" "),
 
-    wibox.widget.textbox("+"),
+    textbox_color("+", "#00AA00"),
     widgets.free_memory,
     textbox_color("GiB", secondary_fg),
 }

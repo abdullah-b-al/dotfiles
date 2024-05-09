@@ -6,7 +6,7 @@ if [ "$1" = "begin" ]; then
     out="$(tmux-get-cursor-pos.py)"
     pos_args="$(echo "$out" | cut -d ',' -f 1)"
     reverse="$(echo "$out" | cut -d ',' -f 2)"
-    tmux popup -E "$pos_args" -- "$0" "$pane" "$reverse"
+    tmux popup -E $pos_args -- "$0" "$pane" "$reverse"
 else
     pane="$1"
 

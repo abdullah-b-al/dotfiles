@@ -19,6 +19,12 @@ if [ "$has_session" = 0 ]; then
     fi
 elif [ "$has_session" != 0 ] && [ "$wanted_window" = "editor" ]; then
     nvim_server_path="/tmp/nvim-server-$session.pipe"
+
     [ -e "$nvim_server_path" ] || tmux new-window -d -t "$session:0" -n editor -d nvim --listen "$nvim_server_path"
+
+    # Wait for nvim to fully start
+    while ! [ -e "$nvim_server_path" ]; do
+        sleep 0.001
+    done
     tmux switch-client -t "$session:editor"
 fi

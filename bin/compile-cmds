@@ -2,6 +2,7 @@
 
 from sys import argv
 from os import getcwd, getenv
+import fcntl
 
 programs = [
     "zig build",
@@ -40,7 +41,7 @@ elif argv[1] == "--list":
         print(file.read())
 
 elif argv[1] == "--list-in-cwd":
-    result_set = []
+    result_list = []
     with open(get_path(), 'a+') as file:
         file.seek(0)
         content = file.read()
@@ -49,10 +50,11 @@ elif argv[1] == "--list-in-cwd":
         for line in lines:
             split = line.split(',')
             if cwd.startswith(split[0]):
-                result_set.append(split[1])
+                result_list.append(split[1])
 
     result = ""
-    for cmd in set(result_set):
+    # dict from list keeps things ordered unlike a set
+    for cmd in dict.fromkeys(result_list):
         result += cmd
 
     # Remove last newline

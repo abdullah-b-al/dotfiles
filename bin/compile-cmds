@@ -1,0 +1,80 @@
+#!/bin/python3
+
+from sys import argv
+from os import getcwd, getenv
+
+programs = [
+    "zig build",
+    "zig test",
+    "zig run",
+]
+
+
+def get_path() -> str:
+    home = getenv("HOME")
+    if home is None or len(home) == 0:
+        print("-- Home value is invalid --")
+        exit(1)
+
+    return home + "/.local/share/compile_commands_list"
+
+
+def store_cmd(args: str):
+    with open(get_path(), 'a+') as file:
+        file.seek(0)
+        content = file.read()
+
+        line = getcwd() + "," + args + "\n"
+        new_content = line + content.replace(line, "")
+
+        file.seek(0)
+        file.truncate()
+        file.write(new_content)
+
+
+if (len(argv) == 1):
+    exit(1)
+elif argv[1] == "--list":
+    with open(get_path(), 'a+') as file:
+        file.seek(0)
+        print(file.read())
+
+elif argv[1] == "--list-in-cwd":
+    result_set = []
+    with open(get_path(), 'a+') as file:
+        file.seek(0)
+        content = file.read()
+        cwd = getcwd()
+        lines = content.splitlines(keepends=True)
+        for line in lines:
+            split = line.split(',')
+            if cwd.startswith(split[0]):
+                result_set.append(split[1])
+
+    result = ""
+    for cmd in set(result_set):
+        result += cmd
+
+    # Remove last newline
+    print(result[0:len(result) - 1])
+
+elif argv[1] == "--add" and len(argv) > 2:
+    args = ""
+    for arg in argv[2:]:
+        args += arg + " "
+    args = args[0:len(args) - 1]
+
+    store_cmd(args)
+
+elif argv[1] == "--add-from-list" and len(argv) > 2:
+    args = ""
+    for arg in argv[2:]:
+        args += arg + " "
+    args = args[0:len(args) - 1]
+
+    for p in programs:
+        if (args.startswith(p)):
+            store_cmd(args)
+else:
+    print("Unknown option")
+    exit(1)

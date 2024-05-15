@@ -25,6 +25,6 @@ if y > out_win_h:
     layout = "default"
 
 if w == out_win_w or x + w >= out_win_w:
-    w = abs(x - out_pane_w)
+    w = abs(x - out_win_w)
 
 print("-x {} -y {} -w {} -h {},{}".format(x, y, w, h, layout))

@@ -1,3 +1,4 @@
+-- vim: foldmethod=expr foldnestmax=1 foldenable
 -- Variables
 local cmd           = vim.cmd
 local g             = vim.g
@@ -47,12 +48,11 @@ opt.viewoptions    = 'cursor'                                 -- save/restore ju
 
 opt.foldmethod     = 'manual'
 -- opt.foldmethod  = 'expr'
--- opt.foldexpr    = "v:lua.vim.treesitter.foldexpr()"
+opt.foldexpr    = "v:lua.vim.treesitter.foldexpr()"
 
 -- Globals
 g.mapleader = ' '
 g.maplocalleader = ','
-
 
 if vim.g.neovide then
     vim.o.guifont = "Ubuntu Mono:h14"
@@ -85,6 +85,7 @@ require("lazy").setup({
         config = function () require("mason").setup() end
     },
 
+    '/lambdalisue/vim-suda',
     'nvim-telescope/telescope.nvim',
     'christoomey/vim-system-copy', -- Requires xsel
     'ap/vim-css-color',
@@ -116,6 +117,7 @@ require("lazy").setup({
                     'make',
                     'vim',
                     'zig',
+                    'vimdoc',
                 },
 
                 sync_install = false,

@@ -9,14 +9,7 @@ if [ "$1" = "begin" ]; then
     tmux popup -E $pos_args -- "$0" "$pane" "$reverse"
 else
     pane="$1"
-
-    if [ "$2" = "reverse" ]; then
-        layout="--layout=reverse"
-    else
-        layout="--layout=default"
-    fi
-
-    export FZF_DEFAULT_OPTS="$layout"
+    export FZF_DEFAULT_OPTS="--layout=$2"
     result="$(find ~ | fzf)"
     [ -z "$result" ] && exit 0
 

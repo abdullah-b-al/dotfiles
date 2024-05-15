@@ -85,6 +85,7 @@ bindkey -M menuselect '^Y' accept-line
 bindkey '^E' edit-command-line
 bindkey -M vicmd '^E' edit-command-line
 
+bindkey -s "^D" 'echo "Do you really need to close this ?" && sleep 1'\\n
 bindkey -s "^O" popd\\n
 bindkey '^R' history-incremental-search-backward
 
@@ -95,3 +96,4 @@ session_name="general"
 [ -z "$TMUX" ] && tmux new-session -A -s "$session_name"
 
 enable-fzf-tab
+add-zsh-hook preexec preexec_hook_for_compile

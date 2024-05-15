@@ -10,12 +10,17 @@ active_window="$(tmux list-windows -t "$session" -F "#{?window_active,#{window_n
 
 tmux has-session -t "$session:editor" 2> /dev/null
 has_session="$?"
+window_count="$(tmux display-message -p -t "$session" "#{session_windows}" 2> /dev/null)"
 
 if [ "$has_session" = 0 ]; then
     if [ "$wanted_window" = "editor" ]; then
         tmux switch-client -t "$session:editor"
     elif [ "$wanted_window" = "shell" ] && [ "$active_window" = "editor" ]; then
-        tmux select-window -l -t "$session"
+        if [ "$window_count" = "1" ]; then
+            tmux new-window -t "$session"
+        else
+            tmux select-window -l -t "$session"
+        fi
     fi
 elif [ "$has_session" != 0 ] && [ "$wanted_window" = "editor" ]; then
     nvim_server_path="/tmp/nvim-server-$session.pipe"

@@ -1,7 +1,6 @@
 user: "ab55al"
 
 packages:
-  - gnome-keyring
   - trash-cli
   - zoxide
   - ansible
@@ -53,6 +52,8 @@ packages:
   - feh
   - spice-vdagent
   - btop
+  - gnome-keyring
+  - libpam-gnome-keyring
   - nextcloud-desktop
   - dunst
   - valgrind

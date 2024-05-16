@@ -2,7 +2,6 @@
 
 from sys import argv
 from os import getcwd, getenv
-import fcntl
 
 programs = [
     "zig build",

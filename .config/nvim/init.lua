@@ -39,7 +39,6 @@ opt.splitright     = true
 opt.ignorecase     = true
 opt.smartcase      = true
 opt.foldenable     = false
-
 opt.wrap           = false
 
 opt.dictionary     = opt.dictionary + '/usr/share/dict/words'
@@ -85,6 +84,7 @@ require("lazy").setup({
         config = function () require("mason").setup() end
     },
 
+    'mg979/vim-visual-multi',
     '/lambdalisue/vim-suda',
     'nvim-telescope/telescope.nvim',
     'christoomey/vim-system-copy', -- Requires xsel
@@ -288,7 +288,10 @@ vim.api.nvim_create_autocmd( {"FileType"}, {
 
 vim.api.nvim_create_autocmd( {"vimenter", "ColorScheme"}, {
     pattern = {"*"},
-    callback = function () vim.cmd('highlight! MatchParen guifg=#FF0000 guibg=#202020 gui=NONE ctermfg=196 ctermbg=233 cterm=reverse') end
+    callback = function ()
+        vim.cmd('highlight! MatchParen guifg=#FF0000 guibg=#202020 gui=NONE ctermfg=196 ctermbg=233 cterm=reverse')
+        vim.cmd('hi! VM_Mono guibg=#CC1111 guifg=Black gui=NONE')
+    end
 })
 
 -- Section: Mappings

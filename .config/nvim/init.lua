@@ -1,4 +1,4 @@
--- vim: foldmethod=expr foldnestmax=1 foldenable
+-- vim: foldmethod=expr foldnestmax=1 nofoldenable
 -- Variables
 local cmd           = vim.cmd
 local g             = vim.g

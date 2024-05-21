@@ -1,5 +1,6 @@
-super + o ; {i,a,t,p}
+super + o ; {super + o, super + i, super + a, super + t, super + p}
     scratch-term.sh $EDITOR { \
+        $HOME/personal/notes.md, \
         $HOME/personal/tk.md, \
         $HOME/personal/a.md, \
         $HOME/personal/e.md, \

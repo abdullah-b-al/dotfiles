@@ -16,6 +16,8 @@ if not found_cmp then
 end
 
 local on_attach = function(client, bufnr)
+    vim.lsp.inlay_hint.enable()
+    vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#5b606c", bold = true })
 
     client.server_capabilities.semanticTokensProvider = nil
 
@@ -30,7 +32,6 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next,        { remap = false, silent=true , buffer = 0 , desc = 'LSP: Go to next diagnostic'})
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,        { remap = false, silent=true , buffer = 0 , desc = 'LSP: Go to prev diagnostic'})
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { remap = false, silent=true , buffer = 0 , desc = 'LSP: Place diagnostics in local quickfix list'})
-    vim.keymap.set('n', '<space>F', vim.lsp.buf.formatting,    { remap = false, silent=true , buffer = 0 , desc = 'LSP: Format'})
     vim.keymap.set('n', '<space>lc', vim.lsp.buf.code_action,  { remap = false, silent=true , buffer = 0 , desc = 'LSP: Code action'})
 end
 

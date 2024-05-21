@@ -5,10 +5,6 @@ local g             = vim.g
 local opt           = vim.opt
 local fn            = vim.fn
 local home          = vim.env.HOME
-local config        = home .. '/.config/nvim'
-local after         = config .. '/after'
-local viml_config   = after .. '/config'
-local lua_config    = 'config'
 
 if vim.loader then
     vim.loader.enable()
@@ -74,14 +70,24 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local lazy_opts = {
+    defaults = {
+        lazy = false,
+    },
+}
+
 require("lazy").setup({
     'nvim-lua/plenary.nvim',       -- Never uninstall
     {
         'williamboman/mason.nvim',
-        dependencies = {
-            'williamboman/mason-lspconfig.nvim',
-        },
-        config = function () require("mason").setup() end
+        dependencies = { 'williamboman/mason-lspconfig.nvim', },
+        config = function () require("mason").setup() end,
+    },
+    -- color schemes,
+    {
+        'sainnhe/sonokai',
+        lazy = false,
+        config = function () vim.cmd.colorscheme('sonokai') end,
     },
 
     'mg979/vim-visual-multi',
@@ -145,7 +151,6 @@ require("lazy").setup({
     },
     'szw/vim-maximizer',
     'tpope/vim-fugitive',
-    'simrat39/symbols-outline.nvim',
     {
         'ziglang/zig.vim',
         init = function ()
@@ -153,9 +158,6 @@ require("lazy").setup({
         end
     },
     'mbbill/undotree',
-
-    -- color schemes,
-    'sainnhe/sonokai',
 
     -- Movement plugins,
     {
@@ -199,7 +201,6 @@ require("lazy").setup({
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
-            'hrsh7th/nvim-cmp',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-path',
             'L3MON4D3/LuaSnip',
@@ -208,9 +209,9 @@ require("lazy").setup({
             'onsails/lspkind-nvim',
         },
 
+        event = "InsertEnter",
         config = function ()
             local cmp = require('cmp')
-            local luasnip = require('luasnip')
             local lspkind = require('lspkind')
 
             vim.opt.completeopt = {'menuone', 'preview'}
@@ -224,7 +225,7 @@ require("lazy").setup({
                 },
                 snippet = {
                     expand = function(args)
-                        luasnip.lsp_expand(args.body)
+                        require('luasnip').lsp_expand(args.body)
                     end
                 },
                 mapping = {
@@ -273,11 +274,10 @@ require("lazy").setup({
         },
         config = function () require('lsp') end
     },
-})
+}, lazy_opts)
 
 -- Auto commands
-cmd('source ' .. after .. '/commands.vim')
-vim.cmd.colorscheme('sonokai')
+cmd('source ' .. vim.env.HOME .. '/.config/nvim/after/commands.vim')
 
 -- Section: Auto commands
 -- Disable colorcolumn for certain file types
@@ -341,9 +341,9 @@ vim.keymap.set('n', '_', '"_', { desc = 'Quicker access to the black hole regist
 vim.keymap.set('n', '<C-l>', ':cnext<CR>zv', { remap = false , desc = 'Go to next item in quickfix list'})
 vim.keymap.set('n', '<C-h>', ':cprev<CR>zv', { remap = false , desc = 'Go to prev item in quickfix list'})
 vim.keymap.set('n', '<C-q>', ':copen<CR>', { remap = false , desc = 'Open quickfix list'})
-vim.keymap.set('n', '<C-Space><C-l>', ':lnext<CR>zv', { remap = false , desc = 'Go to next item in local quickfix list'})
-vim.keymap.set('n', '<C-Space><C-h>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
-vim.keymap.set('n', '<C-Space><C-q>', ':lopen<CR>', { remap = false , desc = 'Open local quickfix list'})
+vim.keymap.set('n', '<C-A><C-l>', ':lnext<CR>zv', { remap = false , desc = 'Go to next item in local quickfix list'})
+vim.keymap.set('n', '<C-A><C-h>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
+vim.keymap.set('n', '<C-A><C-q>', ':lopen<CR>', { remap = false , desc = 'Open local quickfix list'})
 vim.keymap.set('n', '<C-c><C-q>', ':cclose<CR>:lclose<CR>', { remap = false, silent = true , desc = 'Close quickfix lists'})
 
 vim.keymap.set('n', 'Q', ':', { remap = false })
@@ -397,8 +397,6 @@ vim.keymap.set('n', '<F1>', ':tab Git<CR>', { remap = false, silent = true  })
 vim.keymap.set('n', '<C-w><CR>', ':MaximizerToggle<CR>', { remap = false })
 -- vim-easy-align
 vim.keymap.set('v', 'ga', ':EasyAlign<CR>')
--- SymbolsOutline
-vim.keymap.set('n', '<leader>ol', ':SymbolsOutline<CR>', { remap = false })
 -- Gitsings
 vim.keymap.set('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>', { remap = false , desc = 'Gitsigns: Preview hunk'})
 vim.keymap.set('n', '<leader>n', '<cmd>Gitsigns next_hunk<CR>', { remap = false , desc = 'Gitsigns: Go to next hunk'})

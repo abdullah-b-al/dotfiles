@@ -8,6 +8,23 @@ if [ -z "$session" ] || [ -z "$TMUX" ]; then
 else
     tmux-switch-to.sh editor
     nvim_server_path="/tmp/nvim-server-$session.pipe"
-    file="$(readlink -f "$1")"
-    nvim --server "$nvim_server_path" --remote-tab "$file";
+    server="--server "$nvim_server_path""
+
+    if [ "$1" = "--vs" ] && [ "$#" -gt "1" ]; then
+        file="$(readlink -f "$2")"
+        nvim $server --remote-send "<ESC>:vs $file<CR>"
+    elif [ "$1" = "--hs" ] && [ "$#" -gt "1" ]; then
+        file="$(readlink -f "$2")"
+        nvim $server --remote-send "<ESC>:sp $file<CR>"
+    else
+        args=""
+        if [ "$#" = "1" ]; then
+            file="$(readlink -f "$1")"
+            args="--remote-tab $file"
+        else
+            args=$@
+        fi
+
+        nvim $server $args
+    fi
 fi

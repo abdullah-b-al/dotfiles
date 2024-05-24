@@ -341,10 +341,11 @@ vim.keymap.set('n', '_', '"_', { desc = 'Quicker access to the black hole regist
 vim.keymap.set('n', '<C-l>', ':cnext<CR>zv', { remap = false , desc = 'Go to next item in quickfix list'})
 vim.keymap.set('n', '<C-h>', ':cprev<CR>zv', { remap = false , desc = 'Go to prev item in quickfix list'})
 vim.keymap.set('n', '<C-q>', ':copen<CR>', { remap = false , desc = 'Open quickfix list'})
-vim.keymap.set('n', '<C-A><C-l>', ':lnext<CR>zv', { remap = false , desc = 'Go to next item in local quickfix list'})
-vim.keymap.set('n', '<C-A><C-h>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
-vim.keymap.set('n', '<C-A><C-q>', ':lopen<CR>', { remap = false , desc = 'Open local quickfix list'})
-vim.keymap.set('n', '<C-c><C-q>', ':cclose<CR>:lclose<CR>', { remap = false, silent = true , desc = 'Close quickfix lists'})
+
+vim.keymap.set('n', '<C-L>', ':lnext<CR>zv', { remap = false , desc = 'Go to next item in local quickfix list'})
+vim.keymap.set('n', '<C-H>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
+vim.keymap.set('n', '<C-Q>', ':lopen<CR>', { remap = false , desc = 'Open local quickfix list'})
+vim.keymap.set('n', '<C-Q>', ':cclose<CR>:lclose<CR>', { remap = false, silent = true , desc = 'Close quickfix lists'})
 
 vim.keymap.set('n', 'Q', ':', { remap = false })
 

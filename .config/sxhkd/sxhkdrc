@@ -1,6 +1,6 @@
 super + o ; {super + o, super + i, super + a, super + t, super + p}
-    scratch-term.sh $EDITOR { \
-        $HOME/personal/notes.md, \
+    scratch-term.sh nvim -u NORC -c "colo desert" { \
+        $HOME/personal/notes/notes.md, \
         $HOME/personal/tk.md, \
         $HOME/personal/a.md, \
         $HOME/personal/e.md, \

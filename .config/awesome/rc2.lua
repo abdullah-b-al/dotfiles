@@ -17,6 +17,11 @@ local network_data = {
     end,
 }
 
+local cpu_usage_data = {
+    prev_total = 0,
+    prev_idle = 0,
+}
+
 local spawn_or_goto = function(win_name_pattren, program)
 
     local focused_client = client.focus
@@ -65,11 +70,11 @@ local widgets = {
     date = awful.widget.textclock("%b %m/%d %A"),
     time = awful.widget.textclock("%H:%M"),
 
-    used_memory = awful.widget.watch([[bash -c "cat /proc/meminfo | head -n 3"]], 30, function(widget, stdout)
+    used_memory = awful.widget.watch("cat /proc/meminfo", 10, function(widget, stdout)
         widget:set_text(string.format("%.1f", get_memory(stdout).used))
     end),
 
-    free_memory = awful.widget.watch([[bash -c "cat /proc/meminfo | head -n 3"]], 30, function(widget, stdout)
+    free_memory = awful.widget.watch("cat /proc/meminfo", 10, function(widget, stdout)
         widget:set_text(string.format("%.1f", get_memory(stdout).available))
     end),
 
@@ -87,7 +92,25 @@ local widgets = {
     cpu_temp = awful.widget.watch('cat /sys/devices/virtual/thermal/thermal_zone0/hwmon3/temp1_input', 10,
         function(widget, stdout) widget:set_text(tonumber(stdout)/1000) end),
 
-    gpu_temp = awful.widget.watch('cat /sys/devices/pci0000:00/0000:00:03.1/0000:0e:00.0/hwmon/hwmon0/temp1_input', 10,
+    cpu_usage = awful.widget.watch([[bash -c "cat /proc/stat | head -n 1"]], 10,
+        function(widget, stdout)
+            local _, user, nice, system, idle, iowait, irq, softirq, steal, _, _ =
+            stdout:match('(%w+)%s+(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)')
+
+            local total = user + nice + system + idle + iowait + irq + softirq + steal
+
+            local diff_idle = idle - tonumber(cpu_usage_data.prev_idle == nil and 0 or cpu_usage_data.prev_idle)
+            local diff_total = total - tonumber(cpu_usage_data.prev_total == nil and 0 or cpu_usage_data.prev_total)
+            local diff_usage = (1000 * (diff_total - diff_idle) / diff_total + 5) / 10
+
+            cpu_usage_data.prev_total = total
+            cpu_usage_data.prev_idle = idle
+
+            widget:set_text(string.format("%.0f",tostring(diff_usage)))
+
+        end),
+
+    gpu_temp = awful.widget.watch('cat /sys/class/drm/card0/device/hwmon/hwmon0/temp1_input', 10,
         function(widget, stdout)
             local temp = tonumber(stdout)/1000
             if temp >= 95 then
@@ -104,14 +127,20 @@ local widgets = {
             widget:set_text(temp)
         end),
 
-    network_rx = awful.widget.watch([[bash -c "cat /sys/class/net/wlp8s0/statistics/rx_bytes"]], network_data.timeout, function (widget, stdout)
+    gpu_usage = awful.widget.watch([[bash -c "radeontop -d - -l 1 | grep -Po 'gpu \d+'"]], 10,
+        function(widget, stdout)
+            local str = gears.string.split(stdout, ' ')[2]
+            widget:set_text(str)
+        end),
+
+    network_rx = awful.widget.watch("cat /sys/class/net/wlp8s0/statistics/rx_bytes", network_data.timeout, function (widget, stdout)
         local cur_rx = tonumber(stdout)
         local speed_rx = (cur_rx - network_data.prev_rx) / network_data.timeout
         widget:set_text(network_data.convert_to_mega_bits(speed_rx))
         network_data.prev_rx = cur_rx
     end),
 
-    network_tx = awful.widget.watch([[bash -c "cat /sys/class/net/wlp8s0/statistics/tx_bytes"]], network_data.timeout, function (widget, stdout)
+    network_tx = awful.widget.watch("cat /sys/class/net/wlp8s0/statistics/tx_bytes", network_data.timeout, function (widget, stdout)
         local cur_tx = tonumber(stdout)
         local speed_tx = (cur_tx - network_data.prev_tx) / network_data.timeout
         widget:set_text(network_data.convert_to_mega_bits(speed_tx))
@@ -162,6 +191,8 @@ local ram = {
 local gpu = {
     layout = wibox.layout.fixed.horizontal,
     textbox_color("GPU ", secondary_fg),
+    widgets.gpu_usage,
+    textbox_color("% ", "#00AA00"),
     widgets.gpu_temp,
     textbox_color("°", "#FF0000"),
 }
@@ -169,6 +200,8 @@ local gpu = {
 local cpu = {
     layout = wibox.layout.fixed.horizontal,
     textbox_color("CPU ", secondary_fg),
+    widgets.cpu_usage,
+    textbox_color("% ", "#00AA00"),
     widgets.cpu_temp,
     textbox_color("°", "#FF0000"),
 }

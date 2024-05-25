@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo --validate || zenity --password | sudo -S --validate
+sudo-validate.sh || exit 1
 
 sudo systemctl stop NetworkManager
 sudo pkill wpa_supplicant

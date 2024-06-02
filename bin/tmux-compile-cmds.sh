@@ -11,6 +11,8 @@ elif [ "$1" = "popup" ]; then
     pos_args="$(echo "$out" | cut -d ',' -f 1)"
     reverse="$(echo "$out" | cut -d ',' -f 2)"
     opts="--layout=$reverse --no-sort"
+
+    # recursively call the same script
     tmux popup -d "$(pwd)" -e FZF_DEFAULT_OPTS="$opts" $pos_args -E -- "$0"
 else
     result=$(echo "$cmds" | fzf)

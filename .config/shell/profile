@@ -66,6 +66,7 @@ alias rm='echo Do not use rm use trash -- '
 alias tra='trash'
 alias restow='cd "$DOTFILESDIR" && stow -S . -t "$HOME"'
 alias ansi-local='ansible-playbook --connection=local -i "localhost,"'
+alias exit='if [ -z "$TMUX" ]; then builtin exit; else echo "Use tmux to kill or quit the terminal"; fi'
 
 # Start graphical server on user's current tty if not already running.
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ] && [ -z "$TMUX" ]; then

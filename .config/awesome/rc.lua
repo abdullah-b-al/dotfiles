@@ -192,6 +192,7 @@ awful.screen.connect_for_each_screen(function(s)
             spacing = 6,
             layout = wibox.layout.fixed.horizontal,
 
+            rc.widgets.auto_cpufreq,
             rc.widgets.battery,
             rc.widgets.network,
             rc.widgets.ram,

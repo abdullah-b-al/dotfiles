@@ -6,6 +6,13 @@ local gears = require("gears")
 local secondary_fg = "#73a0ef"
 local border_color = "#FFFFFF"
 
+local battery_file_path = "/sys/class/power_supply/BAT0/capacity"
+
+local file_exists = function (name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
+end
+
 local network_data = {
     prev_rx = 0,
     prev_tx = 0,
@@ -78,16 +85,20 @@ local widgets = {
         widget:set_text(string.format("%.1f", get_memory(stdout).available))
     end),
 
-    battery = awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity', 60, function(widget, stdout)
+    battery = (function ()
+        if not file_exists(battery_file_path) then return nil end
 
-        local value = ''
-        if tonumber(stdout) ~= nil then
-            value = '%' .. stdout
-        end
+        return awful.widget.watch('cat ' .. battery_file_path, 60, function(widget, stdout)
 
-        widget:set_text(value)
+            local value = ''
+            if tonumber(stdout) ~= nil then
+                value = '%' .. stdout
+            end
 
-    end),
+            widget:set_text(value)
+
+        end)
+    end)(), -- don't forget to call
 
     cpu_temp = awful.widget.watch('cat /sys/devices/virtual/thermal/thermal_zone0/hwmon3/temp1_input', 10,
         function(widget, stdout) widget:set_text(tonumber(stdout)/1000) end),
@@ -151,6 +162,17 @@ local widgets = {
         network_data.prev_tx = cur_tx
     end),
 
+
+    auto_cpufreq = (function ()
+        if not file_exists(battery_file_path) then return nil end
+
+        return awful.widget.watch([[bash -c "systemctl status auto-cpufreq | grep 'Active:'"]], 60 * 30,
+            function (widget, stdout)
+                if not string.match(stdout, "active") then
+                    widget:set_text("auto-cpufreq is inactive!")
+                end
+            end)
+    end)(), -- don't forget to call
 }
 
 local textbox_color = function (text, color)
@@ -242,6 +264,7 @@ return {
         cpu = combine(cpu, shape, margin),
         gpu = combine(gpu, shape, margin),
         network = combine(network, shape, margin),
+        auto_cpufreq = widgets.auto_cpufreq,
     },
 
 

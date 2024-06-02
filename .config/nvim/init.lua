@@ -286,6 +286,12 @@ vim.api.nvim_create_autocmd( {"FileType"}, {
     callback = function () vim.cmd('set colorcolumn=0') end
 })
 
+vim.api.nvim_create_autocmd( {"BufWinEnter"}, {
+    callback = function ()
+        require("per-project-settings").apply(0)
+    end,
+})
+
 vim.api.nvim_create_autocmd( {"vimenter", "ColorScheme"}, {
     pattern = {"*"},
     callback = function ()
@@ -294,13 +300,21 @@ vim.api.nvim_create_autocmd( {"vimenter", "ColorScheme"}, {
     end
 })
 
+
 -- Section: Mappings
+vim.keymap.set('n', '<F5>', function ()
+    vim.cmd("source ~/.config/nvim/init.lua")
+    package.loaded["per-project-settings"] = nil -- For force reloading
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        require("per-project-settings").apply(bufnr)
+    end
+end, { remap = false , desc = 'Reload init.lua'})
+
 vim.keymap.set('n', 'g?', ':Telescope keymaps<CR>')
 
-vim.keymap.set('n', '<C-y>', '<C-y><C-y>')
-vim.keymap.set('n', '<C-e>', '<C-e><C-e>')
+vim.keymap.set({'n', 'v'}, '<C-y>', '<C-y><C-y>')
+vim.keymap.set({'n', 'v'}, '<C-e>', '<C-e><C-e>')
 vim.keymap.set('n', '<F12>', ':set spell!<CR>', { silent = true, desc = 'Toggle spell on and off'})
-vim.keymap.set('n', '<F5>', ':source ~/.config/nvim/init.lua<CR>', { remap = false , desc = 'Reload init.lua'})
 vim.keymap.set('n', '<localleader>,', ':norm ,<CR>', { remap = false, silent = true, desc = 'Map ,, to find previous char without triggering other localleader commands'})
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { remap = false , desc ='Terminal mode setting for NeoVim'})
 

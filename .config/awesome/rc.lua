@@ -198,7 +198,7 @@ awful.screen.connect_for_each_screen(function(s)
             rc.widgets.cpu,
             rc.widgets.gpu,
 
-            rc.widgets.date_and_time,
+            -- rc.widgets.date_and_time,
 
             awful.widget.keyboardlayout(),
             wibox.widget.systray(),

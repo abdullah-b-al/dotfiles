@@ -33,6 +33,9 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,        { remap = false, silent=true , buffer = 0 , desc = 'LSP: Go to prev diagnostic'})
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { remap = false, silent=true , buffer = 0 , desc = 'LSP: Place diagnostics in local quickfix list'})
     vim.keymap.set('n', '<space>lc', vim.lsp.buf.code_action,  { remap = false, silent=true , buffer = 0 , desc = 'LSP: Code action'})
+    vim.keymap.set('n', '<space>hi', function ()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end,  { remap = false, silent=true , buffer = 0 , desc = 'LSP: toggle inlay hint'})
 end
 
 local signature_cfg = {

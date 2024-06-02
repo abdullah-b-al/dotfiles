@@ -62,14 +62,6 @@
         value: "store"
         scope: global
 
-    - name: Clone dotfiles
-      tags: skip_ansible_lint
-      ansible.builtin.git:
-        repo: https://gitlab.com/ab55al/dotfiles.git
-        dest: '{{ dotfiles }}'
-        recursive: true
-        force: false
-
     - name: Enable pulseaudio
       register: result
       ansible.builtin.systemd_service:
@@ -78,9 +70,36 @@
         state: started
         scope: user
 
-    - name: prtin
-      ansible.builtin.debug:
-        msg: '{{ result }}'
+    - name: Cron
+      ansible.builtin.cron:
+        backup: true
+        name: "Update git of personal"
+        job: "cd {{ home }}/personal && git add . && git commit -m ..."
+        minute: "*/5"
+
+    - name: Change shell
+      tags: skip_ansible_lint
+      become: true
+      become_user: root
+      ansible.builtin.shell:
+        cmd: "chsh -s /bin/zsh {{ user }}"
+
+
+    # - name: Print
+    #   ansible.builtin.debug:
+    #     msg: '{{ result }}'
+
+    ############################################################################
+    ## Always keep cloning here
+    ############################################################################
+
+    - name: Clone dotfiles
+      tags: skip_ansible_lint
+      ansible.builtin.git:
+        repo: https://gitlab.com/ab55al/dotfiles.git
+        dest: '{{ dotfiles }}'
+        recursive: true
+        force: false
 
 
     - name: Download fonts
@@ -118,10 +137,3 @@
       tags: skip_ansible_lint
       ansible.builtin.shell:
         cmd: 'cd {{ dotfiles }} && stow -S . -t {{ home }}'
-
-    - name: Change shell
-      tags: skip_ansible_lint
-      become: true
-      become_user: root
-      ansible.builtin.shell:
-        cmd: "chsh -s /bin/zsh {{ user }}"

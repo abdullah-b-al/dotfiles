@@ -17,14 +17,12 @@ else
         file="$(readlink -f "$2")"
         nvim $server --remote-send "<ESC>:sp $file<CR>"
     else
-        args=""
         if [ "$#" = "1" ]; then
             file="$(readlink -f "$1")"
-            args="--remote-tab $file"
+            nvim $server --remote-tab "$file"
         else
-            args=$@
+            nvim $server $@
         fi
 
-        nvim $server $args
     fi
 fi

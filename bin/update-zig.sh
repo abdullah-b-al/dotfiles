@@ -3,7 +3,7 @@
 set -e
 
 
-if [ ! "$(command -v zigup)" ]; then
+if ! command -v zigup > /dev/null; then
   mkdir -p /tmp/zigup
   cd /tmp/zigup
 

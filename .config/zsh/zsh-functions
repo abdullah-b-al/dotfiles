@@ -14,7 +14,7 @@ function open_path() {
     if [ -d "$1" ]; then
         change_dir "$1" && print -s change_dir "$1"
     else
-        editor.sh "$1" && print -s "editor.sh" "$1"
+        open.sh "$1" && print -s "open.sh" "$1"
     fi
 }
 
@@ -68,7 +68,7 @@ function so() {
 }
 
 function se() {
-    local result="$(find "$(pwd)" -name ".git" -prune -o -print  | fzf) "
+    local result="$(find "$(pwd)" -name ".git" -prune -o -print  | fzf)"
     open_path "$result"
 }
 

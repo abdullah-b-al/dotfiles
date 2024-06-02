@@ -110,6 +110,10 @@ local widgets = {
 
         end),
 
+    cpu_nproc = awful.widget.watch('nproc', 10, function (widget, stdout)
+        widget:set_text(stdout)
+    end),
+
     gpu_temp = awful.widget.watch('cat /sys/class/drm/card0/device/hwmon/hwmon0/temp1_input', 10,
         function(widget, stdout)
             local temp = tonumber(stdout)/1000
@@ -200,6 +204,8 @@ local gpu = {
 local cpu = {
     layout = wibox.layout.fixed.horizontal,
     textbox_color("CPU ", secondary_fg),
+    widgets.cpu_nproc,
+    textbox_color("⣿ ", "#00AA00"),
     widgets.cpu_usage,
     textbox_color("% ", "#00AA00"),
     widgets.cpu_temp,

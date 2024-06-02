@@ -62,13 +62,14 @@
         value: "store"
         scope: global
 
-    - name: Enable pulseaudio
-      register: result
-      ansible.builtin.systemd_service:
-        service: pulseaudio
-        enabled: true
-        state: started
-        scope: user
+    # Causes issues where browsers can't play audio
+    # - name: Enable pulseaudio
+    #   register: result
+    #   ansible.builtin.systemd_service:
+    #     service: pulseaudio
+    #     enabled: true
+    #     state: started
+    #     scope: user
 
     - name: Cron
       ansible.builtin.cron:

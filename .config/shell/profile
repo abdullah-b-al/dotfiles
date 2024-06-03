@@ -35,6 +35,7 @@ elif [ "$(command -v batcat)" ]; then
 fi
 
 export DOTFILESDIR="$HOME/.dotfiles"
+export SUDO_ASKPASS="$DOTFILESDIR/bin/askpass.sh"
 export LC_ALL=en_US.UTF-8
 export GTK_THEME=Adwaita:dark
 export LIBVIRT_DEFAULT_URI="qemu:///system"

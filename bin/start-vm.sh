@@ -5,9 +5,7 @@ set -e
 reset_method="$(cat /sys/bus/pci/devices/0000:11:00.0/reset_method)"
 
 if [ "$reset_method" != "device_specific" ]; then
-    sudo-validate.sh || exit 1
-
-    echo 'device_specific' | sudo tee /sys/bus/pci/devices/0000:11:00.0/reset_method
+    echo 'device_specific' | sudo -A tee /sys/bus/pci/devices/0000:11:00.0/reset_method
 fi
 
 set +e

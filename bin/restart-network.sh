@@ -1,7 +1,6 @@
 #!/bin/sh
 
-sudo-validate.sh || exit 1
-
+sudo -A --validate
 sudo systemctl stop NetworkManager
 sudo pkill wpa_supplicant
 sudo systemctl start NetworkManager

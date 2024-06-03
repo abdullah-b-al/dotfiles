@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 allowed_cpu=""
 if [ "$1" = "unpin" ]; then
@@ -13,7 +14,7 @@ else
     exit 1
 fi
 
-sudo-validate.sh || exit 1
+sudo -A --validate
 sudo systemctl set-property --runtime -- user.slice AllowedCPUs="$allowed_cpu"
 sudo systemctl set-property --runtime -- system.slice AllowedCPUs="$allowed_cpu"
 sudo systemctl set-property --runtime -- init.scope AllowedCPUs="$allowed_cpu"

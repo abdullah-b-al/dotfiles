@@ -1,5 +1,4 @@
 local home = vim.env.HOME
-local map = vim.keymap.set
 
 -- All settings should be in this function
 local apply = function (bufnr)
@@ -13,7 +12,7 @@ local apply = function (bufnr)
 
     if path:match("resume/resume.tex") then
         local rhs = string.format([[:wa | !pdflatex -output-directory="%s" %% > /dev/null<CR>]], dir)
-        map('n', '<F8>', rhs, {buffer = bufnr})
+        unique_map('n', '<F8>', rhs, {buffer = bufnr})
     end
 end -- apply function end
 

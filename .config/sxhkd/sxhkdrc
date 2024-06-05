@@ -1,5 +1,5 @@
 super + o ; {super + e, super + i, super + a, super + t, super + p}
-    scratch-term.sh nvim -u NORC -c "colo desert" { \
+    scratch-term.sh nvim { \
         $HOME/personal/notes/notes.md, \
         $HOME/personal/tk.md, \
         $HOME/personal/a.md, \

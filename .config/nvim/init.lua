@@ -110,7 +110,29 @@ require("lazy").setup({
 
     'mg979/vim-visual-multi',
     '/lambdalisue/vim-suda',
-    'nvim-telescope/telescope.nvim',
+    {
+
+        'nvim-telescope/telescope.nvim',
+        dependencies = {
+            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+        },
+
+        config = function ()
+            require('telescope').setup {
+                extensions = {
+                    fzf = {}
+                }
+            }
+            require('telescope').load_extension('fzf')
+
+            unique_map('n', 'g?', ':Telescope keymaps<CR>')
+            unique_map('n', '<leader>ff', ':Telescope find_files<CR>', { remap = false })
+            unique_map('n', '<leader>fg', ':Telescope live_grep<CR>' , { remap = false })
+            unique_map('n', '<leader>fb', ':Telescope buffers<CR>'   , { remap = false })
+            unique_map('n', '<leader>fh', ':Telescope help_tags<CR>' , { remap = false })
+        end
+
+    },
     'christoomey/vim-system-copy', -- Requires xsel
     'ap/vim-css-color',
     'tpope/vim-surround',
@@ -233,6 +255,10 @@ require("lazy").setup({
         'easymotion/vim-easymotion',
         init = function ()
             vim.g.EasyMotion_keys = 'aoeuhtnsid,lpgcr'
+
+            unique_map('n', '<leader>;', '<Plug>(easymotion-next)')
+            unique_map('n', '<leader>,', '<Plug>(easymotion-prev)')
+            unique_map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')
         end
     },
 
@@ -265,6 +291,14 @@ require("lazy").setup({
                     },
                 },
             }
+
+            unique_map({'i','s'}, '<C-l>', function() require('luasnip').jump(1) end, { desc =  'LuaSnip: Jump forward'})
+            unique_map({'i','s'}, '<C-h>', function() require('luasnip').jump(-1) end, {  desc = 'LuaSnip: Jump backword'})
+            unique_map({'i', 's'}, "<C-k>", function ()
+                if require('luasnip').expand_or_jumpable() then
+                    require('luasnip').expand_or_jump()
+                end
+            end, {silent = true, desc = 'LuaSnip: jump or expand'})
         end
     },
     {
@@ -379,8 +413,6 @@ unique_map('n', '<F5>', function ()
     end
 end, { remap = false , desc = 'Reload init.lua'})
 
-unique_map('n', 'g?', ':Telescope keymaps<CR>')
-
 unique_map({'n', 'v'}, '<C-y>', '<C-y><C-y>')
 unique_map({'n', 'v'}, '<C-e>', '<C-e><C-e>')
 unique_map('n', '<F12>', ':set spell!<CR>', { silent = true, desc = 'Toggle spell on and off'})
@@ -408,8 +440,6 @@ unique_map('i', '?', '?<C-g>u', { remap = false , desc ='Undo break point at ?'}
 unique_map('n', '<leader>cl', ':set cursorline!<CR>', { remap = false, silent = true , desc = 'Toggle cursorline'} )
 unique_map('n', '<leader>cc', ':set cursorcolumn!<CR>', { remap = false , silent = true , desc = 'Toggle cursorcolumn'})
 
--- map('n', '//', '/\\v\\c', { remap = false },
---   'Case insensitive pattern search shortcut')
 unique_map('n', '/', '/\\v', { remap = false , desc = 'Case insensitive pattern search shortcut'})
 
 --{{{1 Center cursor after a half page scroll without polluting the jump list
@@ -425,23 +455,12 @@ unique_map('n', '<M-C-L>', ':lnext<CR>zv', { remap = false , desc = 'Go to next 
 unique_map('n', '<M-C-H>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
 unique_map('n', '<M-C-Q>', ':lopen<CR>', { remap = false , desc = 'Open local quickfix list'})
 
-unique_map('n', 'Q', ':', { remap = false })
-
 -- " {{{1 Nicer tab switching
 unique_map('n', '<leader>1', '1gt', { remap = false, silent = true })
 unique_map('n', '<leader>2', '2gt', { remap = false, silent = true })
 unique_map('n', '<leader>3', '3gt', { remap = false, silent = true })
 unique_map('n', '<leader>4', '4gt', { remap = false, silent = true })
 unique_map('n', '<leader>5', '5gt', { remap = false, silent = true })
-
--- Cut and replace
-unique_map('n', '<leader>vw', 'viwp')
-unique_map('n', '<leader>vW', 'viWp')
-unique_map('n', '<leader>v"', 'vi"p')
-unique_map('n', "<leader>v'", "vi'p")
-unique_map('n', '<leader>v)', 'vi)p')
-unique_map('n', '<leader>v}', 'vi}p')
-unique_map('n', '<leader>v]', 'vi]p')
 
 -- call :nohl
 unique_map('n', 'l', 'l<cmd>nohl<CR>', { remap = false })
@@ -450,41 +469,12 @@ unique_map('n', 'k', [[(v:count >= 5 ? "m'" . v:count : '') . 'gk<cmd>nohl<CR>']
 unique_map('n', 'j', [[(v:count >= 5 ? "m'" . v:count : '') . 'gj<cmd>nohl<CR>']], { remap = false, expr = true , desc ='Add large k movements to the jump list and call :nohl'})
 
 -- Section: plugin mappings
--- Telescope
-unique_map('n', '<leader>ff', ':Telescope find_files<CR>', { remap = false })
-unique_map('n', '<leader>fg', ':Telescope live_grep<CR>' , { remap = false })
-unique_map('n', '<leader>fb', ':Telescope buffers<CR>'   , { remap = false })
-unique_map('n', '<leader>fh', ':Telescope help_tags<CR>' , { remap = false })
 
--- easy motion
-
--- Global mapping
-unique_map('n', '<leader>;', '<Plug>(easymotion-next)')
-unique_map('n', '<leader>,', '<Plug>(easymotion-prev)')
-
--- Multi line
-unique_map('n', 's', '<Plug>(easymotion-bd-f)')
-
--- Multi line Overwindows
-unique_map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')
-
--- surround.vim
-unique_map('n', 'S', '<Plug>Ysurround')
 -- fugitive
 unique_map('n', '<F1>', ':tab Git<CR>', { remap = false, silent = true  })
--- vim-maximizer
-unique_map('n', '<C-w><CR>', ':MaximizerToggle<CR>', { remap = false })
 -- vim-easy-align
 unique_map('v', 'ga', ':EasyAlign<CR>')
 -- Gitsings
 unique_map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>', { remap = false , desc = 'Gitsigns: Preview hunk'})
 unique_map('n', '<leader>n', '<cmd>Gitsigns next_hunk<CR>', { remap = false , desc = 'Gitsigns: Go to next hunk'})
 unique_map('n', '<leader>p', '<cmd>Gitsigns next_hunk<CR>', { remap = false , desc = 'Gitsigns: Go to previous hunk'})
--- LuaSnip
-unique_map({'i','s'}, '<C-l>', function() require('luasnip').jumpable(1) end, { desc =  'LuaSnip: Jump forward'})
-unique_map({'i','s'}, '<C-h>', function() require('luasnip').jumpable(-1) end, {  desc = 'LuaSnip: Jump backword'})
-unique_map({'i', 's'}, "<C-k>", function ()
-    if require('luasnip').expand_or_jumpable() then
-        require('luasnip').expand_or_jump()
-    end
-end, {silent = true, desc = 'LuaSnip: jump or expand'})

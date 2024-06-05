@@ -3,7 +3,6 @@
 local cmd           = vim.cmd
 local g             = vim.g
 local opt           = vim.opt
-local fn            = vim.fn
 local home          = vim.env.HOME
 
 if vim.loader then
@@ -22,7 +21,7 @@ function unique_map(modes, lhs, rhs, opts)
             end
         end
 
-        local make_unique = true
+        local make_unique = false -- Set to true when testing for conflicting maps
         if make_unique and not ignore then
             opts.unique = true
         end

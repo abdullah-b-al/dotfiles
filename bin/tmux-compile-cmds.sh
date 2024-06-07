@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cmds="$(compile-cmds --list-in-cwd)"
-[ -z "$cmds" ] && echo Empty compile-cmd list && exit 1
+[ -z "$cmds" ] && echo Empty compile-cmd list && exit 0
 
 window="$(tmux-switch-to.sh shell print)"
 

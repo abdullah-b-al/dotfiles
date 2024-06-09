@@ -122,3 +122,4 @@ packages:
   - python3-lxml
   - appmenu-gtk2-module
   - appmenu-gtk3-module
+  - qalc

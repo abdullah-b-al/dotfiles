@@ -14,6 +14,9 @@ super + ctrl + x
 super + z
     rofi -show run
 
+super + x
+    alacritty --class terminal-calculator -o font.size=12 -e qalc
+
 super + F2
     toggle-language.sh
 

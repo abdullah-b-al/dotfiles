@@ -548,6 +548,21 @@ awful.rules.rules = {
     },
   },
 
+    {
+        rule_any = {
+            class = {
+                "terminal-calculator",
+            },
+        }, properties = {
+            floating = true,
+            center = true,
+            x = awful.screen.focused().geometry.width * 0.25,
+            y = awful.screen.focused().geometry.height * 0.25,
+            height = awful.screen.focused().geometry.height * 0.5,
+            width = awful.screen.focused().geometry.width * 0.5,
+        },
+    },
+
 }
 -- }}}
 

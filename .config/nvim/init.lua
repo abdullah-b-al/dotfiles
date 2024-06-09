@@ -97,6 +97,17 @@ local lazy_opts = {
 require("lazy").setup({
     'nvim-lua/plenary.nvim',       -- Never uninstall
     {
+
+        'rcarriga/nvim-notify',
+        config = function ()
+            require('notify').setup{
+                stages = "static",
+                timeout = 3000,
+            }
+            vim.notify = require('notify')
+        end,
+    },
+    {
         'williamboman/mason.nvim',
         dependencies = { 'williamboman/mason-lspconfig.nvim', },
         config = function () require("mason").setup() end,

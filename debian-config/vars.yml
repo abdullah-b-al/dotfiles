@@ -40,7 +40,6 @@ packages:
   - os-prober
   - mtools
   - git
-  - fzf
   - rsync
   - usbutils
   - fonts-ubuntu

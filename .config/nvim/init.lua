@@ -9,7 +9,7 @@ if vim.loader then
     vim.loader.enable()
 end
 
-function unique_map(modes, lhs, rhs, opts)
+function Unique_map(modes, lhs, rhs, opts)
     if not opts then opts = {} end
     if opts.unique == nil then
         local keys_to_ignore = {'<C-l>' }
@@ -75,6 +75,96 @@ if vim.g.neovide then
     vim.g.neovide_refresh_rate_idle = 0
 end
 
+
+-- Auto commands
+cmd('source ' .. vim.env.HOME .. '/.config/nvim/after/commands.vim')
+
+-- Section: Auto commands
+-- Disable colorcolumn for certain file types
+vim.api.nvim_create_autocmd( {"FileType"}, {
+    pattern = {"*.markdown", "*.txt", "*.netrw"},
+    callback = function () vim.cmd('set colorcolumn=0') end
+})
+
+vim.api.nvim_create_autocmd( {"BufWinEnter"}, {
+    callback = function ()
+        require("per-project-settings").apply(0)
+    end,
+})
+
+vim.api.nvim_create_autocmd( {"vimenter", "ColorScheme"}, {
+    pattern = {"*"},
+    callback = function ()
+        vim.cmd('highlight! MatchParen guifg=#FF0000 guibg=#202020 gui=NONE ctermfg=196 ctermbg=233 cterm=reverse')
+        vim.cmd('hi! VM_Mono guibg=#CC1111 guifg=Black gui=NONE')
+    end
+})
+
+
+-- Section: Mappings
+Unique_map('n', '<F5>', function ()
+    vim.cmd("source ~/.config/nvim/init.lua")
+    package.loaded["per-project-settings"] = nil -- For force reloading
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        require("per-project-settings").apply(bufnr)
+    end
+end, { remap = false , desc = 'Reload init.lua'})
+
+Unique_map({'n', 'v'}, '<C-y>', '<C-y><C-y>')
+Unique_map({'n', 'v'}, '<C-e>', '<C-e><C-e>')
+Unique_map('n', '<F12>', ':set spell!<CR>', { silent = true, desc = 'Toggle spell on and off'})
+Unique_map('n', '<localleader>,', ':norm ,<CR>', { remap = false, silent = true, desc = 'Map ,, to find previous char without triggering other localleader commands'})
+Unique_map('t', '<Esc><Esc>', '<C-\\><C-n>', { remap = false , desc ='Terminal mode setting for NeoVim'})
+
+--{{{1 Substitution
+Unique_map('n', '<leader>s', ':%s:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on whole file'})
+Unique_map('v', '<leader>s', ':s:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on visual selection'})
+
+Unique_map('n', 'gp', '`[v`]', { remap = false, desc = 'Reselect pasted text'})
+Unique_map({'n','v'}, 'p', 'mzp`[v`]=`z', { remap = false , desc = 'Format pasted text'})
+Unique_map({'n','v'}, 'P', 'mzP`[v`]=`z', { remap = false , desc = 'Format pasted text'})
+
+Unique_map('n', 'n', 'nzzzv', { remap = false , desc = 'Center the cursor after n'} )
+Unique_map('n', 'N', 'Nzzzv', { remap = false , desc = 'Center the cursor after N'} )
+Unique_map('n', 'J', 'mzJ`z', { remap = false , desc = 'Center the cursor after J'} )
+
+-- " {{{1 Undo break points
+Unique_map('i', ',', ',<C-g>u', { remap = false , desc ='Undo break point at ,'})
+Unique_map('i', '.', '.<C-g>u', { remap = false , desc ='Undo break point at .'})
+Unique_map('i', '!', '!<C-g>u', { remap = false , desc ='Undo break point at !'})
+Unique_map('i', '?', '?<C-g>u', { remap = false , desc ='Undo break point at ?'})
+
+Unique_map('n', '<leader>cl', ':set cursorline!<CR>', { remap = false, silent = true , desc = 'Toggle cursorline'} )
+Unique_map('n', '<leader>cc', ':set cursorcolumn!<CR>', { remap = false , silent = true , desc = 'Toggle cursorcolumn'})
+
+Unique_map('n', '/', '/\\v', { remap = false , desc = 'Case insensitive pattern search shortcut'})
+
+--{{{1 Center cursor after a half page scroll without polluting the jump list
+-- map('n', '<C-d>', '<C-d>zz', { remap = false })
+-- map('n', '<C-u>', '<C-u>zz', { remap = false })
+
+--{{{1 quickfix mappings
+Unique_map('n', '<C-l>', ':cnext<CR>zv', { remap = false , desc = 'Go to next item in quickfix list'})
+Unique_map('n', '<C-h>', ':cprev<CR>zv', { remap = false , desc = 'Go to prev item in quickfix list'})
+Unique_map('n', '<C-q>', ':copen<CR>', { remap = false , desc = 'Open quickfix list'})
+
+Unique_map('n', '<M-C-L>', ':lnext<CR>zv', { remap = false , desc = 'Go to next item in local quickfix list'})
+Unique_map('n', '<M-C-H>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
+Unique_map('n', '<M-C-Q>', ':lopen<CR>', { remap = false , desc = 'Open local quickfix list'})
+
+-- " {{{1 Nicer tab switching
+Unique_map('n', '<leader>1', '1gt', { remap = false, silent = true })
+Unique_map('n', '<leader>2', '2gt', { remap = false, silent = true })
+Unique_map('n', '<leader>3', '3gt', { remap = false, silent = true })
+Unique_map('n', '<leader>4', '4gt', { remap = false, silent = true })
+Unique_map('n', '<leader>5', '5gt', { remap = false, silent = true })
+
+-- call :nohl
+Unique_map('n', 'l', 'l<cmd>nohl<CR>', { remap = false })
+Unique_map('n', 'h', 'h<cmd>nohl<CR>', { remap = false })
+Unique_map('n', 'k', [[(v:count >= 5 ? "m'" . v:count : '') . 'gk<cmd>nohl<CR>']], { remap = false, expr = true , desc ='Add large j movements to the jump list and call :nohl'})
+Unique_map('n', 'j', [[(v:count >= 5 ? "m'" . v:count : '') . 'gj<cmd>nohl<CR>']], { remap = false, expr = true , desc ='Add large k movements to the jump list and call :nohl'})
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
@@ -96,13 +186,43 @@ local lazy_opts = {
 
 require("lazy").setup({
     'nvim-lua/plenary.nvim',       -- Never uninstall
+    'mg979/vim-visual-multi',
+    'lambdalisue/vim-suda',
+    'christoomey/vim-system-copy', -- Requires xsel
+    'ap/vim-css-color',
+    'tpope/vim-surround',
+    'joom/vim-commentary',
+    'tpope/vim-repeat',
+    'andymass/vim-matchup',
+    'kyazdani42/nvim-web-devicons',
+    'wellle/targets.vim',
+    'szw/vim-maximizer',
+    'mbbill/undotree',
+    'unblevable/quick-scope',
+
+    {
+        'tpope/vim-fugitive',
+        config = function ()
+            Unique_map('n', '<F1>', ':tab Git<CR>', { remap = false, silent = true  })
+        end,
+    },
+
+    {
+        'junegunn/vim-easy-align',
+        config = function ()
+            Unique_map('v', 'ga', ':EasyAlign<CR>')
+        end,
+    },
+
     {
 
         'rcarriga/nvim-notify',
         config = function ()
             require('notify').setup{
                 stages = "static",
+                render = "wrapped-compact",
                 timeout = 3000,
+                top_down = false,
             }
             vim.notify = require('notify')
         end,
@@ -119,8 +239,6 @@ require("lazy").setup({
         config = function () vim.cmd.colorscheme('sonokai') end,
     },
 
-    'mg979/vim-visual-multi',
-    '/lambdalisue/vim-suda',
     {
 
         'nvim-telescope/telescope.nvim',
@@ -136,22 +254,14 @@ require("lazy").setup({
             }
             require('telescope').load_extension('fzf')
 
-            unique_map('n', 'g?', ':Telescope keymaps<CR>')
-            unique_map('n', '<leader>ff', ':Telescope find_files<CR>', { remap = false })
-            unique_map('n', '<leader>fg', ':Telescope live_grep<CR>' , { remap = false })
-            unique_map('n', '<leader>fb', ':Telescope buffers<CR>'   , { remap = false })
-            unique_map('n', '<leader>fh', ':Telescope help_tags<CR>' , { remap = false })
+            Unique_map('n', 'g?', ':Telescope keymaps<CR>')
+            Unique_map('n', '<leader>ff', ':Telescope find_files<CR>', { remap = false })
+            Unique_map('n', '<leader>fg', ':Telescope live_grep<CR>' , { remap = false })
+            Unique_map('n', '<leader>fb', ':Telescope buffers<CR>'   , { remap = false })
+            Unique_map('n', '<leader>fh', ':Telescope help_tags<CR>' , { remap = false })
         end
 
     },
-    'christoomey/vim-system-copy', -- Requires xsel
-    'ap/vim-css-color',
-    'tpope/vim-surround',
-    'joom/vim-commentary',
-    'tpope/vim-repeat',
-    'andymass/vim-matchup',
-    'kyazdani42/nvim-web-devicons',
-    'wellle/targets.vim',
     {
         'windwp/nvim-autopairs',
         config = function ()
@@ -246,34 +356,27 @@ require("lazy").setup({
         'nvim-lualine/lualine.nvim',
         config = function () require("config_lualine") end,
     },
-    'junegunn/vim-easy-align',
     {
         'lewis6991/gitsigns.nvim',
         config = function () require("config_gitsigns") end,
     },
-    'szw/vim-maximizer',
-    'tpope/vim-fugitive',
     {
         'ziglang/zig.vim',
         init = function ()
             vim.g.zig_fmt_autosave = 1
-        end
+        end,
     },
-    'mbbill/undotree',
-
     -- Movement plugins,
     {
         'easymotion/vim-easymotion',
         init = function ()
             vim.g.EasyMotion_keys = 'aoeuhtnsid,lpgcr'
 
-            unique_map('n', '<leader>;', '<Plug>(easymotion-next)')
-            unique_map('n', '<leader>,', '<Plug>(easymotion-prev)')
-            unique_map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')
+            Unique_map('n', '<leader>;', '<Plug>(easymotion-next)')
+            Unique_map('n', '<leader>,', '<Plug>(easymotion-prev)')
+            Unique_map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')
         end
     },
-
-    'unblevable/quick-scope',
 
     -- Completion and snippets,
     {
@@ -303,9 +406,9 @@ require("lazy").setup({
                 },
             }
 
-            unique_map({'i','s'}, '<C-l>', function() require('luasnip').jump(1) end, { desc =  'LuaSnip: Jump forward'})
-            unique_map({'i','s'}, '<C-h>', function() require('luasnip').jump(-1) end, {  desc = 'LuaSnip: Jump backword'})
-            unique_map({'i', 's'}, "<C-k>", function ()
+            Unique_map({'i','s'}, '<C-l>', function() require('luasnip').jump(1) end, { desc =  'LuaSnip: Jump forward'})
+            Unique_map({'i','s'}, '<C-h>', function() require('luasnip').jump(-1) end, {  desc = 'LuaSnip: Jump backword'})
+            Unique_map({'i', 's'}, "<C-k>", function ()
                 if require('luasnip').expand_or_jumpable() then
                     require('luasnip').expand_or_jump()
                 end
@@ -389,103 +492,3 @@ require("lazy").setup({
         config = function () require('lsp') end
     },
 }, lazy_opts)
-
--- Auto commands
-cmd('source ' .. vim.env.HOME .. '/.config/nvim/after/commands.vim')
-
--- Section: Auto commands
--- Disable colorcolumn for certain file types
-vim.api.nvim_create_autocmd( {"FileType"}, {
-    pattern = {"*.markdown", "*.txt", "*.netrw"},
-    callback = function () vim.cmd('set colorcolumn=0') end
-})
-
-vim.api.nvim_create_autocmd( {"BufWinEnter"}, {
-    callback = function ()
-        require("per-project-settings").apply(0)
-    end,
-})
-
-vim.api.nvim_create_autocmd( {"vimenter", "ColorScheme"}, {
-    pattern = {"*"},
-    callback = function ()
-        vim.cmd('highlight! MatchParen guifg=#FF0000 guibg=#202020 gui=NONE ctermfg=196 ctermbg=233 cterm=reverse')
-        vim.cmd('hi! VM_Mono guibg=#CC1111 guifg=Black gui=NONE')
-    end
-})
-
-
--- Section: Mappings
-unique_map('n', '<F5>', function ()
-    vim.cmd("source ~/.config/nvim/init.lua")
-    package.loaded["per-project-settings"] = nil -- For force reloading
-    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-        require("per-project-settings").apply(bufnr)
-    end
-end, { remap = false , desc = 'Reload init.lua'})
-
-unique_map({'n', 'v'}, '<C-y>', '<C-y><C-y>')
-unique_map({'n', 'v'}, '<C-e>', '<C-e><C-e>')
-unique_map('n', '<F12>', ':set spell!<CR>', { silent = true, desc = 'Toggle spell on and off'})
-unique_map('n', '<localleader>,', ':norm ,<CR>', { remap = false, silent = true, desc = 'Map ,, to find previous char without triggering other localleader commands'})
-unique_map('t', '<Esc><Esc>', '<C-\\><C-n>', { remap = false , desc ='Terminal mode setting for NeoVim'})
-
---{{{1 Substitution
-unique_map('n', '<leader>s', ':%s:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on whole file'})
-unique_map('v', '<leader>s', ':s:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on visual selection'})
-
-unique_map('n', 'gp', '`[v`]', { remap = false, desc = 'Reselect pasted text'})
-unique_map({'n','v'}, 'p', 'mzp`[v`]=`z', { remap = false , desc = 'Format pasted text'})
-unique_map({'n','v'}, 'P', 'mzP`[v`]=`z', { remap = false , desc = 'Format pasted text'})
-
-unique_map('n', 'n', 'nzzzv', { remap = false , desc = 'Center the cursor after n'} )
-unique_map('n', 'N', 'Nzzzv', { remap = false , desc = 'Center the cursor after N'} )
-unique_map('n', 'J', 'mzJ`z', { remap = false , desc = 'Center the cursor after J'} )
-
--- " {{{1 Undo break points
-unique_map('i', ',', ',<C-g>u', { remap = false , desc ='Undo break point at ,'})
-unique_map('i', '.', '.<C-g>u', { remap = false , desc ='Undo break point at .'})
-unique_map('i', '!', '!<C-g>u', { remap = false , desc ='Undo break point at !'})
-unique_map('i', '?', '?<C-g>u', { remap = false , desc ='Undo break point at ?'})
-
-unique_map('n', '<leader>cl', ':set cursorline!<CR>', { remap = false, silent = true , desc = 'Toggle cursorline'} )
-unique_map('n', '<leader>cc', ':set cursorcolumn!<CR>', { remap = false , silent = true , desc = 'Toggle cursorcolumn'})
-
-unique_map('n', '/', '/\\v', { remap = false , desc = 'Case insensitive pattern search shortcut'})
-
---{{{1 Center cursor after a half page scroll without polluting the jump list
--- map('n', '<C-d>', '<C-d>zz', { remap = false })
--- map('n', '<C-u>', '<C-u>zz', { remap = false })
-
---{{{1 quickfix mappings
-unique_map('n', '<C-l>', ':cnext<CR>zv', { remap = false , desc = 'Go to next item in quickfix list'})
-unique_map('n', '<C-h>', ':cprev<CR>zv', { remap = false , desc = 'Go to prev item in quickfix list'})
-unique_map('n', '<C-q>', ':copen<CR>', { remap = false , desc = 'Open quickfix list'})
-
-unique_map('n', '<M-C-L>', ':lnext<CR>zv', { remap = false , desc = 'Go to next item in local quickfix list'})
-unique_map('n', '<M-C-H>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
-unique_map('n', '<M-C-Q>', ':lopen<CR>', { remap = false , desc = 'Open local quickfix list'})
-
--- " {{{1 Nicer tab switching
-unique_map('n', '<leader>1', '1gt', { remap = false, silent = true })
-unique_map('n', '<leader>2', '2gt', { remap = false, silent = true })
-unique_map('n', '<leader>3', '3gt', { remap = false, silent = true })
-unique_map('n', '<leader>4', '4gt', { remap = false, silent = true })
-unique_map('n', '<leader>5', '5gt', { remap = false, silent = true })
-
--- call :nohl
-unique_map('n', 'l', 'l<cmd>nohl<CR>', { remap = false })
-unique_map('n', 'h', 'h<cmd>nohl<CR>', { remap = false })
-unique_map('n', 'k', [[(v:count >= 5 ? "m'" . v:count : '') . 'gk<cmd>nohl<CR>']], { remap = false, expr = true , desc ='Add large j movements to the jump list and call :nohl'})
-unique_map('n', 'j', [[(v:count >= 5 ? "m'" . v:count : '') . 'gj<cmd>nohl<CR>']], { remap = false, expr = true , desc ='Add large k movements to the jump list and call :nohl'})
-
--- Section: plugin mappings
-
--- fugitive
-unique_map('n', '<F1>', ':tab Git<CR>', { remap = false, silent = true  })
--- vim-easy-align
-unique_map('v', 'ga', ':EasyAlign<CR>')
--- Gitsings
-unique_map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>', { remap = false , desc = 'Gitsigns: Preview hunk'})
-unique_map('n', '<leader>n', '<cmd>Gitsigns next_hunk<CR>', { remap = false , desc = 'Gitsigns: Go to next hunk'})
-unique_map('n', '<leader>p', '<cmd>Gitsigns next_hunk<CR>', { remap = false , desc = 'Gitsigns: Go to previous hunk'})

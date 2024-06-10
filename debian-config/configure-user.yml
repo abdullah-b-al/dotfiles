@@ -130,6 +130,7 @@
       ansible.builtin.shell:
         cmd: 'PATH="$PATH:/usr/local/bin:$HOME/.local/bin" {{ debian_config }}/{{ item }}'
       loop:
+        - "install-fzf.sh"
         - "install-nvim.sh"
         - "install-starship.sh"
         - "install-auto-cpufreq.sh"

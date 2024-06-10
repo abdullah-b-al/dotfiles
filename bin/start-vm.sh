@@ -21,7 +21,7 @@ usb-hot-plug.sh detach 045e:02ea # xbox controller
 output="$(virsh -c "qemu:///system" start win10 2>&1)"
 exit_status="$?"
 if [ "$exit_status" = "0" ]; then
-    looking-glass.sh > /dev/null & disown
+    looking-glass.sh & disown
 
     usb-hot-plug.sh attach 045e:02ea || true # xbox controller
     # usb-hot-plug.sh attach 8087:0aa7 || true # bluetooth

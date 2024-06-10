@@ -38,3 +38,7 @@ require('gitsigns').setup {
         col = 1,
     },
 }
+
+Unique_map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>', { remap = false , desc = 'Gitsigns: Preview hunk'})
+Unique_map('n', '<leader>n', '<cmd>Gitsigns next_hunk<CR>', { remap = false , desc = 'Gitsigns: Go to next hunk'})
+Unique_map('n', '<leader>p', '<cmd>Gitsigns next_hunk<CR>', { remap = false , desc = 'Gitsigns: Go to previous hunk'})

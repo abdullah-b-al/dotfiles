@@ -12,7 +12,7 @@ local apply = function (bufnr)
 
     if path:match("resume/resume.tex") then
         local rhs = string.format([[:wa | !pdflatex -output-directory="%s" %% > /dev/null<CR>]], dir)
-        unique_map('n', '<F8>', rhs, {buffer = bufnr})
+        Unique_map('n', '<F8>', rhs, {buffer = bufnr})
     end
 end -- apply function end
 

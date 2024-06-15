@@ -2,6 +2,21 @@
 
 set -e
 
+update_zls() {
+    rm -rf "/tmp/installing-zls"
+
+    mkdir "/tmp/installing-zls"
+    cd "/tmp/installing-zls"
+
+    git clone --depth 1 https://github.com/zigtools/zls.git
+    cd "/tmp/installing-zls/zls"
+
+    zig build -Doptimize=ReleaseSafe
+    [ -f "/tmp/installing-zls/zls/zig-out/bin/zls" ] || exit 1
+
+    pkill zls || true
+    cp /tmp/installing-zls/zls/zig-out/bin/zls ~/.local/bin
+}
 
 if ! command -v zigup > /dev/null; then
   mkdir -p /tmp/zigup
@@ -15,19 +30,9 @@ if ! command -v zigup > /dev/null; then
   rm -rf /tmp/zigup
 fi
 
-
-zigup master 2>&1 | grep already && exit 0
-
-rm -rf "/tmp/installing-zls"
-
-mkdir "/tmp/installing-zls"
-cd "/tmp/installing-zls"
-
-git clone --depth 1 https://github.com/zigtools/zls.git
-cd "/tmp/installing-zls/zls"
-
-zig build -Doptimize=ReleaseSafe
-[ -f "/tmp/installing-zls/zls/zig-out/bin/zls" ] || exit 1
-
-pkill zls
-cp /tmp/installing-zls/zls/zig-out/bin/zls ~/.local/bin
+if [ "$1" = "zls" ]; then
+    update_zls
+else
+    zigup master 2>&1 | grep already && exit 0
+    update_zls
+fi

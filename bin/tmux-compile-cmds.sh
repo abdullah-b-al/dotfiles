@@ -1,13 +1,11 @@
 #!/bin/sh
 
 cmds="$(compile-cmds --list-in-cwd)"
-[ -z "$cmds" ] && echo Empty compile-cmd list && exit 0
-
-window="$(tmux-switch-to.sh shell print)"
+[ -z "$cmds" ] && echo "Empty compile-cmd list" && exit 0
 
 if [ "$1" = "popup" ]; then
     switch="$2"
-    out="$(tmux-get-cursor-pos.py)"
+    out="$(tmux.sh popup_dims)"
     pos_args="$(echo "$out" | cut -d ',' -f 1)"
     reverse="$(echo "$out" | cut -d ',' -f 2)"
     opts="--layout=$reverse --no-sort"
@@ -26,7 +24,8 @@ fi
 [ -z "$cmd" ] && echo "Empty command" && exit 1
 
 [ "$switch" = "switch" ] && tmux-switch-to.sh shell
-tmux send-keys -t "$window" C-c " $cmd" C-M
+nvim --server "$(tmux.sh nvim_server)" --remote-send "<CMD>w<CR>"
+tmux send-keys -t "$(tmux.sh non_editor_window_index)" C-c " $cmd" C-M
 
 if [ "$switch" = "no-switch" ]; then
     notify-send "Command sent" "$cmd" -t 1000

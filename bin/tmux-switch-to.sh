@@ -1,42 +1,25 @@
 #!/bin/sh
 
-
 wanted_window="$1" # 'shell' or 'editor'
-operation="$2" # 'print' or 'select'
-
-###################
-# Argument checking
 
 if [ "$wanted_window" != "shell" ] && [ "$wanted_window" != "editor" ]; then
     echo "wanted_window must be 'shell' or 'editor'"
     exit 1
 fi
 
-[ -z "$operation" ] && operation="select"
-if [ "$operation" != "print" ] && [ "$operation" != "select" ]; then
-    echo "operation must be 'print' or 'select'"
-    exit 1
-fi
-
 #####################
 # grab data from tmux
 
-session="$(tmux list-sessions -F "#{session_name},#{session_attached},#{session_activity}" | \
-    sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1)"
+session="$(tmux.sh active_session)"
+nvim_server_path="$(tmux.sh nvim_server)"
+active_window="$(tmux.sh active_window)"
+has_editor="$(tmux.sh has_editor_window)"
+window_count="$(tmux.sh window_count)"
 
-nvim_server_path="/tmp/nvim-server-$session.pipe"
-
-active_window="$(tmux list-windows -t "$session" -F "#{?window_active,#{window_name},}")"
-
-tmux has-session -t "$session:editor" 2> /dev/null
-has_editor="$?"
-window_count="$(tmux display-message -p -t "$session" "#{session_windows}" 2> /dev/null)"
-
-###################################
 # Make sure the wanted window exist
 
-if [ "$has_editor" != 0 ] && [ "$wanted_window" = "editor" ]; then
-    [ -e "$nvim_server_path" ] || tmux new-window -d -t "$session:0" -n editor -d nvim --listen "$nvim_server_path"
+if [ "$has_editor" = "no" ] && [ "$wanted_window" = "editor" ]; then
+    tmux.sh create_editor_window
 fi
 
 if [ "$window_count" = "1" ] && [ "$wanted_window" = "shell" ] && [ "$active_window" = "editor" ]; then
@@ -46,21 +29,9 @@ fi
 #############################
 # Select the wanted window
 
-if [ "$operation" = "select" ]; then
-    if [ "$wanted_window" = "editor" ]; then
-        while ! [ -e "$nvim_server_path" ]; do sleep 0.001; done
-        tmux switch-client -t "$session:editor"
-    elif [ "$wanted_window" = "shell" ] && [ "$active_window" = "editor" ]; then
-        tmux select-window -l -t "$session"
-    fi
-elif [  "$operation" = "print"  ]; then
-    if [ "$wanted_window" = "editor" ]; then
-        echo "$session:editor"
-    elif [ "$wanted_window" = "shell" ]; then
-        # the shell window index is always the last used non-editor window
-        shell_window_index="$(tmux list-windows -t general -F "#{window_index},#{window_name},#{window_activity}" | \
-            grep -v "editor," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1)"
-
-        echo "$session:$shell_window_index"
-    fi
+if [ "$wanted_window" = "editor" ]; then
+    while ! [ -e "$nvim_server_path" ]; do sleep 0.001; done
+    tmux switch-client -t "$session:editor"
+elif [ "$wanted_window" = "shell" ] && [ "$active_window" = "editor" ]; then
+    tmux select-window -l -t "$session"
 fi

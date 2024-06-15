@@ -91,7 +91,7 @@ function sr() {
 ################################################################################
 
 function mc() {
-  mkdir -p "$1" && change_dir "$1"
+  mkdir -p "$1" && cd "$1"
 }
 
 function preexec_hook_for_compile() {

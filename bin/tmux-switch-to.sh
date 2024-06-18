@@ -30,7 +30,6 @@ fi
 # Select the wanted window
 
 if [ "$wanted_window" = "editor" ]; then
-    while ! [ -e "$nvim_server_path" ]; do sleep 0.001; done
     tmux switch-client -t "$session:editor"
 elif [ "$wanted_window" = "shell" ] && [ "$active_window" = "editor" ]; then
     tmux select-window -l -t "$session"

@@ -144,7 +144,9 @@ awful.screen.connect_for_each_screen(function(s)
   -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
-        filter  = awful.widget.taglist.filter.all,
+        -- filter  = awful.widget.taglist.filter.all,
+        filter = function (t) return t.selected or #t:clients() > 0 end,
+
         buttons = taglist_buttons,
     }
 
@@ -397,7 +399,7 @@ clientkeys = gears.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 5 do
+for i = 1, 9 do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
@@ -518,7 +520,7 @@ awful.rules.rules = {
   {
     rule_any = {
       class = { "looking-glass-client" }
-    }, properties = { floating = true, screen = 1, tag = "5", fullscreen = true}
+    }, properties = { floating = true, screen = 1, fullscreen = true, new_tag = true}
   },
 
     {
@@ -607,4 +609,18 @@ client.connect_signal("unfocus", function(c)
   c.border_width = 1
 end)
 
+-- Prevent windows from moving to the looking glass tag
+client.connect_signal("tagged", function(c)
+    c._previous_tag = c._current_tag
+    c._current_tag = c.first_tag
+    local lg = "looking-glass-client"
+    if c.first_tag.name == lg and c.class ~= lg and c._previous_tag ~= nil then
+        c:move_to_tag(c._previous_tag)
+    end
+
+end)
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 awful.util.spawn(os.getenv("HOME") .. "/.dotfiles/bin/post-graphical-setup.sh")

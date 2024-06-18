@@ -35,6 +35,7 @@ window_count() {
     tmux display-message -p -t "$session" "#{session_windows}" 2> /dev/null
 }
 
+# If a session is renamed and an editor opened before renaming this will not start an nvim server
 create_editor_window() {
     if [ "$(has_editor_window)" = "no" ]; then
         nvim_server_path="$(nvim_server)"
@@ -45,7 +46,7 @@ create_editor_window() {
 
 non_editor_window_index() {
     # the window index is always the last used non-editor window
-    tmux list-windows -t general -F "#{window_index},#{window_name},#{window_activity}" | \
+    tmux list-windows -t "$(active_session)" -F "#{window_index},#{window_name},#{window_activity}" | \
         grep -v "editor," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1
 }
 

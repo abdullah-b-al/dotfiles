@@ -144,8 +144,8 @@ awful.screen.connect_for_each_screen(function(s)
   -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
-        -- filter  = awful.widget.taglist.filter.all,
-        filter = function (t) return t.selected or #t:clients() > 0 end,
+        filter  = awful.widget.taglist.filter.all,
+        -- filter = function (t) return t.selected or #t:clients() > 0 end,
 
         buttons = taglist_buttons,
     }
@@ -614,8 +614,9 @@ client.connect_signal("tagged", function(c)
     c._previous_tag = c._current_tag
     c._current_tag = c.first_tag
     local lg = "looking-glass-client"
-    if c.first_tag.name == lg and c.class ~= lg and c._previous_tag ~= nil then
-        c:move_to_tag(c._previous_tag)
+    if c.first_tag.name == lg and c.class ~= lg then
+        local tag = c._previous_tag or awful.tag.find_by_name(awful.screen.focused(), "1")
+        c:move_to_tag(tag)
     end
 
 end)

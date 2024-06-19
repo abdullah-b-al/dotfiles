@@ -86,7 +86,7 @@ popup_dims() {
 # If an argument is provided then run the function with the same name
 if ! [ -z "$1" ]; then
     # Make sure the argument matches one of the functions
-    if ! cat "$0" | grep -q "^$1()\s*{"; then
+    if ! grep -q "^$1()\s*{" "$0"; then
         echo "Command doesn't exist"
         exit 1
     fi

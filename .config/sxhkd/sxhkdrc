@@ -1,5 +1,5 @@
 super + o ; {super + e, super + i, super + a, super + t, super + p}
-    scratch-term.sh nvim { \
+    scratch-term.sh nvim --cmd "cd $HOME/personal/notes" { \
         $HOME/personal/notes/notes.md, \
         $HOME/personal/tk.md, \
         $HOME/personal/a.md, \

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 setxkbmap -layout 'us'
-if [ -e /dev/input/by-path/platform-i8042-serio-0-event-kbd ]; then
+if [ -e /dev/input/by-path/platform-i8042-serio-0-event-kbd ] && ! bluetoothctl info DA:18:B2:3C:8E:3B | grep -q Connected; then
   xmodmap ~/.dotfiles/colemak_dh.xmodmap
 fi
 

@@ -39,4 +39,11 @@ end
 
 ls.add_snippets("zig", {
     s("ifc", fmta("if (<logic>) |<capture>| {\n}", {logic = i(1), capture = i(2)})),
+    s("lst", fmta("var <name> = std.ArrayList(<type>).init(allocator);", {name = i(1), type = i(2)})),
+    s("itr", fmta([[
+var <iter> = <object>.iterator();
+while (<riter>.next()) |<capture>| {
+}
+]], {iter = i(1), object = i(2), riter = rep(1), capture = i(3)})),
+
 })

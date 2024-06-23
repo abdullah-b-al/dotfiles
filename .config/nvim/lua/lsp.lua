@@ -16,10 +16,10 @@ if not found_cmp then
 end
 
 local on_attach = function(client, bufnr)
-    vim.lsp.inlay_hint.enable()
+    -- vim.lsp.inlay_hint.enable()
     vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#5b606c", bold = true })
 
-    client.server_capabilities.semanticTokensProvider = nil
+    -- client.server_capabilities.semanticTokensProvider = nil
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     Unique_map('n', 'gD', vim.lsp.buf.declaration,         { remap = false, silent=true , buffer = 0 , desc = 'LSP: Go to declaration'})

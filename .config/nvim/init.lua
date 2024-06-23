@@ -301,9 +301,11 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = { 'nvim-treesitter/nvim-treesitter', },
         config = function ()
+            local disable_list = {"zig"}
             require'nvim-treesitter.configs'.setup {
                 textobjects = {
                     select = {
+                        disable = disable_list,
                         enable = true,
 
                         -- Automatically jump forward to textobj, similar to targets.vim
@@ -334,6 +336,7 @@ require("lazy").setup({
                     },
 
                     move = {
+                        disable = disable_list,
                         enable = true,
                         set_jumps = false,
                         goto_next_start = {

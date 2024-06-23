@@ -26,6 +26,7 @@ fi
 [ "$switch" = "switch" ] && tmux-switch-to.sh shell
 nvim --server "$(tmux.sh nvim_server)" --remote-send "<CMD>w<CR>"
 sleep 0.1 # replace with remote-wait when nvim implements it
+tmux send-keys -t "$(tmux.sh non_editor_window_index)" C-l
 tmux send-keys -t "$(tmux.sh non_editor_window_index)" C-c " $cmd" C-M
 
 if [ "$switch" = "no-switch" ]; then

@@ -322,11 +322,11 @@ globalkeys = gears.table.join(
     {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
   ),
 
-    awful.key( { modkey, }, "b", function() rc.spawn_or_goto('^Brave', 'brave-browser') end,
-        {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
+    awful.key( { modkey, }, "b", function() rc.spawn_or_goto('^qutebrowser$', 'qutebrowser') end,
+        {description = "Open a brsower if it's not already open on the focused screen", group = "launcher"}
     ),
     awful.key( { modkey, "Control" }, "b", function() awful.spawn('brave-browser') end,
-        {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
+        {description = "Open a brsower if it's not already open on the focused screen", group = "launcher"}
     ),
 
   awful.key(

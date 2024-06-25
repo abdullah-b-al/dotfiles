@@ -79,6 +79,8 @@ end
 -- Auto commands
 cmd('source ' .. vim.env.HOME .. '/.config/nvim/after/commands.vim')
 
+vim.api.nvim_create_user_command("Cc", "cd %:h", {})
+
 -- Section: Auto commands
 -- Disable colorcolumn for certain file types
 vim.api.nvim_create_autocmd( {"FileType"}, {
@@ -179,6 +181,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local lazy_opts = {
+    rocks = {
+        enabled = false,
+    },
     defaults = {
         lazy = false,
     },
@@ -186,6 +191,22 @@ local lazy_opts = {
 
 require("lazy").setup({
     'nvim-lua/plenary.nvim',       -- Never uninstall
+
+    {
+        'rcarriga/nvim-notify',
+        lazy = false,
+        config = function ()
+            require('notify').setup{
+                stages = "static",
+                render = "wrapped-compact",
+                timeout = 3000,
+                top_down = false,
+            }
+            vim.notify = require('notify')
+        end,
+    },
+
+
     'mg979/vim-visual-multi',
     'lambdalisue/vim-suda',
     'christoomey/vim-system-copy', -- Requires xsel
@@ -214,19 +235,6 @@ require("lazy").setup({
         end,
     },
 
-    {
-
-        'rcarriga/nvim-notify',
-        config = function ()
-            require('notify').setup{
-                stages = "static",
-                render = "wrapped-compact",
-                timeout = 3000,
-                top_down = false,
-            }
-            vim.notify = require('notify')
-        end,
-    },
     {
         'williamboman/mason.nvim',
         dependencies = { 'williamboman/mason-lspconfig.nvim', },

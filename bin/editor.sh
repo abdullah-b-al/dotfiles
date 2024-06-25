@@ -1,8 +1,9 @@
 #!/bin/sh
 
 session="$(tmux.sh active_session)"
+[ -z "$session" ] && exit 1
 
-if [ -z "$session" ] || [ -z "$TMUX" ]; then
+if [ -z "$TMUX" ] && [ -t 0 ]; then
     nvim "$@"
 else
     tmux-switch-to.sh editor

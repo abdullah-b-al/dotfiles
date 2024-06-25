@@ -14,8 +14,16 @@ super + ctrl + x
 super + z
     rofi -show run
 
-super + x
+super + c
     alacritty --class terminal-calculator -o font.size=12 -e qalc
+
+super + s; {a, r, s, t}
+    find.sh open { \
+        dotfiles, \
+        personal, \
+        root, \
+        home, \
+    }
 
 super + F2
     toggle-language.sh

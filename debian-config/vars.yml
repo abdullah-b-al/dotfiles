@@ -2,7 +2,6 @@ user: "ab55al"
 
 packages:
   - trash-cli
-  - zoxide
   - ansible
   - ansible-lint
   - shellcheck

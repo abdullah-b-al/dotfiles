@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 [ -z "$1" ] && exit 1
+[ -d "$1" ] && exit 1
 
 ext="$(echo "$1" | awk -F . '{print $NF}')"
 

@@ -611,14 +611,7 @@ end)
 
 -- Prevent windows from moving to the looking glass tag
 client.connect_signal("tagged", function(c)
-    c._previous_tag = c._current_tag
-    c._current_tag = c.first_tag
-    local lg = "looking-glass-client"
-    if c.first_tag.name == lg and c.class ~= lg then
-        local tag = c._previous_tag or awful.tag.find_by_name(awful.screen.focused(), "1")
-        c:move_to_tag(tag)
-    end
-
+    rc.prevent_clients_on_tag_except("looking-glass-client", "looking-glass-client", c)
 end)
 
 --------------------------------------------------------------------------------

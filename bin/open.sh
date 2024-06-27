@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 [ -z "$1" ] && exit 1
-[ -d "$1" ] && exit 1
 
 ext="$(echo "$1" | awk -F . '{print $NF}')"
 
@@ -11,4 +10,5 @@ elif ! [ -f "$1" ] && ! [ -d "$1" ]; then # For urls
     xdg-open "$1"
 else
     editor.sh "$1"
+    awesome-client 'require("rc2").spawn_or_goto_terminal()'
 fi

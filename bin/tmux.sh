@@ -1,5 +1,5 @@
 #!/bin/sh
-sub_and_abs() {
+_sub_and_abs() {
     if [ $1 -lt $2 ]; then
         echo "$((($2 - $1)))"
     else
@@ -64,7 +64,7 @@ popup_dims() {
     w="$out_pane_w"
     h="25"
     x="$((($out_x + $out_left)))"
-    x="$(sub_and_abs $x 3)"
+    x="$(_sub_and_abs $x 3)"
     y="$((($out_y + $out_top + $h + 1)))"
 
 
@@ -77,19 +77,25 @@ popup_dims() {
 
     right="$((($x+$w)))"
     if [ "$w" = "$out_win_w" ] || [ "$right" -ge "$out_win_w" ]; then
-        w="$(sub_and_abs $x $out_win_w)"
+        w="$(_sub_and_abs $x $out_win_w)"
     fi
 
     echo "-x $x -y $y -w $w -h $h,$layout"
 }
 
-# If an argument is provided then run the function with the same name
-if ! [ -z "$1" ]; then
-    # Make sure the argument matches one of the functions
-    if ! grep -q "^$1()\s*{" "$0"; then
-        echo "Command doesn't exist"
-        exit 1
-    fi
+if [ "$1" = "--help" ] || [ -z "$1" ]; then
+    pat="^.*()\s*{"
+    echo "Avaliable commands:"
+    grep "$pat" "$0" | grep -v "^_" | cut -f 1 -d "("
+    exit 0
+fi
 
+# If an argument is provided then run the function with the same name
+# Make sure the argument matches one of the functions
+if grep -q "^$1()\s*{" "$0"; then
+    # Call the function
     "$1"
+else
+    echo "Command doesn't exist"
+    exit 1
 fi

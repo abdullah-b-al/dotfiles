@@ -29,6 +29,15 @@ local cpu_usage_data = {
     prev_idle = 0,
 }
 
+local prevent_clients_on_tag_except = function(client_class, tag_name, c)
+    c._previous_tag = c._current_tag
+    c._current_tag = c.first_tag
+    if c.first_tag.name == tag_name and c.class ~= client_class then
+        local tag = c._previous_tag or awful.tag.find_by_name(awful.screen.focused(), "1")
+        c:move_to_tag(tag)
+    end
+end
+
 local spawn_or_goto = function(win_name_pattren, program)
 
     local focused_client = client.focus
@@ -270,4 +279,5 @@ return {
 
     spawn_or_goto = spawn_or_goto,
     spawn_or_goto_terminal = spawn_or_goto_terminal,
+    prevent_clients_on_tag_except = prevent_clients_on_tag_except,
 }

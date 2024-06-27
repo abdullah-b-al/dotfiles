@@ -11,7 +11,6 @@ fi
 # grab data from tmux
 
 session="$(tmux.sh active_session)"
-nvim_server_path="$(tmux.sh nvim_server)"
 active_window="$(tmux.sh active_window)"
 has_editor="$(tmux.sh has_editor_window)"
 window_count="$(tmux.sh window_count)"

@@ -9,6 +9,7 @@ if [ "$ext" = "pdf" ]; then
 elif ! [ -f "$1" ] && ! [ -d "$1" ]; then # For urls
     xdg-open "$1"
 else
-    editor.sh "$1"
     awesome-client 'require("rc2").spawn_or_goto_terminal()'
+    editor.sh "$1"
+    tmux-switch-to.sh editor
 fi

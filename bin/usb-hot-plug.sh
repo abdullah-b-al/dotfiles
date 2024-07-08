@@ -43,20 +43,26 @@ plug() {
 
 if [ -t 0 ]; then
   alias menu="fzf"
-  alias print="echo "
 else
   alias menu="rofi -dmenu -matching fuzzy -i"
-  alias print="notify-send -t 5000"
 fi
 
+operation="$1"
 if [ -z "$1" ]; then
-  selection="$(lsusb | menu | cut -d ' ' -f 6)"
-  [ -z "$selection" ] && exit 1
-  operation="$(printf "%s\n%s\n%s\n%s\n" "force-attach" "attach" "detach" "toggle" | menu)"
-  [ -z "$operation" ] && exit 1
+    operation="$(printf "%s\n%s\n%s\n%s\n" "force-attach" "attach" "detach" "toggle" | menu)"
+    [ -z "$operation" ] && exit 1
+fi
 
-  result="$(plug "$operation" "$selection" 2>&1)"
-  print "$result"
-else 
-  plug "$1" "$2"
+device="$2"
+if [ -z "$2" ]; then
+    device="$(lsusb | menu | cut -d ' ' -f 6)"
+    [ -z "$device" ] && exit 1
+fi
+
+result="$(plug "$operation" "$device" 2>&1)"
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+    notify-send -t 5000 "$result"
+else
+    echo "$result"
 fi

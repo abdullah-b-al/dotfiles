@@ -48,6 +48,8 @@ do
 end
 -- }}}
 
+local home = os.getenv("HOME")
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
@@ -225,79 +227,111 @@ end)
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-  -- Destroy all notifications
-  awful.key({ modkey, "Control",}, "space", function() naughty.destroy_all_notifications() end,
-    {description = "destroy all notifications", group = "hotkeys"}),
+    -- Destroy all notifications
+    awful.key({ modkey, "Control",}, "space", function() naughty.destroy_all_notifications() end,
+        {description = "destroy all notifications", group = "hotkeys"}),
 
-  -- Show help
-  awful.key({ modkey,           }, "F1",      hotkeys_popup.show_help,
-    {description="show help", group="awesome"}),
+    -- Show help
+    awful.key({ modkey, "Shift"}, "/",      hotkeys_popup.show_help,
+        {description="show help", group="awesome"}),
 
-  -- Tag browsing
-  awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-    {description = "view previous", group = "tag"}),
-  awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-    {description = "view next", group = "tag"}),
+    -- Tag browsing
+    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+        {description = "view previous", group = "tag"}),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+        {description = "view next", group = "tag"}),
 
-  -- Default client focus
-  awful.key(
-    {modkey}, "l",
-    function ()
-      -- Skip master if on half layout
-      if awful.layout.get(focused()).name == 'half' and
-        awful.client.next(1) == awful.client.getmaster() and
-        #focused().selected_tag:clients() > 2
-      then
-        awful.client.focus.byidx(2)
-      else
-        awful.client.focus.byidx(1)
-      end
-    end,
-    {description = "focus next by index", group = "client"}
-  ),
+    -- Default client focus
+    awful.key(
+        {modkey}, "l",
+        function ()
+            -- Skip master if on half layout
+            if awful.layout.get(focused()).name == 'half' and
+                awful.client.next(1) == awful.client.getmaster() and
+                #focused().selected_tag:clients() > 2
+            then
+                awful.client.focus.byidx(2)
+            else
+                awful.client.focus.byidx(1)
+            end
+        end,
+        {description = "focus next by index", group = "client"}
+    ),
 
-  awful.key(
-    {modkey}, "h",
-    function ()
-      -- Skip master if on half layout
-      if awful.layout.get(focused()).name == 'half' and
-        awful.client.next(-1) == awful.client.getmaster() and
-        #focused().selected_tag:clients() > 2
-      then
-        awful.client.focus.byidx(-2)
-      else
-        awful.client.focus.byidx(-1)
-      end
-    end,
-    {description = "focus previous by index", group = "client"}
-  ),
-  awful.key({modkey}, "a",
-    function ()
-      client.focus = awful.client.getmaster();
-      awful.client.focus.byidx(-1)
-      awful.client.focus.byidx(1)
-    end,
-    {description = "Focus master window", group = "client"}
-  ),
+    awful.key(
+        {modkey}, "h",
+        function ()
+            -- Skip master if on half layout
+            if awful.layout.get(focused()).name == 'half' and
+                awful.client.next(-1) == awful.client.getmaster() and
+                #focused().selected_tag:clients() > 2
+            then
+                awful.client.focus.byidx(-2)
+            else
+                awful.client.focus.byidx(-1)
+            end
+        end,
+        {description = "focus previous by index", group = "client"}
+    ),
+    awful.key({modkey}, "a",
+        function ()
+            client.focus = awful.client.getmaster();
+            awful.client.focus.byidx(-1)
+            awful.client.focus.byidx(1)
+        end,
+        {description = "Focus master window", group = "client"}
+    ),
 
-  -- Layout manipulation
-  awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
-    {description = "swap with next client by index", group = "client"}),
+    awful.key({modkey}, "o", 
+        function ()
+            local spawn = function (name)
+                return function ()
+                    local cmd = string.format(
+                        [[scratch-term.sh nvim --cmd "cd %s/personal/notes" %s/personal/%s]],
+                        home, home, name
+                    )
+                    awful.spawn(cmd)
+                end
+            end
 
-  awful.key({ modkey,           }, "Return", function () awful.screen.focus_relative(-1) end,
-    {description = "focus the previous screen", group = "screen"}),
+            rc.multi_key_map({
+                { "e", spawn("notes/notes.md")},
+                { "a", spawn("a.md")},
+                { "t", spawn("e.md")},
+            })
 
-  awful.key({ modkey, "Shift"   }, "h", function () awful.client.swap.byidx( -1)    end,
-    {description = "swap with previous client by index", group = "client"}),
-  awful.key({ modkey, "Control" }, "l", function () awful.screen.focus_relative( 1) end,
-    {description = "focus the next screen", group = "screen"}),
-  awful.key({ modkey, "Control" }, "h", function () awful.screen.focus_relative(-1) end,
-    {description = "focus the previous screen", group = "screen"}),
-  awful.key({ modkey, "Shift" }, "u", awful.client.urgent.jumpto,
-    {description = "jump to urgent client", group = "client"}),
+        end, {}),
 
-  -- Show/hide wibox
-  awful.key({ modkey, 'Shift' }, "b", function ()
+    awful.key({modkey}, "s", function ()
+        local spawn = function (name)
+            return function () awful.spawn([[find.sh open ]] .. name) end
+        end
+        rc.multi_key_map({
+            {"a", spawn("dotfiles")},
+            {"r", spawn("personal")},
+            {"s", spawn("root")},
+            {"t", spawn("home")},
+        })
+    end, {}),
+
+    -- Layout manipulation
+    awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
+        {description = "swap with next client by index", group = "client"}),
+
+    awful.key({ modkey,           }, "Return", function () awful.screen.focus_relative(-1) end,
+        {description = "focus the previous screen", group = "screen"}),
+
+    awful.key({ modkey, "Shift"   }, "h", function () awful.client.swap.byidx( -1)    end,
+        {description = "swap with previous client by index", group = "client"}),
+    awful.key({ modkey, "Control" }, "l", function () awful.screen.focus_relative( 1) end,
+        {description = "focus the next screen", group = "screen"}),
+    awful.key({ modkey, "Control" }, "h", function () awful.screen.focus_relative(-1) end,
+        {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey, "Shift" }, "u", awful.client.urgent.jumpto,
+        {description = "jump to urgent client", group = "client"}),
+
+    -- Show/hide wibox
+    awful.key({ modkey, 'Shift' }, "b", function ()
         for s in screen do
             s.topwibox.visible = not s.topwibox.visible
             s.leftwibox.visible = not s.leftwibox.visible
@@ -305,22 +339,22 @@ globalkeys = gears.table.join(
                 s.mybottomwibox.visible = not s.mybottomwibox.visible
             end
         end
-  end,
-    {description = "toggle wibox", group = "awesome"}),
+    end,
+        {description = "toggle wibox", group = "awesome"}),
 
-  awful.key( { modkey, }, "t", function()
+    awful.key( { modkey, }, "t", function()
         rc.spawn_or_goto_terminal()
         awful.spawn("tmux-switch-to.sh shell")
     end,
-    {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
-  ),
+        {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
+    ),
 
-  awful.key( { modkey, }, "e", function()
+    awful.key( { modkey, }, "e", function()
         awful.spawn("tmux-switch-to.sh editor")
         rc.spawn_or_goto_terminal()
     end,
-    {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
-  ),
+        {description = "Open the editor if it's not already open on the focused screen", group = "launcher"}
+    ),
 
     awful.key( { modkey, }, "b", function() rc.spawn_or_goto('^qutebrowser$', 'qutebrowser') end,
         {description = "Open a brsower if it's not already open on the focused screen", group = "launcher"}
@@ -329,37 +363,52 @@ globalkeys = gears.table.join(
         {description = "Open a brsower if it's not already open on the focused screen", group = "launcher"}
     ),
 
-  awful.key(
-    { modkey, "Shift"}, "t", function ()
-      awful.spawn(terminal)
-    end,
-    {description = "Force open a terminal", group = "launcher"}
-  ),
+    awful.key(
+        { modkey, "Shift"}, "t", function ()
+            awful.spawn(terminal)
+        end,
+        {description = "Force open a terminal", group = "launcher"}
+    ),
 
-  awful.key({ modkey, "Control" }, "r", awesome.restart,
-    {description = "reload awesome", group = "awesome"}),
-  awful.key({ modkey, "Shift"   }, "q", awesome.quit,
-    {description = "quit awesome", group = "awesome"}),
+    awful.key({ modkey, "Control" }, "r", awesome.restart,
+        {description = "reload awesome", group = "awesome"}),
+    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+        {description = "quit awesome", group = "awesome"}),
 
-  awful.key({ modkey,           }, "j",     function () awful.tag.incmwfact( 0.02)          end,
-    {description = "increase master width factor", group = "layout"}),
-  awful.key({ modkey,           }, "k",     function () awful.tag.incmwfact(-0.02)          end,
-    {description = "decrease master width factor", group = "layout"}),
-  awful.key({ modkey, "Shift"   }, "j",     function () awful.tag.incnmaster( 1, nil, true) end,
-    {description = "increase the number of master clients", group = "layout"}),
-  awful.key({ modkey, "Shift"   }, "k",     function () awful.tag.incnmaster(-1, nil, true) end,
-    {description = "decrease the number of master clients", group = "layout"}),
-  awful.key({ modkey, "Control" }, "j",     function () awful.tag.incncol( 1, nil, true)    end,
-    {description = "increase the number of columns", group = "layout"}),
-  awful.key({ modkey, "Control" }, "k",     function () awful.tag.incncol(-1, nil, true)    end,
-    {description = "decrease the number of columns", group = "layout"}),
-  awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
-    {description = "select next", group = "layout"}),
-  awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
-    {description = "select previous", group = "layout"})
+    awful.key({ modkey,           }, "j",     function () awful.tag.incmwfact( 0.02)          end,
+        {description = "increase master width factor", group = "layout"}),
+    awful.key({ modkey,           }, "k",     function () awful.tag.incmwfact(-0.02)          end,
+        {description = "decrease master width factor", group = "layout"}),
+    awful.key({ modkey, "Shift"   }, "j",     function () awful.tag.incnmaster( 1, nil, true) end,
+        {description = "increase the number of master clients", group = "layout"}),
+    awful.key({ modkey, "Shift"   }, "k",     function () awful.tag.incnmaster(-1, nil, true) end,
+        {description = "decrease the number of master clients", group = "layout"}),
+    awful.key({ modkey, "Control" }, "j",     function () awful.tag.incncol( 1, nil, true)    end,
+        {description = "increase the number of columns", group = "layout"}),
+    awful.key({ modkey, "Control" }, "k",     function () awful.tag.incncol(-1, nil, true)    end,
+        {description = "decrease the number of columns", group = "layout"}),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
+        {description = "select next", group = "layout"}),
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
+        {description = "select previous", group = "layout"}),
 
+    awful.key({modkey, "Control"}, "x", function ()
+        awful.spawn("lockscreen.sh")
+    end, {description = "Lock screen"}),
 
-  --]]
+    awful.key({modkey}, "z", function ()
+        awful.spawn("rofi -show run")
+    end, {description = "Open progam launcher"}),
+
+    awful.key({modkey}, "c", function ()
+        awful.spawn("alacritty --class terminal-calculator -o font.size=12 -e qalc")
+    end, {description = "Open calculator"}),
+
+    awful.key({modkey}, "F2", function ()
+        awful.spawn("toggle-language.sh")
+    end, {description = "Toggle language"})
+
+    --]] This is a function call. Do not place a comma at the end
 )
 
 clientkeys = gears.table.join(

@@ -60,7 +60,7 @@ opt.spellfile      = home .. '/.local/share/nvim/spell/en.utf-8.add'
 opt.viewoptions    = 'cursor'                                 -- save/restore just these with {mk,load}view`
 
 opt.foldmethod     = 'manual'
--- opt.foldmethod  = 'expr'
+-- opt.foldmethod = 'expr'
 opt.foldexpr    = "v:lua.vim.treesitter.foldexpr()"
 
 -- Globals
@@ -146,13 +146,13 @@ Unique_map('n', '/', '/\\v', { remap = false , desc = 'Case insensitive pattern 
 -- map('n', '<C-u>', '<C-u>zz', { remap = false })
 
 --{{{1 quickfix mappings
-Unique_map('n', '<C-l>', ':cnext<CR>zv', { remap = false , desc = 'Go to next item in quickfix list'})
-Unique_map('n', '<C-h>', ':cprev<CR>zv', { remap = false , desc = 'Go to prev item in quickfix list'})
-Unique_map('n', '<C-q>', ':copen<CR>', { remap = false , desc = 'Open quickfix list'})
+Unique_map('n', '<C-l>', ':lnext<CR>zv', { remap = false , desc = 'Go to next item in quickfix list'})
+Unique_map('n', '<C-h>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in quickfix list'})
+Unique_map('n', '<C-q>', ':lopen<CR>', { remap = false , desc = 'Open quickfix list'})
 
-Unique_map('n', '<M-C-L>', ':lnext<CR>zv', { remap = false , desc = 'Go to next item in local quickfix list'})
-Unique_map('n', '<M-C-H>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
-Unique_map('n', '<M-C-Q>', ':lopen<CR>', { remap = false , desc = 'Open local quickfix list'})
+Unique_map('n', '<M-C-L>', ':cnext<CR>zv', { remap = false , desc = 'Go to next item in local quickfix list'})
+Unique_map('n', '<M-C-H>', ':cprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
+Unique_map('n', '<M-C-Q>', ':copen<CR>', { remap = false , desc = 'Open local quickfix list'})
 
 -- " {{{1 Nicer tab switching
 Unique_map('n', '<leader>1', '1gt', { remap = false, silent = true })
@@ -336,9 +336,9 @@ require("lazy").setup({
                         },
 
                         selection_modes = {
-                            ['@parameter.outer'] = 'v', -- charwise
-                            ['@function.outer'] = 'V', -- linewise
-                            ['@class.outer'] = '<c-v>', -- blockwise
+                            ['@parameter.outer'] = 'v', -- char-wise
+                            ['@function.outer'] = 'V', -- line-wise
+                            ['@class.outer'] = '<c-v>', -- block-wise
                         },
                         include_surrounding_whitespace = false,
                     },

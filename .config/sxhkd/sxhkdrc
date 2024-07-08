@@ -1,33 +1,3 @@
-super + o ; {super + e, super + i, super + a, super + t, super + p}
-    scratch-term.sh nvim --cmd "cd $HOME/personal/notes" { \
-        $HOME/personal/notes/notes.md, \
-        $HOME/personal/tk.md, \
-        $HOME/personal/a.md, \
-        $HOME/personal/e.md, \
-        $HOME/personal/p.md \
-        }
-
-
-super + ctrl + x
-    lockscreen.sh
-
-super + z
-    rofi -show run
-
-super + c
-    alacritty --class terminal-calculator -o font.size=12 -e qalc
-
-super + s; {a, r, s, t}
-    find.sh open { \
-        dotfiles, \
-        personal, \
-        root, \
-        home, \
-    }
-
-super + F2
-    toggle-language.sh
-
 XF86MonBrightnessDown
     brightness.sh 5%-
 

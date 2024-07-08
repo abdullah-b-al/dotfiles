@@ -27,12 +27,8 @@ export HISTCONTROL=ignoreboth
 export MANROFFOPT='-c'
 export FZF_DEFAULT_OPTS="--layout=reverse --height=2%"
 
-if [ "$(command -v bat)" ]; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-elif [ "$(command -v batcat)" ]; then
-  alias bat="batcat"
-  export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
-fi
+alias bat="batcat --paging always"
+export MANPAGER="sh -c 'col -bx | batcat --paging always -l man -p'"
 
 export DOTFILESDIR="$HOME/.dotfiles"
 export SUDO_ASKPASS="$DOTFILESDIR/bin/askpass.sh"

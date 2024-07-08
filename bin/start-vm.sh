@@ -1,5 +1,10 @@
 #!/bin/sh 
 
+if [ "$(virsh domstate win10)" = "running" ]; then
+    looking-glass.sh
+    exit 0
+fi
+
 reset_method="$(cat /sys/bus/pci/devices/0000:11:00.0/reset_method)"
 if [ "$reset_method" != "device_specific" ]; then
     echo 'device_specific' | sudo -A tee /sys/bus/pci/devices/0000:11:00.0/reset_method
@@ -20,10 +25,10 @@ usb-hot-plug.sh detach 045e:02ea # xbox controller
 output="$(virsh -c "qemu:///system" start win10 2>&1)"
 exit_status="$?"
 if [ "$exit_status" = "0" ]; then
-    looking-glass.sh
-    usb-hot-plug.sh attach 045e:02ea # xbox controller
-elif echo "$output" | grep -qi "domain.*active"; then
-    looking-glass.sh
+    looking-glass.sh &
+
+    sleep 20 # wait for windows to fully boot up
+    usb-hot-plug.sh force-attach 045e:02ea # xbox controller
 else
     notify-send --urgency=critical -t 3000 "Virsh" "$output"
 fi

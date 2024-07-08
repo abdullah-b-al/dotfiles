@@ -12,7 +12,7 @@ _list_functions() {
 if [ -t 0 ]; then
     alias menu="_open_path_fzf"
 else
-    alias menu="rofi -dmenu -matching fuzzy -i"
+    alias menu="rofi -dmenu -matching regex -i"
 fi
 
 personal() {

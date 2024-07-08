@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 sudo -A --validate
 sudo systemctl stop NetworkManager
-sudo pkill wpa_supplicant
+sudo killall wpa_supplicant
 sudo systemctl start NetworkManager
+
+sleep 5
+nextcloud --quit && nextcloud --background & disown

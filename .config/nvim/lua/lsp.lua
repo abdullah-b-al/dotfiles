@@ -26,11 +26,11 @@ local on_attach = function(client, bufnr)
     Unique_map('n', 'gd', vim.lsp.buf.definition,          { remap = false, silent=true , buffer = 0 , desc = 'LSP: Go to definition'})
     Unique_map('n', '<C-s>', vim.lsp.buf.signature_help,   { remap = false, silent=true , buffer = 0 , desc = 'LSP: Show function signature'})
     Unique_map('n', '<space>rn', vim.lsp.buf.rename,       { remap = false, silent=true , buffer = 0 , desc = 'LSP: Rename symbol'})
-    Unique_map('n', 'gr', vim.lsp.buf.references,          { remap = false, silent=true , buffer = 0 , desc = 'LSP: Put references in quickfix list'})
-    Unique_map('n', '<space>e', vim.diagnostic.open_float, { remap = false, silent=true , buffer = 0 , desc = 'LSP: Show diagnostics'})
-    Unique_map('n', '<space>q', vim.diagnostic.setloclist, { remap = false, silent=true , buffer = 0 , desc = 'LSP: Place diagnostics in local quickfix list'})
+    Unique_map('n', '<space>rr', vim.lsp.buf.references,          { remap = false, silent=true , buffer = -1 , desc = 'LSP: Put references in quickfix list'})
+    Unique_map('n', '<space>le', vim.diagnostic.open_float, { remap = false, silent=true , buffer = 0 , desc = 'LSP: Show diagnostics'})
+    Unique_map('n', '<space>ll', vim.diagnostic.setloclist, { remap = false, silent=true , buffer = 0 , desc = 'LSP: Place diagnostics in local quickfix list'})
     Unique_map('n', '<space>lc', vim.lsp.buf.code_action,  { remap = false, silent=true , buffer = 0 , desc = 'LSP: Code action'})
-    Unique_map('n', '<space>hi', function ()
+    Unique_map('n', '<space>lh', function ()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end,  { remap = false, silent=true , buffer = 0 , desc = 'LSP: toggle inlay hint'})
 end
@@ -92,6 +92,7 @@ local servers = {
     {name = 'pylsp'},
     {name = 'ansiblels', cmd = {'ansible-language-server', '--stdio'}, filetypes = {'yaml.ansible', "yaml", "yml"},},
     {name = 'lua_ls', cmd = {'lua-language-server'} },
+    {name = 'harper_ls', cmd = {'harper-ls', '--stdio'} },
 }
 
 require("mason-lspconfig").setup({
@@ -102,6 +103,7 @@ require("mason-lspconfig").setup({
         'pylsp',
         'clangd',
         'ansiblels',
+        'harper_ls',
     },
 })
 

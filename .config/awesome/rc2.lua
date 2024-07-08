@@ -38,15 +38,20 @@ local prevent_clients_on_tag_except = function(client_class, tag_name, c)
     end
 end
 
-local spawn_or_goto = function(win_name_pattren, program)
+local spawn_or_goto = function(win_name_pattren, program, match)
+    match = match or "class_and_name"
 
     local focused_client = client.focus
     local clients =  awful.screen.focused().all_clients
 
     for _, c in ipairs(clients) do
-        local is_window =
-        string.match(tostring(c.name), win_name_pattren) or
-        string.match(tostring(c.class), win_name_pattren)
+        local is_window = false
+        if match == "name" or match == "class_and_name" then
+            is_window = is_window or string.match(tostring(c.name), win_name_pattren)
+        end
+        if match == "class" or match == "class_and_name" then
+            is_window = is_window or string.match(tostring(c.class), win_name_pattren)
+        end
 
         local is_focused = c == focused_client
 
@@ -65,7 +70,7 @@ local spawn_or_goto = function(win_name_pattren, program)
     awful.spawn(program)
 end
 
-local spawn_or_goto_terminal = function () spawn_or_goto('^Alacritty$', 'alacritty') end
+local spawn_or_goto_terminal = function () spawn_or_goto('^Alacritty$', 'alacritty', "class") end
 
 local combine = function (widget, shape, margin)
     local t = gears.table.join(margin, {widget})
@@ -265,6 +270,49 @@ local network = {
     textbox_color("Mb/s", secondary_fg),
 }
 
+local multi_key_map = function (keys)
+
+    for _, v in ipairs(keys) do
+        local key = v[1]
+        local callback = v[2]
+        if type(key) ~= "string" then
+            naughty.notify({ preset = naughty.config.presets.critical,
+                title = "Wrong type passed to multi_key_map",
+                text = "Expected key as string got " .. type(key) })
+            return
+        end
+        if type(callback) ~= "function" then
+            naughty.notify({ preset = naughty.config.presets.critical,
+                title = "Wrong type passed to multi_key_map",
+                text = "Expected callback as function got " .. type(callback) })
+            return
+        end
+    end
+
+
+    local grabber
+    grabber = awful.keygrabber.run(function (arg_mods, arg_key, arg_event)
+        if arg_event == "release" then return end
+
+        for _, v in ipairs(keys) do
+            local key = v[1]
+            local callback = v[2]
+
+            if key == arg_key then
+                callback()
+                awful.keygrabber.stop(grabber)
+            elseif string.match(arg_key, "Shift") then
+                goto continue
+            else
+                awful.keygrabber.stop(grabber)
+            end
+
+            ::continue::
+        end
+    end)
+
+end
+
 return {
     widgets = {
         battery = widgets.battery,
@@ -280,4 +328,5 @@ return {
     spawn_or_goto = spawn_or_goto,
     spawn_or_goto_terminal = spawn_or_goto_terminal,
     prevent_clients_on_tag_except = prevent_clients_on_tag_except,
+    multi_key_map = multi_key_map,
 }

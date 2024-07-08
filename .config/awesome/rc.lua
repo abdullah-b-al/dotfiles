@@ -282,7 +282,7 @@ globalkeys = gears.table.join(
         {description = "Focus master window", group = "client"}
     ),
 
-    awful.key({modkey}, "o", 
+    awful.key({modkey}, "o",
         function ()
             local spawn = function (name)
                 return function ()
@@ -295,9 +295,9 @@ globalkeys = gears.table.join(
             end
 
             rc.multi_key_map({
-                { "e", spawn("notes/notes.md")},
-                { "a", spawn("a.md")},
-                { "t", spawn("e.md")},
+                {{}, "e", spawn("notes/notes.md")},
+                {{}, "a", spawn("a.md")},
+                {{}, "t", spawn("e.md")},
             })
 
         end, {}),
@@ -307,10 +307,10 @@ globalkeys = gears.table.join(
             return function () awful.spawn([[find.sh open ]] .. name) end
         end
         rc.multi_key_map({
-            {"a", spawn("dotfiles")},
-            {"r", spawn("personal")},
-            {"s", spawn("root")},
-            {"t", spawn("home")},
+            {{}, "a", spawn("dotfiles")},
+            {{}, "r", spawn("personal")},
+            {{}, "s", spawn("root")},
+            {{}, "t", spawn("home")},
         })
     end, {}),
 

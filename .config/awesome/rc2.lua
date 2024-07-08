@@ -270,11 +270,18 @@ local network = {
     textbox_color("Mb/s", secondary_fg),
 }
 
-local multi_key_map = function (keys)
+local function multi_key_map  (keys)
 
     for _, v in ipairs(keys) do
-        local key = v[1]
-        local callback = v[2]
+        local mods = v[1]
+        local key = v[2]
+        local callback = v[3]
+        if type(mods) ~= "table" then
+            naughty.notify({ preset = naughty.config.presets.critical,
+                title = "Wrong type passed to multi_key_map",
+                text = "Expected mods as table got " .. type(key) })
+            return
+        end
         if type(key) ~= "string" then
             naughty.notify({ preset = naughty.config.presets.critical,
                 title = "Wrong type passed to multi_key_map",
@@ -291,17 +298,36 @@ local multi_key_map = function (keys)
 
 
     local grabber
-    grabber = awful.keygrabber.run(function (arg_mods, arg_key, arg_event)
-        if arg_event == "release" then return end
+    grabber = awful.keygrabber.run(function (received_mods, received_key, received_event)
+        if received_event == "release" then return end
+
+        received_key = string.lower(received_key)
+
+        local mods_set = {
+            super_l   = true, super_r   = true,
+            shift_l   = true, shift_r   = true,
+            control_l = true, control_r = true,
+            alt_l     = true, alt_r     = true,
+        }
+        local key_is_mod = mods_set[received_key] ~= nil
 
         for _, v in ipairs(keys) do
-            local key = v[1]
-            local callback = v[2]
+            local mods = v[1]
+            local key = v[2]
+            local callback = v[3]
 
-            if key == arg_key then
+            local mods_are_eql = #mods == #received_mods
+            for i, _ in ipairs(mods) do
+                if not mods_are_eql then break end
+                if mods[i] ~= received_mods[i] then
+                    mods_are_eql = false
+                end
+            end
+
+            if key == received_key and mods_are_eql then
                 callback()
                 awful.keygrabber.stop(grabber)
-            elseif string.match(arg_key, "Shift") then
+            elseif key_is_mod then
                 goto continue
             else
                 awful.keygrabber.stop(grabber)

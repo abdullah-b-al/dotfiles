@@ -1,3 +1,5 @@
+local M = {}
+
 local wibox = require("wibox")
 local awful = require("awful")
 local naughty = require("naughty")
@@ -29,7 +31,7 @@ local cpu_usage_data = {
     prev_idle = 0,
 }
 
-local prevent_clients_on_tag_except = function(client_class, tag_name, c)
+M.prevent_clients_on_tag_except = function(client_class, tag_name, c)
     c._previous_tag = c._current_tag
     c._current_tag = c.first_tag
     if c.first_tag.name == tag_name and c.class ~= client_class then
@@ -38,7 +40,7 @@ local prevent_clients_on_tag_except = function(client_class, tag_name, c)
     end
 end
 
-local spawn_or_goto = function(win_name_pattren, program, match)
+M.spawn_or_goto = function(win_name_pattren, program, match)
     match = match or "class_and_name"
 
     local focused_client = client.focus
@@ -70,7 +72,7 @@ local spawn_or_goto = function(win_name_pattren, program, match)
     awful.spawn(program)
 end
 
-local spawn_or_goto_terminal = function () spawn_or_goto('^Alacritty$', 'alacritty', "class") end
+M.spawn_or_goto_terminal = function () M.spawn_or_goto('^Alacritty$', 'alacritty', "class") end
 
 local combine = function (widget, shape, margin)
     local t = gears.table.join(margin, {widget})
@@ -270,7 +272,7 @@ local network = {
     textbox_color("Mb/s", secondary_fg),
 }
 
-local function multi_key_map  (keys)
+function M.multi_key_map  (keys)
 
     for _, v in ipairs(keys) do
         local mods = v[1]
@@ -339,20 +341,15 @@ local function multi_key_map  (keys)
 
 end
 
-return {
-    widgets = {
-        battery = widgets.battery,
-        ram = combine(ram, shape, margin),
-        date_and_time = combine(date_and_time, shape, margin),
-        cpu = combine(cpu, shape, margin),
-        gpu = combine(gpu, shape, margin),
-        network = combine(network, shape, margin),
-        auto_cpufreq = widgets.auto_cpufreq,
-    },
+M.widgets = {
+    battery = widgets.battery,
+    ram = combine(ram, shape, margin),
+    date_and_time = combine(date_and_time, shape, margin),
+    cpu = combine(cpu, shape, margin),
+    gpu = combine(gpu, shape, margin),
+    network = combine(network, shape, margin),
+    auto_cpufreq = widgets.auto_cpufreq,
 
-
-    spawn_or_goto = spawn_or_goto,
-    spawn_or_goto_terminal = spawn_or_goto_terminal,
-    prevent_clients_on_tag_except = prevent_clients_on_tag_except,
-    multi_key_map = multi_key_map,
 }
+
+return M

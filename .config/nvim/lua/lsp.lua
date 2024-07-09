@@ -92,7 +92,7 @@ local servers = {
     {name = 'pylsp'},
     {name = 'ansiblels', cmd = {'ansible-language-server', '--stdio'}, filetypes = {'yaml.ansible', "yaml", "yml"},},
     {name = 'lua_ls', cmd = {'lua-language-server'} },
-    {name = 'harper_ls', cmd = {'harper-ls', '--stdio'} },
+    -- {name = 'harper_ls', cmd = {'harper-ls', '--stdio'} },
 }
 
 require("mason-lspconfig").setup({

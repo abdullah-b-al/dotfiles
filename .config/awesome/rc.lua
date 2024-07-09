@@ -14,7 +14,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local focused = awful.screen.focused
-local focused_screen = awful.screen.focused
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -63,14 +62,14 @@ beautiful.tasklist_bg_focus = "#555555"
 beautiful.tasklist_fg_focus  = "#CCCCCC"
 beautiful.tasklist_fg_normal = "#CCCCCC"
 
-terminal = "alacritty"
+local terminal = "alacritty"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+local modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -99,31 +98,31 @@ local taglist_buttons = gears.table.join(
   awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
 
-local tasklist_buttons = gears.table.join(
-  awful.button({ }, 1, function (c)
-    if c == client.focus then
-      c.minimized = true
-    else
-      c:emit_signal(
-        "request::activate",
-        "tasklist",
-        {raise = true}
-      )
-    end
-  end),
+-- local tasklist_buttons = gears.table.join(
+--   awful.button({ }, 1, function (c)
+--     if c == client.focus then
+--       c.minimized = true
+--     else
+--       c:emit_signal(
+--         "request::activate",
+--         "tasklist",
+--         {raise = true}
+--       )
+--     end
+--   end),
 
-  awful.button({ }, 3, function()
-    awful.menu.client_list({ theme = { width = 250 } })
-  end),
+--   awful.button({ }, 3, function()
+--     awful.menu.client_list({ theme = { width = 250 } })
+--   end),
 
-  awful.button({ }, 4, function ()
-    awful.client.focus.byidx(1)
-  end),
+--   awful.button({ }, 4, function ()
+--     awful.client.focus.byidx(1)
+--   end),
 
-  awful.button({ }, 5, function ()
-    awful.client.focus.byidx(-1)
-  end)
-)
+--   awful.button({ }, 5, function ()
+--     awful.client.focus.byidx(-1)
+--   end)
+-- )
 
 awful.screen.connect_for_each_screen(function(s)
   -- Each screen has its own tag table.
@@ -282,7 +281,7 @@ globalkeys = gears.table.join(
         {description = "Focus master window", group = "client"}
     ),
 
-    awful.key({modkey}, "o",
+    awful.key({modkey}, "t",
         function ()
             local spawn = function (name)
                 return function ()
@@ -342,29 +341,29 @@ globalkeys = gears.table.join(
     end,
         {description = "toggle wibox", group = "awesome"}),
 
-    awful.key( { modkey, }, "t", function()
+    awful.key( { modkey, }, "n", function()
         rc.spawn_or_goto_terminal()
         awful.spawn("tmux-switch-to.sh shell")
     end,
-        {description = "Open a terminal if it's not already open on the focused screen", group = "launcher"}
+        {description = "Open or go to a terminal if it's not already open on the focused screen"}
     ),
 
     awful.key( { modkey, }, "e", function()
         awful.spawn("tmux-switch-to.sh editor")
         rc.spawn_or_goto_terminal()
     end,
-        {description = "Open the editor if it's not already open on the focused screen", group = "launcher"}
+        {description = "Open or go to the editor if it's not already open on the focused screen"}
     ),
 
-    awful.key( { modkey, }, "b", function() rc.spawn_or_goto('^qutebrowser$', 'qutebrowser') end,
-        {description = "Open a brsower if it's not already open on the focused screen", group = "launcher"}
+    awful.key( { modkey, }, "i", function() rc.spawn_or_goto('^qutebrowser$', 'qutebrowser') end,
+        {description = "Open or go to a brsower if it's not already open on the focused screen"}
     ),
     awful.key( { modkey, "Control" }, "b", function() awful.spawn('brave-browser') end,
-        {description = "Open a brsower if it's not already open on the focused screen", group = "launcher"}
+        {description = "Open a brsower if it's not already open on the focused screen"}
     ),
 
     awful.key(
-        { modkey, "Shift"}, "t", function ()
+        { modkey, "Shift"}, "n", function ()
             awful.spawn(terminal)
         end,
         {description = "Force open a terminal", group = "launcher"}
@@ -516,61 +515,61 @@ root.keys(globalkeys)
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
-  -- All clients will match this rule.
-  { rule = { },
-    properties = { border_width = beautiful.border_width,
-      border_color = beautiful.border_normal,
-      focus = awful.client.focus.filter,
-      raise = true,
-      keys = clientkeys,
-      buttons = clientbuttons,
-      screen = awful.screen.preferred,
-      placement = awful.placement.no_overlap+awful.placement.no_offscreen
-    }
-  },
-
-  -- Floating clients.
-  { rule_any = {
-    instance = {
-      "DTA",  -- Firefox addon DownThemAll.
-      "copyq",  -- Includes session name in class.
-      "pinentry",
+    -- All clients will match this rule.
+    { rule = { },
+        properties = { border_width = beautiful.border_width,
+            border_color = beautiful.border_normal,
+            focus = awful.client.focus.filter,
+            raise = true,
+            keys = clientkeys,
+            buttons = clientbuttons,
+            screen = awful.screen.preferred,
+            placement = awful.placement.no_overlap+awful.placement.no_offscreen
+        }
     },
-    class = {
-      "Arandr",
-      "Blueman-manager",
-      "Gpick",
-      "Kruler",
-      "MessageWin",  -- kalarm.
-      "Sxiv",
-      "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-      "Wpa_gui",
-      "veromix",
-      "xtightvncviewer"},
 
-    -- Note that the name property shown in xprop might be set slightly after creation of the client
-    -- and the name shown there might not match defined rules here.
-    name = {
-      "Event Tester",  -- xev.
+    -- Floating clients.
+    { rule_any = {
+        instance = {
+            "DTA",  -- Firefox addon DownThemAll.
+            "copyq",  -- Includes session name in class.
+            "pinentry",
+        },
+        class = {
+            "Arandr",
+            "Blueman-manager",
+            "Gpick",
+            "Kruler",
+            "MessageWin",  -- kalarm.
+            "Sxiv",
+            "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
+            "Wpa_gui",
+            "veromix",
+            "xtightvncviewer"},
+
+        -- Note that the name property shown in xprop might be set slightly after creation of the client
+        -- and the name shown there might not match defined rules here.
+        name = {
+            "Event Tester",  -- xev.
+        },
+        role = {
+            "AlarmWindow",  -- Thunderbird's calendar.
+            "ConfigManager",  -- Thunderbird's about:config.
+            "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+        }
+    }, properties = { floating = true }},
+
+    -- Add titlebars to normal clients and dialogs
+    {
+        rule_any = {type = { "normal", "dialog" }
+        }, properties = { titlebars_enabled = true }
     },
-    role = {
-      "AlarmWindow",  -- Thunderbird's calendar.
-      "ConfigManager",  -- Thunderbird's about:config.
-      "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-    }
-  }, properties = { floating = true }},
 
-  -- Add titlebars to normal clients and dialogs
-  {
-    rule_any = {type = { "normal", "dialog" }
-    }, properties = { titlebars_enabled = true }
-  },
-
-  {
-    rule_any = {
-      class = { "looking-glass-client" }
-    }, properties = { floating = true, screen = 1, fullscreen = true, new_tag = true}
-  },
+    {
+        rule_any = {
+            class = { "looking-glass-client" }
+        }, properties = { floating = true, screen = 1, fullscreen = true, new_tag = true}
+    },
 
     {
         rule_any = {
@@ -583,21 +582,23 @@ awful.rules.rules = {
     },
 
 
-  {
-    rule_any = {
-      class = {
-        "scratch-terminal",
-        "TestWindow",
-      },
-    }, properties = {
-      floating = true,
-      center = true,
-      x = 0,
-      y = awful.screen.focused().geometry.height / 8,
-      height = awful.screen.focused().geometry.height * 0.75,
-      width = awful.screen.focused().geometry.width - 6
+    {
+        rule_any = {
+            class = {
+                "scratch-terminal",
+                "TestWindow",
+            },
+        }, properties = {
+            callback = function (c)
+                c.x = 0
+                c.y = awful.screen.focused().geometry.height / 8
+                c.height = awful.screen.focused().geometry.height * 0.75
+                c.width = awful.screen.focused().geometry.width - 6
+                c.screen = awful.screen.focused()
+            end,
+            floating = true,
+        },
     },
-  },
 
     {
         rule_any = {
@@ -607,10 +608,13 @@ awful.rules.rules = {
         }, properties = {
             floating = true,
             center = true,
-            x = awful.screen.focused().geometry.width * 0.25,
-            y = awful.screen.focused().geometry.height * 0.25,
-            height = awful.screen.focused().geometry.height * 0.5,
-            width = awful.screen.focused().geometry.width * 0.5,
+            callback = function (c)
+                c.x = awful.screen.focused().geometry.width * 0.25
+                c.y = awful.screen.focused().geometry.height * 0.25
+                c.height = awful.screen.focused().geometry.height * 0.5
+                c.width = awful.screen.focused().geometry.width * 0.5
+                c.screen = awful.screen.focused()
+            end,
         },
     },
 

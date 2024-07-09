@@ -1,0 +1,7 @@
+{
+  "diagnostics.globals": ["client", "awesome"],
+  "workspace.checkThirdParty": false,
+  "workspace.library": [
+    "/usr/share/awesome/lib",
+  ]
+}

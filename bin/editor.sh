@@ -6,17 +6,37 @@ session="$(tmux.sh active_session)"
 if [ -z "$TMUX" ] && [ -t 0 ]; then
     nvim "$@"
 else
-    tmux-switch-to.sh editor
-    server="--server $(tmux.sh nvim_server)"
+    tmux.sh create_editor_window
+    server="$(tmux.sh nvim_server)"
 
-    if [ "$1" = "--vs" ] && [ "$#" -gt "1" ]; then
-        file="$(readlink -f "$2")"
-        nvim $server --remote-send "<ESC>:vs $file<CR>"
-    elif [ "$1" = "--hs" ] && [ "$#" -gt "1" ]; then
-        file="$(readlink -f "$2")"
-        nvim $server --remote-send "<ESC>:sp $file<CR>"
-    elif [ "$#" = "1" ]; then
-        file="$(readlink -f "$1")"
-        nvim $server --remote-tab "$file"
-    fi
+    i=1
+    while [ "$i" -le "$#" ]; do
+        eval "arg=\$$i"
+
+        cmd=""
+        case "$arg" in
+            *-vs*) cmd="vs";;
+            *-sp*) cmd="sp";;
+            *-e*) cmd="e";;
+        esac
+
+        if [ -z "$cmd" ]; then
+            cmd="tabe"
+            file="$(readlink -f "$arg")"
+        else
+            i="$(( $i + 1 ))"
+            eval "arg=\$$i"
+            file="$(readlink -f "$arg")"
+        fi
+
+        if [ "$cmd" = "tabe" ]; then
+            # This allows the tab to overtake an empty buffer
+            nvim --server "$server" --remote-tab "$file"
+        else
+            nvim --server "$server" --remote-send "<CMD>$cmd $file<CR>"
+        fi
+        i="$(( $i + 1 ))"
+    done
+
+    tmux-switch-to.sh editor
 fi

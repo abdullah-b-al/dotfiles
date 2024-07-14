@@ -26,6 +26,8 @@ output="$(virsh -c "qemu:///system" start win10 2>&1)"
 exit_status="$?"
 if [ "$exit_status" = "0" ]; then
     looking-glass.sh &
+    sleep 25
+    usb-hot-plug.sh force-attach 045e:02ea # xbox controller
 else
     notify-send --urgency=critical -t 3000 "Virsh" "$output"
 fi

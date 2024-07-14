@@ -29,8 +29,6 @@ end
 
 local rc = require("rc2")
 
-naughty.config.defaults['font'] = "Ubuntu Condensed 24"
-
 -- Handle runtime errors after startup
 do
     local in_error = false
@@ -56,8 +54,16 @@ gears.wallpaper.set("#000000")
 -- beautiful.border_width = 2
 -- beautiful.border_focus = "#FFFFFF"
 
+local get_font = function (size)
+    size = tostring(size or 9)
+    return "Ubuntu Condensed " .. size
+end
+beautiful.font = get_font()
+beautiful.notification_font = get_font(32)
 beautiful.fg_normal  = "#FFFFFF"
 beautiful.bg_normal  = "#1c1c1c"
+beautiful.titlebar_fg  = beautiful.fg_normal
+beautiful.titlebar_bg  = beautiful.bg_normal
 beautiful.tasklist_bg_focus = "#555555"
 beautiful.tasklist_fg_focus  = "#CCCCCC"
 beautiful.tasklist_fg_normal = "#CCCCCC"
@@ -576,6 +582,20 @@ awful.rules.rules = {
             class = { "zenity", "Zenity" }
         },
         properties = {
+            callback = function (c)
+                local titlebar = awful.titlebar(c)
+
+                beautiful.font = get_font(12)
+                titlebar:setup({
+                    { -- Title
+                        align  = 'center',
+                        widget = awful.titlebar.widget.titlewidget(c),
+                    },
+                    layout  = wibox.layout.flex.horizontal
+
+                })
+                beautiful.font = get_font()
+            end,
             floating = true,
             placement = awful.placement.centered,
         }

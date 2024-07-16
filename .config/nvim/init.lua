@@ -10,7 +10,7 @@ if vim.loader then
 end
 
 function Unique_map(modes, lhs, rhs, opts)
-    if not opts then opts = {} end
+    opts = opts or {}
     if opts.unique == nil then
         local keys_to_ignore = {'<C-l>' }
         local ignore = false
@@ -117,6 +117,8 @@ Unique_map({'n', 'v'}, '<C-e>', '<C-e><C-e>')
 Unique_map('n', '<F12>', ':set spell!<CR>', { silent = true, desc = 'Toggle spell on and off'})
 Unique_map('n', '<localleader>,', ':norm ,<CR>', { remap = false, silent = true, desc = 'Map ,, to find previous char without triggering other localleader commands'})
 Unique_map('t', '<Esc><Esc>', '<C-\\><C-n>', { remap = false , desc ='Terminal mode setting for NeoVim'})
+Unique_map('n', '<localleader>d', '"_d', { remap = false, desc ='Quick access to blackhole delete'})
+
 
 --{{{1 Substitution
 Unique_map('n', '<leader>s', ':%s:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on whole file'})

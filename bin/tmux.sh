@@ -1,9 +1,9 @@
 #!/bin/sh
 _sub_and_abs() {
-    if [ $1 -lt $2 ]; then
-        echo "$((($2 - $1)))"
+    if [ "$1" -lt "$2" ]; then
+        echo "$(($2 - $1))"
     else
-        echo "$((($1 - $2)))"
+        echo "$(($1 - $2))"
     fi
 }
 
@@ -62,22 +62,22 @@ popup_dims() {
     out_win_w="$(echo "$out" | cut -f 8 -d ' ' )"
 
     w="$out_pane_w"
-    h="25"
-    x="$((($out_x + $out_left)))"
+    h="$((out_win_h / 2))"
+    x="$((out_x + out_left))"
     x="$(_sub_and_abs $x 3)"
-    y="$((($out_y + $out_top + $h + 1)))"
+    y="$((out_y + out_top + h + 1))"
 
 
     layout="reverse"
 
     if [ "$y" -gt "$out_win_h" ]; then
-        y="$((($y - $h - 1)))"
+        y="$((y - h - 1))"
         layout="default"
     fi
 
-    right="$((($x+$w)))"
+    right="$((x+w))"
     if [ "$w" = "$out_win_w" ] || [ "$right" -ge "$out_win_w" ]; then
-        w="$(_sub_and_abs $x $out_win_w)"
+        w="$(_sub_and_abs "$x" "$out_win_w")"
     fi
 
     echo "-x $x -y $y -w $w -h $h,$layout"

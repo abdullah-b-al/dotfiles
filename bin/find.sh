@@ -1,18 +1,44 @@
 #!/bin/sh
 
-_open_path_fzf() {
-    fzf --bind 'ctrl-e:execute($EDITOR {})+abort' --header 'CTRL-e open in editor'
-}
-
 _list_functions() {
     pat="^.*()\s*{"
     grep "$pat" "$0" | grep -v "^_" | cut -f 1 -d "("
 }
 
-if [ -t 0 ]; then
-    alias menu="_open_path_fzf"
-else
-    alias menu="rofi -dmenu -matching regex -i"
+_prepend() {
+    echo "$@"
+    cat -
+}
+
+_open_path_fzf() {
+    header="Enter=Open ^e=Edit ^x=Copy ^i=Tmux insert\nNvim server: ^v=Vertical split ^s=Horizontal split ^t=New tab" 
+    _prepend "$header" |\
+    fzf $height_and_layout \
+        --header-lines=2 \
+        --bind 'ctrl-e:execute($EDITOR {})+abort'  \
+        --bind 'ctrl-x:execute(echo {} | xsel --input --clipboard )+abort' \
+        --bind 'ctrl-i:execute(tmux set-buffer {} && tmux paste-buffer -p)+abort'  \
+        --bind 'ctrl-v:execute(editor.sh -vs {})+abort'  \
+        --bind 'ctrl-s:execute(editor.sh -sp {})+abort'  \
+        --bind 'ctrl-t:execute(editor.sh -tabe {})+abort'
+}
+
+alias menu="_open_path_fzf"
+
+if ! [ -t 0 ]; then
+    out="$(tmux.sh popup_dims)"
+    pos_args="$(echo "$out" | cut -d ',' -f 1)"
+    layout="$(echo "$out" | cut -d ',' -f 2)"
+    tmux popup -e height_and_layout="--layout=$layout --height=100%" -E $pos_args -- $0 $@
+    exit 0
+elif [ -n "$TMUX" ] && [ -z "$height_and_layout" ]; then
+    height="$(tmux display-message -p "#{pane_height}")"
+    y="$(tmux display-message -p "#{cursor_y}")"
+    remaining_height="$(( height - y ))"
+    remaining_height_percent="$(( (remaining_height * 100) / height ))"
+    [ "$remaining_height_percent" -le 25 ] && remaining_height_percent="50"
+    [ "$remaining_height_percent" -gt 50 ] && remaining_height_percent="50"
+    height_and_layout="--height=$remaining_height_percent%"
 fi
 
 personal() {
@@ -46,8 +72,8 @@ root() {
 operation="$1"
 target="$2"
 
-[ -z "$operation" ] && operation="$(echo "open\nget" | menu)"
-[ -z "$target" ] && target="$(_list_functions | menu)"
+[ -z "$operation" ] && operation="$(printf "open\nget" | fzf)"
+[ -z "$target" ] && target="$(_list_functions | fzf)"
 
 # Make sure the argument matches one of the functions
 if ! grep -q "^$target()\s*{" "$0"; then

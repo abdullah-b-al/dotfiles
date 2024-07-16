@@ -18,10 +18,11 @@ else
             *-vs*) cmd="vs";;
             *-sp*) cmd="sp";;
             *-e*) cmd="e";;
+            *-tabe*) cmd="tabe";;
         esac
 
         if [ -z "$cmd" ]; then
-            cmd="tabe"
+            cmd="e"
             file="$(readlink -f "$arg")"
         else
             i="$(( $i + 1 ))"

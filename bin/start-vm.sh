@@ -1,6 +1,8 @@
 #!/bin/sh 
 
-if [ "$(virsh domstate win10)" = "running" ]; then
+domain="win10"
+
+if [ "$(virsh domstate "$domain")" = "running" ]; then
     looking-glass.sh
     exit 0
 fi
@@ -22,11 +24,19 @@ fi
 usb-hot-plug.sh detach 045e:02ea # xbox controller
 # usb-hot-plug.sh detach 8087:0aa7 # bluetooth
 
-output="$(virsh -c "qemu:///system" start win10 2>&1)"
+output="$(virsh -c "qemu:///system" start "$domain" 2>&1)"
 exit_status="$?"
 if [ "$exit_status" = "0" ]; then
     looking-glass.sh &
-    sleep 25
+
+
+    i=0
+    while ! virsh qemu-agent-command --domain "$domain" --cmd '{"execute": "guest-ping"}'; do
+        [ "$i" -gt 60 ] && exit 1
+        i="$((i+1))"
+        sleep 1
+    done
+
     usb-hot-plug.sh force-attach 045e:02ea # xbox controller
 else
     notify-send --urgency=critical -t 3000 "Virsh" "$output"

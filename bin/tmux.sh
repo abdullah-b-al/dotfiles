@@ -8,8 +8,8 @@ _sub_and_abs() {
 }
 
 active_session() {
-    tmux list-sessions -F "#{session_name},#{session_attached},#{session_activity}" | \
-        sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1
+    tmux list-sessions -F "#{session_name},#{session_activity}" | \
+        sort -r -k2 --field-separator="," | head --lines 1 | cut -d ',' -f 1
 }
 
 nvim_server() {

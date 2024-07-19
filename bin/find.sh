@@ -32,13 +32,7 @@ if ! [ -t 0 ]; then
     tmux popup -e height_and_layout="--layout=$layout --height=100%" -E $pos_args -- $0 $@
     exit 0
 elif [ -n "$TMUX" ] && [ -z "$height_and_layout" ]; then
-    height="$(tmux display-message -p "#{pane_height}")"
-    y="$(tmux display-message -p "#{cursor_y}")"
-    remaining_height="$(( height - y ))"
-    remaining_height_percent="$(( (remaining_height * 100) / height ))"
-    [ "$remaining_height_percent" -le 25 ] && remaining_height_percent="50"
-    [ "$remaining_height_percent" -gt 50 ] && remaining_height_percent="50"
-    height_and_layout="--height=$remaining_height_percent%"
+    height_and_layout="--height=25%"
 fi
 
 personal() {

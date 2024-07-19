@@ -7,7 +7,6 @@ if [ "$wanted_window" != "shell" ] && [ "$wanted_window" != "editor" ]; then
     exit 1
 fi
 
-#####################
 # grab data from tmux
 
 session="$(tmux.sh active_session)"
@@ -25,7 +24,6 @@ if [ "$window_count" = "1" ] && [ "$wanted_window" = "shell" ] && [ "$active_win
     tmux new-window -t "$session"
 fi
 
-#############################
 # Select the wanted window
 
 if [ "$wanted_window" = "editor" ]; then

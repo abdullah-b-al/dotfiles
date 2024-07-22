@@ -30,12 +30,12 @@ else
             file="$(readlink -f "$arg")"
         fi
 
-        if [ "$cmd" = "tabe" ]; then
+        # if [ "$cmd" = "tabe" ]; then
             # This allows the tab to overtake an empty buffer
-            nvim --server "$server" --remote-tab "$file"
-        else
+            # nvim --server "$server" --remote-tab "$file"
+        # else
             nvim --server "$server" --remote-send "<CMD>$cmd $file<CR>"
-        fi
+        # fi
         i="$(( $i + 1 ))"
     done
 

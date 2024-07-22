@@ -28,6 +28,7 @@ export MANROFFOPT='-c'
 export FZF_DEFAULT_OPTS="--layout=reverse --height=2%"
 
 alias bat="batcat --paging always"
+export BAT_PAGER="less -iRI"
 export MANPAGER="sh -c 'col -bx | batcat --paging always -l man -p'"
 
 export DOTFILESDIR="$HOME/.dotfiles"

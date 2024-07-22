@@ -18,13 +18,15 @@ elif [ "$1" = "pick-first" ]; then
     cmd="$(echo "$cmds" | head -n 1 )"
 else
     switch="$1"
-    cmd=$(echo "$cmds" | fzf)
+    cmd=$(echo "$cmds" | fzf \
+        --header "^d=delete line" \
+        --bind 'ctrl-d:execute(compile-cmds --delete {})+reload(compile-cmds --list-in-cwd)' )
 fi
 
 [ -z "$cmd" ] && echo "Empty command" && exit 1
 
 [ "$switch" = "switch" ] && tmux-switch-to.sh shell
-nvim --server "$(tmux.sh nvim_server)" --remote-send "<CMD>w<CR>"
+nvim --server "$(tmux.sh nvim_server)" --remote-send "<CMD>wa<CR>"
 sleep 0.1 # replace with remote-wait when nvim implements it
 tmux send-keys -t "$(tmux.sh non_editor_window_index)" C-l
 tmux send-keys -t "$(tmux.sh non_editor_window_index)" C-c " $cmd" C-M

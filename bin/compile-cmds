@@ -25,7 +25,22 @@ def store_cmd(args: str):
         content = file.read()
 
         line = getcwd() + "," + args + "\n"
-        new_content = line + content.replace(line, "")
+        new_content = line + content.replace(line, "")  # de-duplicate
+
+        file.seek(0)
+        file.truncate()
+        file.write(new_content)
+
+
+def delete_cmd(args: str):
+    with open(get_path(), 'a+') as file:
+        file.seek(0)
+        content = file.read()
+        line = getcwd() + "," + args + "\n"
+        new_content = content.replace(line, "")
+
+        if new_content == content:
+            print("Nothing changed")
 
         file.seek(0)
         file.truncate()
@@ -76,6 +91,13 @@ elif argv[1] == "--add-from-list" and len(argv) > 2:
     for p in programs:
         if (args.startswith(p)):
             store_cmd(args)
+
+elif argv[1] == "--delete" and len(argv) > 2:
+    args = ""
+    for arg in argv[2:]:
+        args += arg + " "
+    args = args[0:len(args) - 1]
+    delete_cmd(args)
 else:
     print("Unknown option")
     exit(1)

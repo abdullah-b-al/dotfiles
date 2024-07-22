@@ -75,6 +75,8 @@ end
 M.spawn_or_goto_terminal = function () M.spawn_or_goto('^Alacritty$', 'alacritty', "class") end
 
 local combine = function (widget, shape, margin)
+    if widget == nil then return end
+
     local t = gears.table.join(margin, {widget})
     return gears.table.join(shape, {t})
 end
@@ -108,7 +110,7 @@ local widgets = {
 
             local value = ''
             if tonumber(stdout) ~= nil then
-                value = '%' .. stdout
+                value = stdout
             end
 
             widget:set_text(value)
@@ -341,15 +343,24 @@ function M.multi_key_map  (keys)
 
 end
 
+local battery = nil
+if widgets.battery then
+    battery = {
+        layout = wibox.layout.fixed.horizontal,
+        textbox_color("%", secondary_fg),
+        widgets.battery,
+    }
+end
+
+
 M.widgets = {
-    battery = widgets.battery,
+    battery = combine(battery, shape, margin),
     ram = combine(ram, shape, margin),
     date_and_time = combine(date_and_time, shape, margin),
     cpu = combine(cpu, shape, margin),
     gpu = combine(gpu, shape, margin),
     network = combine(network, shape, margin),
     auto_cpufreq = widgets.auto_cpufreq,
-
 }
 
 return M

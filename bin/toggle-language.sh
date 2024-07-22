@@ -5,3 +5,4 @@ if setxkbmap -query | grep -q "^layout:.*us$"; then
 else
     setxkbmap -layout 'us'
 fi
+set-keyboar-settings.sh

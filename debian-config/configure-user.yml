@@ -75,7 +75,7 @@
       ansible.builtin.cron:
         backup: true
         name: "Update git of personal"
-        job: "cd {{ home }}/personal && git add . && git commit -m ..."
+        job: "{{ home }}/personal/git-update-personal.sh"
         minute: "*/5"
 
     - name: Change shell

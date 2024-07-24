@@ -104,6 +104,8 @@ vim.api.nvim_create_autocmd( {"vimenter", "ColorScheme"}, {
 
 
 -- Section: Mappings
+
+vim.keymap.set('i', '<C-h>', '') -- This is normally backspace but sometimes it moves the cursor back a word
 Unique_map('n', '<F5>', function ()
     vim.cmd("source ~/.config/nvim/init.lua")
     package.loaded["per-project-settings"] = nil -- For force reloading

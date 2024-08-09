@@ -49,7 +49,7 @@ function s() {
     open_or_cd "$(find.sh get dotfiles)"
 }
 
-function so() {
+function sr() {
     open_or_cd "$(find.sh get personal)"
 }
 
@@ -57,11 +57,11 @@ function se() {
     open_or_cd "$(find.sh get cwd)"
 }
 
-function ss() {
+function st() {
     open_or_cd "$(find.sh get home)"
 }
 
-function sr() {
+function ss() {
     open_or_cd "$(find.sh get root)"
 }
 

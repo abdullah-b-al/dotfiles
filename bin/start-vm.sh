@@ -29,7 +29,6 @@ exit_status="$?"
 if [ "$exit_status" = "0" ]; then
     looking-glass.sh &
 
-
     i=0
     while ! virsh qemu-agent-command --domain "$domain" --cmd '{"execute": "guest-ping"}'; do
         [ "$i" -gt 60 ] && exit 1

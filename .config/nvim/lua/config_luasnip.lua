@@ -29,6 +29,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 local s = ls.snippet
 local i = ls.insert_node
+local t = ls.text_node
 
 local langs = {
     "lua", "zig",
@@ -41,10 +42,13 @@ ls.add_snippets("zig", {
     s("ifc", fmta("if (<logic>) |<capture>| {\n}", {logic = i(1), capture = i(2)})),
     s("lst", fmta("var <name> = std.ArrayList(<type>).init(allocator);", {name = i(1), type = i(2)})),
     s("eql", fmta("std.mem.eql(<type>, <a>, <b>)", {type = i(1), a = i(2), b = i(3)})),
+    s("aloc", t("allocator: std.mem.Allocator")),
+    --
     s("itr", fmta([[
 var <iter> = <object>.iterator();
 while (<riter>.next()) |<capture>| {
 }
 ]], {iter = i(1), object = i(2), riter = rep(1), capture = i(3)})),
+    --
 
 })

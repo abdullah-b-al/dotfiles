@@ -59,12 +59,11 @@ elif argv[1] == "--list-in-cwd":
     with open(get_path(), 'a+') as file:
         file.seek(0)
         content = file.read()
-        cwd = getcwd()
-        lines = content.splitlines(keepends=True)
-        for line in lines:
-            split = line.split(',')
-            if cwd.startswith(split[0]):
-                result_list.append(split[1])
+        cwd = getcwd() + ','
+        for line in content.splitlines(keepends=True):
+            comma_index = line.find(',')
+            if cwd.startswith(line[:comma_index + 1]):
+                result_list.append(line[comma_index + 1:])
 
     result = ""
     # dict from list keeps things ordered unlike a set

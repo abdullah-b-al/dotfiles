@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
 
 font="UbuntuMono"

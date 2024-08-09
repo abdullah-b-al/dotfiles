@@ -208,7 +208,7 @@ awful.screen.connect_for_each_screen(function(s)
             rc.widgets.cpu,
             rc.widgets.gpu,
 
-            -- rc.widgets.date_and_time,
+            rc.widgets.date_and_time,
 
             awful.widget.keyboardlayout(),
             wibox.widget.systray(),
@@ -361,7 +361,8 @@ globalkeys = gears.table.join(
         {description = "Open or go to the editor if it's not already open on the focused screen"}
     ),
 
-    awful.key( { modkey, }, "i", function() rc.spawn_or_goto('^qutebrowser$', 'qutebrowser') end,
+    -- awful.key( { modkey, }, "i", function() rc.spawn_or_goto('^qutebrowser$', 'qutebrowser') end,
+    awful.key( { modkey, }, "i", function() rc.spawn_or_goto('- Brave$', 'brave-browser', "name") end,
         {description = "Open or go to a brsower if it's not already open on the focused screen"}
     ),
     awful.key( { modkey, "Control" }, "b", function() awful.spawn('brave-browser') end,

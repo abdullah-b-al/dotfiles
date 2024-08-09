@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 sudo -A --validate
 sudo systemctl stop NetworkManager
@@ -9,4 +9,5 @@ while ! ping -c 1 google.com 2>&1 > /dev/null; do
     sleep 1
 done
 
-nextcloud --quit && nextcloud --background & disown
+nextcloud --quit && nextcloud --background &
+notify-send "Netowork restarted successfully"

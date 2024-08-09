@@ -66,3 +66,11 @@ if [ -z "$1" ] || [ -z "$2" ]; then
 else
     echo "$result"
 fi
+
+# driver=""
+# while [ -z $driver ]; do
+#     driver="$(lsusb -vt | grep -E -B 1 "ID $device" | grep -Eo "Driver.*" | cut -f 2 -d '=' | cut -f 1 -d ',' | uniq)"
+# done
+
+# message="driver for device \"$device\" is $driver"
+# echo "$message"

@@ -1,21 +1,25 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -e
 
 update_zls() {
-    rm -rf "/tmp/installing-zls"
-
-    mkdir "/tmp/installing-zls"
+    mkdir -p "/tmp/installing-zls"
     cd "/tmp/installing-zls"
 
-    git clone --depth 1 https://github.com/zigtools/zls.git
-    cd "/tmp/installing-zls/zls"
-
+    zls="/tmp/installing-zls/zls"
+    if [ -d "$zls" ]; then
+        cd "$zls"
+        git pull
+    else
+        git clone --depth 1 https://github.com/zigtools/zls.git
+        cd "$zls"
+    fi
+    
     zig build -Doptimize=ReleaseSafe
-    [ -f "/tmp/installing-zls/zls/zig-out/bin/zls" ] || exit 1
+    [ -f "$zls/zig-out/bin/zls" ] || exit 1
 
     pkill zls || true
-    cp /tmp/installing-zls/zls/zig-out/bin/zls ~/.local/bin
+    install /tmp/installing-zls/zls/zig-out/bin/zls ~/.local/bin
 }
 
 if ! command -v zigup > /dev/null; then

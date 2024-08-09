@@ -1,19 +1,17 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-if [[ $# -eq 1 ]]; then
+if [ $# -eq 1 ]; then
     selected=$1
 else
-    selected=$(find ~/personal ~/test -mindepth 1 -maxdepth 3 -type d | fzf)
+    selected=$(find ~/personal/prog ~/test -mindepth 1 -maxdepth 2 -type d | fzf)
 fi
 
-if [[ -z $selected ]]; then
-    exit 0
-fi
+[ -z $selected ] && exit 0
 
 selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+if [ -z $TMUX ] && [ -z $tmux_running ]; then
     tmux new-session -s $selected_name -c $selected
     exit 0
 fi

@@ -15,6 +15,7 @@ local file_exists = function (name)
    if f~=nil then io.close(f) return true else return false end
 end
 
+
 local network_data = {
     prev_rx = 0,
     prev_tx = 0,
@@ -30,6 +31,13 @@ local cpu_usage_data = {
     prev_total = 0,
     prev_idle = 0,
 }
+
+M.notify_all_monitors = function (message)
+    awful.screen.connect_for_each_screen(function(s)
+        message.screen = s
+        naughty.notify(message)
+    end)
+end
 
 M.prevent_clients_on_tag_except = function(client_class, tag_name, c)
     c._previous_tag = c._current_tag
@@ -92,9 +100,6 @@ end
 
 local widgets = {
 
-    date = awful.widget.textclock("%b %m/%d %A"),
-    time = awful.widget.textclock("%H:%M"),
-
     used_memory = awful.widget.watch("cat /proc/meminfo", 10, function(widget, stdout)
         widget:set_text(string.format("%.1f", get_memory(stdout).used))
     end),
@@ -149,13 +154,10 @@ local widgets = {
             if temp >= 95 then
                 local preset = naughty.config.presets.critical
                 preset.timeout = 10
-                awful.screen.connect_for_each_screen(function(s)
-                    naughty.notify({
-                        screen = s,
-                        preset = preset,
-                        text = "GPU temperature is too high!"
-                    })
-                end)
+                notify_all_monitors({
+                    preset = preset,
+                    text = "GPU temperature is too high!"
+                })
             end
             widget:set_text(temp)
         end),
@@ -256,11 +258,17 @@ local date_and_time = {
     layout = wibox.layout.fixed.horizontal,
     {
         fg = secondary_fg,
-        widgets.date,
+        awful.widget.textclock("%b"),
         widget = wibox.container.background,
     },
-    wibox.widget.textbox(" "),
-    widgets.time,
+
+    awful.widget.textclock(" %-d "),
+    {
+        fg = secondary_fg,
+        awful.widget.textclock("%A"),
+        widget = wibox.container.background,
+    },
+    awful.widget.textclock(" %-H:%-M"),
 }
 
 local network = {

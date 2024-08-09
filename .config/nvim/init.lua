@@ -408,6 +408,7 @@ require("lazy").setup({
             'saadparwaiz1/cmp_luasnip',
             'rafamadriz/friendly-snippets',
             'onsails/lspkind-nvim',
+            'hrsh7th/cmp-calc',
         },
 
         event = "InsertEnter",
@@ -439,6 +440,7 @@ require("lazy").setup({
                     ['<C-y>'] = cmp.mapping.confirm(),
                 },
                 sources = {
+                    { name = 'calc' },
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                     { name = 'path' },

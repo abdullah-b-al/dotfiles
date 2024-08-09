@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh
 dbus-update-activation-environment --all
 set-keyboar-settings.sh
 gammastep -PO 4800
-pgrep sxhkd > /dev/null || sxhkd & disown
-pgrep nextcloud > /dev/null || nextcloud --background & disown
+pgrep sxhkd > /dev/null || sxhkd &
+pgrep nextcloud > /dev/null || nextcloud --background &

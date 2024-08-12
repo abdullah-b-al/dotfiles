@@ -21,7 +21,7 @@ fi
 #   sudo rmmod btusb btrtl btmtk btintel btbcm bluetooth || true;
 # };
 
-usb-hot-plug.sh detach 045e:02ea # xbox controller
+usb-hot-plug.sh detach 045e:02ea quiet # xbox controller
 # usb-hot-plug.sh detach 8087:0aa7 # bluetooth
 
 output="$(virsh -c "qemu:///system" start "$domain" 2>&1)"
@@ -36,7 +36,8 @@ if [ "$exit_status" = "0" ]; then
         sleep 1
     done
 
-    usb-hot-plug.sh force-attach 045e:02ea # xbox controller
+    usb-hot-plug.sh detach 045e:02ea quiet # xbox controller
+    usb-hot-plug.sh attach 045e:02ea
 else
     notify-send --urgency=critical -t 3000 "Virsh" "$output"
 fi

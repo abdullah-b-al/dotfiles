@@ -97,7 +97,7 @@
     - name: Clone dotfiles
       tags: skip_ansible_lint
       ansible.builtin.git:
-        repo: https://gitlab.com/ab55al/dotfiles.git
+        repo: https://gitlab.com/abdullah-b-al/dotfiles.git
         dest: '{{ dotfiles }}'
         recursive: true
         force: false

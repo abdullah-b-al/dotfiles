@@ -268,7 +268,7 @@ local date_and_time = {
         awful.widget.textclock("%A"),
         widget = wibox.container.background,
     },
-    awful.widget.textclock(" %-H:%-M"),
+    awful.widget.textclock(" %H:%M"),
 }
 
 local network = {

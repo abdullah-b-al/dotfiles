@@ -61,10 +61,9 @@ fi
 
 result="$(plug "$operation" "$device" 2>&1)"
 
-if [ -z "$1" ] || [ -z "$2" ]; then
-    notify-send -t 5000 "$result"
-else
-    echo "$result"
+if ! [ "$3" = "quiet" ]; then
+    [ -t 0 ] && echo "$result"
+    [ -t 0 ] || notify-send -t 5000 "$result"
 fi
 
 # driver=""

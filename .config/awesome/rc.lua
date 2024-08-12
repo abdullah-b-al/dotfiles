@@ -580,7 +580,7 @@ awful.rules.rules = {
 
     {
         rule_any = {
-            class = { "zenity", "Zenity", "Gcr-prompter" }
+            class = { "zenity", "Zenity", "Gcr-prompter", "yad", "Yad" }
         },
         properties = {
             callback = function (c)

@@ -21,21 +21,21 @@ font:
 
   normal:
     # family: FiraCode
-    family: Ubuntu Mono Nerd Font
+    family: JetBrains Mono
     style: Regular
 
     bold:
         # family: FiraCode
-        family: Ubuntu Mono Nerd Font
+        family: JetBrains Mono
         style: Bold
     italic:
         # family: FiraCode
-        family: Ubuntu Mono Nerd Font
+        family: JetBrains Mono
         style: Italic
 
     bold_italic:
         # family: FiraCode
-        family: Ubuntu Mono Nerd Font
+        family: JetBrains Mono
         style: Bold Italic
 
 

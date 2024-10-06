@@ -25,11 +25,22 @@ fi
 
 [ -z "$cmd" ] && echo "Empty command" && exit 1
 
-[ "$switch" = "switch" ] && tmux-switch-to.sh shell
-nvim --server "$(tmux.sh nvim_server)" --remote-send "<CMD>wa<CR>"
-sleep 0.1 # replace with remote-wait when nvim implements it
-tmux send-keys -t "$(tmux.sh non_editor_window_index)" C-l
-tmux send-keys -t "$(tmux.sh non_editor_window_index)" C-c " $cmd" C-M
+if [ "$switch" = "switch" ]; then
+    tmux-switch-to.sh shell
+    nvim --server "$(tmux.sh nvim_server)" --remote-send "<CMD>wa<CR>"
+    sleep 0.1 # replace with remote-wait when nvim implements it
+    tmux send-keys -t "$(tmux.sh non_editor_window_index)" C-l
+    tmux send-keys -t "$(tmux.sh non_editor_window_index)" C-c " $cmd" C-M
+else
+    tmux-switch-to.sh editor
+    set $cmd
+    makeprg="$1"
+    shift
+    vim_make="make $@"
+    nvim --server "$(tmux.sh nvim_server)" --remote-send "<CMD>set makeprg=$makeprg<CR>"
+    nvim --server "$(tmux.sh nvim_server)" --remote-send "<CMD>wa | $vim_make<CR>"
+fi
+
 
 if [ "$switch" = "no-switch" ]; then
     notify-send "Command sent" "$cmd" -t 1000

@@ -23,7 +23,10 @@ local on_attach = function(client, bufnr)
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     Unique_map('n', 'gD', vim.lsp.buf.declaration,         { remap = false, silent=true , buffer = 0 , desc = 'LSP: Go to declaration'})
-    Unique_map('n', 'gd', vim.lsp.buf.definition,          { remap = false, silent=true , buffer = 0 , desc = 'LSP: Go to definition'})
+    Unique_map('n', 'gd', function()
+        vim.lsp.buf.definition()
+        -- vim.api.nvim_feedkeys("zz", 'n', false)
+    end, { remap = false, silent=true , buffer = 0 , desc = 'LSP: Go to definition'})
     Unique_map('n', '<C-s>', vim.lsp.buf.signature_help,   { remap = false, silent=true , buffer = 0 , desc = 'LSP: Show function signature'})
     Unique_map('n', '<space>ln', vim.lsp.buf.rename,       { remap = false, silent=true , buffer = 0 , desc = 'LSP: Rename symbol'})
     Unique_map('n', '<space>lr', vim.lsp.buf.references,          { remap = false, silent=true , buffer = -1 , desc = 'LSP: Put references in quickfix list'})
@@ -114,7 +117,8 @@ for _, server in ipairs(servers) do
         on_attach = on_attach,
         cmd = cmd,
         -- nvim-cmp setting
-        capabilities = cmp.default_capabilities(vim.lsp.protocol.make_client_capabilities ()),
+        -- capabilities = cmp.default_capabilities(vim.lsp.protocol.make_client_capabilities ()),
+        capabilities = vim.lsp.protocol.make_client_capabilities (),
         filetypes = filetypes,
         -- LSP signature
         signature.setup(signature_cfg),

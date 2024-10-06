@@ -36,14 +36,14 @@ elif [ -n "$TMUX" ] && [ -z "$height_and_layout" ]; then
 fi
 
 personal() {
-    ignore_dir=".*zig-cache|.*zig-out"
+    ignore_dir=".*zig-cache|.*dotfiles"
     find  "$HOME/personal"  \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print | menu
 }
 
 dotfiles() {
     ignore_file="\.png$|LICENSE|README|\.jpg$|\.pdf$"
     ignore_dir=".*local/share|.*local/lib|.*clj-kondo/.cache|.*dotfiles/.config/zsh/plugins|.*git|.*awesome/lain|.*awesome/freedesktop|.*ccls-cache"
-    find "$DOTFILESDIR"  \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print \
+    find "$DOTFILES"  \( -regextype posix-egrep -regex "$ignore_dir" \) -prune -o -print \
         | grep -E -v "$ignore_file" \
         | menu
 }

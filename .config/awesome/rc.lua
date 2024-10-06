@@ -250,15 +250,7 @@ globalkeys = gears.table.join(
     awful.key(
         {modkey}, "l",
         function ()
-            -- Skip master if on half layout
-            if awful.layout.get(focused()).name == 'half' and
-                awful.client.next(1) == awful.client.getmaster() and
-                #focused().selected_tag:clients() > 2
-            then
-                awful.client.focus.byidx(2)
-            else
-                awful.client.focus.byidx(1)
-            end
+            awful.client.focus.byidx(1)
         end,
         {description = "focus next by index", group = "client"}
     ),
@@ -266,15 +258,7 @@ globalkeys = gears.table.join(
     awful.key(
         {modkey}, "h",
         function ()
-            -- Skip master if on half layout
-            if awful.layout.get(focused()).name == 'half' and
-                awful.client.next(-1) == awful.client.getmaster() and
-                #focused().selected_tag:clients() > 2
-            then
-                awful.client.focus.byidx(-2)
-            else
-                awful.client.focus.byidx(-1)
-            end
+            awful.client.focus.byidx(-1)
         end,
         {description = "focus previous by index", group = "client"}
     ),
@@ -577,10 +561,38 @@ awful.rules.rules = {
             class = { "looking-glass-client" }
         }, properties = { floating = true, screen = 1, fullscreen = true, new_tag = true}
     },
-
     {
         rule_any = {
-            class = { "zenity", "Zenity", "Gcr-prompter", "yad", "Yad" }
+            class = {"terminal-prompt" }
+        },
+        properties = {
+            callback = function (c)
+                c.x = awful.screen.focused().geometry.width * 0.25
+                c.y = awful.screen.focused().geometry.height * 0.25
+                c.height = awful.screen.focused().geometry.height * 0.5
+                c.width = awful.screen.focused().geometry.width * 0.5
+                c.screen = awful.screen.focused()
+
+                local titlebar = awful.titlebar(c)
+
+                beautiful.font = get_font(12)
+                titlebar:setup({
+                    { -- Title
+                        align  = 'center',
+                        widget = awful.titlebar.widget.titlewidget(c),
+                    },
+                    layout  = wibox.layout.flex.horizontal
+
+                })
+                beautiful.font = get_font()
+            end,
+            floating = true,
+            placement = awful.placement.centered,
+        }
+    },
+    {
+        rule_any = {
+            class = { "zenity", "Zenity", "Gcr-prompter", "yad", "Yad"}
         },
         properties = {
             callback = function (c)
@@ -691,4 +703,5 @@ end)
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-awful.util.spawn(os.getenv("HOME") .. "/.dotfiles/bin/post-graphical-setup.sh")
+-- awful.util.spawn(os.getenv("HOME") .. "/.dotfiles/bin/post-graphical-setup.sh")
+awful.util.spawn(os.getenv("DOTFILES") .. "/bin/post-graphical-setup.sh")

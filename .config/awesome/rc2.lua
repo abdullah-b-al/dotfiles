@@ -52,29 +52,41 @@ M.spawn_or_goto = function(win_name_pattren, program, match)
     match = match or "class_and_name"
 
     local focused_client = client.focus
-    local clients =  awful.screen.focused().all_clients
+    -- local clients =  awful.screen.focused().all_clients
 
-    for _, c in ipairs(clients) do
-        local is_window = false
-        if match == "name" or match == "class_and_name" then
-            is_window = is_window or string.match(tostring(c.name), win_name_pattren)
+    -- reorder the the screens to prioritize the focused one
+    local screens = {}
+    for s in screen do
+        if s ~= awful.screen.focused() then
+            screens[#screens] = s
         end
-        if match == "class" or match == "class_and_name" then
-            is_window = is_window or string.match(tostring(c.class), win_name_pattren)
-        end
+    end
+    table.insert(screens, 1, awful.screen.focused())
 
-        local is_focused = c == focused_client
-
-        if is_window then
-            if not is_focused then
-                c.first_tag:view_only()
-                client.focus = c
-                c:raise()
+    for _, current_screen in pairs(screens) do
+        local clients =  current_screen.all_clients
+        for _, c in ipairs(clients) do
+            local is_window = false
+            if match == "name" or match == "class_and_name" then
+                is_window = is_window or string.match(tostring(c.name), win_name_pattren)
+            end
+            if match == "class" or match == "class_and_name" then
+                is_window = is_window or string.match(tostring(c.class), win_name_pattren)
             end
 
-            return
-        end
+            local is_focused = c == focused_client
 
+            if is_window then
+                if not is_focused then
+                    c.first_tag:view_only()
+                    client.focus = c
+                    c:raise()
+                    awful.screen.focus(current_screen)
+                end
+
+                return
+            end
+        end
     end
 
     awful.spawn(program)
@@ -154,7 +166,7 @@ local widgets = {
             if temp >= 95 then
                 local preset = naughty.config.presets.critical
                 preset.timeout = 10
-                notify_all_monitors({
+                M.notify_all_monitors({
                     preset = preset,
                     text = "GPU temperature is too high!"
                 })

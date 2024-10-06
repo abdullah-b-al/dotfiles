@@ -76,7 +76,7 @@
         backup: true
         name: "Update git of personal"
         job: "{{ home }}/personal/git-update-personal.sh"
-        minute: "*/5"
+        minute: "*/10"
 
     - name: Change shell
       tags: skip_ansible_lint

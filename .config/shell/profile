@@ -31,15 +31,15 @@ alias bat="batcat --paging always"
 export BAT_PAGER="less -iRI"
 export MANPAGER="sh -c 'col -bx | batcat --paging always -l man -p'"
 
-export DOTFILESDIR="$HOME/.dotfiles"
-export SUDO_ASKPASS="$DOTFILESDIR/bin/askpass.sh"
+export DOTFILES="$HOME/personal/.dotfiles"
+export SUDO_ASKPASS="$DOTFILES/bin/askpass.sh"
 export LC_ALL=en_US.UTF-8
 export GTK_THEME=Adwaita:dark
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
 export MAILCHECK=""
 
-export PATH="$PATH:/usr/sbin:$HOME/.local/bin:$DOTFILESDIR/bin"
+export PATH="$PATH:/usr/sbin:$HOME/.local/bin:$DOTFILES/bin"
 
 export MAKEFLAGS=-j$(($(nproc)-1))
 
@@ -62,7 +62,7 @@ alias rn='ranger'
 alias clear='echo Use C-l'
 alias rm='echo Do not use rm use trash -- '
 alias tra='trash'
-alias restow='cd "$DOTFILESDIR" && stow -S . -t "$HOME"'
+alias restow='cd "$DOTFILES" && stow -S . -t "$HOME"'
 alias ansi-local='ansible-playbook --connection=local -i "localhost,"'
 alias exit='if [ -z "$TMUX" ] || ! [ -z "$RANGER_LEVEL" ] ; then builtin exit; else echo "Use tmux to kill or quit the terminal"; fi'
 

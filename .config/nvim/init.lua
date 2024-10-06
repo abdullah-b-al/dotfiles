@@ -105,7 +105,6 @@ vim.api.nvim_create_autocmd( {"vimenter", "ColorScheme"}, {
 
 -- Section: Mappings
 
-vim.keymap.set('i', '<C-h>', '') -- This is normally backspace but sometimes it moves the cursor back a word
 Unique_map('n', '<F5>', function ()
     vim.cmd("source ~/.config/nvim/init.lua")
     package.loaded["per-project-settings"] = nil -- For force reloading
@@ -150,13 +149,13 @@ Unique_map('n', '/', '/\\v', { remap = false , desc = 'Case insensitive pattern 
 -- map('n', '<C-u>', '<C-u>zz', { remap = false })
 
 --{{{1 quickfix mappings
-Unique_map('n', '<C-l>', ':lnext<CR>zv', { remap = false , desc = 'Go to next item in quickfix list'})
-Unique_map('n', '<C-h>', ':lprev<CR>zv', { remap = false , desc = 'Go to prev item in quickfix list'})
-Unique_map('n', '<C-q>', ':lopen<CR>', { remap = false , desc = 'Open quickfix list'})
+Unique_map('n', '<M-C-l>', '<cmd>lnext<CR>zz', { remap = false , desc = 'Go to next item in quickfix list'})
+Unique_map('n', '<M-C-h>', '<cmd>lprev<CR>zz', { remap = false , desc = 'Go to prev item in quickfix list'})
+Unique_map('n', '<M-C-q>', '<cmd>lopen<CR>', { remap = false , desc = 'Open quickfix list'})
 
-Unique_map('n', '<M-C-L>', ':cnext<CR>zv', { remap = false , desc = 'Go to next item in local quickfix list'})
-Unique_map('n', '<M-C-H>', ':cprev<CR>zv', { remap = false , desc = 'Go to prev item in local quickfix list'})
-Unique_map('n', '<M-C-Q>', ':copen<CR>', { remap = false , desc = 'Open local quickfix list'})
+Unique_map('n', '<C-L>', '<cmd>cnext<CR>zz', { remap = false , desc = 'Go to next item in local quickfix list'})
+Unique_map('n', '<C-H>', '<cmd>cprev<CR>zz', { remap = false , desc = 'Go to prev item in local quickfix list'})
+Unique_map('n', '<C-Q>', '<cmd>copen<CR>', { remap = false , desc = 'Open local quickfix list'})
 
 -- " {{{1 Nicer tab switching
 Unique_map('n', '<leader>1', '1gt', { remap = false, silent = true })
@@ -264,13 +263,28 @@ require("lazy").setup({
                     fzf = {}
                 }
             }
+
+            local opts = {
+                layout_config = {
+                    height = 0.5,
+                    width = 0.99,
+                },
+            }
+
+            local builtin = require('telescope.builtin')
+            local themes = require('telescope.themes')
+            local theme = themes.get_ivy
+
             require('telescope').load_extension('fzf')
 
-            Unique_map('n', 'g?', ':Telescope keymaps<CR>')
-            Unique_map('n', '<leader>ff', ':Telescope find_files<CR>', { remap = false })
-            Unique_map('n', '<leader>fg', ':Telescope live_grep<CR>' , { remap = false })
-            Unique_map('n', '<leader>fb', ':Telescope buffers<CR>'   , { remap = false })
-            Unique_map('n', '<leader>fh', ':Telescope help_tags<CR>' , { remap = false })
+            Unique_map('n', 'g?', function() builtin.keymaps(theme(opts)) end, { remap = false })
+            Unique_map('n', '<M-f>', function() builtin.lsp_document_symbols(theme(opts)) end, { remap = false })
+            Unique_map('n', '<M-F>', function() builtin.lsp_dynamic_workspace_symbols(theme(opts)) end, { remap = false })
+            Unique_map('n', '<M-p>', function() builtin.current_buffer_fuzzy_find(theme(opts)) end, { remap = false })
+            Unique_map('n', '<leader>ff',  function() builtin.find_files(theme(opts)) end, { remap = false })
+            Unique_map('n', '<leader>fg',  function() builtin.live_grep(theme(opts)) end , { remap = false })
+            Unique_map('n', '<leader>fb',  function() builtin.buffers(theme(opts)) end   , { remap = false })
+            Unique_map('n', '<leader>fh',  function() builtin.help_tags(theme(opts)) end , { remap = false })
         end
 
     },
@@ -318,7 +332,7 @@ require("lazy").setup({
                 textobjects = {
                     select = {
                         disable = disable_list,
-                        enable = true,
+                        enable = false,
 
                         -- Automatically jump forward to textobj, similar to targets.vim
                         lookahead = true,
@@ -349,13 +363,17 @@ require("lazy").setup({
 
                     move = {
                         disable = disable_list,
-                        enable = true,
+                        enable = false,
                         set_jumps = false,
                         goto_next_start = {
                             ['<M-f>'] = "@function.outer",
+                            ['<M-a>'] = "@assignment.rhs",
+                            ['<M-r>'] = "@parameter",
                         },
                         goto_previous_start = {
+                            ['<M-C-a>'] = "@assignment.rhs",
                             ['<M-C-f>'] = "@function.outer",
+                            ['<M-C-r>'] = "@parameter",
                         },
                     },
 
@@ -441,7 +459,7 @@ require("lazy").setup({
                 },
                 sources = {
                     { name = 'calc' },
-                    { name = 'nvim_lsp' },
+                    -- { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                     { name = 'path' },
 

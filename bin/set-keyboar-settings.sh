@@ -12,7 +12,7 @@ export XAUTHORITY=/run/user/1000/Xauthority
 
 if bluetoothctl info DA:18:B2:3C:8E:3B | grep -qi "connected: no"; then
     if setxkbmap -query | grep "layout:\s*us$"; then
-        xmodmap ~/.dotfiles/colemak_dh.xmodmap
+        xmodmap ~/personal/.dotfiles/colemak_dh.xmodmap
     fi
 fi
 

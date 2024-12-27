@@ -19,7 +19,7 @@ _prepend() {
 _path_prefix() {
     "$target"
     prefix="$path"
-    if [ "$prefix" = '/' ] || [ "$prefix" = "$prefix" ]; then
+    if [ "$prefix" = '/' ] || [ "$prefix/" = "$path" ]; then
         prefix=""
     elif [ "$prefix" != '/' ]; then
         prefix="$prefix/"

@@ -9,11 +9,6 @@ local apply = function (bufnr)
 
     local path = vim.api.nvim_buf_get_name(bufnr)
     local dir = vim.fs.dirname(path)
-
-    if path:match("resume/resume.tex") then
-        local rhs = string.format([[:wa | !pdflatex -output-directory="%s" %% > /dev/null<CR>]], dir)
-        Unique_map('n', '<F8>', rhs, {buffer = bufnr})
-    end
 end -- apply function end
 
 return { apply = apply }

@@ -7,9 +7,10 @@ if [ "$(virsh domstate "$domain")" = "running" ]; then
     exit 0
 fi
 
-reset_method="$(cat /sys/bus/pci/devices/0000:11:00.0/reset_method)"
+reset_path="/sys/bus/pci/devices/0000:11:00.0/reset_method"
+reset_method="$(cat $reset_path)"
 if [ "$reset_method" != "device_specific" ]; then
-    echo 'device_specific' | sudo -A tee /sys/bus/pci/devices/0000:11:00.0/reset_method
+    echo 'device_specific' | sudo -A tee "$reset_path"
     if [ "$?" = "1" ]; then
         notify-send --urgency=critical -t 3000 "$0" "tee command failed"
         exit 1
@@ -36,7 +37,7 @@ if [ "$exit_status" = "0" ]; then
         sleep 1
     done
 
-    usb-hot-plug.sh detach 045e:02ea quiet # xbox controller
+    # usb-hot-plug.sh detach 045e:02ea quiet # xbox controller
     usb-hot-plug.sh attach 045e:02ea
 else
     notify-send --urgency=critical -t 3000 "Virsh" "$output"

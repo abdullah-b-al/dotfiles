@@ -43,9 +43,21 @@
     transparent: rgba(0,0,0,0);
     font: "Ubuntu Condensed 16";
 }
+* {
+    background:     #1E2127FF;
+    background-alt: #282B31FF;
+    foreground:     #FFFFFFFF;
+    selected:       #61AFEFFF;
+    active:         #98C379FF;
+    urgent:         #E06C75FF;
+}
+
+
 window {
-    location: center;
-    anchor:   center;
+    width: 100%;
+    height: 60%;
+    location: south west;
+    // anchor: center;
     transparency: "screenshot";
     padding: 0px;
     border:  0px;
@@ -55,6 +67,7 @@ window {
     spacing: 0;
     children:  [mainbox];
     orientation: horizontal;
+    cursor:                      "default";
 }
 mainbox {
     spacing: 0;

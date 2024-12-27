@@ -1,3 +1,4 @@
+#!/bin/sh
 # XDG
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -21,13 +22,13 @@ export XMODIFIERS=@im='ibus'
 # Environment Variables
 export ZDOTDIR="$HOME/.config/zsh"
 export EDITOR=nvim
-export TERMINAL=st
+export TERMINAL=alacritty
 export BROWSER=brave-browser
 export HISTCONTROL=ignoreboth
 export MANROFFOPT='-c'
-export FZF_DEFAULT_OPTS="--layout=reverse --height=2%"
+export FZF_DEFAULT_OPTS="--layout=reverse --height=5%"
+export ROFI_PLUGIN_PATH="$HOME/.local/lib/rofi-plugins"
 
-alias bat="batcat --paging always"
 export BAT_PAGER="less -iRI"
 export MANPAGER="sh -c 'col -bx | batcat --paging always -l man -p'"
 
@@ -39,14 +40,17 @@ export LIBVIRT_DEFAULT_URI="qemu:///system"
 export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
 export MAILCHECK=""
 
-export PATH="$PATH:/usr/sbin:$HOME/.local/bin:$DOTFILES/bin"
+export ODIN_ROOT="$HOME/.local/bin/odin"
+export PATH="$PATH:/usr/sbin:$HOME/.local/bin:$DOTFILES/bin:$ODIN_ROOT"
 
 export MAKEFLAGS=-j$(($(nproc)-1))
 
 export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 
-alias ls='ls --color=auto'
+alias bat="batcat --paging always"
+alias ls='ls --group-directories-first --color=auto'
 alias la='ls -Alh'
+alias lt='la -tr'
 
 alias gd='git diff'
 alias gs='git status'
@@ -56,15 +60,18 @@ alias gi='grep --color -Ei'
 
 alias e=editor.sh
 alias pac='sudo pacman'
-alias sa='sudo apt'
+alias ap='sudo apt'
 alias a='apt'
 alias rn='ranger'
 alias clear='echo Use C-l'
 alias rm='echo Do not use rm use trash -- '
 alias tra='trash'
-alias restow='cd "$DOTFILES" && stow -S . -t "$HOME"'
 alias ansi-local='ansible-playbook --connection=local -i "localhost,"'
 alias exit='if [ -z "$TMUX" ] || ! [ -z "$RANGER_LEVEL" ] ; then builtin exit; else echo "Use tmux to kill or quit the terminal"; fi'
+
+if command -v opam > /dev/null; then
+    eval $(opam env)
+fi
 
 # Start graphical server on user's current tty if not already running.
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ] && [ -z "$TMUX" ]; then

@@ -5,11 +5,16 @@ function zsh_add_file() {
 }
 
 function zsh_add_plugin() {
-    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+    PLUGIN_NAME="$2"
+    if [ -z "$PLUGIN_NAME" ]; then
+        PLUGIN_NAME="$(echo $1 | cut -d "/" -f 2)"
+    fi
+
     if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
         # For plugins
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
-        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh" || \
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.sh"
     else
         git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
     fi
@@ -45,7 +50,7 @@ function open_or_cd() {
 }
 
 # Search for files and directories then cd or edit them.
-function s() {
+function sa() {
     open_or_cd "$(find.sh get dotfiles)"
 }
 
@@ -63,6 +68,10 @@ function st() {
 
 function ss() {
     open_or_cd "$(find.sh get root)"
+}
+
+function sp() {
+    open_or_cd "$(find.sh get prog)"
 }
 
 # find functions

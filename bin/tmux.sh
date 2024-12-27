@@ -7,6 +7,75 @@ _sub_and_abs() {
     fi
 }
 
+_popup_half_screen() {
+    x="100%"
+    y="100%" # adjust y by changing h
+    h="60%"
+    w="100%"
+    layout="reverse"
+    echo "-x $x -y $y -w $w -h $h,$layout"
+}
+
+_popup_follow_cursor_half_screen() {
+    cursor_y="$(tmux display-message -p "#{cursor_y}")"
+    pane_top="$(tmux display-message -p "#{pane_top}")"
+    pane_left="$(tmux display-message -p "#{pane_left}")"
+    pane_w="$(tmux display-message -p "#{pane_width}")"
+    win_h="$(tmux display-message -p "#{window_height}")"
+    win_w="$(tmux display-message -p "#{window_width}")"
+
+    x=0
+    w="$pane_w"
+    if [ $((x + pane_left)) -ge $((win_w / 2)) ]; then
+        x="$((win_w / 2))"
+    fi
+
+    # cursor_y=0 is top of the screen
+    # but the popup will start at the top, go down to y and draw from the bottom to top
+    y="$((cursor_y + pane_top))"
+    if [ "$y" -lt "$((win_h / 2))" ]; then # upper half
+        h="$((win_h - y))"
+        y="$(( y + h + 1 ))"
+        layout="reverse" # top to bottom listing
+    else # lower half
+        diff=$(_sub_and_abs "$y" "$win_h")
+        h=$((win_h - diff))
+        layout="default" # bottom to top listing
+    fi
+
+    echo "-x $x -y $y -w $w -h $h,$layout"
+}
+
+_popup_follow_cursor() {
+    out_x="$(tmux display-message -p "#{cursor_x}")"
+    out_y="$(tmux display-message -p "#{cursor_y}")"
+    out_top="$(tmux display-message -p "#{pane_top}")"
+    out_left="$(tmux display-message -p "#{pane_left}")"
+    out_pane_h="$(tmux display-message -p "#{pane_height}")"
+    out_pane_w="$(tmux display-message -p "#{pane_width}")"
+    out_win_h="$(tmux display-message -p "#{window_height}")"
+    out_win_w="$(tmux display-message -p "#{window_width}")"
+
+    w="$out_pane_w"
+    h="$((out_win_h / 2))"
+    x="$((out_x + out_left))"
+    x="$(_sub_and_abs $x 3)"
+    y="$((out_y + out_top + h + 1))"
+
+    layout="reverse"
+    if [ "$y" -gt "$out_win_h" ]; then
+        y="$((y - h - 1))"
+        layout="default"
+    fi
+
+    right="$((x+w))"
+    if [ "$w" = "$out_win_w" ] || [ "$right" -ge "$out_win_w" ]; then
+        w="$(_sub_and_abs "$x" "$out_win_w")"
+    fi
+
+    echo "-x $x -y $y -w $w -h $h,$layout"
+}
+
 active_session() {
    session="$(tmux list-sessions -F "#{session_name},#{session_activity}" | \
        sort -r -k2 --field-separator="," | head --lines 1 | cut -d ',' -f 1)"
@@ -58,36 +127,9 @@ non_editor_window_index() {
 }
 
 popup_dims() {
-    out="$(tmux display-message -p "#{cursor_x} #{cursor_y} #{pane_top} #{pane_left} #{pane_height} #{pane_width} #{window_height} #{window_width}")"
-    out_x="$(echo "$out" | cut -f 1 -d ' ' )"
-    out_y="$(echo "$out" | cut -f 2 -d ' ' )"
-    out_top="$(echo "$out" | cut -f 3 -d ' ' )"
-    out_left="$(echo "$out" | cut -f 4 -d ' ' )"
-    out_pane_h="$(echo "$out" | cut -f 5 -d ' ' )"
-    out_pane_w="$(echo "$out" | cut -f 6 -d ' ' )"
-    out_win_h="$(echo "$out" | cut -f 7 -d ' ' )"
-    out_win_w="$(echo "$out" | cut -f 8 -d ' ' )"
-
-    w="$out_pane_w"
-    h="$((out_win_h / 2))"
-    x="$((out_x + out_left))"
-    x="$(_sub_and_abs $x 3)"
-    y="$((out_y + out_top + h + 1))"
-
-
-    layout="reverse"
-
-    if [ "$y" -gt "$out_win_h" ]; then
-        y="$((y - h - 1))"
-        layout="default"
-    fi
-
-    right="$((x+w))"
-    if [ "$w" = "$out_win_w" ] || [ "$right" -ge "$out_win_w" ]; then
-        w="$(_sub_and_abs "$x" "$out_win_w")"
-    fi
-
-    echo "-x $x -y $y -w $w -h $h,$layout"
+    _popup_follow_cursor_half_screen
+    # _popup_follow_cursor
+    # _popup_half_screen
 }
 
 if [ "$1" = "--help" ] || [ -z "$1" ]; then

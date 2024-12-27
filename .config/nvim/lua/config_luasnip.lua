@@ -34,7 +34,7 @@ local t = ls.text_node
 local c = ls.choice_node
 
 local langs = {
-    "lua", "zig",
+    "lua", "zig", "go",
 }
 for _, l in ipairs(langs) do
     require("luasnip.session.snippet_collection").clear_snippets(l)
@@ -79,4 +79,8 @@ var <name> = std.heap.ArenaAllocator.init(std.heap.page_allocator);
 defer arena.deinit();
 ]], {name = t("arena")}))
 
+})
+
+ls.add_snippets("go", {
+    s("ier", fmta("if <err> != nil {\n<body>\n}", {err = t("err"), body = i(1)})),
 })

@@ -5,7 +5,7 @@ local awful = require("awful")
 local naughty = require("naughty")
 local gears = require("gears")
 
-local secondary_fg = "#73a0ef"
+local secondary_fg = "#61AFEF"
 local border_color = "#FFFFFF"
 
 local battery_file_path = "/sys/class/power_supply/BAT0/capacity"

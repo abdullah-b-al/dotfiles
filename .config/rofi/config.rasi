@@ -1,1 +1,11 @@
-@theme "arthur-modified.rasi"
+// @theme "arthur-modified.rasi"
+@theme "style-3.rasi"
+
+configuration {
+    kb-secondary-paste:"Insert";
+    kb-custom-1:"Control+s";
+    kb-custom-2:"Control+t";
+    kb-custom-3:"Control+i";
+    kb-custom-4:"Control+x";
+    kb-custom-5:"Control+v";
+}

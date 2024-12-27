@@ -61,7 +61,7 @@ end
 beautiful.font = get_font()
 beautiful.notification_font = get_font(32)
 beautiful.fg_normal  = "#FFFFFF"
-beautiful.bg_normal  = "#1c1c1c"
+beautiful.bg_normal  = "#1E2127"
 beautiful.titlebar_fg  = beautiful.fg_normal
 beautiful.titlebar_bg  = beautiful.bg_normal
 beautiful.tasklist_bg_focus = "#555555"
@@ -104,31 +104,31 @@ local taglist_buttons = gears.table.join(
   awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
 
--- local tasklist_buttons = gears.table.join(
---   awful.button({ }, 1, function (c)
---     if c == client.focus then
---       c.minimized = true
---     else
---       c:emit_signal(
---         "request::activate",
---         "tasklist",
---         {raise = true}
---       )
---     end
---   end),
+local tasklist_buttons = gears.table.join(
+  awful.button({ }, 1, function (c)
+    if c == client.focus then
+      c.minimized = true
+    else
+      c:emit_signal(
+        "request::activate",
+        "tasklist",
+        {raise = true}
+      )
+    end
+  end),
 
---   awful.button({ }, 3, function()
---     awful.menu.client_list({ theme = { width = 250 } })
---   end),
+  awful.button({ }, 3, function()
+    awful.menu.client_list({ theme = { width = 250 } })
+  end),
 
---   awful.button({ }, 4, function ()
---     awful.client.focus.byidx(1)
---   end),
+  awful.button({ }, 4, function ()
+    awful.client.focus.byidx(1)
+  end),
 
---   awful.button({ }, 5, function ()
---     awful.client.focus.byidx(-1)
---   end)
--- )
+  awful.button({ }, 5, function ()
+    awful.client.focus.byidx(-1)
+  end)
+)
 
 awful.screen.connect_for_each_screen(function(s)
   -- Each screen has its own tag table.
@@ -167,7 +167,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
 
 
-        -- buttons = tasklist_buttons,
+        buttons = tasklist_buttons,
         -- makes the tasklist a spacing widget only
         -- layout = {}
     }
@@ -297,6 +297,7 @@ globalkeys = gears.table.join(
         end
         rc.multi_key_map({
             {{}, "a", spawn("dotfiles")},
+            {{}, "p", spawn("prog")},
             {{}, "r", spawn("personal")},
             {{}, "s", spawn("root")},
             {{}, "t", spawn("home")},
@@ -391,7 +392,7 @@ globalkeys = gears.table.join(
     end, {description = "Open progam launcher"}),
 
     awful.key({modkey}, "c", function ()
-        awful.spawn("alacritty --class terminal-calculator -o font.size=12 -e qalc")
+        awful.spawn("rofi -modi calc -show calc")
     end, {description = "Open calculator"}),
 
     awful.key({modkey}, "F2", function ()

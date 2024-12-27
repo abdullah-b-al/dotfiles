@@ -88,6 +88,8 @@ local signature = require 'lsp_signature'
 local cmp       = require('cmp_nvim_lsp')
 
 local servers = {
+    {name = "ols"},
+    {name = "ocamllsp"},
     {name = 'texlab'},
     {name = 'zls'},
     {name = 'gopls'},
@@ -100,14 +102,15 @@ local servers = {
 
 require("mason-lspconfig").setup({
     automatic_installation = false,
-    ensure_installed = {
-        'gopls',
-        'lua_ls',
-        'pylsp',
-        'clangd',
-        'ansiblels',
-        'harper_ls',
-    },
+    -- ensure_installed = {
+    --     "ocamllsp",
+    --     'gopls',
+    --     'lua_ls',
+    --     'pylsp',
+    --     'clangd',
+    --     'ansiblels',
+    --     'harper_ls',
+    -- },
 })
 
 for _, server in ipairs(servers) do

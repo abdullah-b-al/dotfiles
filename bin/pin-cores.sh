@@ -14,8 +14,7 @@ else
     exit 1
 fi
 
-sudo -A --validate
-sudo systemctl set-property --runtime -- user.slice AllowedCPUs="$allowed_cpu"
-sudo systemctl set-property --runtime -- system.slice AllowedCPUs="$allowed_cpu"
-sudo systemctl set-property --runtime -- init.scope AllowedCPUs="$allowed_cpu"
+sudo -A systemctl set-property --runtime -- user.slice AllowedCPUs="$allowed_cpu"
+sudo -A systemctl set-property --runtime -- system.slice AllowedCPUs="$allowed_cpu"
+sudo -A systemctl set-property --runtime -- init.scope AllowedCPUs="$allowed_cpu"
 notify-send -t 3000 CPUs "$(nproc)"

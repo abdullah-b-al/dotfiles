@@ -7,6 +7,11 @@ programs = [
     "zig build",
     "zig test",
     "zig run",
+    "go run",
+    "go build",
+    "ocaml",
+    'odin run',
+    'odin build',
 ]
 
 

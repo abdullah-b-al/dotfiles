@@ -251,7 +251,7 @@ require("lazy").setup({
     {
         'junegunn/vim-easy-align',
         config = function ()
-            Unique_map('v', 'ga', ':EasyAlign<CR>')
+            Unique_map('v', 'ga', '<CMD>EasyAlign<CR>')
         end,
     },
 

@@ -76,6 +76,7 @@ local terminal = "alacritty"
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
 local modkey = "Mod4"
+local Alt = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -291,18 +292,24 @@ globalkeys = gears.table.join(
 
         end, {}),
 
-    awful.key({modkey}, "s", function ()
-        local spawn = function (name)
-            return function () awful.spawn([[find.sh open ]] .. name) end
-        end
-        rc.multi_key_map({
-            {{}, "a", spawn("dotfiles")},
-            {{}, "p", spawn("prog")},
-            {{}, "r", spawn("personal")},
-            {{}, "s", spawn("root")},
-            {{}, "t", spawn("home")},
-        })
-    end, {}),
+
+    awful.key({modkey, Alt}, "s", function() awful.spawn([[find.sh open root]]) end),
+    awful.key({modkey, Alt}, "r", function() awful.spawn([[find.sh open personal]]) end),
+    awful.key({modkey, Alt}, "a", function() awful.spawn([[find.sh open dotfiles]]) end),
+    awful.key({modkey, Alt}, "t", function() awful.spawn([[find.sh open home]]) end),
+    awful.key({modkey, Alt}, "p", function() awful.spawn([[find.sh open prog]]) end),
+    -- awful.key({modkey}, "s", function (
+    --     local spawn = function (name)
+    --         return function () awful.spawn([[find.sh open ]] .. name) end
+    --     end
+    --     rc.multi_key_map({
+    --         {{}, "a", spawn("dotfiles")},
+    --         {{}, "p", spawn("prog")},
+    --         {{}, "r", spawn("personal")},
+    --         {{}, "s", spawn("root")},
+    --         {{}, "t", spawn("home")},
+    --     })
+    -- end, {}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,

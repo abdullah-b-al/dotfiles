@@ -1,2 +1,4 @@
 
 Xcursor.theme: Breeze
+URxvt*encoding: UTF-8
+URxvt*termName: rxvt-unicode

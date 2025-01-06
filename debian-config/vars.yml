@@ -122,3 +122,4 @@ packages:
   - appmenu-gtk3-module
   - qalc
   - cloc
+  - konsole

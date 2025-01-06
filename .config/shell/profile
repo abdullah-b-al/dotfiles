@@ -22,7 +22,7 @@ export XMODIFIERS=@im='ibus'
 # Environment Variables
 export ZDOTDIR="$HOME/.config/zsh"
 export EDITOR=nvim
-export TERMINAL=alacritty
+export TERMINAL=konsole
 export BROWSER=brave-browser
 export HISTCONTROL=ignoreboth
 export MANROFFOPT='-c'

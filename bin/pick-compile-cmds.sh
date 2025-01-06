@@ -14,7 +14,8 @@ if [ "$1" = "popup" ]; then
     tmux popup -d "$(pwd)" -e FZF_DEFAULT_OPTS="$opts" $pos_args -E -- "$0" "$switch"
     exit 0
 elif [ "$1" = "rofi" ]; then
-    cmd="$(echo $cmds | rofi -dmenu || exit 0)"
+    cmd="$(echo $cmds | rofi -dmenu)"
+    exit 0
 elif [ "$1" = "pick-first" ]; then
     switch="$2"
     cmd="$(echo "$cmds" | head -n 1 )"

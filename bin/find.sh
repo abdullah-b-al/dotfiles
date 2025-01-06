@@ -52,9 +52,9 @@ _open_path_fzf() {
         --bind 'ctrl-e:execute($EDITOR $(find.sh real-result $target {}))+abort'  \
         --bind 'ctrl-s:execute(find.sh real-result $target {} | xsel --input --clipboard )+abort' \
         --bind 'ctrl-i:execute(tmux set-buffer "$(find.sh real-result $target {})" && tmux paste-buffer -p)+abort'  \
-        --bind 'ctrl-v:execute(editor.sh -vs "$(find.sh real-result $target {}))+abort'  \
-        --bind 'ctrl-x:execute(editor.sh -sp "$(find.sh real-result $target {}))+abort'  \
-        --bind 'ctrl-t:execute(editor.sh -tabe "$(find.sh real-result $target {}))+abort' \
+        --bind 'ctrl-v:execute(find.sh real-result $target {} | xargs -I % editor.sh -vs %)+abort'  \
+        --bind 'ctrl-x:execute(find.sh real-result $target {} | xargs -I % editor.sh -sp %)+abort'  \
+        --bind 'ctrl-t:execute(find.sh real-result $target {} | xargs -I % editor.sh -tabe %)+abort' \
     )
 
     if [ $? = 0 ]; then
@@ -63,7 +63,7 @@ _open_path_fzf() {
 }
 
 _open_path_rofi() {
-    result="$(rofi -dmenu -p "Find in $target")"
+    result="$(rofi -dmenu -i -p "Find in $target")"
     return_value="$?"
     result="$(_real_result "$result")"
 

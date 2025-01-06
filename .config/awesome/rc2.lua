@@ -5,6 +5,9 @@ local awful = require("awful")
 local naughty = require("naughty")
 local gears = require("gears")
 
+local terminal = "konsole"
+local terminal_class = "konsole"
+
 local secondary_fg = "#61AFEF"
 local border_color = "#FFFFFF"
 
@@ -48,7 +51,7 @@ M.prevent_clients_on_tag_except = function(client_class, tag_name, c)
     end
 end
 
-M.spawn_or_goto = function(win_name_pattren, program, match)
+M.goto_window = function(win_name_pattren, match)
     match = match or "class_and_name"
 
     local focused_client = client.focus
@@ -74,25 +77,29 @@ M.spawn_or_goto = function(win_name_pattren, program, match)
                 is_window = is_window or string.match(tostring(c.class), win_name_pattren)
             end
 
-            local is_focused = c == focused_client
-
             if is_window then
-                if not is_focused then
+                if c ~= focused_client then
                     c.first_tag:view_only()
                     client.focus = c
                     c:raise()
                     awful.screen.focus(current_screen)
                 end
 
-                return
+                return true
             end
         end
     end
 
-    awful.spawn(program)
+    return false
 end
 
-M.spawn_or_goto_terminal = function () M.spawn_or_goto('^Alacritty$', 'alacritty', "class") end
+M.spawn_or_goto = function(win_name_pattren, program, match)
+    if not M.goto_window(win_name_pattren, match) then
+        awful.spawn(program)
+    end
+end
+
+M.spawn_or_goto_terminal = function () M.spawn_or_goto('^'..terminal_class..'$', terminal, "class") end
 
 local combine = function (widget, shape, margin)
     if widget == nil then return end
@@ -270,11 +277,11 @@ local date_and_time = {
     layout = wibox.layout.fixed.horizontal,
     {
         fg = secondary_fg,
-        awful.widget.textclock("%b"),
+        awful.widget.textclock("%-d "),
         widget = wibox.container.background,
     },
+    awful.widget.textclock("%b "),
 
-    awful.widget.textclock(" %-d "),
     {
         fg = secondary_fg,
         awful.widget.textclock("%A"),
@@ -381,6 +388,7 @@ M.widgets = {
     gpu = combine(gpu, shape, margin),
     network = combine(network, shape, margin),
     auto_cpufreq = widgets.auto_cpufreq,
+    terminal = terminal,
 }
 
 return M

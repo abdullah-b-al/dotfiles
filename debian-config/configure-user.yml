@@ -120,6 +120,9 @@
         - "install-i3lock.sh"
         - "install-looking-glass.sh"
         - "install-neovide.sh"
+        - "install-odin.sh"
+        - "install-ols.sh"
+        - "install-ocaml.sh"
 
     - name: Install Software with sudo
       tags: skip_ansible_lint

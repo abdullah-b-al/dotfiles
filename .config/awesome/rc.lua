@@ -68,8 +68,6 @@ beautiful.tasklist_bg_focus = "#555555"
 beautiful.tasklist_fg_focus  = "#CCCCCC"
 beautiful.tasklist_fg_normal = "#CCCCCC"
 
-local terminal = "alacritty"
-
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -353,19 +351,26 @@ globalkeys = gears.table.join(
         {description = "Open or go to the editor if it's not already open on the focused screen"}
     ),
 
-    -- awful.key( { modkey, }, "i", function() rc.spawn_or_goto('^qutebrowser$', 'qutebrowser') end,
-    awful.key( { modkey, }, "i", function() rc.spawn_or_goto('- Brave$', 'brave-browser', "name") end,
+    awful.key( { modkey, }, "d", function() rc.spawn_or_goto('- Brave$', 'brave-browser', "name") end,
         {description = "Open or go to a brsower if it's not already open on the focused screen"}
     ),
-    awful.key( { modkey, "Control" }, "b", function() awful.spawn('brave-browser') end,
+    awful.key( { modkey, "Control" }, "d", function() awful.spawn('brave-browser') end,
         {description = "Open a brsower if it's not already open on the focused screen"}
     ),
 
     awful.key(
-        { modkey, "Shift"}, "n", function ()
-            awful.spawn(terminal)
+        { modkey }, "i", function ()
+            if not rc.goto_window('^docs$', "class") then
+                awful.util.spawn("open-docs.sh")
+            end
         end,
-        {description = "Force open a terminal", group = "launcher"}
+        {description = "Open or go to a window containing documentaion.", group = "launcher"}
+    ),
+    awful.key(
+        { modkey, "Shift" }, "i", function ()
+            awful.util.spawn("open-docs.sh")
+        end,
+        {description = "Force Open a window containing documentaion.", group = "launcher"}
     ),
 
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -403,8 +408,11 @@ globalkeys = gears.table.join(
     end, {description = "Open calculator"}),
 
     awful.key({modkey}, "F2", function ()
-        awful.spawn("toggle-language.sh")
-    end, {description = "Toggle language"})
+        awful.spawn("set-language.sh ara")
+    end, {description = "Set keyboard to arabic"}),
+    awful.key({modkey}, "F3", function ()
+        awful.spawn("set-language.sh us")
+    end, {description = "Set keyboard to english"})
 
     --]] This is a function call. Do not place a comma at the end
 )
@@ -631,10 +639,10 @@ awful.rules.rules = {
             },
         }, properties = {
             callback = function (c)
-                c.x = 0
-                c.y = awful.screen.focused().geometry.height / 8
-                c.height = awful.screen.focused().geometry.height * 0.75
-                c.width = awful.screen.focused().geometry.width - 6
+                c.x = awful.screen.focused().geometry.width * 0.25
+                c.y = awful.screen.focused().geometry.height * 0.5
+                c.height = awful.screen.focused().geometry.height * 0.5
+                c.width = awful.screen.focused().geometry.width * 0.5
                 c.screen = awful.screen.focused()
             end,
             floating = true,

@@ -1,4 +1,13 @@
+#!/bin/sh
 
+$HOME/.local/share
+$HOME/.local/bin
+$HOME/.cache
+$HOME/personal
+$HOME/.config
+$HOME/.config/zsh
+$HOME/.config/nvim
+$HOME/.config/git
 
 [ -z $DOTFILES ] && DOTFILES="$HOME/personal/.dotfiles"
 

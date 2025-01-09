@@ -1,6 +1,7 @@
 #!/bin/sh
 
 
+rofi_matching="fuzzy"
 operation="$1"
 target="$2"
 
@@ -62,14 +63,21 @@ _open_path_fzf() {
     fi
 }
 
-_open_path_rofi() {
-    result="$(rofi -dmenu -i -p "Find in $target")"
-    return_value="$?"
-    result="$(_real_result "$result")"
+_toggle_rofi_matching() {
+    if [ $rofi_matching = "fuzzy" ]; then
+        rofi_matching="regex"
+    else
+        rofi_matching="fuzzy"
+    fi
+}
 
-    if [ "$1" = "get" ]; then
+_rofi_handle_key() {
+    result="$1"
+    operation="$2"
+    return_value="$3"
+    if [ "$operation" = "get" ]; then
         echo "$result"
-    elif [ "$1" = "open" ]; then
+    elif [ "$operation" = "open" ]; then
         case $return_value in
             0) open.sh "$result" > /dev/null 2>&1 &;; # enter
             # custom keys
@@ -78,8 +86,19 @@ _open_path_rofi() {
             12) tmux set-buffer "$result" && tmux paste-buffer -p &;; # control+i
             13) editor.sh -sp "$result" > /dev/null 2>&1 &;; # control+x
             14) editor.sh -vs "$result" > /dev/null 2>&1 &;; # control+v
+            28) _toggle_rofi_matching;
+                _find | _menu open;; # control+q
         esac
     fi
+}
+
+_open_path_rofi() {
+    result="$(rofi -dmenu -matching "$rofi_matching" -i -p "$rofi_matching find in $target")"
+    return_value="$?"
+    result="$(_real_result "$result")"
+    notify-send $result
+
+    _rofi_handle_key "$result" "$1" "$return_value"
 }
 
 # test -t 0 won't work as i expect inside a function. I don't know why so keep this here

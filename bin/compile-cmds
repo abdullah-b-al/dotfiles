@@ -12,6 +12,7 @@ programs = [
     "ocaml",
     'odin run',
     'odin build',
+    'odin test',
 ]
 
 

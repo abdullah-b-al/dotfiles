@@ -9,13 +9,15 @@ fi
 
 reset_path="/sys/bus/pci/devices/0000:11:00.0/reset_method"
 reset_method="$(cat $reset_path)"
-if [ "$reset_method" != "device_specific" ]; then
+while [ "$reset_method" != "device_specific" ]; do
     echo 'device_specific' | sudo -A tee "$reset_path"
     if [ "$?" = "1" ]; then
         notify-send --urgency=critical -t 3000 "$0" "tee command failed"
         exit 1
     fi
-fi
+    reset_method="$(cat $reset_path)"
+    sleep 0.1
+done
 
 # lsmod | grep -q bluetooth && {
 #   sudo --validate || zenity --password | sudo -S --validate;

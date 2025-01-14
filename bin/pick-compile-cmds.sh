@@ -1,7 +1,7 @@
 #!/bin/sh
 
-cmds="$(compile-cmds --list-in-cwd)"
-[ -z "$cmds" ] && echo "Empty compile-cmd list" && exit 0
+cmds="$(compile-cmds.sh list_in_cwd)"
+[ -z "$cmds" ] && echo "Empty compile command list" && exit 0
 
 if [ "$1" = "popup" ]; then
     switch="$2"
@@ -14,8 +14,8 @@ if [ "$1" = "popup" ]; then
     tmux popup -d "$(pwd)" -e FZF_DEFAULT_OPTS="$opts" $pos_args -E -- "$0" "$switch"
     exit 0
 elif [ "$1" = "rofi" ]; then
-    cmd="$(echo $cmds | rofi -dmenu)"
-    exit 0
+    switch="$2"
+    cmd="$(echo "$cmds" | rofi -dmenu)"
 elif [ "$1" = "pick-first" ]; then
     switch="$2"
     cmd="$(echo "$cmds" | head -n 1 )"
@@ -23,7 +23,7 @@ else
     switch="$1"
     cmd=$(echo "$cmds" | fzf \
         --header "^d=delete line" \
-        --bind 'ctrl-d:execute(compile-cmds --delete {})+reload(compile-cmds --list-in-cwd)' )
+        --bind 'ctrl-d:execute(compile-cmds.sh --delete {})+reload(compile-cmds.sh list_in_cwd)' )
 fi
 
 [ -z "$cmd" ] && echo "Empty command" && exit 1

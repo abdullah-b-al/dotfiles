@@ -86,8 +86,8 @@ function preexec_hook_for_compile() {
     # $1 with aliases not expanded
     # $2  with aliases expanded
     # $3 I don't know about this one
-    if command -v compile-cmds > /dev/null; then
-        compile-cmds --add-from-list "$2" > /dev/null
+    if command -v compile-cmds.sh > /dev/null; then
+        compile-cmds.sh add_from_list "$2" > /dev/null
     else
         echo "Couldn't find compile-cmds"
     fi

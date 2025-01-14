@@ -96,7 +96,6 @@ _open_path_rofi() {
     result="$(rofi -dmenu -matching "$rofi_matching" -i -p "$rofi_matching find in $target")"
     return_value="$?"
     result="$(_real_result "$result")"
-    notify-send $result
 
     _rofi_handle_key "$result" "$1" "$return_value"
 }

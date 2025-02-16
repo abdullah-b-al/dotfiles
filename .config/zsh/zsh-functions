@@ -83,11 +83,12 @@ function mc() {
 
 function preexec_hook_for_compile() {
     # For preexec hooks the whole command will be passed as a single argument in
-    # $1 with aliases not expanded
-    # $2  with aliases expanded
-    # $3 I don't know about this one
+    # (from zsh docs)
+    # $1: The command as typed by the user
+    # $2: A single-line, size-limited version of the command (with things like function bodies elided)
+    # $3: Contains the full text that is being executed. 
     if command -v compile-cmds.sh > /dev/null; then
-        compile-cmds.sh add_from_list "$2" > /dev/null
+        compile-cmds.sh add_from_list "$1" > /dev/null
     else
         echo "Couldn't find compile-cmds"
     fi

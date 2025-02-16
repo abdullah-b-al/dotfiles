@@ -10,8 +10,7 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
+-- Notification library local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local focused = awful.screen.focused
 -- Enable hotkeys help widget for VIM and other apps
@@ -61,7 +60,7 @@ end
 beautiful.font = get_font()
 beautiful.notification_font = get_font(32)
 beautiful.fg_normal  = "#FFFFFF"
-beautiful.bg_normal  = "#1E2127"
+beautiful.bg_normal  = "#282C34"
 beautiful.titlebar_fg  = beautiful.fg_normal
 beautiful.titlebar_bg  = beautiful.bg_normal
 beautiful.tasklist_bg_focus = "#555555"
@@ -358,6 +357,28 @@ globalkeys = gears.table.join(
         {description = "Open a brsower if it's not already open on the focused screen"}
     ),
 
+    awful.key( { modkey, }, "x", function() awful.spawn("plumer.sh") end,
+        {description = "Open plumer tool"}
+    ),
+
+    awful.key( { modkey, }, "b", function() awful.spawn("bookmarks.sh get") end,
+        {description = "Open bookmarks"}
+    ),
+
+    awful.key( { modkey, Alt }, "l", function() awful.spawn("pick-compile-cmds.sh rofi switch") end,
+        {description = "Display list of ran commands"}
+    ),
+    awful.key( { modkey, Alt }, "u", function() awful.spawn("pick-compile-cmds.sh pick-last-used switch") end,
+        {description = "Execute last ran command"}
+    ),
+    awful.key( { modkey, Alt }, "y", function() awful.spawn("pick-compile-cmds.sh pick-last-used vim") end,
+        {description = "Execute last ran command"}
+    ),
+
+    awful.key( { modkey, Alt }, "F1", function() awful.spawn(os.getenv("HOME") .. "/personal/audio/q/play.sh") end,
+        {description = "Execute last ran command"}
+    ),
+
     awful.key(
         { modkey }, "i", function ()
             if not rc.goto_window('^docs$', "class") then
@@ -367,7 +388,7 @@ globalkeys = gears.table.join(
         {description = "Open or go to a window containing documentaion.", group = "launcher"}
     ),
     awful.key(
-        { modkey, "Shift" }, "i", function ()
+        { modkey, Alt }, "i", function ()
             awful.util.spawn("open-docs.sh")
         end,
         {description = "Force Open a window containing documentaion.", group = "launcher"}
@@ -565,7 +586,6 @@ awful.rules.rules = {
             "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
     }, properties = { floating = true }},
-
     -- Add titlebars to normal clients and dialogs
     {
         rule_any = {type = { "normal", "dialog" }
@@ -635,7 +655,6 @@ awful.rules.rules = {
         rule_any = {
             class = {
                 "scratch-terminal",
-                "TestWindow",
             },
         }, properties = {
             callback = function (c)
@@ -683,6 +702,11 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+
+    -- Rules based on patterns
+    if string.match(c.name, "^TestWindow") then
+        c.floating = true
+    end
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
@@ -715,6 +739,8 @@ end)
 client.connect_signal("tagged", function(c)
     rc.prevent_clients_on_tag_except("looking-glass-client", "looking-glass-client", c)
 end)
+
+require("restore_floating_clients")
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------

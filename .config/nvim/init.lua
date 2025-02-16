@@ -124,6 +124,8 @@ Unique_map('n', '<localleader>d', '"_d', { remap = false, desc ='Quick access to
 --{{{1 Substitution
 Unique_map('n', '<leader>s', ':%s:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on whole file'})
 Unique_map('v', '<leader>s', ':s:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on visual selection'})
+Unique_map('n', '<leader>g', ':%g:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on whole file'})
+Unique_map('v', '<leader>g', ':g:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on visual selection'})
 
 Unique_map('n', 'gp', '`[v`]', { remap = false, desc = 'Reselect pasted text'})
 Unique_map({'n','v'}, 'p', 'mzp`[v`]=`z', { remap = false , desc = 'Format pasted text'})
@@ -149,13 +151,10 @@ Unique_map('n', '/', '/\\v', { remap = false , desc = 'Case insensitive pattern 
 -- map('n', '<C-u>', '<C-u>zz', { remap = false })
 
 --{{{1 quickfix mappings
-Unique_map('n', '<M-C-l>', '<cmd>lnext<CR>zz', { remap = false , desc = 'Go to next item in quickfix list'})
-Unique_map('n', '<M-C-h>', '<cmd>lprev<CR>zz', { remap = false , desc = 'Go to prev item in quickfix list'})
-Unique_map('n', '<M-C-q>', '<cmd>lopen<CR>', { remap = false , desc = 'Open quickfix list'})
-
-Unique_map('n', '<C-L>', '<cmd>cnext<CR>zz', { remap = false , desc = 'Go to next item in local quickfix list'})
-Unique_map('n', '<C-H>', '<cmd>cprev<CR>zz', { remap = false , desc = 'Go to prev item in local quickfix list'})
-Unique_map('n', '<C-Q>', '<cmd>copen<CR>', { remap = false , desc = 'Open local quickfix list'})
+Unique_map('n', '<C-l>', function() require("extra").traverse_list(true) end, { remap = false , desc = 'Go to next item in quickfix list'})
+Unique_map('n', '<C-h>', function() require("extra").traverse_list(false) end, { remap = false , desc = 'Go to prev item in quickfix list'})
+Unique_map('n', '<C-q>', function() require("extra").open_list() end, { remap = false , desc = 'Open quickfix list'})
+Unique_map('n', '<C-Q>', function() require("extra").toggle_list() end, { remap = false , desc = 'Open quickfix list'})
 
 -- " {{{1 Nicer tab switching
 Unique_map('n', '<leader>1', '1gt', { remap = false, silent = true })
@@ -170,7 +169,9 @@ Unique_map('n', 'h', 'h<cmd>nohl<CR>', { remap = false })
 Unique_map('n', 'k', [[(v:count >= 5 ? "m'" . v:count : '') . 'gk<cmd>nohl<CR>']], { remap = false, expr = true , desc ='Add large j movements to the jump list and call :nohl'})
 Unique_map('n', 'j', [[(v:count >= 5 ? "m'" . v:count : '') . 'gj<cmd>nohl<CR>']], { remap = false, expr = true , desc ='Add large k movements to the jump list and call :nohl'})
 
-Unique_map('n', '<leader><localleader>t', function() require("extra").open_todo() end, { remap = false, desc ='Open personal TODO'})
+-- Unique_map('n', '<leader><localleader>t', function() require("extra").open_todo() end, { remap = false, desc ='Open TODO'})
+Unique_map('n', '<leader><localleader>d', function() require("extra").open_vim_notes() end, { remap = false, desc ='Open vim_notes'})
+Unique_map('n', '<leader><localleader>n', function() require("extra").open_notes() end, { remap = false, desc ='Open project and language notes'})
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -229,7 +230,14 @@ require("lazy").setup({
     },
 
 
-    'mg979/vim-visual-multi',
+    {
+
+        'mg979/vim-visual-multi',
+        config = function()
+            Unique_map({'n'}, "<M-j>", "<Plug>(VM-Add-Cursor-Down)")
+            Unique_map({'n'}, "<M-k>", "<Plug>(VM-Add-Cursor-Up)")
+        end
+    },
     'lambdalisue/vim-suda',
     'christoomey/vim-system-copy', -- Requires xsel
     'ap/vim-css-color',
@@ -297,12 +305,6 @@ require("lazy").setup({
         config = function ()
             require("nvim-treesitter.configs").setup {
                 ensure_installed = {
-                    'c',
-                    'cpp',
-                    'lua',
-                    'make',
-                    'vim',
-                    'zig',
                     'vimdoc',
                 },
 
@@ -313,66 +315,17 @@ require("lazy").setup({
                 },
 
                 indent = { enable = true },
-            }
-        end
-    },
-    {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        dependencies = { 'nvim-treesitter/nvim-treesitter', },
-        config = function ()
-            local disable_list = {"zig"}
-            require'nvim-treesitter.configs'.setup {
-                textobjects = {
-                    select = {
-                        disable = disable_list,
-                        enable = false,
-
-                        -- Automatically jump forward to textobj, similar to targets.vim
-                        lookahead = true,
-
-                        keymaps = {
-                            -- You can use the capture groups defined in textobjects.scm
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-                            ["ac"] = "@class.outer",
-
-                            ["ia"] = "@assignment.rhs",
-                            ["aa"] = "@assignment.lhs",
-                            -- You can optionally set descriptions to the mappings (used in the desc parameter of
-                            -- nvim_buf_set_keymap) which plugins like which-key display
-                            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-                            -- You can also use captures from other query groups like `locals.scm`
-                            ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-                            ["is"] = { query = "@scope.outer", query_group = "locals", desc = "Select language scope" },
-                        },
-
-                        selection_modes = {
-                            ['@parameter.outer'] = 'v', -- char-wise
-                            ['@function.outer'] = 'V', -- line-wise
-                            ['@class.outer'] = '<c-v>', -- block-wise
-                        },
-                        include_surrounding_whitespace = false,
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = '<CR>',
+                        scope_incremental = '<CR>',
+                        node_incremental = '<TAB>',
+                        node_decremental = '<S-TAB>',
                     },
-
-                    move = {
-                        disable = disable_list,
-                        enable = false,
-                        set_jumps = false,
-                        goto_next_start = {
-                            ['<M-f>'] = "@function.outer",
-                            ['<M-a>'] = "@assignment.rhs",
-                            ['<M-r>'] = "@parameter",
-                        },
-                        goto_previous_start = {
-                            ['<M-C-a>'] = "@assignment.rhs",
-                            ['<M-C-f>'] = "@function.outer",
-                            ['<M-C-r>'] = "@parameter",
-                        },
-                    },
-
                 },
             }
-        end,
+        end
     },
     {
         'lukas-reineke/indent-blankline.nvim',
@@ -394,15 +347,18 @@ require("lazy").setup({
     },
     -- Movement plugins,
     {
-        'easymotion/vim-easymotion',
-        init = function ()
-            vim.g.EasyMotion_keys = 'aoeuhtnsid,lpgcr'
-
-            Unique_map('n', '<leader>;', '<Plug>(easymotion-next)')
-            Unique_map('n', '<leader>,', '<Plug>(easymotion-prev)')
-            Unique_map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')
-        end
+        'justinmk/vim-sneak',
     },
+    -- {
+    --     'easymotion/vim-easymotion',
+    --     init = function ()
+    --         vim.g.EasyMotion_keys = 'aoeuhtnsid,lpgcr'
+
+    --         Unique_map('n', '<leader>;', '<Plug>(easymotion-next)')
+    --         Unique_map('n', '<leader>,', '<Plug>(easymotion-prev)')
+    --         Unique_map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')
+    --     end
+    -- },
 
     -- Completion and snippets,
     {
@@ -420,6 +376,7 @@ require("lazy").setup({
             'rafamadriz/friendly-snippets',
             'onsails/lspkind-nvim',
             'hrsh7th/cmp-calc',
+            'hrsh7th/cmp-buffer',
         },
 
         event = "InsertEnter",
@@ -434,7 +391,7 @@ require("lazy").setup({
                     ghost_text = true,
                 },
                 completion = {
-                    keyword_length = 2,
+                    keyword_length = 4,
                 },
                 snippet = {
                     expand = function(args)
@@ -444,17 +401,21 @@ require("lazy").setup({
                 mapping = {
                     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-d>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-e>'] = cmp.mapping.abort(),       -- Close menu and reject selection
-                    ['<C-c>'] = cmp.mapping.complete(),
+                    ['<C-c>'] = cmp.mapping.abort(),       -- Close menu and reject selection
+                    ['<C-e>'] = cmp.mapping.complete(),
                     ['<C-n>'] = cmp.mapping.select_next_item( { behavior = cmp.SelectBehavior.Select }),
                     ['<C-p>'] = cmp.mapping.select_prev_item( { behavior = cmp.SelectBehavior.Select }),
-                    ['<C-y>'] = cmp.mapping.confirm(),
+                    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 },
                 sources = {
                     { name = 'calc' },
                     -- { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                     { name = 'path' },
+                    {
+                        name = 'buffer',
+                        option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end }
+                    },
 
                 },
                 formatting = {

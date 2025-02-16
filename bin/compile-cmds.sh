@@ -10,8 +10,10 @@ programs+=("ocaml")
 programs+=("odin run")
 programs+=("odin build")
 programs+=("odin test")
+programs+=("valgrind")
 
 list_path="$HOME/.local/share/compile_commands_list"
+touch "$list_path"
 
 add_from_list() {
     command="$(echo "$@")"; [ -z "$command" ] && exit 1
@@ -27,14 +29,17 @@ add_from_list() {
 add_command() {
     command="$(echo "$@")"; [ -z "$command" ] && exit 1
 
-    grep "$(pwd),$command" "$list_path" && exit 0
+    delete_command "$command"
     echo "$(pwd),$command" >> "$list_path"
 }
 
 delete_command() {
     command="$(echo "$@")"; [ -z "$command" ] && exit 1
 
-    cat "$list_path" | grep -v -F "$command" | tee "$list_path" > /dev/null
+    without_cwd_commands="$(cat "$list_path" | grep -v $(pwd))"
+    cwd_commands="$(cat "$list_path" | grep $(pwd) | grep -v -F "$command")"
+    echo "$cwd_commands" > "$list_path"
+    echo "$without_cwd_commands" >> "$list_path"
 }
 
 list() {
@@ -42,7 +47,7 @@ list() {
 }
 
 list_in_cwd() {
-    grep -F "$(pwd)" "$list_path" | cut -d , -f 2
+    grep -F "$(pwd)," "$list_path" | cut -d , -f 2
 }
 
 if [ "$1" = "--help" ] || [ -z "$1" ]; then

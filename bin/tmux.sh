@@ -132,6 +132,16 @@ popup_dims() {
     # _popup_half_screen
 }
 
+active_session_pane_cwd() {
+    session="$(active_session)"
+    tmux display -t "$session" -p "#{pane_current_path}"
+}
+
+active_session_cwd() {
+    session="$(active_session)"
+    tmux display -t "$session" -p "#{session_path}"
+}
+
 if [ "$1" = "--help" ] || [ -z "$1" ]; then
     pat="^.*()\s*{"
     echo "Avaliable commands:"

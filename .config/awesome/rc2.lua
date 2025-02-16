@@ -5,8 +5,10 @@ local awful = require("awful")
 local naughty = require("naughty")
 local gears = require("gears")
 
-local terminal = "konsole"
-local terminal_class = "konsole"
+-- local terminal = "konsole"
+-- local terminal_class = "konsole"
+local terminal = "alacritty"
+local terminal_class = "Alacritty"
 
 local secondary_fg = "#61AFEF"
 local border_color = "#FFFFFF"

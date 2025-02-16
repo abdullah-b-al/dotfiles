@@ -33,7 +33,7 @@ local on_attach = function(client, bufnr)
     Unique_map('n', '<space>le', vim.diagnostic.open_float, { remap = false, silent=true , buffer = 0 , desc = 'LSP: Show diagnostics'})
     Unique_map('n', '<space>ll', vim.diagnostic.setloclist, { remap = false, silent=true , buffer = 0 , desc = 'LSP: Place diagnostics in local quickfix list'})
     Unique_map('n', '<space>lc', vim.lsp.buf.code_action,  { remap = false, silent=true , buffer = 0 , desc = 'LSP: Code action'})
-    Unique_map('n', '<space>lh', function ()
+    Unique_map('n', '<space>ls', function ()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end,  { remap = false, silent=true , buffer = 0 , desc = 'LSP: toggle inlay hint'})
 end

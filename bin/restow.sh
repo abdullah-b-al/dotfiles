@@ -1,13 +1,14 @@
 #!/bin/sh
 
-$HOME/.local/share
-$HOME/.local/bin
-$HOME/.cache
-$HOME/personal
-$HOME/.config
-$HOME/.config/zsh
-$HOME/.config/nvim
-$HOME/.config/git
+mkdir -p $HOME/.local/share
+mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.cache
+mkdir -p $HOME/personal
+mkdir -p $HOME/.config
+mkdir -p $HOME/.config/zsh
+mkdir -p $HOME/.config/nvim
+mkdir -p $HOME/.config/git
+mkdir -p $HOME/.config/xournalpp
 
 [ -z $DOTFILES ] && DOTFILES="$HOME/personal/.dotfiles"
 

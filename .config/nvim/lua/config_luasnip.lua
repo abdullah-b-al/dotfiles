@@ -47,6 +47,11 @@ ls.add_snippets("zig", {
     s("==", fmta("std.mem.eql(<type>, <a>, <b>)", {type = i(1), a = i(2), b = i(3)})),
     s("assert", fmta("std.debug.assert(<expr>);", {expr = i(1)})),
     s("print", fmta([[std.debug.print("<fmt>", .{<args>});]], {fmt = i(1), args = i(2)})),
+    s("func", fmta([[
+const <context> = struct {
+    pub fn <func>
+};
+]], {context = i(1), func = i(2)} )),
     --
     -- s("aloc", fmta(str = t([[allocator: std.mem.Allocator]]))),
     s("alloc", t([[allocator: std.mem.Allocator]], {})),

@@ -62,6 +62,10 @@ function se() {
     open_or_cd "$(find.sh get cwd)"
 }
 
+function si() {
+    open_or_cd "$(find.sh get cwd ignore)"
+}
+
 function st() {
     open_or_cd "$(find.sh get home)"
 }

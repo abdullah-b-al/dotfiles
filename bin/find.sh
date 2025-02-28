@@ -4,6 +4,7 @@
 rofi_matching="fuzzy"
 operation="$1"
 target="$2"
+ignore="$3"
 
 ################################################################################
 
@@ -112,39 +113,57 @@ _menu() {
 }
 
 prog() {
-    args="-u -E \.zig-cache -E \.git"
+    if [ "$ignore" = "no-ignore" ]; then
+        args="-u "
+    fi
+    args="$args-E \.zig-cache -E \.git"
     find_path="$HOME/personal/prog"
 }
 
 personal() {
-    args="-u -E \.zig-cache -E \.dotfiles -E \.git -E prog"
+    if [ "$ignore" = "no-ignore" ]; then
+        args="-u "
+    fi
+    args="$args-E \.zig-cache -E \.dotfiles -E \.git -E prog"
     find_path="$HOME/personal"
 }
 
 dotfiles() {
-    args="-u -E \.git"
+    if [ "$ignore" = "no-ignore" ]; then
+        args="-u "
+    fi
+    args="$args-E \.git"
     find_path="$DOTFILES"
 }
 
 cwd() {
-    args="-u"
+    if [ "$ignore" = "no-ignore" ]; then
+        args="-u"
+    fi
+    args="$args"
     find_path="$(pwd)"
 }
 
 home() {
-    args="-u -E $HOME/personal"
+    if [ "$ignore" = "no-ignore" ]; then
+        args="-u "
+    fi
+    args="$args-E $HOME/personal"
     find_path="$HOME"
 }
 
 root() {
-    args="-u -E /home -E /mnt"
+    if [ "$ignore" = "no-ignore" ]; then
+        args="-u "
+    fi
+    args="$args-E /home -E /mnt"
     find_path="/"
 }
 
 _find() {
     [ -z "$target" ] && echo "target not set" && exit 1
     "$target" # set the vars in the functions.
-    if [ -z "$args" ]; then
+    if [ "$target" != "cwd" ] && [ -z "$args" ]; then
         notify-send "$(basename "$0")" "Error in setting args"
         exit 1
     fi
@@ -170,6 +189,7 @@ _find() {
 
 [ -z "$operation" ] && operation="$(printf "open\nget\nlist\npath-of\nprefix-for\n" | _menu)"
 [ -z "$target" ] && target="$(_list_functions | _menu "get")"
+[ -z "$ignore" ] && ignore="no-ignore"
 
 # Make sure the argument matches one of the functions
 if ! grep -q "^$target()\s*{" "$0"; then

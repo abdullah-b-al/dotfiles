@@ -53,6 +53,7 @@ opt.splitright     = true
 opt.ignorecase     = true
 opt.smartcase      = true
 opt.foldenable     = false
+opt.foldlevel     = 1
 opt.wrap           = false
 
 opt.dictionary     = opt.dictionary + '/usr/share/dict/words'
@@ -60,7 +61,7 @@ opt.spellfile      = home .. '/.local/share/nvim/spell/en.utf-8.add'
 opt.viewoptions    = 'cursor'                                 -- save/restore just these with {mk,load}view`
 
 opt.foldmethod     = 'manual'
--- opt.foldmethod = 'expr'
+opt.foldmethod = 'expr'
 opt.foldexpr    = "v:lua.vim.treesitter.foldexpr()"
 
 -- Globals
@@ -197,6 +198,27 @@ local lazy_opts = {
 
 require("lazy").setup({
     'nvim-lua/plenary.nvim',       -- Never uninstall
+
+    -- {
+    --     'hedyhli/outline.nvim',
+    --     config = function()
+    --         -- Example mapping to toggle outline
+    --         Unique_map("n", "<leader>o", "<cmd>Outline<CR>",
+    --             { desc = "Toggle Outline" })
+
+    --         require("outline").setup {
+    --             outline_window = {
+    --                 position = "right",
+    --                 width = 10,
+    --             },
+    --             outline_items = {
+    --                 auto_update_events = {
+    --                     follow = {},
+    --                 },
+    --             },
+    --         }
+    --     end,
+    -- },
 
     {
         "folke/which-key.nvim",

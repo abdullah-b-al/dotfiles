@@ -36,8 +36,8 @@ add_command() {
 delete_command() {
     command="$(echo "$@")"; [ -z "$command" ] && exit 1
 
-    without_cwd_commands="$(cat "$list_path" | grep -v $(pwd))"
-    cwd_commands="$(cat "$list_path" | grep $(pwd) | grep -v -F "$command")"
+    without_cwd_commands="$(grep -v $(pwd) "$list_path" )"
+    cwd_commands="$(grep $(pwd) "$list_path"  | grep -v "$command$")"
     echo "$cwd_commands" > "$list_path"
     echo "$without_cwd_commands" >> "$list_path"
 }

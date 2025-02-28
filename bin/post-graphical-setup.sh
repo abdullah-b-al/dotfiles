@@ -5,3 +5,7 @@ gammastep -PO 4800
 pgrep sxhkd > /dev/null || sxhkd &
 pgrep nextcloud > /dev/null || nextcloud --background &
 brightnessctl s 20%
+
+if command -v otd-daemon > /dev/null; then
+    otd-daemon &
+fi

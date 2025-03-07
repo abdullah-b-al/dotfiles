@@ -1,0 +1,37 @@
+theme = "sonokai-white-cursor"
+
+[editor]
+line-number = "relative"
+mouse = false
+end-of-line-diagnostics = "hint"
+gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
+cursorline = true
+rulers = [80]
+bufferline = "always"
+
+[editor.inline-diagnostics]
+cursor-line = "warning" # show warnings and errors on the cursorline inline
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.whitespace.render]
+tab = "all"
+
+[editor.whitespace.characters]
+tab = "→"
+tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+
+[editor.indent-guides]
+render = true
+character = "▏"
+skip-levels = 1
+
+[keys.normal]
+C-e = "scroll_down"
+C-y = "scroll_up"

@@ -54,7 +54,9 @@ const <context> = struct {
 ]], {context = i(1), func = i(2)} )),
     --
     -- s("aloc", fmta(str = t([[allocator: std.mem.Allocator]]))),
-    s("alloc", t([[allocator: std.mem.Allocator]], {})),
+    s("alloc", t([[alloc: std.mem.Allocator]], {})),
+    s("asie", fmta([[@intFromEnum(<jump>)]], {jump = i(1)})),
+    s("asei", fmta([[@enumFromInt(<jump>)]], {jump = i(1)})),
 
     -- s("aloc", fmta("allocator<choice>", {
     --     choice = c(1, {

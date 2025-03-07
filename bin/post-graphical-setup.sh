@@ -8,4 +8,5 @@ brightnessctl s 20%
 
 if command -v otd-daemon > /dev/null; then
     otd-daemon &
+    set-tablet-settings.sh
 fi

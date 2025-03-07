@@ -2,5 +2,5 @@
 
 [ "$1" != "force" ] && command -v nvim && echo Already installed && exit 0
 
-wget --no-config -O /tmp/nvim.appimage https://github.com/neovim/neovim/releases/download/v0.10.2/nvim.appimage
-sudo install --mode +x /tmp/nvim.appimage -t /usr/local/bin/nvim
+wget --no-config -O /tmp/nvim https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.appimage
+sudo install --mode +rx /tmp/nvim -t /usr/local/bin

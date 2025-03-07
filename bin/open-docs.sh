@@ -2,9 +2,9 @@
 
 declare -A site
 
-site[odin]="https://pkg.odin-lang.org/ https://odin-lang.org/docs/overview/"
-site[zig13]="https://ziglang.org/documentation/0.13.0/std/ https://ziglang.org/documentation/0.13.0/"
 site[raylib]="https://www.raylib.com/cheatsheet/cheatsheet.html"
+site[odin]="https://pkg.odin-lang.org/ https://odin-lang.org/docs/overview/"
+site[zig14]="https://ziglang.org/documentation/0.14.0/std/ https://ziglang.org/documentation/0.14.0/"
 
 key="$(for v in "${!site[@]}"; do echo $v; done | rofi -dmenu)"
 

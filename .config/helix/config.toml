@@ -35,3 +35,5 @@ skip-levels = 1
 [keys.normal]
 C-e = "scroll_down"
 C-y = "scroll_up"
+"'" =  "select_textobject_inner"
+"q" =  "select_textobject_around"

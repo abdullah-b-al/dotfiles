@@ -21,7 +21,7 @@ export XMODIFIERS=@im='ibus'
 
 # Environment Variables
 export ZDOTDIR="$HOME/.config/zsh"
-export EDITOR=nvim
+export EDITOR=helix
 export TERMINAL=konsole
 export BROWSER=brave-browser
 export HISTCONTROL=ignoreboth

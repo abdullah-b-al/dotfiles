@@ -80,17 +80,7 @@ active_session() {
    session="$(tmux list-sessions -F "#{session_name},#{session_activity}" | \
        sort -r -k2 --field-separator="," | head --lines 1 | cut -d ',' -f 1)"
 
-   # basename="$(basename $session)"
-   # if [ $basename = "output" ]; then
-   #     session="$(dirname $session)"
-   # fi
-
    echo "$session"
-}
-
-nvim_server() {
-    session="$(active_session)"
-    echo "/tmp/nvim-server-$session.pipe"
 }
 
 active_window() {
@@ -106,24 +96,44 @@ has_editor_window() {
     [ "$has_editor" != 0 ] && echo no
 }
 
+has_build_window() {
+    session="$(active_session)"
+    tmux has-session -t "$session:build" 2> /dev/null
+    has_build="$?"
+    [ "$has_build" = 0 ] && echo yes
+    [ "$has_build" != 0 ] && echo no
+}
+
 window_count() {
     session="$(active_session)"
     tmux display-message -p -t "$session" "#{session_windows}" 2> /dev/null
 }
 
-# If a session is renamed and an editor opened before renaming this will not start an nvim server
 create_editor_window() {
     if [ "$(has_editor_window)" = "no" ]; then
-        nvim_server_path="$(nvim_server)"
         session="$(active_session)"
-        [ -e "$nvim_server_path" ] || tmux new-window -d -t "$session:0" -n editor -d nvim --listen "$nvim_server_path"
+        tmux new-window -d -t "$session:0" -n editor -d editor.sh --start-server
     fi
 }
 
-non_editor_window_index() {
-    # the window index is always the last used non-editor window
+create_build_window() {
+    if [ "$(has_build_window)" = "no" ]; then
+        session="$(active_session)"
+        tmux new-window -d -t "$session:10" -n build
+    fi
+    
+}
+
+non_special_window_index() {
+    # the window index is always the last used non-special window
     tmux list-windows -t "$(active_session)" -F "#{window_index},#{window_name},#{window_activity}" | \
-        grep -v "editor," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1
+        grep -v "editor,"  | grep -v "build," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1
+}
+
+# Return empty string if the editor window doesn't exist
+editor_window_name() {
+    tmux list-windows -t "$(active_session)" -F "#{window_index},#{window_name},#{window_activity}" | \
+        grep "editor," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 2
 }
 
 popup_dims() {

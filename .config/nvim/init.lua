@@ -114,8 +114,8 @@ Unique_map('n', '<F5>', function ()
     end
 end, { remap = false , desc = 'Reload init.lua'})
 
-Unique_map({'n', 'v'}, '<C-y>', '<C-y><C-y>')
-Unique_map({'n', 'v'}, '<C-e>', '<C-e><C-e>')
+Unique_map({'n', 'v'}, '<C-y>', '2<C-y>')
+Unique_map({'n', 'v'}, '<C-e>', '2<C-e>')
 Unique_map('n', '<F12>', ':set spell!<CR>', { silent = true, desc = 'Toggle spell on and off'})
 Unique_map('n', '<localleader>,', ':norm ,<CR>', { remap = false, silent = true, desc = 'Map ,, to find previous char without triggering other localleader commands'})
 Unique_map('t', '<Esc><Esc>', '<C-\\><C-n>', { remap = false , desc ='Terminal mode setting for NeoVim'})
@@ -155,7 +155,7 @@ Unique_map('n', '/', '/\\v', { remap = false , desc = 'Case insensitive pattern 
 Unique_map('n', '<C-l>', function() require("extra").traverse_list(true) end, { remap = false , desc = 'Go to next item in quickfix list'})
 Unique_map('n', '<C-h>', function() require("extra").traverse_list(false) end, { remap = false , desc = 'Go to prev item in quickfix list'})
 Unique_map('n', '<C-q>', function() require("extra").open_list() end, { remap = false , desc = 'Open quickfix list'})
-Unique_map('n', '<C-Q>', function() require("extra").toggle_list() end, { remap = false , desc = 'Open quickfix list'})
+Unique_map('n', '<A-q>', function() require("extra").toggle_list() end, { remap = false , desc = 'Open quickfix list'})
 
 -- " {{{1 Nicer tab switching
 Unique_map('n', '<leader>1', '1gt', { remap = false, silent = true })
@@ -198,27 +198,6 @@ local lazy_opts = {
 
 require("lazy").setup({
     'nvim-lua/plenary.nvim',       -- Never uninstall
-
-    -- {
-    --     'hedyhli/outline.nvim',
-    --     config = function()
-    --         -- Example mapping to toggle outline
-    --         Unique_map("n", "<leader>o", "<cmd>Outline<CR>",
-    --             { desc = "Toggle Outline" })
-
-    --         require("outline").setup {
-    --             outline_window = {
-    --                 position = "right",
-    --                 width = 10,
-    --             },
-    --             outline_items = {
-    --                 auto_update_events = {
-    --                     follow = {},
-    --                 },
-    --             },
-    --         }
-    --     end,
-    -- },
 
     {
         "folke/which-key.nvim",
@@ -269,9 +248,7 @@ require("lazy").setup({
     'andymass/vim-matchup',
     'kyazdani42/nvim-web-devicons',
     'wellle/targets.vim',
-    'szw/vim-maximizer',
     'mbbill/undotree',
-    'unblevable/quick-scope',
 
     {
         'tpope/vim-fugitive',
@@ -315,10 +292,7 @@ require("lazy").setup({
         'windwp/nvim-autopairs',
         config = function ()
             require("nvim-autopairs").setup({
-                check_ts = true,
-                ts_config = {
-                    lua = {'string'},-- it will not add a pair on that treesitter node
-                }
+                check_ts = false,
             })
         end
     },
@@ -338,7 +312,7 @@ require("lazy").setup({
 
                 indent = { enable = true },
                 incremental_selection = {
-                    enable = true,
+                    enable = false,
                     keymaps = {
                         init_selection = '<CR>',
                         scope_incremental = '<CR>',
@@ -371,16 +345,6 @@ require("lazy").setup({
     {
         'justinmk/vim-sneak',
     },
-    -- {
-    --     'easymotion/vim-easymotion',
-    --     init = function ()
-    --         vim.g.EasyMotion_keys = 'aoeuhtnsid,lpgcr'
-
-    --         Unique_map('n', '<leader>;', '<Plug>(easymotion-next)')
-    --         Unique_map('n', '<leader>,', '<Plug>(easymotion-prev)')
-    --         Unique_map('n', '<leader>wl', '<Plug>(easymotion-overwin-line)')
-    --     end
-    -- },
 
     -- Completion and snippets,
     {

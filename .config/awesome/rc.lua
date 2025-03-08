@@ -350,6 +350,12 @@ globalkeys = gears.table.join(
         {description = "Open or go to the editor if it's not already open on the focused screen"}
     ),
 
+    awful.key( { modkey, }, "i", function()
+        awful.spawn("tmux-switch-to.sh build")
+        rc.spawn_or_goto_terminal()
+    end,
+        {description = "Open or go to the build shell if it's not already open on the focused screen"}),
+
     awful.key( { modkey, }, "d", function() rc.spawn_or_goto('- Brave$', 'brave-browser', "name") end,
         {description = "Open or go to a brsower if it's not already open on the focused screen"}
     ),
@@ -380,7 +386,7 @@ globalkeys = gears.table.join(
     ),
 
     awful.key(
-        { modkey }, "i", function ()
+        { modkey }, "o", function ()
             if not rc.goto_window('^docs$', "class") then
                 awful.util.spawn("open-docs.sh")
             end
@@ -388,7 +394,7 @@ globalkeys = gears.table.join(
         {description = "Open or go to a window containing documentaion.", group = "launcher"}
     ),
     awful.key(
-        { modkey, Alt }, "i", function ()
+        { modkey, Alt }, "o", function ()
             awful.util.spawn("open-docs.sh")
         end,
         {description = "Force Open a window containing documentaion.", group = "launcher"}

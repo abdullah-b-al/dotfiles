@@ -22,9 +22,9 @@ local on_attach = function(client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    Unique_map('n', 'K',
-        vim.lsp.buf.hover,
-        { remap = false, silent=true , buffer = 0 , desc = 'LSP: Hover'})
+    -- Unique_map('n', 'K',
+    --     vim.lsp.buf.hover,
+    --     { remap = false, silent=true , buffer = 0 , desc = 'LSP: Hover'})
 
     Unique_map('n', 'gD', vim.lsp.buf.declaration,         { remap = false, silent=true , buffer = 0 , desc = 'LSP: Go to declaration'})
     Unique_map('n', 'gd', function()

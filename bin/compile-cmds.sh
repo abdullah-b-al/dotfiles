@@ -19,7 +19,7 @@ add_from_list() {
     command="$(echo "$@")"; [ -z "$command" ] && exit 1
 
     for prog in "${programs[@]}"; do
-        echo "$command" | grep "$prog" && {
+        echo "$command" | grep "^\s*$prog" && {
             add_command "$command";
             exit 0;
         }

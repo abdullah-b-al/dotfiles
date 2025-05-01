@@ -101,7 +101,15 @@ local servers = {
     {name = 'pylsp'},
     {name = 'ansiblels', cmd = {'ansible-language-server', '--stdio'}, filetypes = {'yaml.ansible', "yaml", "yml"},},
     {name = 'lua_ls', cmd = {'lua-language-server'} },
-    -- {name = 'harper_ls', cmd = {'harper-ls', '--stdio'} },
+    {name = 'elmls', cmd = {'elm-language-server'} },
+    {name = 'eslint', cmd = {'vscode-eslint-language-server', '--stdio'} },
+
+    {
+        name = 'ts_ls',
+        cmd = {'typescript-language-server', '--stdio'},
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+    },
+    {name = 'rescriptls', cmd = {'rescript-language-server', '--stdio'} },
 }
 
 require("mason-lspconfig").setup({
@@ -120,6 +128,7 @@ require("mason-lspconfig").setup({
 for _, server in ipairs(servers) do
     local cmd = server.cmd or {server.name}
     local filetypes = server.filetypes or lspconfig[server.name].filetypes
+    local plugins = server.plugins or lspconfig[server.name].plugins
     lspconfig[server.name].setup{
         on_attach = on_attach,
         cmd = cmd,
@@ -129,5 +138,7 @@ for _, server in ipairs(servers) do
         filetypes = filetypes,
         -- LSP signature
         signature.setup(signature_cfg),
+
+        plugins = plugins,
     }
 end

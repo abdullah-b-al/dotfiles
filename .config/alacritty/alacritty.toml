@@ -49,10 +49,10 @@ blink_interval = 9999999999
 thickness = 0.0
 
 [font]
-size = 8.5
+size = 12
 
 [font.normal]
-family = "Ubuntu Mono Nerd Font Mono"
+family = "JetBrains Mono"
 style = "Regular"
 
 # [font.normal.bold]

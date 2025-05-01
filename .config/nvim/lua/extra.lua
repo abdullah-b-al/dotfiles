@@ -4,7 +4,7 @@ local M = {}
 
 local get_project_name = function(buf)
     buf = buf or 0
-    local path = vim.fs.root(buf, ".git")
+    local path = vim.fs.root(buf, ".git") or vim.fs.root(buf, "build.zig") or vim.fs.root(buf, ".dotfiles")
     local name = vim.fs.basename(path)
     return name
 end

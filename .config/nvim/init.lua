@@ -4,6 +4,7 @@ local cmd           = vim.cmd
 local g             = vim.g
 local opt           = vim.opt
 local home          = vim.env.HOME
+local nvim_input = vim.api.nvim_input
 
 if vim.loader then
     vim.loader.enable()
@@ -100,6 +101,8 @@ vim.api.nvim_create_autocmd( {"vimenter", "ColorScheme"}, {
     callback = function ()
         vim.cmd('highlight! MatchParen guifg=#FF0000 guibg=#202020 gui=NONE ctermfg=196 ctermbg=233 cterm=reverse')
         vim.cmd('hi! VM_Mono guibg=#CC1111 guifg=Black gui=NONE')
+        vim.cmd('hi! MultiCursor guibg=#61AFEF guifg=Black gui=NONE')
+        vim.cmd('hi! MultiCursorMain guibg=#21AFEF guifg=Black gui=NONE')
     end
 })
 
@@ -114,6 +117,15 @@ Unique_map('n', '<F5>', function ()
     end
 end, { remap = false , desc = 'Reload init.lua'})
 
+Unique_map('n', '<M-x>', function() nvim_input("V") nvim_input(tostring(vim.v.count) .. "j") end,
+    { noremap = true,  desc ='Visual line and go down'})
+Unique_map('n', '<M-X>', function() nvim_input("V") nvim_input(tostring(vim.v.count) .. "k") end,
+    { noremap = true,  desc ='Visual line and go up'})
+Unique_map({'v'}, '<M-x>', 'gj', {noremap = true})
+Unique_map({'v'}, '<M-X>', 'gk', {noremap = true})
+
+Unique_map({'v'}, '<leader>a', '<CMD>norm gc<CR>', {noremap = true})
+Unique_map({'n'}, '<leader>a', '<CMD>norm gcc<CR>', {noremap = true})
 Unique_map({'n', 'v'}, '<C-y>', '2<C-y>')
 Unique_map({'n', 'v'}, '<C-e>', '2<C-e>')
 Unique_map('n', '<F12>', ':set spell!<CR>', { silent = true, desc = 'Toggle spell on and off'})
@@ -128,9 +140,11 @@ Unique_map('v', '<leader>s', ':s:\\v::cg<Left><Left><Left><Left>', { remap = fal
 Unique_map('n', '<leader>g', ':%g:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on whole file'})
 Unique_map('v', '<leader>g', ':g:\\v::cg<Left><Left><Left><Left>', { remap = false , desc = 'Substitute pattern on visual selection'})
 
-Unique_map('n', 'gp', '`[v`]', { remap = false, desc = 'Reselect pasted text'})
-Unique_map({'n','v'}, 'p', 'mzp`[v`]=`z', { remap = false , desc = 'Format pasted text'})
-Unique_map({'n','v'}, 'P', 'mzP`[v`]=`z', { remap = false , desc = 'Format pasted text'})
+Unique_map('n', '<leader>v', '`[v`]', { remap = false, desc = 'Reselect pasted or yanked text'})
+Unique_map({'n','v'}, 'p', 'p`[v`]=', { remap = false , desc = 'Paste and format'})
+Unique_map({'n','v'}, 'P', 'P`[v`]=', { remap = false , desc = 'Paste and format'})
+Unique_map({'n','v'}, '<leader>p', '"+p`[v`]', { remap = false , desc = 'Paste and Select clipboard'})
+Unique_map({'n','v'}, '<leader>P', '"+P`[v`]', { remap = false , desc = 'Paste and Select clipboard'})
 
 Unique_map('n', 'n', 'nzzzv', { remap = false , desc = 'Center the cursor after n'} )
 Unique_map('n', 'N', 'Nzzzv', { remap = false , desc = 'Center the cursor after N'} )
@@ -230,20 +244,66 @@ require("lazy").setup({
         end,
     },
 
-
     {
-
-        'mg979/vim-visual-multi',
+        'jake-stewart/multicursor.nvim',
         config = function()
-            Unique_map({'n'}, "<M-j>", "<Plug>(VM-Add-Cursor-Down)")
-            Unique_map({'n'}, "<M-k>", "<Plug>(VM-Add-Cursor-Up)")
+            local mc = require("multicursor-nvim")
+            mc.setup()
+
+            -- Add or skip cursor above/below the main cursor.
+            Unique_map({"x"}, "M", mc.splitCursors)
+            Unique_map({"x"}, "s", mc.matchCursors)
+            Unique_map({"n", "x"}, "<M-k>", function() mc.lineAddCursor(-1) end)
+            Unique_map({"n", "x"}, "<M-j>", function() mc.lineAddCursor(1) end)
+            Unique_map({"n", "x"}, "<leader><up>", function() mc.lineSkipCursor(-1) end)
+            Unique_map({"n", "x"}, "<leader><down>", function() mc.lineSkipCursor(1) end)
+            Unique_map("n", "<leader>cr", mc.restoreCursors, {desc = "MultiCursor: Restore cursors"})
+
+            -- Add or skip adding a new cursor by matching word/selection
+            Unique_map({"n", "x"}, "<C-n>", function() mc.matchAddCursor(1) end, {desc = "MultiCursor: Match and add next"})
+            Unique_map({"n", "x"}, "<M-n>", function() mc.matchAddCursor(-1) end, {desc = "MultiCursor: Match and Add previous"})
+            Unique_map({"n", "x"}, "<leader>n", function() mc.matchSkipCursor(1) end, {desc = "MultiCursor: Match and skip next"})
+            Unique_map({"n", "x"}, "<leader>N", function() mc.matchSkipCursor(-1) end, {desc = "MultiCursor: Match and skip previous"})
+            Unique_map("v", "<leader>t", function() mc.transposeCursors(1) end)
+
+            -- Disable and enable cursors.
+            -- Unique_map({"n", "x"}, "<c-q>", mc.toggleCursor)
+
+            -- Mappings defined in a keymap layer only apply when there are
+            -- multiple cursors. This lets you have overlapping mappings.
+            mc.addKeymapLayer(function(layerSet)
+                -- Select a different cursor as the main one.
+                layerSet({"n", "x"}, "<left>", mc.prevCursor)
+                layerSet({"n", "x"}, "<right>", mc.nextCursor)
+
+                -- Delete the main cursor.
+                layerSet({"n", "x"}, "<leader>x", mc.deleteCursor)
+
+                -- Enable and clear cursors using escape.
+                layerSet("n", "<esc>", function()
+                    if not mc.cursorsEnabled() then
+                        mc.enableCursors()
+                    else
+                        mc.clearCursors()
+                    end
+                end)
+            end)
+
+            -- Customize how cursors look.
+            local hl = vim.api.nvim_set_hl
+            hl(0, "MultiCursorCursor", { link = "Cursor" })
+            hl(0, "MultiCursorVisual", { link = "Visual" })
+            hl(0, "MultiCursorSign", { link = "SignColumn"})
+            hl(0, "MultiCursorMatchPreview", { link = "Search" })
+            hl(0, "MultiCursorDisabledCursor", { link = "Visual" })
+            hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
+            hl(0, "MultiCursorDisabledSign", { link = "SignColumn"})
         end
     },
     'lambdalisue/vim-suda',
     'christoomey/vim-system-copy', -- Requires xsel
     'ap/vim-css-color',
     'tpope/vim-surround',
-    'joom/vim-commentary',
     'tpope/vim-repeat',
     'andymass/vim-matchup',
     'kyazdani42/nvim-web-devicons',
@@ -344,6 +404,10 @@ require("lazy").setup({
     -- Movement plugins,
     {
         'justinmk/vim-sneak',
+        config = function()
+            Unique_map({'n'}, "<M-s>", "<Plug>Sneak_s", {desc = 'Vim sneak forward'})
+            Unique_map({'n'}, "<M-S>", "<Plug>Sneak_S", {desc = 'Vim sneak backward'})
+        end
     },
 
     -- Completion and snippets,
@@ -377,7 +441,7 @@ require("lazy").setup({
                     ghost_text = true,
                 },
                 completion = {
-                    keyword_length = 4,
+                    keyword_length = 3,
                 },
                 snippet = {
                     expand = function(args)

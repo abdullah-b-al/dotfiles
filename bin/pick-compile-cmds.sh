@@ -9,6 +9,8 @@ if ! [ -t 0 ]; then
     cd "$(tmux.sh active_session_pane_cwd)"
 fi
 
+session="$(tmux.sh active_session)"
+target_pane="$($session:editor.1)"
 insert_or_run="run"
 cmds="$(compile-cmds.sh list_in_cwd)"
 [ -z "$cmds" ] && notify "Empty compile command list" && exit 0
@@ -53,10 +55,10 @@ if [ "$switch" = "switch" ]; then
     tmux-switch-to.sh build
     editor.sh --save-files
     sleep 0.1
-    tmux send-keys -t "build" C-c
-    tmux send-keys -t "build" C-l "$cmd"
+    tmux send-keys -t "$target_pane" C-c
+    tmux send-keys -t "$target_pane" C-l "$cmd"
     if [ "$insert_or_run" = "run" ]; then
-        tmux send-keys -t "build" C-M
+        tmux send-keys -t "$target_pane" C-M
     fi
 
 elif [ "$switch" = "vim" ]; then

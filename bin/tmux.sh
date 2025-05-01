@@ -96,38 +96,23 @@ has_editor_window() {
     [ "$has_editor" != 0 ] && echo no
 }
 
-has_build_window() {
-    session="$(active_session)"
-    tmux has-session -t "$session:build" 2> /dev/null
-    has_build="$?"
-    [ "$has_build" = 0 ] && echo yes
-    [ "$has_build" != 0 ] && echo no
-}
-
 window_count() {
     session="$(active_session)"
     tmux display-message -p -t "$session" "#{session_windows}" 2> /dev/null
 }
 
 create_editor_window() {
+    cwd=$(active_session_pane_cwd)
     if [ "$(has_editor_window)" = "no" ]; then
         session="$(active_session)"
-        tmux new-window -d -t "$session:0" -n editor -d editor.sh --start-server
+        tmux new-window -d -c "$cwd" -t "$session:0" -n editor -d editor.sh --start-server
     fi
-}
-
-create_build_window() {
-    if [ "$(has_build_window)" = "no" ]; then
-        session="$(active_session)"
-        tmux new-window -d -t "$session:10" -n build
-    fi
-    
 }
 
 non_special_window_index() {
     # the window index is always the last used non-special window
     tmux list-windows -t "$(active_session)" -F "#{window_index},#{window_name},#{window_activity}" | \
-        grep -v "editor,"  | grep -v "build," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1
+        grep -v "editor," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1
 }
 
 # Return empty string if the editor window doesn't exist

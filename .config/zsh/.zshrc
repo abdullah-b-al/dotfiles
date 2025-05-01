@@ -56,7 +56,6 @@ _comp_options+=(globdots)                       # Include hidden files.
 
 zcompare_source "$ZDOTDIR/zsh-functions"
 zcompare_source "$ZDOTDIR/vim-mode"
-zcompare_source "$ZDOTDIR/zoxide"
 
 # Plugins
 zsh_add_plugin     "Aloxaf/fzf-tab"

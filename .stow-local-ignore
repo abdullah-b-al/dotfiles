@@ -1,4 +1,5 @@
 # Comments and blank lines are allowed.
+/env-config
 /debian-config
 /arch-install
 /bin

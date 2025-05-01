@@ -7,7 +7,7 @@
   <property name="zoomGesturesEnabled" value="true"/>
   <property name="selectedToolbar" value="Toolbar Left Copy"/>
   <property name="lastSavePath" value="/home/ab55al/personal/notes"/>
-  <property name="lastOpenPath" value="/home/ab55al/Downloads"/>
+  <property name="lastOpenPath" value="/home/ab55al/personal/notes"/>
   <property name="lastImagePath" value=""/>
   <property name="edgePanSpeed" value="20.00000000"/>
   <property name="edgePanMaxMult" value="5.00000000"/>
@@ -130,7 +130,7 @@
       <attribute name="tool" type="string" value="none"/>
     </data>
     <data name="stylus">
-      <attribute name="tool" type="string" value="showFloatingToolbox"/>
+      <attribute name="tool" type="string" value="selectRect"/>
     </data>
     <data name="stylus2">
       <attribute name="eraserMode" type="string" value="deleteStroke"/>
@@ -218,7 +218,7 @@
     </data>
     <data name="pen">
       <attribute name="color" type="hex" value="ffeeeeee"/>
-      <attribute name="drawingType" type="string" value="default"/>
+      <attribute name="drawingType" type="string" value="strokeRecognizer"/>
       <attribute name="fill" type="int" value="0"/>
       <attribute name="fillAlpha" type="int" value="128"/>
       <attribute name="size" type="string" value="THIN"/>

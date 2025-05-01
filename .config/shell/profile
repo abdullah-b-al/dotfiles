@@ -21,8 +21,9 @@ export XMODIFIERS=@im='ibus'
 
 # Environment Variables
 export ZDOTDIR="$HOME/.config/zsh"
-export EDITOR=helix
-export TERMINAL=konsole
+export EDITOR=nvim
+export TERMINAL=alacritty
+export WASMTIME_HOME="$HOME/.wasmtime"
 export BROWSER=brave-browser
 export HISTCONTROL=ignoreboth
 export MANROFFOPT='-c'
@@ -41,13 +42,13 @@ export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
 export MAILCHECK=""
 
 export ODIN_ROOT="$HOME/.local/bin/odin"
-export PATH="$PATH:/usr/sbin:$HOME/.local/bin:$DOTFILES/bin:$ODIN_ROOT"
+export PATH="$PATH:/usr/sbin:$HOME/.local/bin:$DOTFILES/bin:$ODIN_ROOT:$WASMTIME_HOME/bin"
 
 export MAKEFLAGS=-j$(($(nproc)-1))
 
 export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 
-alias bat="batcat --paging always"
+alias bat="bat --paging always"
 alias ls='ls --group-directories-first --color=auto'
 alias la='ls -Alh'
 alias lt='la -tr'

@@ -6,7 +6,6 @@ gawk
 alacritty
 awesome
 bat
-pulseaudio
 ranger
 openssh
 gammastep

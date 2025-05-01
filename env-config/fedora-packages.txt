@@ -101,3 +101,4 @@ xorg-x11-server-Xorg
 startx
 jetbrains-mono-fonts
 fd-find
+xset

@@ -7,6 +7,7 @@ config-system.sh
 packages\.txt
 aur-packages\.txt
 vm.xml
+tablet.json
 
 
 # Defaults

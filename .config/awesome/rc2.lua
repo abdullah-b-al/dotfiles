@@ -37,6 +37,11 @@ local cpu_usage_data = {
     prev_idle = 0,
 }
 
+M.get_font = function (size)
+    size = tostring(size or 9)
+    return "JetBrains Mono " .. size
+end
+
 M.notify_all_monitors = function (message)
     awful.screen.connect_for_each_screen(function(s)
         message.screen = s
@@ -103,6 +108,25 @@ end
 
 M.spawn_or_goto_terminal = function () M.spawn_or_goto('^'..terminal_class..'$', terminal, "class") end
 
+M.screen_settings_set = function()
+    -- Put it in a delay so that spamming doesn't cause problems
+    gears.timer.start_new(1, function()
+        local s = awful.screen.focused()
+        local c = client.focus
+
+        if c.screen.index == 1 and s.index == 1 then
+            local bin = os.getenv("DOTFILES") .. "/bin/screen-settings-set.sh"
+            if c.class == "gamescope" or string.match(c.class, "steam_app_.*") then
+                awful.util.spawn(bin .. ' gaming')
+            else
+                awful.util.spawn(bin)
+            end
+        end
+
+        return false
+    end)
+end
+
 local combine = function (widget, shape, margin)
     if widget == nil then return end
 
@@ -144,7 +168,7 @@ local widgets = {
         end)
     end)(), -- don't forget to call
 
-    cpu_temp = awful.widget.watch('cat /sys/devices/virtual/thermal/thermal_zone0/hwmon3/temp1_input', 10,
+    cpu_temp = awful.widget.watch('cat /sys/devices/virtual/thermal/thermal_zone0/hwmon4/temp1_input', 10,
         function(widget, stdout) widget:set_text(tonumber(stdout)/1000) end),
 
     cpu_usage = awful.widget.watch([[bash -c "cat /proc/stat | head -n 1"]], 10,
@@ -169,10 +193,10 @@ local widgets = {
         widget:set_text(stdout)
     end),
 
-    gpu_temp = awful.widget.watch('cat /sys/class/drm/card0/device/hwmon/hwmon0/temp1_input', 10,
+    gpu_temp = awful.widget.watch('gpu-temp.sh', 60,
         function(widget, stdout)
-            local temp = tonumber(stdout)/1000
-            if temp >= 95 then
+            local temp = tonumber(stdout)
+            if temp >= 100 then
                 local preset = naughty.config.presets.critical
                 preset.timeout = 10
                 M.notify_all_monitors({
@@ -183,7 +207,7 @@ local widgets = {
             widget:set_text(temp)
         end),
 
-    gpu_usage = awful.widget.watch([[bash -c "radeontop -d - -l 1 | grep -Po 'gpu \d+'"]], 10,
+    gpu_usage = awful.widget.watch([[bash -c "radeontop -d - -l 1 | grep -Po 'gpu \d+'"]], 60,
         function(widget, stdout)
             local str = gears.string.split(stdout, ' ')[2]
             widget:set_text(str)
@@ -201,6 +225,10 @@ local widgets = {
         local speed_tx = (cur_tx - network_data.prev_tx) / network_data.timeout
         widget:set_text(network_data.convert_to_mega_bits(speed_tx))
         network_data.prev_tx = cur_tx
+    end),
+
+    updates = awful.widget.watch("bash -c 'dnf check-upgrade | wc -l'", 60 * 60, function(widget, stdout)
+        widget:set_text(stdout)
     end),
 
 
@@ -229,7 +257,7 @@ local margin = {
     right  = 5,
     top    = 1,
     bottom = 1,
-    widget = wibox.container.margin
+    widget = wibox.container.margin,
 }
 
 
@@ -237,7 +265,7 @@ local shape = {
     shape = gears.shape.rounded_rect,
     shape_border_color = border_color,
     shape_border_width = 0.3,
-    widget             = wibox.container.background
+    widget             = wibox.container.background,
 }
 
 local ram = {
@@ -301,6 +329,12 @@ local network = {
     textbox_color("↑", secondary_fg),
     widgets.network_tx,
     textbox_color("Mb/s", secondary_fg),
+}
+
+local updates = {
+    layout = wibox.layout.fixed.horizontal,
+    textbox_color(" ", secondary_fg),
+    widgets.updates
 }
 
 function M.multi_key_map  (keys)
@@ -389,6 +423,7 @@ M.widgets = {
     cpu = combine(cpu, shape, margin),
     gpu = combine(gpu, shape, margin),
     network = combine(network, shape, margin),
+    updates = combine(updates, shape, margin),
     auto_cpufreq = widgets.auto_cpufreq,
     terminal = terminal,
 }

@@ -16,3 +16,4 @@ drives-mount.sh
 dnf-config.sh
 packages-install.sh
 services-config.sh
+sudo-config.sh

@@ -1,7 +1,7 @@
 #!/bin/sh
 # monitor_height="$(xrandr | grep primary | awk -F "x|+| " '{print $5}')"
 
-font="UbuntuMono"
+font="JetBrainsMono"
 font_color="D0D0D0"
 
 bg="000000"
@@ -28,7 +28,7 @@ i3lock -n \
     --wrong-font=$font \
     \
     --date-size=12  \
-    --time-size=26  \
+    --time-size=24  \
     --verif-size=20 \
     --wrong-size=20 \
     \

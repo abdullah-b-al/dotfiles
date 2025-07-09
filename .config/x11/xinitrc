@@ -1,2 +1,4 @@
 #!/bin/sh
+xrdb ~/.Xresources
+export XDG_SESSION_TYPE=x11
 exec awesome

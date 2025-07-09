@@ -1,0 +1,61 @@
+{
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+  "telemetry": {
+    "metrics": false
+  },
+  "relative_line_numbers": true,
+  "cursor_blink": false,
+  "vim_mode": true,
+
+  "show_completions_on_input": true,
+  "completions": {
+    "words": "enabled",
+    "lsp": false,
+    "lsp_fetch_timeout_ms": 0,
+    "lsp_insert_mode": "replace_suffix"
+  },
+
+  "ui_font_family": "JetBrains Mono",
+  "ui_font_size": 17,
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "One Dark"
+  },
+
+  "git": {
+    "git_gutter": null,
+    "gutter_debounce": null,
+    "inline_blame": {
+      "enabled": false
+    },
+    "hunk_style": null
+  },
+
+  "auto_signature_help": true,
+  "diagnostics": {
+    "button": true,
+    "include_warnings": true,
+    "lsp_pull_diagnostics": {
+      "enabled": true,
+      "debounce_ms": 50
+    },
+    "inline": {
+      "enabled": true,
+      "update_debounce_ms": 150,
+      "padding": 4,
+      "min_column": 0,
+      "max_severity": null
+    }
+  },
+
+  "scrollbar": {
+    "axes": {
+      "horizontal": false
+    }
+  }
+}

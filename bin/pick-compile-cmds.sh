@@ -10,7 +10,7 @@ if ! [ -t 0 ]; then
 fi
 
 session="$(tmux.sh active_session)"
-target_pane="$($session:editor.1)"
+target_pane="$session:editor.1"
 insert_or_run="run"
 cmds="$(compile-cmds.sh list_in_cwd)"
 [ -z "$cmds" ] && notify "Empty compile command list" && exit 0

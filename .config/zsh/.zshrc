@@ -22,7 +22,7 @@ SAVEHIST=3000
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
 
-setopt APPEND_HISTORY                            
+setopt APPEND_HISTORY
 setopt SHARE_HISTORY                            # Immediate history sharing between sessions
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_DUPS
@@ -93,7 +93,8 @@ eval "$(starship init zsh)"
 
 session_name="general"
 [ "$XDG_VTNR" -gt 1 ] && session_name="tty$XDG_VTNR"
-[ -z "$TMUX" ] && tmux new-session -A -s "$session_name"
+
+[ -z "$TMUX" ] && [ -z "$ZED_TERM" ] && tmux new-session -A -s "$session_name"
 
 enable-fzf-tab
 add-zsh-hook preexec preexec_hook_for_compile

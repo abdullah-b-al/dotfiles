@@ -2,11 +2,9 @@
 set -eu
 set -o pipefail
 
-file="/etc/dnf/dnf.conf"
-line="max_parallel_downloads=10" 
+target="/etc/dnf/dnf.conf"
+src="./dnf.conf"
 
-if ! [ "$(grep "$line" "$file")" ]; then
-    echo "$line" >> "$file"
-fi
+cat "$src" > "$target"
 
-echo "$(basename $0): done"
+echo "$(basename "$0"): done"

@@ -13,6 +13,7 @@ local beautiful = require("beautiful")
 -- Notification library local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local focused = awful.screen.focused
+local naughty = require("naughty")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -53,12 +54,8 @@ gears.wallpaper.set("#000000")
 -- beautiful.border_width = 2
 -- beautiful.border_focus = "#FFFFFF"
 
-local get_font = function (size)
-    size = tostring(size or 9)
-    return "Ubuntu Condensed " .. size
-end
-beautiful.font = get_font()
-beautiful.notification_font = get_font(32)
+beautiful.font = rc.get_font()
+beautiful.notification_font = rc.get_font(32)
 beautiful.fg_normal  = "#FFFFFF"
 beautiful.bg_normal  = "#282C34"
 beautiful.titlebar_fg  = beautiful.fg_normal
@@ -171,7 +168,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
   -- Create the wibox
-    s.topwibox = awful.wibar({ position = "top", screen = s, height = 13 })
+    s.topwibox = awful.wibar({ position = "top", screen = s, height = 15 })
     s.leftwibox = awful.wibar({ position = "left", screen = s, width = 20, height = s.geometry.height })
     s.topwibox.x = s.topwibox.x + 20
     s.leftwibox.y = s.topwibox.y
@@ -196,9 +193,10 @@ awful.screen.connect_for_each_screen(function(s)
         },
 
         {
-            spacing = 6,
+            spacing = 5,
             layout = wibox.layout.fixed.horizontal,
 
+            -- rc.widgets.updates,
             rc.widgets.auto_cpufreq,
             rc.widgets.battery,
             rc.widgets.network,
@@ -208,8 +206,12 @@ awful.screen.connect_for_each_screen(function(s)
 
             rc.widgets.date_and_time,
 
-            awful.widget.keyboardlayout(),
-            wibox.widget.systray(),
+            {
+                layout = wibox.layout.fixed.horizontal,
+                spacing = 0,
+                wibox.widget.systray(),
+                awful.widget.keyboardlayout(),
+            },
         },
 
         { -- Right widgets
@@ -312,8 +314,10 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
         {description = "swap with next client by index", group = "client"}),
 
-    awful.key({ modkey,           }, "Return", function () awful.screen.focus_relative(-1) end,
-        {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey,           }, "Tab", function ()
+        client.focus = nil
+    end,
+        {description = "Unfocus the current client", group = "screen"}),
 
     awful.key({ modkey, "Shift"   }, "h", function () awful.client.swap.byidx( -1)    end,
         {description = "swap with previous client by index", group = "client"}),
@@ -402,7 +406,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, "Control" }, "r", awesome.restart,
         {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+    awful.key({ modkey, "Shift", "Control"   }, "q", awesome.quit,
         {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey,           }, "j",     function () awful.tag.incmwfact( 0.02)          end,
@@ -445,8 +449,13 @@ globalkeys = gears.table.join(
 )
 
 clientkeys = gears.table.join(
-  awful.key({ modkey,           }, "q",      function (c) c:kill()                         end,
-    {description = "close", group = "client"}),
+  awful.key({ modkey }, "q",      function (c)
+        if c.class == "gamescope" then
+            return
+        end
+        c:kill()
+    end,
+        {description = "close", group = "client"}),
   awful.key({ modkey, "Control" }, "]",  awful.client.floating.toggle                     ,
     {description = "toggle floating", group = "client"}),
   awful.key({ modkey, "Control" }, "[",  function(c) awful.titlebar.toggle(c) end                     ,
@@ -598,11 +607,25 @@ awful.rules.rules = {
         }, properties = { titlebars_enabled = true }
     },
 
+
     {
         rule_any = {
             class = { "looking-glass-client" }
-        }, properties = { floating = true, screen = 1, fullscreen = true, new_tag = true}
+        }, properties = { floating = true, screen = 1, fullscreen = true, new_tag = true }
     },
+
+    {
+        rule_any = {
+            class = { "gamescope" }
+        }, properties = { floating = true, screen = 1, new_tag = true }
+    },
+
+    {
+        rule_any = {
+            class = { "steam" }
+        }, properties = { floating = true, fullscreen = false, maximized = false }
+    },
+
     {
         rule_any = {
             class = {"terminal-prompt" }
@@ -617,7 +640,7 @@ awful.rules.rules = {
 
                 local titlebar = awful.titlebar(c)
 
-                beautiful.font = get_font(12)
+                beautiful.font = rc.get_font(12)
                 titlebar:setup({
                     { -- Title
                         align  = 'center',
@@ -626,7 +649,7 @@ awful.rules.rules = {
                     layout  = wibox.layout.flex.horizontal
 
                 })
-                beautiful.font = get_font()
+                beautiful.font = rc.get_font()
             end,
             floating = true,
             placement = awful.placement.centered,
@@ -640,7 +663,7 @@ awful.rules.rules = {
             callback = function (c)
                 local titlebar = awful.titlebar(c)
 
-                beautiful.font = get_font(12)
+                beautiful.font = rc.get_font(12)
                 titlebar:setup({
                     { -- Title
                         align  = 'center',
@@ -649,7 +672,7 @@ awful.rules.rules = {
                     layout  = wibox.layout.flex.horizontal
 
                 })
-                beautiful.font = get_font()
+                beautiful.font = rc.get_font()
             end,
             floating = true,
             placement = awful.placement.centered,
@@ -710,7 +733,8 @@ client.connect_signal("manage", function (c)
     end
 
     -- Rules based on patterns
-    if string.match(c.name, "^TestWindow") then
+    local client_name = c.name or ""
+    if string.match(client_name, "^TestWindow") then
         c.floating = true
     end
 end)
@@ -721,18 +745,20 @@ client.connect_signal("mouse::enter", function(c)
 end)
 
 client.connect_signal("focus", function(c)
-  c.border_color = '#00FF00'
-  c.border_width = 1
+    rc.screen_settings_set()
 
-  gears.timer.start_new(0.3, function()
-    local focused_client = client.focus
-    focused_client.border_color = '#000000'
-    focused_client.border_width = 1
+    -- border color
+    c.border_color = '#00FF00'
+    c.border_width = 1
 
-    collectgarbage("collect")
-    return false
-  end)
+    gears.timer.start_new(0.3, function()
+        local focused_client = client.focus
+        focused_client.border_color = '#000000'
+        focused_client.border_width = 1
 
+        collectgarbage("collect")
+        return false
+    end)
 
 end)
 

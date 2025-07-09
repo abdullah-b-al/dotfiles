@@ -5,7 +5,6 @@ set -o pipefail
 personal="$HOME/personal"
 dotfiles="$personal/.dotfiles"
 
-
 chmod +x "$personal"/bin/*
 chmod +x "$dotfiles"/bin/*
 

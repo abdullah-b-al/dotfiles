@@ -1,0 +1,23 @@
+(defcfg
+ linux-dev (
+     /dev/input/by-path/platform-i8042-serio-0-event-kbd
+     )
+   linux-x11-repeat-delay-rate 250,50
+)
+
+(defalias
+ num (one-shot 500 (layer-while-held num))
+ sls (one-shot 500 lsft)
+ slc (one-shot 500 lctrl)
+ sla (one-shot 500 lalt)
+ slm (one-shot 500 lmet)
+
+ srs (one-shot 500 rsft)
+ src (one-shot 500 rctrl)
+ sra (one-shot 500 ralt)
+ srm (one-shot 500 rmet)
+)
+
+(defsrc         q w   e r t y u i o p [ ] a   s   d   f   g   h   j   k   l   ;   '    z x c v b n   m   ,   . / 1 2 3 4 5 6 7 8 9 0 f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 right left up down spc  tab ret bspc del esc lsft lctrl lalt lmet rsft rctrl ralt rmet caps = - `)
+(deflayer base  q w   f p b _ j l u y ; ] a   r   s   t   g   k   n   e   i   o   @slc z x c d v m   h   ,   . / 1 2 3 4 5 6 7 8 9 0 f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 right left up down spc  tab ret bspc del esc @sls @slc  @num @slm @srs @src  @sra @srm esc  = - `)
+(deflayer num   _ S-= - _ _ _ _ - = _ [ ] S-1 S-2 S-3 S-4 S-5 S-6 S-7 S-8 S-9 S-0 bspc _ _ [ ] _ S-- S-[ S-] _ _ _ _ _ _ _ _ _ _ _ _ _  _  _  _  _  _  _  _  _  _   _   _   right left up down spc  tab ret bspc del esc @sls @slc  @sla @slm @srs @src  '    @srm esc  = - `)

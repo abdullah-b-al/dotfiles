@@ -37,7 +37,7 @@ window {
     width: 50%;
     height: 50%;
     location: south;
-    transparency:                "screenshot";
+    // transparency:                "screenshot";
     fullscreen:                  false;
     x-offset:                    0px;
     y-offset:                    3px;
@@ -153,4 +153,8 @@ element selected.urgent {
 element selected.normal {
     background-color:            var(selected);
     text-color:                  var(background);
+}
+
+element-icon {
+    background-color: var(background);
 }

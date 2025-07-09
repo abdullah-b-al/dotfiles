@@ -1,4 +1,5 @@
 
-Xcursor.theme: Breeze
+Xcursor.theme: breeze_cursors
+Xcursor.size: 24
 URxvt*encoding: UTF-8
 URxvt*termName: rxvt-unicode

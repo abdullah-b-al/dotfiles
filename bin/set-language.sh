@@ -8,10 +8,15 @@ toggle() {
     fi
 }
 
-case "$1" in
-    "toggle") toggle;;
-    "us") setxkbmap -layout 'us';;
-    "ara") setxkbmap -layout 'ara';;
-esac
+if [ $XDG_SESSION_TYPE = x11 ]; then
 
-set-keyboard-settings.sh
+    case "$1" in
+        "toggle") toggle;;
+        "us") setxkbmap -layout 'us';;
+        "ara") setxkbmap -layout 'ara';;
+    esac
+else
+    hyprctl switchxkblayout all next
+fi
+
+# set-keyboard-settings.sh

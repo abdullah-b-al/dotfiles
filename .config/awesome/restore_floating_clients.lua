@@ -32,12 +32,30 @@ local unmaximized_state = {}
 -- regardless of which screen it was on.
 local clients_screens = {}
 
+local classes_to_ignore = {
+    'steam',
+    'gamescope',
+    'scratch-terminal',
+}
+
+function should_ignore(c)
+    for _, class in ipairs(classes_to_ignore) do
+        if (c.class == class) then
+            return true
+        end
+    end
+
+    if c.name == nil then return true end
+
+    return false
+end
 
 -- When the geometry of a client changes, and the layout is floating, then
 -- store the client's maximized state. And if the client is also not maximized,
 -- then also store the client's geometry. This will be used to restore the
 -- client's geometry when they become floating again.
 client.connect_signal("property::geometry", function(c)
+    if should_ignore(c) then return end
 
     if c.name then
         clients_screens[c.name] = c.screen
@@ -110,6 +128,7 @@ end)
 -- restore the floating client geometry to what it was in the previous floating
 -- state.
 client.connect_signal("property::maximized", function(c)
+    if should_ignore(c) then return end
 
     if (
         c.maximized
@@ -150,12 +169,13 @@ client.connect_signal("property::maximized", function(c)
 
 end)
 
-
 -- When a new client appears, reset the geometry states. Because this signal
 -- comes after the geometry signal, and the geometry signal in this case stores
 -- incorrect geometries for a new client. So since this signal comes after the
 -- geometry signal, we can reset it, so a new client starts with a blank slate.
 client.connect_signal("manage", function (c)
+    if should_ignore(c) then return end
+
     if prev_floating_client_geometries[c.name] then
         c.screen = clients_screens[c.name]
         c:geometry(prev_floating_client_geometries[c.name])
@@ -163,6 +183,10 @@ client.connect_signal("manage", function (c)
 end)
 
 client.connect_signal("unmanage", function (c)
-    clients_screens[c.name] = c.screen
-    prev_floating_client_geometries[c.name] = c:geometry()
+    if should_ignore(c) then return end
+
+    if c.name then
+        clients_screens[c.name] = c.screen
+        prev_floating_client_geometries[c.name] = c:geometry()
+    end
 end)

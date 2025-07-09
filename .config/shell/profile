@@ -31,9 +31,9 @@ export FZF_DEFAULT_OPTS="--layout=reverse --height=5%"
 export ROFI_PLUGIN_PATH="$HOME/.local/lib/rofi-plugins"
 
 export BAT_PAGER="less -iRI"
-export MANPAGER="sh -c 'col -bx | batcat --paging always -l man -p'"
+export MANPAGER="sh -c 'col -bx | bat --paging always -l man -p'"
 
-export DOTFILES="$HOME/personal/.dotfiles"
+export DOTFILES="$HOME/.dotfiles"
 export SUDO_ASKPASS="$DOTFILES/bin/askpass.sh"
 export LC_ALL=en_US.UTF-8
 export GTK_THEME=Adwaita:dark
@@ -76,5 +76,10 @@ fi
 
 # Start graphical server on user's current tty if not already running.
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ] && [ -z "$TMUX" ]; then
-  exec startx "$XINITRC"
+    # exec startx "$XINITRC"
+    if [ -e "/sys/class/power_supply/BAT0" ]; then
+        exec Hyprland --config ~/.config/hypr/laptop.conf
+    else
+        exec Hyprland --config ~/.config/hypr/desktop.conf
+    fi
 fi

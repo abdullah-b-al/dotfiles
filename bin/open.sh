@@ -9,6 +9,8 @@ if [ "$ext" = "pdf" ]; then
 elif ! [ -f "$1" ] && ! [ -d "$1" ]; then # For urls
     xdg-open "$1"
 else
-    awesome-client 'require("rc2").spawn_or_goto_terminal()'
+    if [ "$XDG_SESSION_TYPE" = "x11" ]; then
+        awesome-client 'require("rc2").spawn_or_goto_terminal()'
+    fi
     editor.sh "$1"
 fi

@@ -1,0 +1,43 @@
+[
+  {
+    "context": "Workspace",
+    "bindings": {}
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-escape": "workspace::CloseAllDocks",
+      "ctrl-z": "workspace::ToggleZoom"
+    }
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "ctrl-e": ["workspace::SendKeystrokes", "ctrl-e ctrl-e"],
+      "ctrl-y": ["workspace::SendKeystrokes", "ctrl-y ctrl-y"],
+      "Y": ["workspace::SendKeystrokes", "y $"],
+      "alt-%": ["workspace::SendKeystrokes", "V %"],
+      "alt-x": ["workspace::SendKeystrokes", "V j"],
+      "shift-alt-x": ["workspace::SendKeystrokes", "V k"]
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "alt-x": ["workspace::SendKeystrokes", "j"],
+      "shift-alt-x": ["workspace::SendKeystrokes", "k"]
+    }
+  },
+  {
+    "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
+    "bindings": {
+      "q": "vim::AnyQuotes",
+      "b": "vim::AnyBrackets"
+    }
+  },
+
+  {
+    "context": "Terminal",
+    "bindings": {}
+  }
+]

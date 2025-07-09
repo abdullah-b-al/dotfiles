@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 rofi_matching="fuzzy"
 operation="$1"
 target="$2"
@@ -101,11 +100,8 @@ _open_path_rofi() {
     _rofi_handle_key "$result" "$1" "$return_value"
 }
 
-# test -t 0 won't work as i expect inside a function. I don't know why so keep this here
-test -t 0
-export in_terminal="$?"
 _menu() {
-    if [ "$in_terminal" = 0 ]; then
+    if [ -n "$TMUX" ]; then
         _open_path_fzf
     else
         _open_path_rofi "$1"
@@ -173,7 +169,7 @@ _find() {
     fi
 
     # fd doesn't provide the directory that's being searched in
-    echo "$find_path" # empty so it doesn't conflict with _path_prefix
+    echo "$find_path"
     fd $args --base-directory "$find_path" .
 }
 

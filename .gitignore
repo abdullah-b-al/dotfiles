@@ -9,3 +9,4 @@
 .config/zsh/.zcompdump
 .config/polybar/colors.ini
 .config/polybar/glyphs.ini
+.sync_*

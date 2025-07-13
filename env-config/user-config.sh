@@ -16,4 +16,4 @@ chsh -s /bin/zsh "$USER"
 files-sync.sh
 file-perms-and-links.sh
 
-cd "$HOME/personal/.dotfiles" && stow -S . -t "$HOME"
+cd "$HOME/.dotfiles" && stow -S . -t "$HOME"

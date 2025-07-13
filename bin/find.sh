@@ -46,7 +46,7 @@ _open_path_fzf() {
     [ -z "$prefix" ] && height="33%"
 
     export target
-    header="Enter=Open ^e=Edit ^x=Copy ^i=Tmux insert\nEditor server: ^v=Vertical split ^s=Horizontal split ^t=New tab\nFind in $target" 
+    header="Enter=Open ^e=Edit ^x=Copy ^i=Tmux insert\nEditor server: ^v=Vertical split ^s=Horizontal split ^t=New tab\nFind in $target"
     result=$(_prepend "$header" |\
         fzf --height=$height --layout=$layout \
         --header-lines=3 \
@@ -113,7 +113,7 @@ prog() {
         args="-u "
     fi
     args="$args-E \.zig-cache -E \.git"
-    find_path="$HOME/personal/prog"
+    find_path="$HOME/prog"
 }
 
 personal() {

@@ -3,7 +3,7 @@ set -eu
 set -o pipefail
 
 personal="$HOME/personal"
-dotfiles="$personal/.dotfiles"
+dotfiles="$HOME/.dotfiles"
 
 chmod +x "$personal"/bin/*
 chmod +x "$dotfiles"/bin/*

@@ -10,9 +10,9 @@ dnf install steam gamescope mangohud gamemode
 
 usermod -aG gamemode ab
 
-scopebuddy_path="$HOME/.local/bin"
-curl -Lo "$scopebuddy_path"/scopebuddy https://raw.githubusercontent.com/HikariKnight/ScopeBuddy/refs/heads/main/bin/scopebuddy
-chmod +x "$scopebuddy_path"/scopebuddy
+scopebuddy_path="$HOME/.local/bin/scopebuddy"
+curl -Lo "$scopebuddy_path" https://raw.githubusercontent.com/HikariKnight/ScopeBuddy/refs/heads/main/bin/scopebuddy
+chmod +x "$scopebuddy_path"
 
 # gpu_conf_file="20-amdgpu.conf"
 # gpu_conf_file_dir="/etc/X11/xorg.conf.d"

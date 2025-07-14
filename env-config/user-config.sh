@@ -13,6 +13,7 @@ fi
 
 dirs-setup.sh
 chsh -s /bin/zsh "$USER"
+user-services-config.sh
 files-sync.sh
 file-perms-and-links.sh
 

@@ -8,6 +8,9 @@ packages\.txt
 aur-packages\.txt
 vm.xml
 tablet.json
+\.sync_.*
+\.nextcloudsync.log
+\.sync-exclude.lst
 
 
 # Defaults

@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-dnf copr enable -y atim/starship
 
-dnf install -y dnf-plugins-core
+if ! command -v zed; then
+    curl -f https://zed.dev/install.sh | sh
+fi
 
-dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-
-dnf install -y $(cat ./fedora-packages.txt)
+if ! command -v kanata; then
+    cd /tmp
+    wget --no-config https://github.com/jtroo/kanata/releases/download/v1.9.0/kanata
+    chmod +x ./kanata
+    sudo mv ./kanata /usr/local/bin/kanata
+fi

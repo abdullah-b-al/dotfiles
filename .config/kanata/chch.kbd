@@ -6,6 +6,7 @@
 )
 
 (defalias
+ num0 (one-shot 500 (layer-while-held num0))
  num1 (one-shot 500 (layer-while-held num1))
  num2 (one-shot 500 (layer-while-held num2))
 
@@ -21,6 +22,7 @@
 )
 
 (defsrc          a b   c   d   e   f   g   h i j  k l m n   o p   q   r s   t u v    w   x   y z   1 2 3 4 5 6 7 8 9 0 f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f23   f24   right left up down spc tab ret bspc del esc lsft lctrl lalt lmet rsft rctrl ralt rmet [ ] = - ; ' / . , \ `)
-(deflayer base   a b   c   d   e   f   g   h i j  k l m n   o p   q   r s   t u v    w   x   y z   1 2 3 4 5 6 7 8 9 0 f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 @num1 @num2 right left up down spc tab ret bspc del esc @sls @slc  @sla @slm @srs @src  @sra @srm [ ] = - ; ' / . , \ `)
-(deflayer num1   . _   S-4 S-2 S-[ S-3 S-' 2 [ F8 ' 1 _ S-9 ` S-1 S-7 = S-\ + 3 @slm S-5 S-6 5 S-8 _ _ _ _ _ _ _ _ _ _ f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 @slm  ]     _     _    _  _    spc _   S-- bspc _   esc 0    \     -    _    9    S-]   S-0  _    _ _ _ _ 7 _ 8 6 4 _ _)
-(deflayer num2   . _   S-4 S-2 S-[ S-3 S-' 2 [ F8 ' 1 _ S-9 ` S-1 S-7 = S-\ + 3 @slm S-5 S-6 5 S-8 _ _ _ _ _ _ _ _ _ _ f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 S-`   @srm  _     _    _  _    spc _   S-- bspc _   esc 0    \     -    _    9    S-]   S-0  _    _ _ _ _ 7 _ 8 6 4 _ _)
+(deflayer base   a b   c   d   e   f   g   h i j  k l m n   o p   q   r s   t u v    w   x   y z   1 2 3 4 5 6 7 8 9 0 f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 @num0 @num0 right left up down spc tab ret bspc del esc @sls @slc  @sla @slm @srs @src  @sra @srm [ ] = - ; ' / . , \ `)
+(deflayer num0   . _   S-4 S-2 S-[ S-3 S-' 2 [ F8 ' 1 _ S-9 ` S-1 S-7 = S-\ + 3 @slm S-5 S-6 5 S-8 _ _ _ _ _ _ _ _ _ _ f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 S-`   ]     _     _    _  _    spc _   S-- bspc _   esc 0    \     -    _    9    S-]   S-0  _    _ _ _ _ 7 _ 8 6 4 _ _)
+(deflayer num1   . _   S-4 S-2 S-[ S-3 S-' 2 [ F8 ' 1 _ S-9 ` S-1 S-7 = S-\ + 3 @slm S-5 S-6 5 S-8 _ _ _ _ _ _ _ _ _ _ f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 @slm  esc   _     _    _  _    spc _   S-- bspc _   esc 0    \     -    _    9    S-]   S-0  _    _ _ _ _ 7 _ 8 6 4 _ _)
+(deflayer num2   . _   S-4 S-2 S-[ S-3 S-' 2 [ F8 ' 1 _ S-9 ` S-1 S-7 = S-\ + 3 @slm S-5 S-6 5 S-8 _ _ _ _ _ _ _ _ _ _ f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 esc   @srm  _     _    _  _    spc _   S-- bspc _   esc 0    \     -    _    9    S-]   S-0  _    _ _ _ _ 7 _ 8 6 4 _ _)

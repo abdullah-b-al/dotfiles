@@ -1,13 +1,22 @@
 [
   {
     "context": "Workspace",
-    "bindings": {}
+    "bindings": {
+      "ctrl-escape": "workspace::CloseAllDocks"
+      // "alt-n": ["task::Spawn", { "task_name": "Notes", "reveal_target": "center" }]
+    }
   },
   {
     "context": "Editor",
     "bindings": {
-      "ctrl-escape": "workspace::CloseAllDocks",
-      "ctrl-z": "workspace::ToggleZoom"
+      "ctrl-z": "workspace::ToggleZoom",
+      "ctrl-enter": "tab_switcher::ToggleAll"
+    }
+  },
+  {
+    "context": "(!BufferSearchBar > Editor || !ProjectSearchBar > Editor) && vim_mode == visual",
+    "bindings": {
+      "s": ["buffer_search::Deploy", { "selection_search_enabled": true }]
     }
   },
   {
@@ -18,14 +27,29 @@
       "Y": ["workspace::SendKeystrokes", "y $"],
       "alt-%": ["workspace::SendKeystrokes", "V %"],
       "alt-x": ["workspace::SendKeystrokes", "V j"],
-      "shift-alt-x": ["workspace::SendKeystrokes", "V k"]
+      "ctrl-alt-x": ["workspace::SendKeystrokes", "V k"]
+    }
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "alt-l": "vim::SelectNext",
+      "alt-h": "vim::SelectPrevious"
+    }
+  },
+  {
+    "context": "vim_mode == visual && !menu",
+    "bindings": {
+      "space l": ["editor::SelectNext", { "replace_newest": true }],
+      "space h": ["editor::SelectPrevious", { "replace_newest": true }]
     }
   },
   {
     "context": "vim_mode == visual",
     "bindings": {
       "alt-x": ["workspace::SendKeystrokes", "j"],
-      "shift-alt-x": ["workspace::SendKeystrokes", "k"]
+      "ctrl-alt-x": ["workspace::SendKeystrokes", "k"],
+      "alt-s": "vim::PushAddSurrounds"
     }
   },
   {
@@ -38,6 +62,17 @@
 
   {
     "context": "Terminal",
-    "bindings": {}
+    "bindings": {
+      "ctrl-shift-k": "terminal::ScrollLineUp",
+      "ctrl-shift-j": "terminal::ScrollLineDown",
+      "alt-k": "terminal::ScrollPageUp",
+      "alt-j": "terminal::ScrollPageDown"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "alt-s": "vim::PushAddSurrounds"
+    }
   }
 ]

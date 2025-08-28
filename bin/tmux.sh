@@ -112,7 +112,15 @@ create_editor_window() {
 non_special_window_index() {
     # the window index is always the last used non-special window
     tmux list-windows -t "$(active_session)" -F "#{window_index},#{window_name},#{window_activity}" | \
-        grep -v "editor," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1
+        grep -v "editor," | grep -v "build," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 1
+}
+
+current_pane_argv() {
+    ps -p $(tmux display -p "#{pane_pid}") -o args=
+}
+
+prompt_respawn_current_pane() {
+    tmux command-prompt -I "$(current_pane_argv)" -p "Run:" "respawn-pane -k '%%'"
 }
 
 # Return empty string if the editor window doesn't exist

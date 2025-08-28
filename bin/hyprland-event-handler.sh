@@ -13,7 +13,11 @@ socat -U - UNIX-CONNECT:"$socket" | while read -r line; do
         sleep 1
         class="$(hyprctl -j activewindow | jq -r ".class")"
         monitor="$(hyprctl -j activewindow | jq -r ".monitor")"
-        if [[ $class == "gamescope" ]]; then
+        if [[ $class == "gamescope" ]] ; then
+            screen-settings-set.sh gaming
+        elif [[ $class == "steam_proton" ]]; then
+            screen-settings-set.sh gaming
+        elif [[ $class =~ "steam_app" ]]; then
             screen-settings-set.sh gaming
         elif [[ "$monitor" = "0" ]]; then
             screen-settings-set.sh

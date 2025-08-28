@@ -1,18 +1,46 @@
 {
+  "language_models": {
+    "openai_compatible": {
+      "glama": {
+        "api_url": "https://glama.ai/api/gateway/openai/v1",
+        "available_models": [
+          {
+            "name": "gemini-2.5-pro",
+            "display_name": null,
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000
+          }
+        ]
+      }
+    }
+  },
+  "show_edit_predictions": false,
+  "agent": {
+    "default_profile": "ask",
+    "default_model": {
+      "provider": "glama",
+      "model": "gemini-2.5-pro"
+    }
+  },
+  "preferred_line_length": 100,
   "features": {
     "edit_prediction_provider": "zed"
   },
   "telemetry": {
+    "diagnostics": true,
     "metrics": false
   },
   "relative_line_numbers": true,
   "cursor_blink": false,
+  "current_line_highlight": "gutter",
   "vim_mode": true,
+  "helix_mode": false,
 
   "show_completions_on_input": true,
   "completions": {
     "words": "enabled",
-    "lsp": false,
+    "lsp": true,
     "lsp_fetch_timeout_ms": 0,
     "lsp_insert_mode": "replace_suffix"
   },
@@ -24,7 +52,7 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "One Dark"
+    "dark": "Sonokai"
   },
 
   "git": {

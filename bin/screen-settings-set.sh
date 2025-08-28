@@ -7,10 +7,9 @@ force=false
 [ "$2" = "force" ] && force=true
 
 brightness="15"
-gammastep_flags="-PO 5000"
 if [ "$profile" = "gaming" ]; then
     brightness="50"
-    gammastep_flags="-x"
+    gammastep_kill="0"
 fi
 
 while [ "$(pgrep ddcutil)" ]; do
@@ -30,5 +29,6 @@ fi
 echo "$profile" > "$current_profile_file"
 
 sudo ddcutil --display 2 setvcp 10 $brightness
-# gammastep $gammastep_flags
+[ -n $gammastep_kill ] && pkill gammastep
+[ -z $gammastep_kill ] && gammastep &
 notify-send -t 2000 "Screen profile: $profile"

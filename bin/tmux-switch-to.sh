@@ -42,13 +42,15 @@ case "$wanted_window" in
         [ "$zoomed" = 0 ] && tmux resize-pane -Z -t "$session:editor.0"
         ;;
     build)
-        active=$(tmux display-message -t $session:editor.1 -p "#{pane_active}")
+        tmux switch-client -t "$session:build"
 
-        tmux switch-client -t "$session:editor.1"
+        # active=$(tmux display-message -t $session:editor.1 -p "#{pane_active}")
 
-        if [ "$active" = "1" ]; then
-            tmux resize-pane -Z -t "$session:editor.1"
-        fi
+        # tmux switch-client -t "$session:editor.1"
+
+        # if [ "$active" = "1" ]; then
+        #     tmux resize-pane -Z -t "$session:editor.1"
+        # fi
 
         ;;
     shell)

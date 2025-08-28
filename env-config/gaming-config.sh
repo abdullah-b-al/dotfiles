@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-dnf install -y \
+sudo dnf install -y \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-dnf config-manager setopt fedora-cisco-openh264.enabled=1
+sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
 
-dnf install steam gamescope mangohud gamemode
+sudo dnf install steam gamescope mangohud gamemode
 
-usermod -aG gamemode ab
+sudo usermod -aG gamemode ab
 
 scopebuddy_path="$HOME/.local/bin/scopebuddy"
 curl -Lo "$scopebuddy_path" https://raw.githubusercontent.com/HikariKnight/ScopeBuddy/refs/heads/main/bin/scopebuddy

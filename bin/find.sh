@@ -124,6 +124,14 @@ personal() {
     find_path="$HOME/personal"
 }
 
+notes() {
+    if [ "$ignore" = "no-ignore" ]; then
+        args="-u "
+    fi
+    args="$args--glob *.md"
+    find_path="$HOME/personal/notes"
+}
+
 dotfiles() {
     if [ "$ignore" = "no-ignore" ]; then
         args="-u "
@@ -155,6 +163,7 @@ root() {
     args="$args-E /home -E /mnt"
     find_path="/"
 }
+
 
 _find() {
     [ -z "$target" ] && echo "target not set" && exit 1

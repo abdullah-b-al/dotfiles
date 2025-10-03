@@ -29,6 +29,6 @@ fi
 echo "$profile" > "$current_profile_file"
 
 sudo ddcutil --display 2 setvcp 10 $brightness
-[ -n $gammastep_kill ] && pkill gammastep
-[ -z $gammastep_kill ] && gammastep &
+# [ -n $gammastep_kill ] && pkill gammastep
+# [ -z $gammastep_kill ] && gammastep &
 notify-send -t 2000 "Screen profile: $profile"

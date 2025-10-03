@@ -51,7 +51,7 @@ export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 alias bat="bat --paging always"
 alias ls='ls --group-directories-first --color=auto'
 alias la='ls -Alh'
-alias lt='la -tr'
+alias lt='la -tr --full-time'
 
 alias gd='git diff'
 alias gs='git status'
@@ -75,11 +75,21 @@ if command -v opam > /dev/null; then
 fi
 
 # Start graphical server on user's current tty if not already running.
+# exec startx "$XINITRC"
+# if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ] && [ -z "$TMUX" ]; then
+#     export MOZ_ENABLE_WAYLAND=1
+#     if [ -e "/sys/class/power_supply/BAT0" ]; then
+#         exec Hyprland --config ~/.config/hypr/laptop.conf
+#     else
+#         exec Hyprland --config ~/.config/hypr/desktop.conf
+#     fi
+# fi
+
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ] && [ -z "$TMUX" ]; then
-    # exec startx "$XINITRC"
+    export MOZ_ENABLE_WAYLAND=1
     if [ -e "/sys/class/power_supply/BAT0" ]; then
-        exec Hyprland --config ~/.config/hypr/laptop.conf
+        exec sway --config ~/.config/sway/laptop
     else
-        exec Hyprland --config ~/.config/hypr/desktop.conf
+        exec sway --config ~/.config/sway/desktop
     fi
 fi

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-declare -A classes
+declare -A app_ids
 declare -A commands
 
-classes[shell]="Alacritty"
-classes[editor]="dev.zed.Zed"
-classes[build]="Alacritty"
-classes[docs]="org.mozilla.firefox"
-classes[browser]="brave-browser"
-classes[dev_browser]="chromium-browser"
+app_ids[shell]="Alacritty"
+app_ids[editor]="dev.zed.Zed"
+app_ids[build]="Alacritty"
+app_ids[docs]="org.mozilla.firefox"
+app_ids[browser]="brave-browser"
+app_ids[dev_browser]="chromium-browser"
 
 commands[shell]="alacritty"
 commands[editor]="zed"
@@ -17,10 +17,10 @@ commands[docs]="open-docs.sh"
 commands[browser]="brave-browser"
 commands[dev_browser]="chromium-browser"
 
-class="${classes[$1]}"
+app_id="${app_ids[$1]}"
 cmd="${commands[$1]}"
 
-if [ -z "$class" ]; then
+if [ -z "$app_id" ]; then
     echo "Unknown window"
     exit 1
 elif [ -z "$cmd" ]; then
@@ -28,9 +28,11 @@ elif [ -z "$cmd" ]; then
     exit 1
 fi
 
-client="$(hyprctl -j clients | jq -r ".[] | select(.class | test(\"$class\"; \"i\"))")"
+
+
+client="$(swaymsg --raw -t get_tree | jq -r '.. | .app_id? // empty' | grep "$app_id")"
 if [ -n "$client" ]; then
-    hyprctl dispatch focuswindow "class:$class"
+    swaymsg "[app_id=$app_id] focus"
 else
     $cmd
 fi

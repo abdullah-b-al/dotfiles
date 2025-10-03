@@ -1,6 +1,6 @@
 [
   {
-    "context": "Workspace",
+    "context": "",
     "bindings": {
       "ctrl-escape": "workspace::CloseAllDocks"
       // "alt-n": ["task::Spawn", { "task_name": "Notes", "reveal_target": "center" }]
@@ -8,6 +8,15 @@
   },
   {
     "context": "Editor",
+    "bindings": {
+      "f1": "debugger::StepOut",
+      "f3": "debugger::StepOver",
+      "f2": "debugger::StepInto"
+    }
+  },
+
+  {
+    "context": "Editor && !BufferSearchBar",
     "bindings": {
       "ctrl-z": "workspace::ToggleZoom",
       "ctrl-enter": "tab_switcher::ToggleAll"
@@ -19,22 +28,43 @@
       "s": ["buffer_search::Deploy", { "selection_search_enabled": true }]
     }
   },
+
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "alt-;": "editor::UnwrapSyntaxNode",
+      "space n": "vim::SelectLargerSyntaxNode",
+      "space p": "vim::SelectSmallerSyntaxNode"
+    }
+  },
+
+  {
+    "context": "vim_mode == visual || vim_mode == normal || vim_mode == helix_normal",
     "bindings": {
       "ctrl-e": ["workspace::SendKeystrokes", "ctrl-e ctrl-e"],
-      "ctrl-y": ["workspace::SendKeystrokes", "ctrl-y ctrl-y"],
+      "ctrl-y": ["workspace::SendKeystrokes", "ctrl-y ctrl-y"]
+    }
+  },
+
+  {
+    "context": "vim_mode == normal && !menu",
+    "bindings": {
+      "s": "vim::PushSneak",
+      "S": "vim::PushSneakBackward",
       "Y": ["workspace::SendKeystrokes", "y $"],
       "alt-%": ["workspace::SendKeystrokes", "V %"],
       "alt-x": ["workspace::SendKeystrokes", "V j"],
-      "ctrl-alt-x": ["workspace::SendKeystrokes", "V k"]
+      "shift-x": ["workspace::SendKeystrokes", "V k"],
+      "space g d": "editor::GoToDefinitionSplit"
     }
   },
   {
     "context": "VimControl && !menu",
     "bindings": {
       "alt-l": "vim::SelectNext",
-      "alt-h": "vim::SelectPrevious"
+      "alt-h": "vim::SelectPrevious",
+      "alt-j": "editor::AddSelectionBelow",
+      "alt-k": "editor::AddSelectionAbove"
     }
   },
   {
@@ -44,11 +74,12 @@
       "space h": ["editor::SelectPrevious", { "replace_newest": true }]
     }
   },
+
   {
     "context": "vim_mode == visual",
     "bindings": {
       "alt-x": ["workspace::SendKeystrokes", "j"],
-      "ctrl-alt-x": ["workspace::SendKeystrokes", "k"],
+      "shift-x": ["workspace::SendKeystrokes", "k"],
       "alt-s": "vim::PushAddSurrounds"
     }
   },
@@ -57,6 +88,12 @@
     "bindings": {
       "q": "vim::AnyQuotes",
       "b": "vim::AnyBrackets"
+    }
+  },
+  {
+    "context": "DebugPanel",
+    "bindings": {
+      "ctrl-shift-r": "debugger::RerunSession"
     }
   },
 

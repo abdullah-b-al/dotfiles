@@ -85,7 +85,7 @@ editor_nvim() {
 }
 
 editor_zed $@
-hyprland-open-or-goto.sh editor
+sway-open-or-goto.sh editor
 
 # if pgrep zed; then
 #     editor_zed $@

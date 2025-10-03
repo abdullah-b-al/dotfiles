@@ -1,0 +1,151 @@
+set $mod Mod4
+set $alt Mod1
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $terminal alacritty
+set $run_bin rofi -show run
+set $drun_bin rofi -show drun
+
+exec post-graphical-setup.sh
+exec waybar
+
+input * repeat_delay 250
+input * repeat_rate 50
+input * accel_profile flat
+input * pointer_accel 0.5
+
+seat seat0 xcursor_theme breeze_cursors
+
+exec swaymsg "workspace 1; layout tabbed;"
+
+bindsym $mod+t exec scratch-term.sh nvim --cmd "cd $HOME/personal/notes" $HOME/personal/notes/notes.md
+bindsym $mod+q kill
+bindsym $mod+z exec $run_bin
+bindsym $mod+x exec $drun_bin
+
+bindsym $mod+$alt+s exec find.sh open root
+bindsym $mod+$alt+r exec find.sh open personal
+bindsym $mod+$alt+n exec find.sh open notes
+bindsym $mod+$alt+a exec find.sh open dotfiles
+bindsym $mod+$alt+t exec find.sh open home
+bindsym $mod+$alt+p exec find.sh open prog
+
+bindsym $mod+n exec sway-open-or-goto.sh shell; tmux-switch-to.sh shell
+bindsym $mod+e exec sway-open-or-goto.sh editor
+bindsym $mod+i exec sway-open-or-goto.sh build; tmux-switch-to.sh build
+bindsym $mod+o exec sway-open-or-goto.sh docs
+bindsym $mod+Shift+o exec open-docs.sh
+bindsym $mod+d exec sway-open-or-goto.sh browser
+bindsym $mod+u exec sway-open-or-goto.sh dev_browser
+
+floating_modifier $mod normal
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# bindsym $mod+b splith
+# bindsym $mod+v splitv
+bindsym $mod+m fullscreen
+
+bindsym $mod+control+e layout tabbed
+bindsym $mod+control+s layout toggle split
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+Control+space focus mode_toggle
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+
+
+mode "resize" {
+    bindsym $left resize shrink width 10px
+        bindsym $down resize grow height 10px
+        bindsym $up resize shrink height 10px
+        bindsym $right resize grow width 10px
+
+# Ditto, with arrow keys
+        bindsym Left resize shrink width 10px
+        bindsym Down resize grow height 10px
+        bindsym Up resize shrink height 10px
+        bindsym Right resize grow width 10px
+
+# Return to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+# bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+# bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+# bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+# # Special keys to adjust brightness via brightnessctl
+# bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+# bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+# # Special key to take a screenshot with grim
+# bindsym Print exec grim
+
+
+## Minimize titlebar
+# set $focused #61afef
+# set $unfocused #282c34
+#
+# client.focused $focused $focused $focused $focused
+# client.focused_inactive $unfocused $unfocused $unfocused $unfocused 
+# client.unfocused $unfocused $unfocused $unfocused $unfocused
+#
+# font pango:monospace 1
+# default_border none
+# default_floating_border none
+# titlebar_padding 1
+# titlebar_border_thickness 0
+
+font pango:JetBrains Mono 10
+titlebar_padding 2 1
+titlebar_border_thickness 1
+
+for_window [app_id="org.mozilla.firefox"] move window to workspace 1;
+for_window [app_id="Alacritty"] move window to workspace 1; fullscreen disable
+for_window [app_id="dev.zed.Zed"] move window to workspace 1; fullscreen disable
+
+for_window [app_id="^gamescope$"] move window to workspace 6; fullscreen
+for_window [class="^steam_app.*"] move window to workspace 5; fullscreen
+for_window [class="^steam_proton$"] move window to workspace 5; fullscreen
+
+include /etc/sway/config.d/*

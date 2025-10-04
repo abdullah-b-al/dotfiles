@@ -15,5 +15,6 @@ fi
 
 mount-drives.sh
 install-packages.sh
+network.sh
 services.sh
 sudo.sh

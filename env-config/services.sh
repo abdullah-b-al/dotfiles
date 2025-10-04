@@ -2,6 +2,4 @@
 set -eu
 set -o pipefail
 
-systemctl enable NetworkManager
-
 systemctl disable ssh

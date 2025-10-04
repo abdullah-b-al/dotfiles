@@ -1,7 +1,7 @@
 let
-  p = import <nixpkgs> {};
+p = import <nixpkgs> {};
 in
 [
-p.neovim
-p.kanata
+  p.neovim
+  p.kanata
 ]

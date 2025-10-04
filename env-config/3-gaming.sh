@@ -20,4 +20,4 @@ fi
 
 sudo dpkg --add-architecture i386
 sudo apt update
-sudo apt install steam
+sudo apt install -y steam

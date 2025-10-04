@@ -8,15 +8,4 @@ _zed() {
     fi
 }
 
-_nix() {
-    version="nixos-25.05"
-    if ! [ "$(nix-channel --list | grep "$version")" ]; then
-        nix-channel --add https://nixos.org/channels/$version
-    fi
-
-    nix-channel --update
-    nix-env -if software.nix
-}
-
 _zed
-_nix

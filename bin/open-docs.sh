@@ -13,12 +13,12 @@ key="$(for v in "${!site[@]}"; do echo $v; done | rofi -dmenu)"
 [ -z "$key" ] && exit 1
 
 if [ -z "${site[$key]}" ]; then
-    firefox --new-tab --class="docs" "https://search.brave.com/search?q=$key"
+    firefox --new-tab "https://search.brave.com/search?q=$key"
 else
     if [ $(pgrep firefox) ]; then
-        firefox --new-tab --class="docs" ${site[$key]} # don't quote to separate all URLs
+        firefox --new-tab ${site[$key]} # don't quote to separate all URLs
     else
-        firefox --class="docs" ${site[$key]} # don't quote to separate all URLs
+        firefox ${site[$key]} # don't quote to separate all URLs
     fi
 
 fi

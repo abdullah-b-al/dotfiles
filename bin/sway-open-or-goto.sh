@@ -6,7 +6,7 @@ declare -A commands
 app_ids[shell]="Alacritty"
 app_ids[editor]="dev.zed.Zed"
 app_ids[build]="Alacritty"
-app_ids[docs]="org.mozilla.firefox"
+app_ids[docs]=".*firefox.*"
 app_ids[browser]="brave-browser"
 app_ids[dev_browser]="chromium-browser"
 

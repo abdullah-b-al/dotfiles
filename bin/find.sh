@@ -179,7 +179,7 @@ _find() {
 
     # fd doesn't provide the directory that's being searched in
     echo "$find_path"
-    fd $args --base-directory "$find_path" .
+    fdfind $args --base-directory "$find_path" .
 }
 
 ################################################################################

@@ -17,7 +17,7 @@ if ! [ "$(grep "$line" "$file")" ]; then
     echo "$line" >> "$file"
 fi
 
-if ! [ "$(grep "$nix_bin" "$file")" ]; then
+if ! [ "$(grep "secure_path.*$nix_bin" "$file")" ]; then
     search='(.*\ssecure_path=".*)"'
     replace="\1:$nix_bin\""
     sed -i -E "s|$search|$replace|" "$file"

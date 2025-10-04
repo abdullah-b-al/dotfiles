@@ -66,3 +66,4 @@ waybar
 curl
 xwayland
 gcc
+jq

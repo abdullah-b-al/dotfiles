@@ -18,6 +18,9 @@ _kanata() {
 }
 
 _nix() {
+    nix-channel --add https://nixos.org/channels/nixos-25.05
+    nix-channel --update
+
     nix-env -if software.nix
 }
 

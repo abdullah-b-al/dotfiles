@@ -8,15 +8,6 @@ _zed() {
     fi
 }
 
-_kanata() {
-    if ! command -v kanata; then
-        cd /tmp
-        wget --no-config https://github.com/jtroo/kanata/releases/download/v1.9.0/kanata
-        chmod +x ./kanata
-        sudo mv ./kanata /usr/local/bin/kanata
-    fi
-}
-
 _nix() {
     version="nixos-25.05"
     if ! [ "$(nix-channel --list | grep "$version")" ]; then
@@ -28,5 +19,4 @@ _nix() {
 }
 
 _zed
-_kanata
 _nix

@@ -18,8 +18,11 @@ _kanata() {
 }
 
 _nix() {
-    nix-channel --add https://nixos.org/channels/nixos-25.05
-    nix-channel --update
+    version="nixos-25.05"
+    if ! [ "$(nix-channel --list | grep "$version")" ]; then
+        nix-channel --add https://nixos.org/channels/$version
+        nix-channel --update
+    fi
 
     nix-env -if software.nix
 }

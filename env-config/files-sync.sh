@@ -2,6 +2,7 @@
 set -eu
 set -o pipefail
 
+mkdir "$HOME/.dotfiles/"
 printf "Nextcloud URL: https://"
 read nextcloud_url
 nextcloudcmd --path "/dotfiles" "$HOME/.dotfiles/" "https://$nextcloud_url"

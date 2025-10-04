@@ -5,15 +5,15 @@ set -o pipefail
 
 dir=$(realpath "$(dirname "$0")")
 cd "$dir"
-export PATH="$PATH:$(pwd)"
+export PATH="$PATH:$(pwd):/usr/sbin"
+export my_user="ab"
 
 if [ "$(whoami)" != "root" ]; then
     echo "Must run as root"
     exit 1
 fi
 
-drives-mount.sh
-dnf-config.sh
-packages-install.sh
-services-config.sh
-sudo-config.sh
+mount-drives.sh
+install-packages.sh
+services.sh
+sudo.sh

@@ -2,7 +2,6 @@
 set -eu
 set -o pipefail
 
-systemctl enable crond
 systemctl enable NetworkManager
 
-systemctl disable sshd
+systemctl disable ssh

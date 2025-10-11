@@ -49,7 +49,7 @@ _open_path_fzf() {
     header="Enter=Open ^e=Edit ^x=Copy ^i=Tmux insert\nEditor server: ^v=Vertical split ^s=Horizontal split ^t=New tab\nFind in $target"
     result=$(_prepend "$header" |\
         fzf --height=$height --layout=$layout \
-        --header-lines=1 \
+        --header-lines=3 \
         --bind 'ctrl-e:execute($EDITOR $(find.sh real-result $target {}))+abort'  \
         --bind 'ctrl-s:execute(find.sh real-result $target {} | xsel --input --clipboard )+abort' \
         --bind 'ctrl-i:execute(tmux set-buffer "$(find.sh real-result $target {})" && tmux paste-buffer -p)+abort'  \

@@ -15,12 +15,14 @@ exec waybar
 input * repeat_delay 250
 input * repeat_rate 50
 input * accel_profile flat
-input * pointer_accel 0.5
+input * pointer_accel 0
 
 seat seat0 xcursor_theme breeze_cursors
 
 exec swaymsg "workspace 1; layout tabbed;"
 
+bindsym $mod+F2 exec set-language.sh ara
+bindsym $mod+F3 exec set-language.sh us
 bindsym $mod+t exec scratch-term.sh nvim --cmd "cd $HOME/personal/notes" $HOME/personal/notes/notes.md
 bindsym $mod+q kill
 bindsym $mod+z exec $run_bin
@@ -33,9 +35,9 @@ bindsym $mod+$alt+a exec find.sh open dotfiles
 bindsym $mod+$alt+t exec find.sh open home
 bindsym $mod+$alt+p exec find.sh open prog
 
-bindsym $mod+n exec sway-open-or-goto.sh shell; tmux-switch-to.sh shell
+bindsym $mod+n exec sway-open-or-goto.sh shell; exec tmux-switch-to.sh shell
 bindsym $mod+e exec sway-open-or-goto.sh editor
-bindsym $mod+i exec sway-open-or-goto.sh build; tmux-switch-to.sh build
+bindsym $mod+i exec sway-open-or-goto.sh build; exec tmux-switch-to.sh build
 bindsym $mod+o exec sway-open-or-goto.sh docs
 bindsym $mod+Shift+o exec open-docs.sh
 bindsym $mod+d exec sway-open-or-goto.sh browser

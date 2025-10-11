@@ -16,7 +16,6 @@ unzip
 wget
 which
 whois
-wpasupplicant
 xclip
 xsel
 zip
@@ -37,8 +36,6 @@ nextcloud-desktop-cmd
 dunst
 libnotify-bin
 zenity
-pipewire
-pipewire-pulse
 brightnessctl
 tldr-py
 breeze-cursor-theme
@@ -52,7 +49,6 @@ network-manager
 qalc
 cloc
 fzf
-starship
 cronie
 fonts-jetbrains-mono
 fd-find
@@ -67,3 +63,5 @@ curl
 xwayland
 gcc
 jq
+bluetooth
+npm

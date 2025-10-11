@@ -25,7 +25,7 @@
   {
     "context": "(!BufferSearchBar > Editor || !ProjectSearchBar > Editor) && vim_mode == visual",
     "bindings": {
-      "s": ["buffer_search::Deploy", { "selection_search_enabled": true }]
+      "s": "vim::HelixSelectRegex"
     }
   },
 

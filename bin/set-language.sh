@@ -16,7 +16,11 @@ if [ $XDG_SESSION_TYPE = x11 ]; then
         "ara") setxkbmap -layout 'ara';;
     esac
 else
-    hyprctl switchxkblayout all next
+    case "$1" in
+        "toggle") toggle;;
+        "us") swaymsg 'input * xkb_layout us';;
+        "ara") swaymsg 'input * xkb_layout ara';;
+    esac
 fi
 
 # set-keyboard-settings.sh

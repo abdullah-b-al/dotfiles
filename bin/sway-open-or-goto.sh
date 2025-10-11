@@ -4,18 +4,18 @@ declare -A app_ids
 declare -A commands
 
 app_ids[shell]="Alacritty"
-app_ids[editor]="dev.zed.Zed"
 app_ids[build]="Alacritty"
+app_ids[editor]="dev.zed.Zed"
 app_ids[docs]=".*firefox.*"
 app_ids[browser]="brave-browser"
-app_ids[dev_browser]="chromium-browser"
+app_ids[dev_browser]="chromium.*"
 
 commands[shell]="alacritty"
-commands[editor]="zed"
 commands[build]="alacritty"
-commands[docs]="open-docs.sh"
+commands[editor]="zed"
+commands[docs]="firefox"
 commands[browser]="brave-browser"
-commands[dev_browser]="chromium-browser"
+commands[dev_browser]="chromium"
 
 app_id="${app_ids[$1]}"
 cmd="${commands[$1]}"

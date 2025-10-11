@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# gamescope mangohud gamemode
 # sudo usermod -aG gamemode ab
 
 # scopebuddy_path="$HOME/.local/bin/scopebuddy"
@@ -20,4 +19,4 @@ fi
 
 sudo dpkg --add-architecture i386
 sudo apt update
-sudo apt install -y steam
+sudo apt install -y steam mangohud

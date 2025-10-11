@@ -63,6 +63,7 @@ zsh_add_plugin     "marlonrichert/zsh-autocomplete"
 zsh_add_plugin     "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin     "hlissner/zsh-autopair"
 zsh_add_plugin     "zsh-users/zsh-autosuggestions"
+zsh_add_plugin     "romkatv/powerlevel10k"
 zsh_add_plugin     "trapd00r/LS_COLORS" "lscolors"
 
 zstyle ':fzf-tab:*' switch-group '<' '>'
@@ -89,7 +90,12 @@ bindkey -s "^D" 'echo "Do you really need to close this ?" && sleep 1'\\n
 bindkey -s "^O" popd\\n
 bindkey '^R' history-incremental-search-backward
 
-eval "$(starship init zsh)"
+theme_path="$HOME/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme"
+if [ -f "$theme_path" ]; then
+    source "$theme_path"
+    source "$HOME/.config/zsh/p10k.zsh"
+fi
+# eval "$(starship init zsh)"
 
 session_name="general"
 [ "$XDG_VTNR" -gt 1 ] && session_name="tty$XDG_VTNR"
@@ -98,3 +104,5 @@ session_name="general"
 
 enable-fzf-tab
 add-zsh-hook preexec preexec_hook_for_compile
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.

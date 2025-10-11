@@ -12,7 +12,7 @@ if [ "$(whoami)" = "root" ]; then
 fi
 
 dirs-make.sh
-services-user.sh
+audio.sh
 
 [ $SHELL != "/bin/zsh" ] && chsh -s /bin/zsh "$USER"
 [ -d $HOME/.dotfiles ] || git clone https://github.com/abdullah-b-al/dotfiles $HOME/.dotfiles

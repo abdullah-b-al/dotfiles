@@ -11,3 +11,4 @@
 .config/polybar/glyphs.ini
 .sync_*
 .sync-exclude.lst
+nixos-configuration/hardware-configuration.nix

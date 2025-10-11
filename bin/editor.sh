@@ -7,7 +7,11 @@ nvim_server_pipe() {
 }
 
 editor_zed() {
-    zed --add "$@"
+    if [ $(command -v zed-fhs) ]; then
+        zed-fhs --add "$@"
+    else
+        zed --add "$@"
+    fi
 }
 
 editor_nvim() {

@@ -2,7 +2,6 @@
  linux-dev (
      /dev/input/by-id/usb-CharaChorder_CharaChorder_Two_S3_98:3d:ae:e7:83:54-event-kbd
      )
-   linux-x11-repeat-delay-rate 250,50
 )
 
 (defalias

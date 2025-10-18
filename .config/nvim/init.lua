@@ -231,37 +231,6 @@ require("lazy").setup({
     'nvim-lua/plenary.nvim', -- Never uninstall
 
     {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        keys = {
-            {
-                "<localleader>?",
-                function() require("which-key").show({ global = false }) end,
-                desc = "Buffer Local Keymaps (which-key)",
-            },
-            {
-                "<leader>?",
-                function() require("which-key").show({ global = true }) end,
-                desc = "Buffer global Keymaps (which-key)",
-            },
-        },
-    },
-
-    {
-        'rcarriga/nvim-notify',
-        lazy = false,
-        config = function()
-            require('notify').setup {
-                stages = "static",
-                render = "wrapped-compact",
-                timeout = 3000,
-                top_down = false,
-            }
-            vim.notify = require('notify')
-        end,
-    },
-
-    {
         'jake-stewart/multicursor.nvim',
         config = function()
             local mc = require("multicursor-nvim")
@@ -332,26 +301,6 @@ require("lazy").setup({
     'mbbill/undotree',
 
     {
-        'tpope/vim-fugitive',
-        config = function()
-            Unique_map('n', '<F1>', ':tab Git<CR>', { remap = false, silent = true })
-        end,
-    },
-
-    {
-        'junegunn/vim-easy-align',
-        config = function()
-            Unique_map('v', 'ga', '<CMD>EasyAlign<CR>')
-        end,
-    },
-
-    {
-        'williamboman/mason.nvim',
-        dependencies = { 'williamboman/mason-lspconfig.nvim', },
-        config = function() require("mason").setup() end,
-    },
-    -- color schemes,
-    {
         'sainnhe/sonokai',
         lazy = false,
         config = function() vim.cmd.colorscheme('sonokai') end,
@@ -360,9 +309,9 @@ require("lazy").setup({
     {
 
         'nvim-telescope/telescope.nvim',
-        dependencies = {
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
-        },
+        -- dependencies = {
+        --     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+        -- },
 
         config = function()
             require("config_telescope")
@@ -405,10 +354,6 @@ require("lazy").setup({
         end
     },
     {
-        'lukas-reineke/indent-blankline.nvim',
-        config = function() require("ibl").setup {} end,
-    },
-    {
         'nvim-lualine/lualine.nvim',
         config = function() require("config_lualine") end,
     },
@@ -417,30 +362,12 @@ require("lazy").setup({
         config = function() require("config_gitsigns") end,
     },
     {
-        'ziglang/zig.vim',
-        init = function()
-            vim.g.zig_fmt_autosave = 1
-        end,
-    },
-    -- Movement plugins,
-    {
         'justinmk/vim-sneak',
-        config = function()
-            Unique_map({ 'n' }, "<M-s>", "<Plug>Sneak_s", { desc = 'Vim sneak forward' })
-            Unique_map({ 'n' }, "<M-S>", "<Plug>Sneak_S", { desc = 'Vim sneak backward' })
-        end
     },
 
-    -- Completion and snippets,
-    {
-
-        'L3MON4D3/LuaSnip',
-        config = function() require("config_luasnip") end
-    },
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-path',
             'L3MON4D3/LuaSnip',
             'saadparwaiz1/cmp_luasnip',
@@ -453,7 +380,6 @@ require("lazy").setup({
         event = "InsertEnter",
         config = function()
             local cmp = require('cmp')
-            local lspkind = require('lspkind')
 
             vim.opt.completeopt = { 'menuone', 'preview' }
 
@@ -463,11 +389,6 @@ require("lazy").setup({
                 },
                 completion = {
                     keyword_length = 3,
-                },
-                snippet = {
-                    expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
-                    end
                 },
                 mapping = {
                     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
@@ -480,7 +401,6 @@ require("lazy").setup({
                 },
                 sources = {
                     { name = 'calc' },
-                    -- { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                     { name = 'path' },
                     {
@@ -488,17 +408,6 @@ require("lazy").setup({
                         option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end }
                     },
 
-                },
-                formatting = {
-                    format = lspkind.cmp_format({
-                        with_text = true,
-                        mode = 'text',
-                        menu = {
-                            buffer   = '[BUF]',
-                            nvim_lsp = '[LSP]',
-                            vsnip    = '[VSNIP]',
-                        },
-                    })
                 },
             })
 
@@ -511,13 +420,4 @@ require("lazy").setup({
         end
     },
 
-    -- Lsp,
-    {
-
-        'neovim/nvim-lspconfig',
-        dependencies = {
-            'ray-x/lsp_signature.nvim',
-        },
-        config = function() require('lsp') end
-    },
 }, lazy_opts)

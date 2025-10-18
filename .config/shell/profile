@@ -52,6 +52,7 @@ alias bat="bat --paging always"
 alias ls='ls --group-directories-first --color=auto'
 alias la='ls -Alh'
 alias lt='la -tr --full-time'
+alias copy='rsync --info=progress2'
 
 alias gd='git diff'
 alias gs='git status'
@@ -60,15 +61,12 @@ alias g='grep --color -E'
 alias gi='grep --color -Ei'
 
 alias e=editor.sh
-alias pac='sudo pacman'
-alias ap='sudo apt'
-alias a='apt'
 alias rn='ranger'
 alias clear='echo Use C-l'
 alias rm='echo Do not use rm use trash -- '
 alias tra='trash'
-alias ansi-local='ansible-playbook --connection=local -i "localhost,"'
-alias exit='if [ -z "$TMUX" ] || ! [ -z "$RANGER_LEVEL" ] ; then builtin exit; else echo "Use tmux to kill or quit the terminal"; fi'
+alias exit='if [ -z "$TMUX" ] || ! [ -z "$RANGER_LEVEL" ] || ! [ -z $IN_NIX_SHELL ] ; then builtin exit; else echo "Use tmux to kill or quit the terminal"; fi'
+alias ns='nix-shell --command zsh'
 
 if command -v opam > /dev/null; then
     eval $(opam env)
@@ -85,7 +83,7 @@ fi
 #     fi
 # fi
 
-export WLR_RENDERER=vulkan
+# export WLR_RENDERER=vulkan
 export XCURSOR_SIZE=24
 export XCURSOR_THEME=breeze_cursors
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ] && [ -z "$TMUX" ]; then

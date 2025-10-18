@@ -146,7 +146,7 @@ for_window [app_id=".*firefox.*"] move window to workspace 1;
 for_window [app_id="Alacritty"] move window to workspace 1; fullscreen disable
 for_window [app_id="dev.zed.Zed"] move window to workspace 1; fullscreen disable
 
-for_window [app_id="^gamescope$"] move window to workspace 6; fullscreen
+for_window [app_id="^gamescope$"] move window to workspace 5; fullscreen
 for_window [class="^steam_app.*"] move window to workspace 5; fullscreen
 for_window [class="^steam_proton$"] move window to workspace 5; fullscreen
 

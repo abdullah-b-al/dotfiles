@@ -18,7 +18,7 @@ local builtin = require('telescope.builtin')
 local themes = require('telescope.themes')
 local theme = themes.get_ivy
 
-require('telescope').load_extension('fzf')
+-- require('telescope').load_extension('fzf')
 require('telescope.actions')
 
 Unique_map('n', 'g?', function() builtin.keymaps(theme(opts)) end, { remap = false, desc = "Telescope: Mapping Picker" })

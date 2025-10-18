@@ -1,4 +1,5 @@
 {
+  "base_keymap": "VSCode",
   "agent": {
     "default_profile": "ask",
     "default_model": {

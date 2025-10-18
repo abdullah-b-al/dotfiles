@@ -78,6 +78,14 @@ function sp() {
     open_or_cd "$(find.sh get prog)"
 }
 
+function sl() {
+    nvim /etc/nixos/configuration.nix
+}
+function s() {
+    nvim /etc/nixos/configuration.nix
+    sudo nixos-rebuild switch
+}
+
 # find functions
 ################################################################################
 

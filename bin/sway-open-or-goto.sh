@@ -14,7 +14,7 @@ commands[shell]="alacritty"
 commands[build]="alacritty"
 commands[editor]="zed"
 commands[docs]="firefox"
-commands[browser]="brave-browser"
+commands[browser]="brave"
 commands[dev_browser]="chromium"
 
 app_id="${app_ids[$1]}"

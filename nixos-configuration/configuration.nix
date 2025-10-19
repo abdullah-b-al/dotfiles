@@ -194,7 +194,7 @@ in
         '';
     };
 
-    fileSystems."/mnt/linuxHDD" = if builtins.pathExists hdd.device then hdd else {};
+    # fileSystems."/mnt/linuxHDD" = if builtins.pathExists hdd.device then hdd else {};
 
 
     # Open ports in the firewall.

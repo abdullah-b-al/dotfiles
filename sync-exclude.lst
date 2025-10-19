@@ -1,0 +1,7 @@
+zig-cache
+.zig-cache
+zig-out
+prog/terminal-emulator/out
+node_modules
+.git
+.gitignore

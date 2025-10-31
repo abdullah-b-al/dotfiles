@@ -11,7 +11,7 @@
 
 /*****----- Configuration -----*****/
 configuration {
-    show-icons:                 false;
+    show-icons:                 true;
 }
 
 /*****----- Global Properties -----*****/

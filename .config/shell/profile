@@ -24,7 +24,7 @@ export ZDOTDIR="$HOME/.config/zsh"
 export EDITOR=nvim
 export TERMINAL=alacritty
 export WASMTIME_HOME="$HOME/.wasmtime"
-export BROWSER=brave-browser
+export BROWSER=firefox
 export HISTCONTROL=ignoreboth
 export MANROFFOPT='-c'
 export FZF_DEFAULT_OPTS="--layout=reverse --height=5%"

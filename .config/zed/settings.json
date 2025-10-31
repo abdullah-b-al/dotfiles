@@ -1,52 +1,5 @@
 {
   "base_keymap": "VSCode",
-  "agent": {
-    "default_profile": "ask",
-    "default_model": {
-      "provider": "openrouter",
-      "model": "deepseek/deepseek-chat-v3.1:free"
-    }
-  },
-  "language_models": {
-    "openai_compatible": {
-      "gpt-oss": {
-        "api_url": "https://openrouter.ai/api/v1",
-        "available_models": [
-          {
-            "name": "openai/gpt-oss-20b:free",
-            "display_name": null,
-            "max_tokens": 200000,
-            "max_output_tokens": 32000,
-            "max_completion_tokens": 200000,
-            "capabilities": {
-              "tools": false,
-              "images": false,
-              "parallel_tool_calls": false,
-              "prompt_cache_key": false
-            }
-          }
-        ]
-      },
-      "deeseek r1": {
-        "api_url": "https://openrouter.ai/api/v1",
-        "available_models": [
-          {
-            "name": "deepseek/deepseek-r1:free",
-            "display_name": null,
-            "max_tokens": 200000,
-            "max_output_tokens": 32000,
-            "max_completion_tokens": 200000,
-            "capabilities": {
-              "tools": false,
-              "images": false,
-              "parallel_tool_calls": false,
-              "prompt_cache_key": false
-            }
-          }
-        ]
-      }
-    }
-  },
   "show_edit_predictions": false,
   "preferred_line_length": 100,
   "features": {
@@ -115,5 +68,52 @@
     "show": false,
     "show_nav_history_buttons": false,
     "show_tab_bar_buttons": false
+  },
+  "agent": {
+    "default_profile": "ask",
+    "default_model": {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-chat-v3.1:free"
+    }
+  },
+  "language_models": {
+    "openai_compatible": {
+      "gpt-oss": {
+        "api_url": "https://openrouter.ai/api/v1",
+        "available_models": [
+          {
+            "name": "openai/gpt-oss-20b:free",
+            "display_name": null,
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "capabilities": {
+              "tools": false,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false
+            }
+          }
+        ]
+      },
+      "deeseek r1": {
+        "api_url": "https://openrouter.ai/api/v1",
+        "available_models": [
+          {
+            "name": "deepseek/deepseek-r1:free",
+            "display_name": null,
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "capabilities": {
+              "tools": false,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false
+            }
+          }
+        ]
+      }
+    }
   }
 }

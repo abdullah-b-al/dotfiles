@@ -16,7 +16,11 @@ in
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot";
-    boot.kernelPackages = if is_laptop then pkgs.linuxPackages else pkgs.linuxKernel.packages.linux_zen;
+    boot.kernelPackages = if is_laptop then pkgs.linuxPackages else pkgs.linuxPackages_latest;
+    boot.kernelParams = if is_laptop then [] else [
+        # "amdgpu.reset_method=none"
+        "amdgpu.lockup_timeout=50000"
+    ];
 
     networking.hostName = if is_laptop then "nixos-laptop" else "nixos-desktop";
     networking.networkmanager.enable = true;
@@ -34,6 +38,14 @@ in
         LC_TELEPHONE = "ar_SA.UTF-8";
         LC_TIME = "ar_SA.UTF-8";
     };
+
+    # hardware.firmware = [ pkgs.linux-firmware ];
+    # hardware.firmware = with import (builtins.fetchTarball {
+    #     url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+    # }) {}; if is_laptop then [ pkgs.linux-firmware ] else [ linux-firmware ];
+    hardware.firmware = if is_laptop then [ pkgs.linux-firmware ] else with import (builtins.fetchTarball {
+        url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+    }) {}; [ linux-firmware ];
 
     hardware.graphics = {
         enable = true;
@@ -63,7 +75,7 @@ in
     users.users.ab = {
         isNormalUser = true;
         description = "ab";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "dialout" ];
         shell = pkgs.zsh;
         packages = with pkgs;  [
             (buildFHSEnv
@@ -118,13 +130,14 @@ in
         nodejs_24
         kanata
         mangohud
-        bottles
         gnumake
         kdePackages.breeze
         ddcutil
         libnotify
         cmus
         libqalculate
+        nvd
+        newsboat
     ];
 
     fonts.packages = with pkgs; [
@@ -194,7 +207,7 @@ in
         '';
     };
 
-    # fileSystems."/mnt/linuxHDD" = if builtins.pathExists hdd.device then hdd else {};
+    fileSystems."/mnt/linuxHDD" = if builtins.pathExists hdd.device then hdd else {};
 
 
     # Open ports in the firewall.

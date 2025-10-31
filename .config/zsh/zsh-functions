@@ -85,6 +85,10 @@ function s() {
     nvim /etc/nixos/configuration.nix
     sudo nixos-rebuild switch
 }
+function suc() {
+    sudo nix-channel --update
+    nvd diff /run/current-system "$(sudo nixos-rebuild build)"
+}
 
 # find functions
 ################################################################################

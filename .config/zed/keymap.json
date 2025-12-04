@@ -59,12 +59,28 @@
     }
   },
   {
-    "context": "VimControl && !menu",
+    "context": "!menu && vim_mode == helix_normal",
+    "bindings": {
+      "alt-l": "editor::SelectNext",
+      "alt-h": "editor::SelectPrevious",
+      "alt-c": "vim::ChangeToEndOfLine",
+      "alt-y": "vim::YankToEndOfLine"
+    }
+  },
+  {
+    "context": "VimControl && !menu && vim_mode != helix_normal",
     "bindings": {
       "alt-l": "vim::SelectNext",
       "alt-h": "vim::SelectPrevious",
       "alt-j": "editor::AddSelectionBelow",
       "alt-k": "editor::AddSelectionAbove"
+    }
+  },
+  {
+    "context": "vim_mode == helix_normal && !menu",
+    "bindings": {
+      "space l": ["editor::SelectNext", { "replace_newest": true }],
+      "space h": ["editor::SelectPrevious", { "replace_newest": true }]
     }
   },
   {

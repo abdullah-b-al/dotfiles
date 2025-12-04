@@ -9,11 +9,11 @@
     "diagnostics": true,
     "metrics": false
   },
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "cursor_blink": false,
   "current_line_highlight": "gutter",
   "vim_mode": true,
-  "helix_mode": false,
+  "helix_mode": true,
 
   "show_completions_on_input": true,
   "completions": {
@@ -26,7 +26,7 @@
   "ui_font_family": "JetBrains Mono",
   "ui_font_size": 17,
   "buffer_font_family": "JetBrains Mono",
-  "buffer_font_size": 15,
+  "buffer_font_size": 18,
   "theme": {
     "mode": "dark",
     "light": "One Light",
@@ -76,6 +76,21 @@
       "model": "deepseek/deepseek-chat-v3.1:free"
     }
   },
+
+  "lsp": {
+    "zls": {
+      "settings": {
+        "zls": {
+          // Whether to enable build-on-save diagnostics
+          //
+          // Further information about build-on save:
+          // https://zigtools.org/zls/guides/build-on-save/
+          "enable_build_on_save": true
+        }
+      }
+    }
+  },
+
   "language_models": {
     "openai_compatible": {
       "gpt-oss": {

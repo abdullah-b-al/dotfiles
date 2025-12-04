@@ -96,6 +96,14 @@ has_editor_window() {
     [ "$has_editor" != 0 ] && echo no
 }
 
+has_build_window() {
+    session="$(active_session)"
+    tmux has-session -t "$session:build" 2> /dev/null
+    has_build="$?"
+    [ "$has_build" = 0 ] && echo yes
+    [ "$has_build" != 0 ] && echo no
+}
+
 window_count() {
     session="$(active_session)"
     tmux display-message -p -t "$session" "#{session_windows}" 2> /dev/null
@@ -105,7 +113,15 @@ create_editor_window() {
     cwd=$(active_session_pane_cwd)
     if [ "$(has_editor_window)" = "no" ]; then
         session="$(active_session)"
-        tmux new-window -d -c "$cwd" -t "$session:0" -n editor -d editor.sh --start-server
+        tmux new-window -d -c "$cwd" -t "$session:0" -n editor -d
+    fi
+}
+
+create_build_window() {
+    cwd=$(active_session_pane_cwd)
+    if [ "$(has_build_window)" = "no" ]; then
+        session="$(active_session)"
+        tmux new-window -d -c "$cwd" -t "$session:10" -n build
     fi
 }
 
@@ -127,6 +143,12 @@ prompt_respawn_current_pane() {
 editor_window_name() {
     tmux list-windows -t "$(active_session)" -F "#{window_index},#{window_name},#{window_activity}" | \
         grep "editor," | sort -r -k3 --field-separator="," | head --lines 1 | cut -d ',' -f 2
+}
+
+create_editor_and_build() {
+    create_editor_window
+    create_build_window
+    
 }
 
 popup_dims() {

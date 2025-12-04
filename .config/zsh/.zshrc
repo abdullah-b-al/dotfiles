@@ -32,6 +32,9 @@ setopt AUTOPUSHD
 
 unsetopt BEEP                                   # Disable beeping
 
+# compinit
+_comp_options+=(globdots)                       # Include hidden files.
+
 # this prevents .zcompdump from being generated on every startup
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
 	autoload -Uz compinit;
@@ -51,23 +54,39 @@ zmodload zsh/complist
 stty stop undef	                                # Disable ctrl-s to freeze terminal.
 zle_highlight=('paste:none')                    # Disable highlighting when pasting
 
-# compinit
-_comp_options+=(globdots)                       # Include hidden files.
-
 zcompare_source "$ZDOTDIR/zsh-functions"
-zcompare_source "$ZDOTDIR/vim-mode"
 
 # Plugins
 zsh_add_plugin     "Aloxaf/fzf-tab"
-zsh_add_plugin     "marlonrichert/zsh-autocomplete"
+enable-fzf-tab
+zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+zsh_add_plugin     "Multirious/zsh-helix-mode"
 zsh_add_plugin     "zsh-users/zsh-syntax-highlighting"
-zsh_add_plugin     "hlissner/zsh-autopair"
+zsh_add_plugin     "marlonrichert/zsh-autocomplete"
 zsh_add_plugin     "zsh-users/zsh-autosuggestions"
+
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+  zhm_history_prev
+  zhm_history_next
+  zhm_prompt_accept
+  zhm_accept
+  zhm_accept_or_insert_newline
+)
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
+  zhm_move_right
+  zhm_clear_selection_move_right
+)
+ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
+  zhm_move_next_word_start
+  zhm_move_next_word_end
+)
+
+zsh_add_plugin     "hlissner/zsh-autopair"
 zsh_add_plugin     "romkatv/powerlevel10k"
 zsh_add_plugin     "trapd00r/LS_COLORS" "lscolors"
 
-zstyle ':fzf-tab:*' switch-group '<' '>'
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':autocomplete:*' delay 0.05  # seconds (float)
 zstyle ':autocomplete:history-search-backward:*' list-lines 8
 # zstyle ':autocomplete:*' min-input 2
@@ -102,7 +121,6 @@ session_name="general"
 
 [ -z "$TMUX" ] && [ -z "$ZED_TERM" ] && tmux new-session -A -s "$session_name"
 
-enable-fzf-tab
 add-zsh-hook preexec preexec_hook_for_compile
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.

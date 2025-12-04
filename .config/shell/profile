@@ -21,7 +21,7 @@ export XMODIFIERS=@im='ibus'
 
 # Environment Variables
 export ZDOTDIR="$HOME/.config/zsh"
-export EDITOR=nvim
+export EDITOR=hx
 export TERMINAL=alacritty
 export WASMTIME_HOME="$HOME/.wasmtime"
 export BROWSER=firefox
@@ -53,6 +53,7 @@ alias ls='ls --group-directories-first --color=auto'
 alias la='ls -Alh'
 alias lt='la -tr --full-time'
 alias copy='rsync --info=progress2'
+alias cdd='cd ~/Downloads'
 
 alias gd='git diff'
 alias gs='git status'
@@ -67,6 +68,7 @@ alias rm='echo Do not use rm use trash -- '
 alias tra='trash'
 alias exit='if [ -z "$TMUX" ] || ! [ -z "$RANGER_LEVEL" ] || ! [ -z $IN_NIX_SHELL ] ; then builtin exit; else echo "Use tmux to kill or quit the terminal"; fi'
 alias ns='nix-shell --command zsh'
+alias nd='nix develop --command zsh'
 
 if command -v opam > /dev/null; then
     eval $(opam env)

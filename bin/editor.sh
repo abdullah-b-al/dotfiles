@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 nvim_server_pipe() {
     session="$(tmux.sh active_session)"
     echo "/tmp/nvim-server-$session.pipe"
@@ -12,6 +11,10 @@ editor_zed() {
     else
         zed --add "$@"
     fi
+}
+
+editor_helix() {
+    hx "$@"
 }
 
 editor_nvim() {
@@ -88,8 +91,7 @@ editor_nvim() {
     done
 }
 
-editor_zed $@
-sway-open-or-goto.sh editor
+editor_helix $@
 
 # if pgrep zed; then
 #     editor_zed $@

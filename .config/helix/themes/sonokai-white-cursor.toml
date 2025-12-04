@@ -14,7 +14,7 @@
 "variable" = "fg"
 "variable.builtin" = "purple"
 "variable.parameter" = "fg"
-"variable.other.member" = "orange"
+"variable.other.member" = "fg"
 "label" = "red"
 "punctuation" = "grey"
 "punctuation.special" = "yellow"
@@ -51,7 +51,7 @@
 "diff.minus" = "red"
 
 "ui.background" = { bg = "bg0" }
-"ui.cursor" = { fg = "#000000", bg = "#DDDDDD" }
+"ui.cursor" = { fg = "#000000", bg = "fg" }
 "ui.cursor.match" = { bg = "bg4" }
 "ui.cursor.insert" = { fg = "black", bg = "grey" }
 "ui.cursor.select" = { fg = "bg0", bg = "blue" }
@@ -73,6 +73,7 @@
 "ui.menu" = { fg = "fg", bg = "bg2" }
 "ui.menu.selected" = { fg = "bg0", bg = "green" }
 "ui.virtual.whitespace" = "bg4" 
+"ui.virtual.jump-label" = "purple" 
 "ui.virtual.ruler" = { bg = "bg3" }
 "ui.virtual.inlay-hint" = { fg = "grey_dim" }
 

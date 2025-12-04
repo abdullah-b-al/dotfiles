@@ -1,32 +1,35 @@
-{ config, pkgs, ... }:
+{ config, pkgs,  ... } @inputs:
 
 let
-    is_laptop = builtins.pathExists "/sys/class/power_supply/BAT0";
     hdd = {
         device = "/dev/disk/by-uuid/44f16107-3ca4-4739-b2a3-b4dab98d8cc3";
         fsType = "ext4";
     };
+
 in
     {
     imports =
         [
-            ./hardware-configuration.nix
+            /etc/nixos/hardware-configuration.nix
         ];
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nixpkgs.config.allowUnfree = true;
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot";
-    boot.kernelPackages = if is_laptop then pkgs.linuxPackages else pkgs.linuxPackages_latest;
-    boot.kernelParams = if is_laptop then [] else [
-        # "amdgpu.reset_method=none"
-        "amdgpu.lockup_timeout=50000"
-    ];
+    # boot.kernelPackages = pkgs.linuxPackages_latest;
+    # boot.kernelParams = if inputs.is_laptop then [] else [
+    #     # "amdgpu.reset_method=none"
+    #     "amdgpu.lockup_timeout=10000"
+    # ];
 
-    networking.hostName = if is_laptop then "nixos-laptop" else "nixos-desktop";
+    networking.hostName = inputs.host_name;
     networking.networkmanager.enable = true;
-    time.timeZone = "Asia/Riyadh";
-    i18n.defaultLocale = "en_US.UTF-8";
 
+    time.timeZone = "Asia/Riyadh";
+
+    i18n.defaultLocale = "en_US.UTF-8";
     i18n.extraLocaleSettings = {
         LC_ADDRESS = "ar_SA.UTF-8";
         LC_IDENTIFICATION = "ar_SA.UTF-8";
@@ -38,14 +41,6 @@ in
         LC_TELEPHONE = "ar_SA.UTF-8";
         LC_TIME = "ar_SA.UTF-8";
     };
-
-    # hardware.firmware = [ pkgs.linux-firmware ];
-    # hardware.firmware = with import (builtins.fetchTarball {
-    #     url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-    # }) {}; if is_laptop then [ pkgs.linux-firmware ] else [ linux-firmware ];
-    hardware.firmware = if is_laptop then [ pkgs.linux-firmware ] else with import (builtins.fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-    }) {}; [ linux-firmware ];
 
     hardware.graphics = {
         enable = true;
@@ -72,10 +67,31 @@ in
     };
     hardware.i2c.enable = true;
 
+
+    # systemd.user.services.corectrl-helper = {
+    #     description = "CoreCtrl Helper";
+    #     wantedBy = [ "default.target" ];
+    #     serviceConfig = {
+    #         ExecStart = "${pkgs.corectrl}/bin/corectrl-helper";
+    #         Restart = "on-failure";
+    #     };
+    # };
+    #
+    # security.polkit.extraConfig = ''
+    # polkit.addRule(function(action, subject) {
+    #   if (action.id.indexOf("org.corectrl.helper") === 0 &&
+    #       subject.isInGroup("video")) {
+    #     return polkit.Result.YES;
+    #   }
+    # });
+    # '';
+    #
+    # services.udev.packages = [ pkgs.corectrl ];
+
     users.users.ab = {
         isNormalUser = true;
         description = "ab";
-        extraGroups = [ "networkmanager" "wheel" "dialout" ];
+        extraGroups = [ "networkmanager" "wheel" "dialout" "video" ];
         shell = pkgs.zsh;
         packages = with pkgs;  [
             (buildFHSEnv
@@ -88,12 +104,116 @@ in
         ];
     };
 
-    nixpkgs.config.allowUnfree = true;
+
+
+    # programs.nix-ld = {
+    #     enable = true;
+    #     libraries = with pkgs; [
+    #         alsa-lib
+    #     ];
+    # };
+
+
+
+    services = {
+        openssh.enable = true;
+        gnome.gnome-keyring.enable = true;
+        kanata.enable = true;
+        xserver.videoDrivers = ["amdgpu"];
+
+        pipewire = {
+            enable = true;
+            alsa.enable = true;
+            alsa.support32Bit = true;
+            pulse.enable = true;
+        };
+
+        xserver.xkb = {
+            layout = "us";
+            variant = "";
+        };
+
+        locate = {
+            enable = true;
+            package = pkgs.plocate;
+        };
+    };
+
+    security = {
+        rtkit.enable = true;
+        sudo = {
+            enable = true;
+            extraRules = [
+                {
+                    groups = [ "wheel" ];
+                    commands = [
+                        { command = "${pkgs.kanata}/bin/kanata"; options = [ "NOPASSWD" ]; }
+                        { command = "${pkgs.ddcutil}/bin/ddcutil"; options = [ "NOPASSWD" ]; }
+                    ];
+                }
+            ];
+            extraConfig = with pkgs; ''
+    Defaults secure_path="${lib.makeBinPath [
+                    kanata
+                    ddcutil
+                ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+            '';
+        };
+
+    };
+
+
+    system.activationScripts.ensureMnt = {
+        text = ''
+            mkdir -p /mnt
+            chown root:root /mnt
+            chmod 0755 /mnt
+        '';
+    };
+    fileSystems."/mnt/linuxHDD" = if builtins.pathExists hdd.device then hdd else {};
+
+
+    # Open ports in the firewall.
+    # networking.firewall.allowedTCPPorts = [ ... ];
+    # networking.firewall.allowedUDPPorts = [ ... ];
+    # Or disable the firewall altogether.
+    # networking.firewall.enable = false;
+    system.stateVersion = "25.05";
+
+    security.polkit.enable = true;
+
+    programs = {
+        zsh.enable = true;
+        sway.enable = true;
+        gamemode.enable = true;
+        gamescope.enable = true;
+
+        # corectrl = {
+        #     enable = true;
+        #     gpuOverclock = {
+        #         enable = true;
+        #         ppfeaturemask = "0xffffffff";
+        #     };
+        # };
+        #
+        steam = {
+            enable = true;
+            gamescopeSession.enable = true;
+        };
+    };
+
+    fonts.packages = with pkgs; [
+        jetbrains-mono
+        nerd-fonts.jetbrains-mono
+        font-awesome
+        noto-fonts
+    ];
+
     environment.systemPackages = with pkgs; [
+        helix
         neovim
         alacritty
         firefox
-        chromium
         brave
         sudo
         trash-cli
@@ -105,6 +225,7 @@ in
         rofi
         stow
         tmux
+        zellij
         btop
         nextcloud-client
         dunst
@@ -138,84 +259,13 @@ in
         libqalculate
         nvd
         newsboat
+        unzip
+        protonup-ng
+        tree
+
+        # LSP
+        zls
+        nil
+        nixd
     ];
-
-    fonts.packages = with pkgs; [
-        jetbrains-mono
-        nerd-fonts.jetbrains-mono
-        font-awesome
-        noto-fonts
-    ];
-
-    # programs.nix-ld = {
-    #     enable = true;
-    #     libraries = with pkgs; [
-    #         alsa-lib
-    #     ];
-    # };
-
-
-    programs.gamemode.enable = true;
-    programs.steam = {
-        enable = true;
-        gamescopeSession.enable = true;
-    };
-    programs.zsh.enable = true;
-
-    programs.sway = {
-        enable = true;
-    };
-
-    services.openssh.enable = true;
-    services.gnome.gnome-keyring.enable = true;
-    security.rtkit.enable = true;
-    services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-    };
-
-    services.xserver.xkb = {
-        layout = "us";
-        variant = "";
-    };
-
-    services.kanata.enable = true;
-    services.xserver.videoDrivers = ["amdgpu"];
-    services.locate = {
-        enable = true;
-        package = pkgs.plocate;
-    };
-
-    security.sudo = {
-        enable = true;
-        extraRules = [
-            {
-                groups = [ "wheel" ];
-                commands = [
-                    { command = "${pkgs.kanata}/bin/kanata"; options = [ "NOPASSWD" ]; }
-                    { command = "${pkgs.ddcutil}/bin/ddcutil"; options = [ "NOPASSWD" ]; }
-                ];
-            }
-        ];
-        extraConfig = with pkgs; ''
-    Defaults secure_path="${lib.makeBinPath [
-                kanata
-                ddcutil
-            ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
-        '';
-    };
-
-    fileSystems."/mnt/linuxHDD" = if builtins.pathExists hdd.device then hdd else {};
-
-
-    # Open ports in the firewall.
-    # networking.firewall.allowedTCPPorts = [ ... ];
-    # networking.firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
-
-    system.stateVersion = "25.05";
-
 }

@@ -18,10 +18,9 @@ active_window="$(tmux.sh active_window)"
 has_editor="$(tmux.sh has_editor_window)"
 window_count="$(tmux.sh window_count)"
 
-# Make sure the wanted window exist
-
 if [ "$has_editor" = "no" ] && [ "$wanted_window" = "editor" ]; then
-    tmux.sh create_editor_window
+    exit 0
+    # tmux.sh create_editor_window
 fi
 
 if [ "$wanted_window" = "shell" ] && [ "$window_count" = "1" ]; then
@@ -36,7 +35,7 @@ fi
 
 case "$wanted_window" in
     editor)
-        tmux switch-client -Z -t "$session:editor.0"
+        tmux switch-client -Z -t "$session:editor"
 
         zoomed=$(tmux display-message -t $session:editor -p "#{window_zoomed_flag}")
         [ "$zoomed" = 0 ] && tmux resize-pane -Z -t "$session:editor.0"

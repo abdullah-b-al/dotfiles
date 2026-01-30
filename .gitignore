@@ -12,3 +12,5 @@
 .sync_*
 .sync-exclude.lst
 nixos-configuration/hardware-configuration.nix
+zig-out
+.zig-cache

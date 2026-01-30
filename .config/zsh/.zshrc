@@ -32,6 +32,29 @@ setopt AUTOPUSHD
 
 unsetopt BEEP                                   # Disable beeping
 
+alias bat="bat --paging always"
+alias ls='ls --group-directories-first --color=auto'
+alias la='ls -Alh'
+alias lt='la -tr --full-time'
+alias copy='rsync --info=progress2'
+alias cdd='cd ~/Downloads'
+
+alias gd='git diff'
+alias gs='git status'
+
+alias g='grep --color -E'
+alias gi='grep --color -Ei'
+
+alias e=editor.sh
+alias rn='ranger'
+alias clear='echo Use C-l'
+alias rm='echo Do not use rm use trash -- '
+alias tra='trash'
+alias exit='if [ -z "$TMUX" ] || ! [ -z "$RANGER_LEVEL" ] || ! [ -z $IN_NIX_SHELL ] ; then builtin exit; else echo "Use tmux to kill or quit the terminal"; fi'
+alias ns='nix-shell --command zsh'
+alias nd='nix develop --command zsh'
+
+
 # compinit
 _comp_options+=(globdots)                       # Include hidden files.
 
@@ -124,3 +147,4 @@ session_name="general"
 add-zsh-hook preexec preexec_hook_for_compile
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+

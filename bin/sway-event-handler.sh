@@ -5,7 +5,7 @@ pid_name() {
 }
 ancestors() {
     pid="$1"
-    while [ "$pid" -ne 1 ]; do
+    while [ -n "$pid" ]; do
         name=$(pid_name $pid)
         printf "%s\n" "$name"
 
@@ -18,6 +18,8 @@ is_steam_game() {
     if [ "$(pid_name $pid)" = "steamwebhelper" ]; then
         echo no
     elif [ "$(ancestors "$pid" | grep "^steam$")" ]; then
+        echo yes
+    elif [ "$(pid_name $pid | grep "\.exe$")" ]; then
         echo yes
     else
         echo no
@@ -40,5 +42,4 @@ while true; do
     elif [[ "$monitor" = "DP-1" ]]; then
         screen-settings-set.sh
     fi
-
 done

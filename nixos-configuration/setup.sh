@@ -9,4 +9,5 @@ sudo chown $USER /etc/nixos
 sudo chown $USER /etc/nixos/*
 
 ln -s $HOME/.dotfiles/nixos-configuration/configuration.nix /etc/nixos/configuration.nix
+ln -s $HOME/.dotfiles/nixos-configuration/desktop.nix /etc/nixos/desktop.nix
 ln -s $HOME/.dotfiles/nixos-configuration/flake.nix /etc/nixos/flake.nix

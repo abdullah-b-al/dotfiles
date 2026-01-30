@@ -10,6 +10,8 @@ mkdir -p "$HOME/.config/nvim"
 mkdir -p "$HOME/.config/git"
 mkdir -p "$HOME/.config/xournalpp"
 mkdir -p "$HOME/.config/systemd/user"
+mkdir -p "$HOME/.config/dconf"
+mkdir -p "$HOME/.config/gtk-3.0"
 
 [ -z "$DOTFILES" ] && DOTFILES="$HOME/.dotfiles"
 

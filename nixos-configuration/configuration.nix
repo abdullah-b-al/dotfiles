@@ -1,24 +1,19 @@
 { config, pkgs,  ... } @inputs:
 
 let
-    hdd = {
-        device = "/dev/disk/by-uuid/44f16107-3ca4-4739-b2a3-b4dab98d8cc3";
-        fsType = "ext4";
-    };
-
 in
     {
     imports =
         [
             /etc/nixos/hardware-configuration.nix
-        ];
+        ] ++ (if inputs.is_laptop then [] else [ /etc/nixos/desktop.nix ]);
+
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nixpkgs.config.allowUnfree = true;
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot";
-    # boot.kernelPackages = pkgs.linuxPackages_latest;
     # boot.kernelParams = if inputs.is_laptop then [] else [
     #     # "amdgpu.reset_method=none"
     #     "amdgpu.lockup_timeout=10000"
@@ -68,31 +63,11 @@ in
     hardware.i2c.enable = true;
 
 
-    # systemd.user.services.corectrl-helper = {
-    #     description = "CoreCtrl Helper";
-    #     wantedBy = [ "default.target" ];
-    #     serviceConfig = {
-    #         ExecStart = "${pkgs.corectrl}/bin/corectrl-helper";
-    #         Restart = "on-failure";
-    #     };
-    # };
-    #
-    # security.polkit.extraConfig = ''
-    # polkit.addRule(function(action, subject) {
-    #   if (action.id.indexOf("org.corectrl.helper") === 0 &&
-    #       subject.isInGroup("video")) {
-    #     return polkit.Result.YES;
-    #   }
-    # });
-    # '';
-    #
-    # services.udev.packages = [ pkgs.corectrl ];
-
     users.users.ab = {
         isNormalUser = true;
         description = "ab";
         extraGroups = [ "networkmanager" "wheel" "dialout" "video" ];
-        shell = pkgs.zsh;
+        shell = pkgs.fish;
         packages = with pkgs;  [
             (buildFHSEnv
                 (appimageTools.defaultFhsEnvArgs // {
@@ -104,16 +79,12 @@ in
         ];
     };
 
-
-
     # programs.nix-ld = {
     #     enable = true;
     #     libraries = with pkgs; [
     #         alsa-lib
     #     ];
     # };
-
-
 
     services = {
         openssh.enable = true;
@@ -163,16 +134,6 @@ in
     };
 
 
-    system.activationScripts.ensureMnt = {
-        text = ''
-            mkdir -p /mnt
-            chown root:root /mnt
-            chmod 0755 /mnt
-        '';
-    };
-    fileSystems."/mnt/linuxHDD" = if builtins.pathExists hdd.device then hdd else {};
-
-
     # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [ ... ];
     # networking.firewall.allowedUDPPorts = [ ... ];
@@ -183,23 +144,8 @@ in
     security.polkit.enable = true;
 
     programs = {
-        zsh.enable = true;
+        fish.enable = true;
         sway.enable = true;
-        gamemode.enable = true;
-        gamescope.enable = true;
-
-        # corectrl = {
-        #     enable = true;
-        #     gpuOverclock = {
-        #         enable = true;
-        #         ppfeaturemask = "0xffffffff";
-        #     };
-        # };
-        #
-        steam = {
-            enable = true;
-            gamescopeSession.enable = true;
-        };
     };
 
     fonts.packages = with pkgs; [
@@ -250,7 +196,6 @@ in
         jq
         nodejs_24
         kanata
-        mangohud
         gnumake
         kdePackages.breeze
         ddcutil
@@ -260,8 +205,13 @@ in
         nvd
         newsboat
         unzip
-        protonup-ng
         tree
+        lm_sensors
+        fishPlugins.fzf-fish
+        gnome-themes-extra
+        lazygit
+        bluetui
+        pulsemixer
 
         # LSP
         zls

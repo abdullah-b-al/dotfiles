@@ -8,7 +8,7 @@ force=false
 
 brightness="15"
 if [ "$profile" = "gaming" ]; then
-    brightness="50"
+    brightness="100"
     gammastep_kill="0"
 fi
 

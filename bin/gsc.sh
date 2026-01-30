@@ -1,0 +1,2 @@
+#!/bin/sh
+gamescope -f -W 2560 -H 1440 -r 144 --adaptive-sync --mangoapp --force-grab-cursor -- "$@"

@@ -25,7 +25,7 @@ bindsym $mod+F2 exec set-language.sh ara
 bindsym $mod+F3 exec set-language.sh us
 bindsym $mod+t exec scratch-term.sh nvim --cmd "cd $HOME/personal/notes" $HOME/personal/notes/notes.md
 bindsym $mod+q kill
-bindsym $mod+z exec $run_bin
+bindsym $mod+z exec myenv.sh tools_menu
 bindsym $mod+x exec $drun_bin
 
 bindsym $mod+$alt+s exec find.sh open root
@@ -141,6 +141,13 @@ bindsym $mod+r mode "resize"
 font pango:JetBrains Mono 10
 titlebar_padding 2 1
 titlebar_border_thickness 1
+
+for_window [app_id="^scratch_terminal.*"] {
+  floating enable,
+  border pixel 5,
+  move position 34ppt 54ppt,
+  resize set width 51ppt height 50ppt,
+}
 
 for_window [app_id=".*firefox.*"] move window to workspace 2;
 for_window [app_id="Alacritty"] move window to workspace 1;

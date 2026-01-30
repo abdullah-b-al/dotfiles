@@ -1,0 +1,2 @@
+[language-server.zls]
+config.zls.enable_argument_placeholders = false

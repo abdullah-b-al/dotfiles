@@ -14,9 +14,9 @@
   <property name="zoomStep" value="10"/>
   <property name="zoomStepScroll" value="2"/>
   <property name="displayDpi" value="72"/>
-  <property name="mainWndWidth" value="1898"/>
-  <property name="mainWndHeight" value="1063"/>
-  <property name="maximized" value="true"/>
+  <property name="mainWndWidth" value="2560"/>
+  <property name="mainWndHeight" value="1440"/>
+  <property name="maximized" value="false"/>
   <property name="showToolbar" value="true"/>
   <property name="showSidebar" value="false"/>
   <property name="sidebarWidth" value="50"/>
@@ -170,6 +170,10 @@
       <attribute name="deviceClass" type="int" value="1"/>
       <attribute name="deviceSource" type="int" value="0"/>
     </data>
+    <data name="OpenTabletDriver Virtual Artist Tablet">
+      <attribute name="deviceClass" type="int" value="2"/>
+      <attribute name="deviceSource" type="int" value="1"/>
+    </data>
     <data name="OpenTabletDriver Virtual Artist Tablet Pen (0)">
       <attribute name="deviceClass" type="int" value="2"/>
       <attribute name="deviceSource" type="int" value="1"/>
@@ -182,6 +186,14 @@
       <attribute name="deviceClass" type="int" value="2"/>
       <attribute name="deviceSource" type="int" value="1"/>
     </data>
+    <data name="UGTABLET 6 inch PenTablet Pen">
+      <attribute name="deviceClass" type="int" value="2"/>
+      <attribute name="deviceSource" type="int" value="1"/>
+    </data>
+    <data name="UGTABLET 6 inch PenTablet Pen (Eraser)">
+      <attribute name="deviceClass" type="int" value="3"/>
+      <attribute name="deviceSource" type="int" value="2"/>
+    </data>
     <data name="UGTABLET 6 inch PenTablet Pen Eraser (0)">
       <attribute name="deviceClass" type="int" value="3"/>
       <attribute name="deviceSource" type="int" value="2"/>
@@ -191,6 +203,10 @@
       <attribute name="deviceSource" type="int" value="1"/>
     </data>
     <data name="Wayland Pointer">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
+    <data name="Wayland Wheel Scrolling">
       <attribute name="deviceClass" type="int" value="1"/>
       <attribute name="deviceSource" type="int" value="0"/>
     </data>

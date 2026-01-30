@@ -12,6 +12,7 @@ tablet.json
 \.nextcloudsync.log
 \.sync-exclude.lst
 nixos-.*
+myenv
 
 
 # Defaults

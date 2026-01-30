@@ -38,4 +38,5 @@ skip-levels = 1
 [keys.normal]
 C-e = ["scroll_down", "scroll_down"]
 C-y = ["scroll_up", "scroll_up"]
+A-C-o = "@ms(i@"
 A-space = ":wa"

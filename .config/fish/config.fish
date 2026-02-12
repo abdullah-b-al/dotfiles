@@ -10,12 +10,16 @@ bind -M default ctrl-n 'nextd; commandline -f repaint'
 if status is-login
     if test -z "$DISPLAY" && test "$XDG_VTNR" -eq 1 && test -z "$TMUX"
         set -x MOZ_ENABLE_WAYLAND 1
+        # set -x WLR_RENDERER vulkan
 
         if test -e /sys/class/power_supply/BAT0
-            exec sway --config ~/.config/sway/laptop
+            set sway_config "$HOME/.config/sway/laptop"
         else
-            exec sway --config ~/.config/sway/desktop
+            set sway_config "$HOME/.config/sway/desktop"
         end
+
+        echo "== New Session ==" >>"/tmp/sway.log"
+        exec sway --config "$sway_config" &>>"/tmp/sway.log"
     end
 else if status is-interactive
 

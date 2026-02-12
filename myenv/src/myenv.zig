@@ -1,16 +1,5 @@
 const alloc = std.heap.smp_allocator;
 
-const Option = enum {
-    list_options,
-
-    tools_menu,
-    tools_calculator,
-    tools_system_monitor,
-    tools_bluetooth,
-    tools_network,
-    tools_audio_mixer,
-};
-
 pub fn main() !void {
     var iter = try std.process.argsWithAllocator(alloc);
     _ = iter.skip();
@@ -20,32 +9,38 @@ pub fn main() !void {
         notify(format("UnknownOption: [{s}]", .{string}));
         return error.UnknownOption;
     };
-    switch (option) {
+    case: switch (option) {
         .tools_menu => try tools.menu(),
         .tools_bluetooth => try tools.bluetui(),
         .tools_network => try tools.nmtui(),
         .tools_audio_mixer => try tools.pulsemixer(),
         .tools_calculator => try tools.qalc(),
         .tools_system_monitor => try tools.btop(),
-        .list_options => try list_options(),
+        .options_pick => {
+            const options = options_as_newline_delimited_string();
+            const argv = &.{ "fzf", "--style=minimal" };
+            const res = try run_and_pipe(options, argv);
+            const opt = Option.from_string(std.mem.trim(u8, res.stdout, &std.ascii.whitespace)) orelse
+                continue :case .options_pick;
+            continue :case opt;
+        },
     }
 }
 
-fn list_options() !void {
+fn options_as_newline_delimited_string() []const u8 {
     var string: std.ArrayList(u8) = .empty;
     inline for (std.meta.fields(Option)) |f| {
         const value: Option = @enumFromInt(f.value);
         switch (value) {
-            .tools_menu, .list_options => {},
+            .tools_menu, .options_pick => {},
             else => {
-                try string.appendSlice(alloc, f.name);
-                try string.append(alloc, '\n');
+                string.appendSlice(alloc, value.to_string()) catch @panic("OOM");
+                string.append(alloc, '\n') catch @panic("OOM");
             },
         }
     }
 
-    var stdout = std.fs.File.stdout();
-    try stdout.writeAll(string.items);
+    return string.items;
 }
 
 const tools = struct {
@@ -74,7 +69,7 @@ const tools = struct {
     fn menu() !void {
         try tools.attach_tool_window(.{
             .tool = "menu",
-            .bin = "sh -c 'myenv.sh list_options | fzf --style=minimal | xargs -I {} myenv.sh {}'",
+            .bin = "myenv.sh options_pick",
         });
     }
 
@@ -83,7 +78,7 @@ const tools = struct {
     }
 
     fn nmtui() !void {
-        try attach_tool_window_simple("nmtui");
+        try attach_tool_window_simple("nmtui connect");
     }
 
     fn pulsemixer() !void {
@@ -159,11 +154,38 @@ const wm = struct {
 fn notify(body: []const u8) void {
     _ = run(&.{ "notify-send", "myenv", body }) catch return;
 }
+
 fn run(args: []const []const u8) !std.process.Child.RunResult {
     return try std.process.Child.run(.{
         .allocator = alloc,
         .argv = args,
     });
+}
+
+fn run_and_pipe(input: []const u8, argv: []const []const u8) !std.process.Child.RunResult {
+    var stdout: std.ArrayList(u8) = .empty;
+    var stderr: std.ArrayList(u8) = .empty;
+
+    var child = std.process.Child.init(argv, alloc);
+    child.stdin_behavior = .Pipe;
+    child.stdout_behavior = .Pipe;
+    child.stderr_behavior = .Pipe;
+
+    try child.spawn();
+    errdefer _ = child.kill() catch {};
+
+    try child.stdin.?.writeAll(input);
+    child.stdin.?.close();
+    child.stdin = null;
+
+    try child.collectOutput(alloc, &stdout, &stderr, std.math.maxInt(u32));
+    const term = try child.wait();
+
+    return .{
+        .stdout = stdout.items,
+        .stderr = stderr.items,
+        .term = term,
+    };
 }
 
 fn has_line(string: []const u8, target: []const u8) bool {
@@ -177,5 +199,44 @@ fn has_line(string: []const u8, target: []const u8) bool {
 fn format(comptime fmt: []const u8, args: anytype) []const u8 {
     return std.fmt.allocPrint(alloc, fmt, args) catch @panic("OOM");
 }
+
+const Option = enum {
+    options_pick,
+
+    tools_menu,
+    tools_calculator,
+    tools_system_monitor,
+    tools_bluetooth,
+    tools_network,
+    tools_audio_mixer,
+
+    const string_table = .{
+        .{ .string = "Calculator", .option = .tools_calculator },
+        .{ .string = "System Monitor", .option = .tools_system_monitor },
+        .{ .string = "Bluetooth", .option = .tools_bluetooth },
+        .{ .string = "Network", .option = .tools_network },
+        .{ .string = "Audio Mixer", .option = .tools_audio_mixer },
+    };
+
+    fn to_string(opt: Option) []const u8 {
+        inline for (string_table) |entry| {
+            if (opt == entry.option) {
+                return entry.string;
+            }
+        }
+
+        @panic("TODO");
+    }
+
+    fn from_string(string: []const u8) ?Option {
+        inline for (string_table) |entry| {
+            if (std.mem.eql(u8, string, entry.string)) {
+                return entry.option;
+            }
+        }
+
+        return null;
+    }
+};
 
 const std = @import("std");

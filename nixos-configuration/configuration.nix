@@ -1,4 +1,4 @@
-{ config, pkgs,  ... } @inputs:
+{ config, pkgs, ... } @inputs:
 
 let
 in
@@ -14,10 +14,6 @@ in
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot";
-    # boot.kernelParams = if inputs.is_laptop then [] else [
-    #     # "amdgpu.reset_method=none"
-    #     "amdgpu.lockup_timeout=10000"
-    # ];
 
     networking.hostName = inputs.host_name;
     networking.networkmanager.enable = true;
@@ -97,6 +93,7 @@ in
             alsa.enable = true;
             alsa.support32Bit = true;
             pulse.enable = true;
+            jack.enable = true;
         };
 
         xserver.xkb = {
@@ -156,6 +153,8 @@ in
     ];
 
     environment.systemPackages = with pkgs; [
+        (callPackage ./pkgs/anyzig.nix {})
+
         helix
         neovim
         alacritty
@@ -212,6 +211,8 @@ in
         lazygit
         bluetui
         pulsemixer
+        llvm
+        dmidecode
 
         # LSP
         zls

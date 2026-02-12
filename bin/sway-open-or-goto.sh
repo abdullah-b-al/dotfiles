@@ -19,8 +19,8 @@ app_ids[dev_browser]="chromium.*"
 
 title[test_window]="TestWindow"
 
-commands[shell]="alacritty"
-commands[build]="alacritty"
+commands[shell]="alacritty msg create-window"
+commands[build]="alacritty msg create-window"
 commands[editor]="tmux-switch-to.sh editor"
 commands[docs]="firefox"
 commands[browser]="brave"

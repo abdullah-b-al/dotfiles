@@ -91,7 +91,7 @@ editor_nvim() {
     done
 }
 
-editor_helix $@
+editor_helix "$@"
 
 # if pgrep zed; then
 #     editor_zed $@

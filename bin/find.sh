@@ -136,7 +136,7 @@ dotfiles() {
     if [ "$ignore" = "no-ignore" ]; then
         args="-u "
     fi
-    args="$args-E \.git"
+    args="$args-E \.git -E \.zig-cache -E zig-out"
     find_path="$DOTFILES"
 }
 

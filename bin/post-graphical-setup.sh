@@ -4,7 +4,8 @@ screen-settings-set.sh
 pgrep sxhkd > /dev/null || sxhkd &
 pgrep nextcloud > /dev/null || nextcloud --background &
 brightnessctl s 20%
-kanata-start.sh &
+kanata-start.sh 2&>1 >> /tmp/kanata.log &
+alacritty-daemon.sh &
 
 if [ $XDG_SESSION_TYPE = x11 ]; then
     set-keyboard-settings.sh

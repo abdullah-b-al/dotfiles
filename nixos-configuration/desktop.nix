@@ -1,6 +1,11 @@
 { pkgs,  ... }:
 {
     boot.kernelPackages = pkgs.linuxPackages_zen;
+    boot.kernelModules = [ "ntsync" ];
+    
+    # boot.kernelParams = [
+        # "processor.max_cstate=1"
+    # ];
 
     programs.corectrl = {
          enable = true;

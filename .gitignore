@@ -14,3 +14,4 @@
 nixos-configuration/hardware-configuration.nix
 zig-out
 .zig-cache
+__pycache__

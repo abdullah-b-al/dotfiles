@@ -1,6 +1,6 @@
 output DP-1 resolution 2560x1440 position 0,0
 output HDMI-A-1 resolution 1920x1080 position 2560,0
-output * max_render_time off adaptive_sync off allow_tearing on
+output * max_render_time off adaptive_sync on allow_tearing on
 
 workspace 1 output DP-1
 workspace 2 output DP-1

@@ -1,12 +1,14 @@
-{ config, pkgs, ... } @inputs:
+{ config, pkgs,  ... } @inputs:
 
 let
+    host_name = inputs.host_name;
+    is_laptop = inputs.is_laptop;
 in
     {
     imports =
         [
             /etc/nixos/hardware-configuration.nix
-        ] ++ (if inputs.is_laptop then [] else [ /etc/nixos/desktop.nix ]);
+        ] ++ (if is_laptop then [] else [ /etc/nixos/desktop.nix ]);
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nixpkgs.config.allowUnfree = true;
@@ -15,7 +17,7 @@ in
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot";
 
-    networking.hostName = inputs.host_name;
+    networking.hostName = host_name;
     networking.networkmanager.enable = true;
 
     time.timeZone = "Asia/Riyadh";
@@ -62,7 +64,7 @@ in
     users.users.ab = {
         isNormalUser = true;
         description = "ab";
-        extraGroups = [ "networkmanager" "wheel" "dialout" "video" ];
+        extraGroups = [ "networkmanager" "wheel" "dialout" "video" "gamemode" "adbusers"];
         shell = pkgs.fish;
         packages = with pkgs;  [
             (buildFHSEnv
@@ -71,14 +73,13 @@ in
                     runScript = "/home/ab/.local/bin/zed";
                 })
             )
-
         ];
     };
 
     # programs.nix-ld = {
     #     enable = true;
     #     libraries = with pkgs; [
-    #         alsa-lib
+            
     #     ];
     # };
 
@@ -138,8 +139,6 @@ in
     # networking.firewall.enable = false;
     system.stateVersion = "25.05";
 
-    security.polkit.enable = true;
-
     programs = {
         fish.enable = true;
         sway.enable = true;
@@ -153,10 +152,11 @@ in
     ];
 
     environment.systemPackages = with pkgs; [
-        (callPackage ./pkgs/anyzig.nix {})
+        # (callPackage ./pkgs/anyzig.nix {})
 
         helix
         neovim
+        python3
         alacritty
         firefox
         brave
@@ -164,7 +164,7 @@ in
         trash-cli
         gawk
         bat
-        ranger
+        yazi
         openssh
         ripgrep
         rofi
@@ -173,7 +173,6 @@ in
         zellij
         btop
         nextcloud-client
-        dunst
         tldr
         fzf
         fd
@@ -213,10 +212,17 @@ in
         pulsemixer
         llvm
         dmidecode
+        swaynotificationcenter
+        protontricks
 
+        scooter
+        clang-tools
         # LSP
-        zls
         nil
         nixd
+        android-tools
+        pyright
+
+        zvm
     ];
 }

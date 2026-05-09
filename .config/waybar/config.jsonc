@@ -8,6 +8,7 @@
   // Choose the order of the modules
   "modules-left": ["sway/workspaces"],
   "modules-center": [
+    "custom/kanata",
     "network",
     "battery",
     "backlight",
@@ -140,28 +141,10 @@
     },
     "on-click": "myenv.sh tools_audio_mixer",
   },
-  "custom/media": {
-    "format": "{icon} {text}",
-    "return-type": "json",
-    "max-length": 40,
-    "format-icons": {
-      "spotify": "",
-      "default": "🎜",
-    },
-    "escape": true,
-    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources folder
-    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-  },
-  "custom/power": {
-    "format": "⏻ ",
-    "tooltip": false,
-    "menu": "on-click",
-    "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-    "menu-actions": {
-      "shutdown": "shutdown",
-      "reboot": "reboot",
-      "suspend": "systemctl suspend",
-      "hibernate": "systemctl hibernate",
-    },
+
+  "custom/kanata": {
+    "format": "{text}",
+    "exec": "cat /tmp/kanata-chch",
+    "interval": 120,
   },
 }

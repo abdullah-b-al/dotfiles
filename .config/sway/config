@@ -8,6 +8,7 @@ set $right l
 set $terminal alacritty
 set $run_bin rofi -show run
 set $drun_bin rofi -show drun
+set $floating_terminal alacritty msg create-window --class "scratch_terminal_floating"
 
 exec post-graphical-setup.sh
 exec waybar
@@ -28,20 +29,20 @@ bindsym $mod+q kill
 bindsym $mod+z exec myenv.sh tools_menu
 bindsym $mod+x exec $drun_bin
 
-bindsym $mod+$alt+s exec find.sh open root
-bindsym $mod+$alt+r exec find.sh open personal
-bindsym $mod+$alt+n exec find.sh open notes
-bindsym $mod+$alt+a exec find.sh open dotfiles
-bindsym $mod+$alt+t exec find.sh open home
-bindsym $mod+$alt+p exec find.sh open prog
+bindsym $mod+$alt+s exec $floating_terminal -e find.sh open root
+bindsym $mod+$alt+r exec $floating_terminal -e find.sh open personal
+bindsym $mod+$alt+n exec $floating_terminal -e find.sh open notes
+bindsym $mod+$alt+a exec $floating_terminal -e find.sh open dotfiles
+bindsym $mod+$alt+t exec $floating_terminal -e find.sh open home
+bindsym $mod+$alt+p exec $floating_terminal -e find.sh open prog
 
-bindsym $mod+n exec sway-open-or-goto.sh shell; exec tmux-switch-to.sh shell
-bindsym $mod+e exec sway-open-or-goto.sh editor
-bindsym $mod+i exec sway-open-or-goto.sh build; exec tmux-switch-to.sh build
-bindsym $mod+o exec sway-open-or-goto.sh docs
+bindsym $mod+n exec exec myenv.sh focus_shell
+bindsym $mod+e exec exec myenv.sh focus_editor
+bindsym $mod+i exec exec myenv.sh focus_build
+bindsym $mod+o exec myenv.sh focus_docs
 bindsym $mod+Shift+o exec open-docs.sh
-bindsym $mod+d exec sway-open-or-goto.sh browser
-bindsym $mod+u exec sway-open-or-goto.sh test_window
+bindsym $mod+d exec myenv.sh focus_browser
+bindsym $mod+u exec myenv.sh focus_test_window
 
 floating_modifier $mod normal
 
@@ -155,8 +156,8 @@ for_window [app_id="Alacritty"] move window to workspace 1;
 for_window [app_id="dev.zed.Zed"] move window to workspace 1;
 
 for_window [app_id="^gamescope$"] move window to workspace 5, fullscreen
-for_window [class="^steam_app.*"] move window to workspace 5, fullscreen
-for_window [class="^steam_proton$"] move window to workspace 5, fullscreen
+for_window [class="^steam_app.*"] move window to workspace 5
+for_window [class="^steam_proton$"] move window to workspace 5
 for_window [class="^steam$"] move window to workspace 4
 
 include /etc/sway/config.d/*

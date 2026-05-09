@@ -3,6 +3,8 @@
     boot.kernelPackages = pkgs.linuxPackages_zen;
     boot.kernelModules = [ "ntsync" ];
     
+    # boot.kernelParams = [];
+
     # boot.kernelParams = [
         # "processor.max_cstate=1"
     # ];
@@ -12,7 +14,26 @@
     };
 
     programs = {
-        gamemode.enable = true;
+        gamemode = {
+            enable = true;
+            settings = {
+                general = {
+                    renice = 10;
+                    disable_splitlock = 1;
+                };
+
+
+                cpu = {
+                    park_cores = "2,3,4,5,8,9,10,11";
+                    pin_cores = "2,3,4,5,8,9,10,11";
+                };
+
+                custom = {
+                    start = "${pkgs.libnotify}/bin/notify-send GameMode started";
+                    end = "${pkgs.libnotify}/bin/notify-send GameMode ended";
+                };
+            };
+        };
         gamescope.enable = true;
         steam = {
             enable = true;
@@ -39,7 +60,8 @@
          };
      };
     
-     security.polkit.extraConfig = ''
+    security.polkit.enable = true;
+    security.polkit.extraConfig = ''
      polkit.addRule(function(action, subject) {
        if (action.id.indexOf("org.corectrl.helper") === 0 &&
            subject.isInGroup("video")) {

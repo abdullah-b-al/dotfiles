@@ -1,13 +1,26 @@
 {
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "which_key": {
+    "enabled": true,
+    "delay_ms": 0,
+  },
   "base_keymap": "VSCode",
   "show_edit_predictions": false,
   "preferred_line_length": 100,
-  "features": {
-    "edit_prediction_provider": "zed"
-  },
   "telemetry": {
     "diagnostics": true,
-    "metrics": false
+    "metrics": false,
   },
   "relative_line_numbers": "enabled",
   "cursor_blink": false,
@@ -20,7 +33,7 @@
     "words": "enabled",
     "lsp": true,
     "lsp_fetch_timeout_ms": 0,
-    "lsp_insert_mode": "replace_suffix"
+    "lsp_insert_mode": "replace_suffix",
   },
 
   "ui_font_family": "JetBrains Mono",
@@ -30,16 +43,16 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Sonokai"
+    "dark": "Sonokai",
   },
 
   "git": {
     "git_gutter": null,
     "gutter_debounce": null,
     "inline_blame": {
-      "enabled": false
+      "enabled": false,
     },
-    "hunk_style": null
+    "hunk_style": null,
   },
 
   "auto_signature_help": true,
@@ -48,33 +61,34 @@
     "include_warnings": true,
     "lsp_pull_diagnostics": {
       "enabled": true,
-      "debounce_ms": 50
+      "debounce_ms": 50,
     },
     "inline": {
       "enabled": true,
       "update_debounce_ms": 150,
       "padding": 4,
       "min_column": 0,
-      "max_severity": null
-    }
+      "max_severity": null,
+    },
   },
 
   "scrollbar": {
     "axes": {
-      "horizontal": false
-    }
+      "horizontal": false,
+    },
   },
   "tab_bar": {
     "show": false,
     "show_nav_history_buttons": false,
-    "show_tab_bar_buttons": false
+    "show_tab_bar_buttons": false,
   },
   "agent": {
+    "dock": "right",
     "default_profile": "ask",
     "default_model": {
       "provider": "openrouter",
-      "model": "deepseek/deepseek-chat-v3.1:free"
-    }
+      "model": "deepseek/deepseek-chat-v3.1:free",
+    },
   },
 
   "lsp": {
@@ -85,10 +99,10 @@
           //
           // Further information about build-on save:
           // https://zigtools.org/zls/guides/build-on-save/
-          "enable_build_on_save": true
-        }
-      }
-    }
+          "enable_build_on_save": true,
+        },
+      },
+    },
   },
 
   "language_models": {
@@ -106,10 +120,10 @@
               "tools": false,
               "images": false,
               "parallel_tool_calls": false,
-              "prompt_cache_key": false
-            }
-          }
-        ]
+              "prompt_cache_key": false,
+            },
+          },
+        ],
       },
       "deeseek r1": {
         "api_url": "https://openrouter.ai/api/v1",
@@ -124,11 +138,11 @@
               "tools": false,
               "images": false,
               "parallel_tool_calls": false,
-              "prompt_cache_key": false
-            }
-          }
-        ]
-      }
-    }
-  }
+              "prompt_cache_key": false,
+            },
+          },
+        ],
+      },
+    },
+  },
 }

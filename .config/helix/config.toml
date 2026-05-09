@@ -1,4 +1,4 @@
-theme = "sonokai-white-cursor"
+theme = "mytheme"
 
 [editor]
 line-number = "relative"
@@ -8,6 +8,7 @@ cursorline = true
 rulers = [80, 100]
 bufferline = "never"
 scrolloff = 0
+auto-format = false
 
 [editor.gutters]
 layout = ["diff", "diagnostics", "line-numbers", "spacer"]
@@ -38,5 +39,20 @@ skip-levels = 1
 [keys.normal]
 C-e = ["scroll_down", "scroll_down"]
 C-y = ["scroll_up", "scroll_up"]
+A-m = "@mim"
 A-C-o = "@ms(i@"
 A-space = ":wa"
+A-ret = ":format"
+A-f = [
+  ':sh rm -f /tmp/unique-file',
+  ':insert-output yazi "%{buffer_name}" --chooser-file=/tmp/unique-file',
+  ':sh printf "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/unique-file}',
+  ':redraw',
+]
+
+A-t = [
+  ':insert-output tmux display-popup -h 99%% -w 99%% -E "scooter"',
+  ':reload-all',
+  ':redraw',
+]

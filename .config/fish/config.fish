@@ -6,6 +6,9 @@ bind -M insert ctrl-o 'prevd; commandline -f repaint'
 bind -M default ctrl-o 'prevd; commandline -f repaint'
 bind -M insert ctrl-n 'nextd; commandline -f repaint'
 bind -M default ctrl-n 'nextd; commandline -f repaint'
+bind -M default alt-f fm
+bind -M insert alt-f fm
+bind -M visual alt-f fm
 
 if status is-login
     if test -z "$DISPLAY" && test "$XDG_VTNR" -eq 1 && test -z "$TMUX"

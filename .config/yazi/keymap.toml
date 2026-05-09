@@ -1,0 +1,7 @@
+[mgr]
+prepend_keymap = [
+  { on = [ "g", "c" ], run = "cd ~/.dotfiles" },
+  { on = [ "g", "p" ], run = "cd ~/prog" },
+  { on = [ "g", "t" ], run = "cd ~/test" },
+  { on = [ "g", "s" ], run = "cd ~/.local/share/Steam/steamapps" },
+]

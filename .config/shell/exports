@@ -42,10 +42,10 @@ export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
 export MAILCHECK=""
 
 export ODIN_ROOT="$HOME/.local/bin/odin"
-export PATH="$PATH:/usr/sbin:$HOME/.local/bin:$DOTFILES/bin:$ODIN_ROOT:$WASMTIME_HOME/bin:$HOME/.nix-profile/bin"
+export PATH="$PATH:/usr/sbin:$HOME/.local/bin:$DOTFILES/bin:$ODIN_ROOT:$WASMTIME_HOME/bin:$HOME/.nix-profile/bin:$HOME/.zvm/bin"
 
 export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 
 export XCURSOR_SIZE=24
 export XCURSOR_THEME=breeze_cursors
-export DXVK_FRAME_RATE=144
+export DXVK_FRAME_RATE=140

@@ -1,34 +1,27 @@
-### Sublime Text Sonokai Theme
-## Original Author: sainnhe
-# URL: https://github.com/sainnhe/sonokai
-## Modified by p4ymak
-# URL: https://github.com/p4ymak
-# License: MIT License
-
 "type" = "blue"
-"constant" = "fg"
-"constant.numeric" = "purple"
-"constant.character.escape" = "orange"
-"string" = "yellow"
-"comment" = "grey"
-"variable" = "fg"
-"variable.builtin" = "purple"
-"variable.parameter" = "fg"
-"variable.other.member" = "fg"
-"label" = "red"
-"punctuation" = "grey"
-"punctuation.special" = "yellow"
-"keyword" = "red"
-"operator" = "red"
-"function" = "green"
-"function.builtin" = "green"
-"function.macro" = "green"
-"tag" = "yellow"
 "namespace" = "blue"
-"attribute" = "purple"
+"attribute" = "blue"
 "constructor" = "blue"
 "module" = "blue"
-"special" = "orange"
+"keyword.storage.type" = "blue"
+
+"constant" = "white"
+"function" = "white"
+"constant.numeric" = "white"
+"variable" = "white"
+"label" = "white"
+
+"comment" = "grey"
+"punctuation" = "grey"
+
+"keyword.operator" = "red"
+"operator" = "red"
+
+"keyword.control" = "green"
+
+"string" = "yellow"
+"tag" = "yellow"
+"special" = "yellow"
 
 "markup.heading.marker" = "grey"
 "markup.heading.1" = { fg = "red", modifiers = ["bold"] }
@@ -113,7 +106,7 @@ red = "#fc5d7c"
 orange = "#f39660"
 yellow = "#e7c664"
 green = "#9ed072"
-cyan = "#8dd0b6" # added for compatibility with `edge` scheme
+cyan = "#8dd0b6"
 blue = "#76cce0"
 purple = "#b39df3"
 grey = "#7f8490"

@@ -6,6 +6,7 @@ pgrep nextcloud > /dev/null || nextcloud --background &
 brightnessctl s 20%
 kanata-start.sh 2&>1 >> /tmp/kanata.log &
 alacritty-daemon.sh &
+command -v steam && steam -silent &
 
 if [ $XDG_SESSION_TYPE = x11 ]; then
     set-keyboard-settings.sh

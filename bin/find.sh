@@ -1,6 +1,5 @@
 #!/bin/sh
 
-rofi_matching="fuzzy"
 operation="$1"
 target="$2"
 ignore="$3"
@@ -60,51 +59,6 @@ _open_path_fzf() {
 
     if [ $? = 0 ]; then
         _real_result "$result"
-    fi
-}
-
-_toggle_rofi_matching() {
-    if [ $rofi_matching = "fuzzy" ]; then
-        rofi_matching="regex"
-    else
-        rofi_matching="fuzzy"
-    fi
-}
-
-_rofi_handle_key() {
-    result="$1"
-    operation="$2"
-    return_value="$3"
-    if [ "$operation" = "get" ]; then
-        echo "$result"
-    elif [ "$operation" = "open" ]; then
-        case $return_value in
-            0) open.sh "$result" > /dev/null 2>&1 &;; # enter
-            # custom keys
-            10) printf "%s" "$result" | xsel -ib > /dev/null 2>&1 &;; # control+s
-            11) editor.sh -tabe "$result" > /dev/null 2>&1 &;; # control+t
-            12) tmux set-buffer "$result" && tmux paste-buffer -p &;; # control+i
-            13) editor.sh -sp "$result" > /dev/null 2>&1 &;; # control+x
-            14) editor.sh -vs "$result" > /dev/null 2>&1 &;; # control+v
-            28) _toggle_rofi_matching;
-                _find | _menu open;; # control+q
-        esac
-    fi
-}
-
-_open_path_rofi() {
-    result="$(rofi -dmenu -matching "$rofi_matching" -i -p "$rofi_matching find in $target")"
-    return_value="$?"
-    result="$(_real_result "$result")"
-
-    _rofi_handle_key "$result" "$1" "$return_value"
-}
-
-_menu() {
-    if [ -n "$TMUX" ]; then
-        _open_path_fzf
-    else
-        _open_path_rofi "$1"
     fi
 }
 
@@ -184,16 +138,8 @@ _find() {
 
 ################################################################################
 
-# if ! [ -t 0 ]; then
-#     out="$(tmux.sh popup_dims)"
-#     pos_args="$(echo "$out" | cut -d ',' -f 1)"
-#     layout="$(echo "$out" | cut -d ',' -f 2)"
-#     tmux popup -b rounded -e height="100%" -e layout="$layout" -E $pos_args -- $0 $@
-#     exit 0
-# fi
-
-[ -z "$operation" ] && operation="$(printf "open\nget\nlist\npath-of\nprefix-for\n" | _menu)"
-[ -z "$target" ] && target="$(_list_functions | _menu "get")"
+[ -z "$operation" ] && operation="$(printf "open\nget\nlist\npath-of\nprefix-for\n" | _open_path_fzf)"
+[ -z "$target" ] && target="$(_list_functions | _open_path_fzf "get")"
 [ -z "$ignore" ] && ignore="no-ignore"
 
 # Make sure the argument matches one of the functions
@@ -203,8 +149,8 @@ if ! grep -q "^$target()\s*{" "$0"; then
 fi
 
 case "$operation" in
-    *open*) open.sh "$(_find | _menu "open")" ;;
-    *get*) echo "$(_find | _menu "get")";;
+    *open*) open.sh "$(_find | _open_path_fzf "open")" ;;
+    *get*) echo "$(_find | _open_path_fzf "get")";;
     *list*) _find;;
     *path-of*) "$target"; echo "$find_path";;
     *real-result*) _real_result "$3";;

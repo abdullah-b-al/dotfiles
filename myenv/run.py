@@ -46,3 +46,6 @@ def pipe(args: list[str], input: str):
         text=True,
         capture_output=True,
     )
+
+def notify(message: str):
+    run(["notify-send", message])

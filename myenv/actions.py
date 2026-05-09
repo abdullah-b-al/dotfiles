@@ -1,6 +1,5 @@
 import tmux
 import window_manager as wm
-import run
 
 window_ids = {
     "shell" : "Alacritty",
@@ -10,25 +9,33 @@ window_ids = {
     "browser" : "brave-browser",
 }
 
+window_commands = {
+    "shell" : "alacritty",
+    "build" : "alacritty",
+    "editor" : "alacritty",
+    "docs" : "firefox",
+    "browser" : "brave",
+}
+
 def focus_editor():
     tmux.focus_editor()
-    wm.window_focus_by_app_id(window_ids["editor"])
+    wm.window_focus_or_open(window_ids["editor"], [window_commands["editor"]])
 
 
 def focus_build():
     tmux.focus_build()
-    wm.window_focus_by_app_id(window_ids["build"])
+    wm.window_focus_or_open(window_ids["build"], [window_commands["build"]])
 
 
 def focus_shell():
     tmux.focus_shell()
-    wm.window_focus_by_app_id(window_ids["shell"])
+    wm.window_focus_or_open(window_ids["shell"], [window_commands["shell"]])
 
 def focus_browser():
-    wm.window_focus_by_app_id(window_ids["browser"])
+    wm.window_focus_or_open(window_ids["browser"], [window_commands["browser"]])
 
 def focus_docs():
-    wm.window_focus_by_app_id(window_ids["docs"])
+    wm.window_focus_or_open(window_ids["docs"], [window_commands["docs"]])
 
 def action_list_strings() -> list[str]:
     result = []

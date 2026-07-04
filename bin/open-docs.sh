@@ -4,9 +4,9 @@ declare -A site
 
 site[raylib]="https://www.raylib.com/cheatsheet/cheatsheet.html"
 site[odin]="https://pkg.odin-lang.org/ https://odin-lang.org/docs/overview/"
-site[zig14]="https://ziglang.org/documentation/0.14.0/std/ https://ziglang.org/documentation/0.14.0/"
+site[zig16_std]="https://ziglang.org/documentation/0.16.0/std/"
+site[zig16_ref]="https://ziglang.org/documentation/0.16.0/"
 site[chatgpt]="https://chatgpt.com"
-
 
 key="$(for v in "${!site[@]}"; do echo $v; done | rofi -dmenu)"
 
@@ -22,5 +22,7 @@ else
     fi
 
 fi
+
+myenv.sh focus_docs
 
 exit 0

@@ -1,17 +1,9 @@
 #!/bin/sh
 
-_menu() {
-    if [ -n "$TMUX" ]; then
-        fzf
-    else
-        rofi -dmenu -i -matching fuzzy
-    fi
-}
-
 if [ $# -eq 1 ]; then
     selected=$1
 else
-    selected=$(find ~/prog ~/test -mindepth 1 -maxdepth 2 -type d | _menu)
+    selected=$(find ~/prog ~/test -mindepth 1 -maxdepth 1 -type d | sort | fzf)
 fi
 
 [ -z $selected ] && exit 0

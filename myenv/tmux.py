@@ -96,9 +96,8 @@ def non_special_window_index():
         "#{window_index},#{window_name},#{window_activity}",
     ]).stdout
     
-    g1 = run.pipe(["grep", "-v", 'editor,'], tmux).stdout
-    g2 = run.pipe(["grep", "-v", 'build,'], g1).stdout
-    sort = run.pipe([ "sort", "-r", "-k3", "--field-separator=," ], g2).stdout
+    rg = run.pipe(["rg", "-v","editor,|build,|debug,"], tmux).stdout
+    sort = run.pipe([ "sort", "-r", "-k3", "--field-separator=," ], rg).stdout
     head = run.pipe(["head", "--lines", "1"], sort).stdout
     cut = run.pipe([ "cut", "-d", ',', "-f", "1" ], head).stdout
 
@@ -107,8 +106,9 @@ def non_special_window_index():
 
 
 class SpecialWindow(Enum):
-    editor = 0
-    build = 10
+    editor = 10
+    build = 11
+    debug = 12
     
 def focus_and_create_special_window(window: SpecialWindow):
     session = active_session()
@@ -144,6 +144,9 @@ def focus_editor():
 
 def focus_build():
     focus_and_create_special_window(SpecialWindow.build)
+
+def focus_debug():
+    focus_and_create_special_window(SpecialWindow.debug)
 
 def focus_shell():
     session = active_session()

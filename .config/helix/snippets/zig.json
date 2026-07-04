@@ -1,0 +1,131 @@
+{
+	"for": {
+		"prefix": "for",
+		"body": "for ($1) |$2| {\n\t$3\n}"
+	},
+	"if capture with block": {
+		"prefix": "ifc",
+		"body": "if ($1) |$2| {\n\t$3\n}"
+	},
+	"if capture no block": {
+		"prefix": "ifcn",
+		"body": "if ($1) |$2| $3;"
+	},
+	"if block": {
+		"prefix": "ifb",
+		"body": "if ($1) {\n\t$2\n}"
+	},
+	"if no block": {
+		"prefix": "ifnb",
+		"body": "if ($1) $2;"
+	},
+	"iter": {
+		"prefix": "iter",
+		"body": "var ${1:iter} = $2;\nwhile (${1:iter}.$3) |$4| {\n\t$5\n}"
+	},
+	"const block": {
+		"prefix": "cob",
+		"body": "const $1 = blk: {\n\t$2\n};"
+	},
+	"const": {
+		"prefix": "con",
+		"body": "const $1 = $2;"
+	},
+	"const with type": {
+		"prefix": "cot",
+		"body": "const $1 : $2 = $3;"
+	},
+	"var": {
+		"prefix": "var",
+		"body": "var $1 = $2;"
+	},
+	"field": {
+		"prefix": "fi",
+		"body": ".$1 = $2,"
+	},
+	"field braces value": {
+		"prefix": "fs",
+		"body": ".$1 = .{\n\t$2\n},"
+	},
+	"while": {
+		"prefix": "wh",
+		"body": "while ($1) {\n\t$2\n}"
+	},
+	"while capture": {
+		"prefix": "whe",
+		"body": "while ($1) |$2| {\n\t$3\n}"
+	},
+	"while with i": {
+		"prefix": "whi",
+		"body": "var ${1:i} = $2;\nwhile ($3) {\n\t$4\n}"
+	},
+	"while with i usize": {
+		"prefix": "whu",
+		"body": "var ${1:i} ${2:: usize} = 0;\nwhile ($1 < $4) {\n\t$5\n}"
+	},
+	"reverse while": {
+		"prefix": "rev",
+		"body": "var ${1:i} = $2;\nwhile ($1 > 0) {\n\t$1 -= 1;\n\t$3\n}"
+	},
+	"switch": {
+		"prefix": "swi",
+		"body": "switch ($1) {\n\t$2\n}"
+	},
+	"union declare value": {
+		"prefix": "und",
+		"body": ".{ .$1 = .{$2}, }$3"
+	},
+	"union assign value": {
+		"prefix": "una",
+		"body": ".{ .$1 = $2, }$3"
+	},
+	"union interface": {
+		"prefix": "union_interface",
+		"body": "switch ($1) {\n\tinline else => |v| v.$2,\n}"
+	},
+	"branch one line": {
+		"prefix": "br",
+		"body": ".$1 => $2,"
+	},
+	"branch one line capture": {
+		"prefix": "brc",
+		"body": ".$1 => |$2| $3,"
+	},
+	"branch block": {
+		"prefix": "brb",
+		"body": ".$1 => {\n\t$2\n},"
+	},
+	"branch block capture": {
+		"prefix": "brbc",
+		"body": ".$1 => |$2| {\n\t$3\n},"
+	},
+	"return": {
+		"prefix": "ret",
+		"body": "return $1;"
+	},
+	"arg alloc": {
+		"prefix": "alloc",
+		"body": "${1:gpa}: std.mem.Allocator,"
+	},
+
+	"module import": {
+		"prefix": "mimp",
+		"body": "const $1 = @import(\"$1\");"
+	},
+
+	"file import": {
+		"prefix": "fimp",
+		"body": "const $1 = @import(\"$1.zig\");"
+	},
+
+	"namespace import": {
+		"prefix": "nimp",
+		"body": "const $1 = $2.$1;"
+	},
+
+	// don't forget about trailing comma
+	"branch label": {
+		"prefix": "brl",
+		"body": ".$1 => blk: {\n\t$2\n},"
+	}
+}

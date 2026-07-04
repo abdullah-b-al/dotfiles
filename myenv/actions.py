@@ -1,9 +1,10 @@
-import tmux
+import zellij
 import window_manager as wm
 
 window_ids = {
     "shell" : "Alacritty",
     "build" : "Alacritty",
+    "debug" : "Alacritty",
     "editor" : "Alacritty",
     "docs" : ".*firefox.*",
     "browser" : "brave-browser",
@@ -12,23 +13,28 @@ window_ids = {
 window_commands = {
     "shell" : "alacritty",
     "build" : "alacritty",
+    "debug" : "alacritty",
     "editor" : "alacritty",
     "docs" : "firefox",
     "browser" : "brave",
 }
 
 def focus_editor():
-    tmux.focus_editor()
+    zellij.focus_editor()
     wm.window_focus_or_open(window_ids["editor"], [window_commands["editor"]])
 
 
 def focus_build():
-    tmux.focus_build()
+    zellij.focus_build()
+    wm.window_focus_or_open(window_ids["build"], [window_commands["build"]])
+
+def focus_debug():
+    zellij.focus_debugger()
     wm.window_focus_or_open(window_ids["build"], [window_commands["build"]])
 
 
 def focus_shell():
-    tmux.focus_shell()
+    zellij.focus_shell()
     wm.window_focus_or_open(window_ids["shell"], [window_commands["shell"]])
 
 def focus_browser():
@@ -48,6 +54,7 @@ action_list = [
     ("focus_editor", focus_editor),
     ("focus_build", focus_build),
     ("focus_shell", focus_shell),
+    ("focus_debugger", focus_debug),
     ("focus_browser", focus_browser),
     ("focus_docs", focus_docs),
 ]

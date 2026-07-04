@@ -1,0 +1,31 @@
+layout {
+	default_tab_template {
+		pane size=1 borderless=true {
+			plugin location="status-bar"
+		}
+		children
+		pane size=1 borderless=true {
+			plugin location="tab-bar"
+		}
+    }
+	tab name="shell" {
+		pane command="nix" {
+			args "develop" "--command" "fish"
+		}
+	}
+	tab name="editor" {
+		pane command="nix" {
+			args "develop" "--command" "fish"
+		}
+	}
+	tab name="build" {
+		pane command="nix" {
+			args "develop" "--command" "fish"
+		}
+	}
+	tab name="debugger" {
+		pane command="nix" {
+			args "develop" "--command" "fish"
+		}
+	}
+}

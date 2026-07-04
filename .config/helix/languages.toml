@@ -40,3 +40,15 @@ reportMissingTypeStubs = false
 [language-server.pyright.config.python.analysis]
 typeCheckingMode = "basic"
 autoImportCompletions = true
+
+[language-server.hx-lsp]
+command = "hx-lsp"
+
+[language-server.hx-lsp.config]
+markdown = false
+documentColor = true
+
+[[language]]
+name = "zig"
+language-servers = ["zls", "hx-lsp"]
+

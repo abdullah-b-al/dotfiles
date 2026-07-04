@@ -25,13 +25,19 @@ if status is-login
         exec sway --config "$sway_config" &>>"/tmp/sway.log"
     end
 else if status is-interactive
+    zoxide init fish | source
 
     set session_name general
     if test "$XDG_VTNR" -gt 1
         set session_name "tty$XDG_VTNR"
     end
 
-    if test -z "$TMUX" && test -z "$ZED_TERM"
-        tmux new-session -A -s "$session_name"
+    
+    # if test -z "$TMUX" && test -z "$ZED_TERM"
+    #     tmux new-session -A -s "$session_name"
+    # end
+
+    if test -z "$ZELLIJ" && test -z "$ZED_TERM"
+        zellij attach $session_name --create
     end
 end

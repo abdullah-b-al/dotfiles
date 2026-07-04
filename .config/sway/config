@@ -24,7 +24,7 @@ exec swaymsg "workspace 1; layout tabbed;"
 
 bindsym $mod+F2 exec set-language.sh ara
 bindsym $mod+F3 exec set-language.sh us
-bindsym $mod+t exec alacritty msg create-window --class "scratch_terminal" -e hx -w "$HOME/personal/notes" $HOME/personal/notes/notes.md
+bindsym $mod+a exec alacritty msg create-window --class "scratch_terminal" -e hx -w "$HOME/personal/notes" $HOME/personal/notes/notes.md
 bindsym $mod+q kill
 bindsym $mod+z exec myenv.sh tools_menu
 bindsym $mod+x exec $drun_bin
@@ -36,11 +36,12 @@ bindsym $mod+$alt+a exec $floating_terminal -e find.sh open dotfiles
 bindsym $mod+$alt+t exec $floating_terminal -e find.sh open home
 bindsym $mod+$alt+p exec $floating_terminal -e find.sh open prog
 
-bindsym $mod+n exec exec myenv.sh focus_shell
-bindsym $mod+e exec exec myenv.sh focus_editor
-bindsym $mod+i exec exec myenv.sh focus_build
-bindsym $mod+o exec myenv.sh focus_docs
-bindsym $mod+Shift+o exec open-docs.sh
+bindsym $mod+n exec myenv.sh focus_shell
+bindsym $mod+e exec myenv.sh focus_editor
+bindsym $mod+i exec myenv.sh focus_build
+bindsym $mod+o exec myenv.sh focus_debugger
+bindsym $mod+t exec myenv.sh focus_docs
+bindsym $mod+Shift+t exec open-docs.sh
 bindsym $mod+d exec myenv.sh focus_browser
 bindsym $mod+u exec myenv.sh focus_test_window
 
@@ -93,8 +94,6 @@ bindsym $mod+Control+space focus mode_toggle
 
 # Toggle the current focus between tiling and floating mode
 bindsym $mod+Shift+space floating toggle
-
-
 
 mode "resize" {
     bindsym $left resize shrink width 10px
@@ -159,5 +158,6 @@ for_window [app_id="^gamescope$"] move window to workspace 5, fullscreen
 for_window [class="^steam_app.*"] move window to workspace 5
 for_window [class="^steam_proton$"] move window to workspace 5
 for_window [class="^steam$"] move window to workspace 4
+for_window [app_id="agce-server"] floating enable 
 
 include /etc/sway/config.d/*

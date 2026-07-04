@@ -9,6 +9,9 @@ rulers = [80, 100]
 bufferline = "never"
 scrolloff = 0
 auto-format = false
+completion-timeout = 0
+completion-trigger-len = 2
+smart-tab.supersede-menu = true
 
 [editor.gutters]
 layout = ["diff", "diagnostics", "line-numbers", "spacer"]
@@ -36,12 +39,20 @@ render = true
 character = "▏"
 skip-levels = 1
 
+[keys.insert]
+C-i = "smart_tab"
+
 [keys.normal]
+C-f = ["page_down", "align_view_center"]
+C-b = ["page_up", "align_view_center"]
 C-e = ["scroll_down", "scroll_down"]
 C-y = ["scroll_up", "scroll_up"]
+A-k = "@miW"
 A-m = "@mim"
+A-v = "@mam"
 A-C-o = "@ms(i@"
-A-space = ":wa"
+A-space = "@gw"
+A-S = ":wa"
 A-ret = ":format"
 A-f = [
   ':sh rm -f /tmp/unique-file',
@@ -52,7 +63,16 @@ A-f = [
 ]
 
 A-t = [
-  ':insert-output tmux display-popup -h 99%% -w 99%% -E "scooter"',
+  ':insert-output tmux display-popup -d "#{pane_current_path}" -h 99%% -w 99%% -E "scooter"',
   ':reload-all',
   ':redraw',
 ]
+
+F1 = [ 'goto_next_parameter', 'flip_selections'  ]
+F2 = [ 'goto_prev_parameter' ]
+F3 = [ 'goto_prev_diag' ]
+F4 = [ 'goto_next_diag', 'flip_selections' ]
+F5 = [ 'goto_prev_class', 'align_view_center'  ]
+F6 = [ 'goto_next_class', 'flip_selections' , 'align_view_center'  ]
+F7 = [ 'goto_next_function', 'flip_selections' ,'align_view_center']
+F8 = [ 'goto_prev_function', 'align_view_center' ]

@@ -23,6 +23,7 @@ export XMODIFIERS=@im='ibus'
 export ZDOTDIR="$HOME/.config/zsh"
 export EDITOR=hx
 export TERMINAL=alacritty
+export TERM=alacritty
 export WASMTIME_HOME="$HOME/.wasmtime"
 export BROWSER=firefox
 export HISTCONTROL=ignoreboth

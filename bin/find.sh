@@ -96,9 +96,9 @@ dotfiles() {
 
 cwd() {
     if [ "$ignore" = "no-ignore" ]; then
-        args="-u"
+        args="-u "
     fi
-    args="$args"
+    args=""
     find_path="$(pwd)"
 }
 

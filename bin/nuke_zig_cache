@@ -1,4 +1,3 @@
 #!/bin/sh
-find ~ | grep -e "zig-out$" -e ".zig-cache$" | xargs -I {} rm -r {}
-
+fd -HI 'zig-out$|.zig-cache$|zig-pkg$' ~ --type directory | xargs -I {} rm -rf {}
 rm -r ~/.cache/zig

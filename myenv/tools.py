@@ -30,7 +30,7 @@ def network():
 
 
 def audio_mixer():
-    run_in_window("plusemixer", ["plusemixer"])
+    run_in_window("pulsemixer", ["pulsemixer"])
 
 
 def system_monitor():
